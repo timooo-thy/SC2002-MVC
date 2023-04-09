@@ -105,12 +105,59 @@ public class Database {
 	    }
 	}
 	
-	public HashMap<String, String> initializeRequestFile(String FILENAME, String FILEPATH) {
-		return null;
+	public HashMap<Integer, Object[]> initializeRequestFile(String FILENAME, String FILEPATH) {
+		File model = new File(FILEPATH + FILENAME);
+		HashMap<Integer, Object[]> map = new HashMap<>();
+		try {
+            FileReader fileReader = new FileReader(model);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            bufferedReader.readLine();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+            	String[] splitLine = line.trim().split(";");
+            	String senderID = splitLine[0];
+            	String senderName = splitLine[1];
+            	String senderEmail = splitLine[2];
+            	String recipientID = splitLine[3];
+            	String recipientName = splitLine[4];
+            	String recipientEmail = splitLine[5];
+            	int projectID = Integer.parseInt(splitLine[6]);
+            	int newProjectID = Integer.parseInt(splitLine[7]);
+            	String newProjectTitle = splitLine[8];
+            	String newSupervisorID = splitLine[9];
+            	String newSupervisorName = splitLine[10];
+            	String newSupervisorEmail = splitLine[11];
+            	String requestType = splitLine[12];
+            	String requestStatus = splitLine[13];
+            	int requestID = Integer.parseInt(splitLine[14]);
+
+                map.put(requestID, new Object[] {senderID, senderName, senderEmail, recipientID, 
+                		recipientName, recipientEmail, projectID, newProjectID, newProjectTitle, 
+                		newSupervisorID, newSupervisorName, newSupervisorEmail, requestType, requestStatus});
+            }
+            bufferedReader.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+		return map;
 	}
 	
 	public void updateRequestFile(String FILENAME, String FILEPATH, ArrayList<Request> list) {
-
+		try {
+	        PrintWriter writer = new PrintWriter(FILEPATH+FILENAME, "UTF-8");
+	        writer.println("Supervisor Title");
+	        for (Request request : list) {
+	            writer.println(request.getSenderID() + ";" + request.getSenderName() + ";" + request.getSenderEmail() + ";" 
+	            		+ request.getRecipientID() + ";" + request.getRecipientName() + ";" + request.getRecipientEmail() + ";" 
+	            		+ request.getProjectID() + ";" + request.getNewProjectID() + ";" + request.getNewProjectTitle() + ";" 
+	            		+ request.getNewSupervisorID() + ";" + request.getNewSupervisorName() + ";" + request.getNewSupervisorEmail() + ";" 
+	            		+ request.getRequestType() + ";" + request.getRequestStatus() + ";" + request.getRequestID());
+	        }
+	        writer.close();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
 	}
 }
 

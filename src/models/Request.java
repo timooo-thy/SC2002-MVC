@@ -62,7 +62,7 @@ public class Request {
     }
 
 	// REGISTERPROJECT and DEREGISTERPROJECT
-    public static void RequestSend(String senderID,String senderName, String senderEmail, String recipientID,String recipientName, String recipientEmail, int projectID,RequestType_Enum requestType, RequestStatus_Enum requestStatus,int requestID) {
+    public static void RequestSend(String senderID,String senderName, String senderEmail, String recipientID, String recipientName, String recipientEmail, int projectID, RequestType_Enum requestType, RequestStatus_Enum requestStatus, int requestID) {
         this.senderID = senderID;
         this.senderName = senderName;
         this.senderEmail = senderEmail;
@@ -78,7 +78,7 @@ public class Request {
     }
 
     // CHANGESUPERVISOR
-    public Request(String senderID, String senderName, String senderEmail, String recipientID,String recipientName, String recipientEmail, int projectID, String newSupervisorID, String newSupervisorName, String newSupervisorEmail, RequestType_Enum requestType, RequestStatus_Enum requestStatus, int requestID) {
+    public Request(String senderID, String senderName, String senderEmail, String recipientID, String recipientName, String recipientEmail, int projectID, String newSupervisorID, String newSupervisorName, String newSupervisorEmail, RequestType_Enum requestType, RequestStatus_Enum requestStatus, int requestID) {
         this.senderID = senderID;
         this.senderName = senderName;
         this.senderEmail = senderEmail;
@@ -97,7 +97,7 @@ public class Request {
     }
     
     // TRANSFERSTUDENT
-    public Request(String senderID, String senderName, String senderEmail, String recipientID,String recipientName, String recipientEmail, int projectID,int newProjectID,RequestType_Enum requestType, RequestStatus_Enum requestStatus, int requestID) {
+    public Request(String senderID, String senderName, String senderEmail, String recipientID,String recipientName, String recipientEmail, int projectID, int newProjectID, RequestType_Enum requestType, RequestStatus_Enum requestStatus, int requestID) {
         this.senderID = senderID;
         this.senderName = senderName;
         this.senderEmail = senderEmail;
@@ -266,10 +266,25 @@ public class Request {
 	}
 
 	public static void initializeFile() throws Throwable {
-		HashMap<String, String[]> map  = d.initializeFile(FILENAME, FILEPATH);
-		for (String name : map.keySet()) {
-        	String[] values = map.get(name);
-        	new Request(); //change 
+		HashMap<Integer, Object[]> map  = d.initializeRequestFile(FILENAME, FILEPATH);
+		for (int requestID : map.keySet()) {
+        	Object[] values = map.get(requestID);
+        	
+        	if((int)values[13]==1) {
+        		//new request
+        	}
+        	
+        	else if((int)values[13]==2) {
+        		// new request
+        	}
+        	
+        	else if((int)values[13]==3) {
+        		//new request
+        	}
+        	
+        	else if((int)values[13]==4) {
+        		//new request
+        	}
         }
 	}
 
