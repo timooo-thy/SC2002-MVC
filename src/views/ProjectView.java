@@ -1,6 +1,6 @@
-package Views;
+package views;
 
-import Project.ProjectDirectory;
+import models.Project;
 
 public class ProjectView {
 
