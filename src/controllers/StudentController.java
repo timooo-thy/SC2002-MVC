@@ -8,6 +8,7 @@ import models.Request;
 import models.RequestStatus_Enum;
 import models.RequestType_Enum;
 import views.ProjectView;
+import views.RequestView;
 /**
  * Represents the Student Controller
  */
@@ -92,6 +93,7 @@ public class StudentController extends Controller {
 				case 3://request:Register Project
 					int projectChoice;
 					ProjectStatus_Enum projectStatus;
+					
 					if (studentModel.getProjectID() != -1) {
 						cli.display("You are already registered for a project.");	
 					}
@@ -102,8 +104,9 @@ public class StudentController extends Controller {
 						cli.display("Enter the project ID to register for:");
 						do {
 							projectChoice = cli.inputInteger("Project ID", 1, Project.getProjectList().size()+1);
+							projectStatus = Project.getProject(projectChoice).getProjectStatus();
 							if (projectStatus == ProjectStatus_Enum.AVAILABLE) {
-								Request.Request(studentModel.getId(),studentModel.getName(),studentModel.getEmailAddress(),/*fypCoordinatorModel.getId(),fypCoordinatorModel.getName(),fypCoordinatorModel.getEmail()*/"ASFLI","ASFLI","ASFLI",projectChoice,RequestType_Enum.REGISTERPROJECT,RequestStatus_Enum.PENDING,Request.getRequests().size());// send request to register
+								new Request(studentModel.getId(),studentModel.getName(),studentModel.getEmailAddress(),/*fypCoordinatorModel.getId(),fypCoordinatorModel.getName(),fypCoordinatorModel.getEmail()*/"ASFLI","ASFLI","ASFLI",projectChoice,RequestType_Enum.REGISTERPROJECT,RequestStatus_Enum.PENDING,Request.getRequests().size());// send request to register
 								Project.getProject(projectChoice).setProjectStatus(ProjectStatus_Enum.RESERVED);// change project status to reserved
 							}
 						} while (projectStatus != ProjectStatus_Enum.AVAILABLE);
@@ -128,7 +131,7 @@ public class StudentController extends Controller {
 						Project allocatedProject = Project.getProject(studentModel.getProjectID());
 						cli.display("Your project title is : " + allocatedProject.getProjectTitle());
 						newTitle = cli.inputString("What would you like to change it to?","\n");
-						Request.Request(studentModel.getId(),studentModel.getName(),studentModel.getEmailAddress(),allocatedProject.getSupervisorId(),allocatedProject.getSupervisorName(),allocatedProject.getSupervisorEmail(),allocatedProject.getProjectId(),newTitle,RequestType_Enum.CHANGETITLE,RequestStatus_Enum.PENDING,Request.getRequests().size());// send request to change title
+						new Request(studentModel.getId(),studentModel.getName(),studentModel.getEmailAddress(),allocatedProject.getSupervisorId(),allocatedProject.getSupervisorName(),allocatedProject.getSupervisorEmail(),allocatedProject.getProjectId(),newTitle,RequestType_Enum.CHANGETITLE,RequestStatus_Enum.PENDING,Request.getRequests().size());// send request to change title
 						cli.displayTitle("SUCCESS, YOUR REQUEST FOR CHANGING TITLE IS NOW PENDING FOR APPROVAL BY THE COORDINATOR");
 //						Request.updateFile(); // Update file
 					}
@@ -143,7 +146,8 @@ public class StudentController extends Controller {
 					choice = cli.inputInteger("choice", 1, 2);
 					if (choice == 1) {
 						Project allocatedProject = Project.getProject(studentModel.getProjectID());
-						Request.Request(studentModel.getId(), studentModel.getName(), studentModel.getEmailAddress(),allocatedProject.getSupervisorId(),allocatedProject.getSupervisorName(),allocatedProject.getSupervisorEmail(),studentModel.getProjectID(), RequestType_Enum.DEREGISTERPROJECT,RequestStatus_Enum.PENDING,Request.getRequests().size()); // Send request to deregister
+						new Request(studentModel.getId(),studentModel.getName(), studentModel.getEmailAddress(), allocatedProject.getSupervisorId(), allocatedProject.getSupervisorName(), allocatedProject.getSupervisorEmail(), studentModel.getProjectID(), RequestType_Enum.DEREGISTERPROJECT, RequestStatus_Enum.PENDING, Request.getRequests().size()+1);
+						
 						//cli.displayTitle();
 						//Request.updateFile(); // Update file
 					}
@@ -169,7 +173,7 @@ public class StudentController extends Controller {
 				
 				case 7: //View RequestHistory
 					cli.displayTitle("View Request History");
-					RequestView.viewRequestHistory(studentModel.getuserID());
+					RequestView.printRequestHistory(studentModel.getId());
 //					for (Request req : RequestDirectory.getRequestDirectory()) {
 //						req.viewRequest();
 //					}

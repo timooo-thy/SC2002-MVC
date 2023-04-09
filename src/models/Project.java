@@ -81,7 +81,7 @@ public class Project {
 	
 	//project id start from 1
 	public static Project getProject(int i){
-		return projectList.get(i-1);
+		return projectList.get(i);
 	}
 	
 	////////////////////////////////////////////////////////////////////////////////////////

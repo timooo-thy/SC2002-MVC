@@ -7,7 +7,7 @@ import models.ProjectStatus_Enum;
 
 public class ProjectView {
 
-	public static void printProjectInfo(int projectID){
+	public void printProjectInfo(int projectID){
 		View.cli.display("Welcome to the menu!");
 		View.cli.display("Project ID: " + projectID);
 		View.cli.display("Project Title: " + Project.getProject(projectID).getProjectTitle());
@@ -22,7 +22,7 @@ public class ProjectView {
 		}
 	}
 	
-	public static void projectInfo() {
+	public void projectInfo() {
 		for (int i = 0; i < Project.getProjectList().size(); i++) {
 			if (Project.getProjectList().get(i).getProjectStatus() == ProjectStatus_Enum.AVAILABLE) {
 				View.cli.display("Project Id:" + Project.getProjectList().get(i).getProjectId());

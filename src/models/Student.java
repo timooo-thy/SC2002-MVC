@@ -71,9 +71,10 @@ public class Student extends User {
 		return projectID;
 	}
 
-    /*public setProjectID(int projectID) {
-        this.projectID=projectID;
-    }*/
+    public void setProjectID(int projectID) {
+        this.projectID = projectID;
+    }
+	
 	
 	public static boolean duplicateStudentId(String studentId) {
 

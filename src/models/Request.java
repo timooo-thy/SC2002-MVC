@@ -253,6 +253,8 @@ public class Request {
 		this.requestID = requestID;
 	}
     
+	
+	/////////// STATIC METHODS ///////////////
 	public static ArrayList<Request> getRequests(){
 		return requests;
 	}
