@@ -60,7 +60,7 @@ public class Supervisor extends User{
 	
 	public void addSupervisor(Supervisor s) {
 		supervisorsList.add(s);
-		//updateFile();
+		updateFile();
 	}
 	
 	public String getId() {

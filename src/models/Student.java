@@ -60,7 +60,7 @@ public class Student extends User{
 	
 	public void addStudent(Student s) {
 		studentsList.add(s);
-		//updateFile();
+		updateFile();
 	}
 	
 	public String getId() {

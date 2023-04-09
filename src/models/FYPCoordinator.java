@@ -60,7 +60,7 @@ public class FYPCoordinator extends User{
 	
 	public void addFYPCoordinator(FYPCoordinator s) {
 		fypcoordinatorsList.add(s);
-		//updateFile();
+		updateFile();
 	}
 	
 	public String getId() {
