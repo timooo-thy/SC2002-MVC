@@ -42,7 +42,7 @@ public class StudentController extends Controller {
 			
 			switch(choice) {
 			
-				case 1:
+				case 1://change password
 	
 				    boolean isPasswordChanged = false;
 				    int tries = 3;
@@ -78,11 +78,11 @@ public class StudentController extends Controller {
 					    
 					break;
 
-				case 2:
+				case 2://logout
 					cli.display("Logging out...");
 					return;
 					
-				case 3:
+				case 3://request:Register Project
 					int projectChoice;
 					projectStatus_Enum projectStatus;
 					if (studentModel.getProjectID() != -1) {
@@ -109,7 +109,7 @@ public class StudentController extends Controller {
 					Thread.sleep(1000);
 					studentController.run(); 
 					
-				case 4:
+				case 4: //Request: Project Title Change
 					String newTitle;
 					
 					cli.displayTitle("Request for Change of Project Title");
@@ -126,7 +126,7 @@ public class StudentController extends Controller {
 					Thread.sleep(3000);
 					studentController.run();
 				
-				case 5:
+				case 5: //Request: Project Deregistration
 					cli.displayTitle("Deregistering Project");
 					cli.display("Request to deregister project: " + ProjectDirectory.getProject(Student.getProjectID()-1).getProjectTitle());
 					cli.display("Enter 1 to confirm, 2 to exit. "); 
@@ -141,7 +141,7 @@ public class StudentController extends Controller {
 					
 					Thread.sleep(3000);
 					studentController.run();
-				case 6:
+				case 6: //View available projects
 					cli.displayTitle("View all available Projects");
 					for (Project proj : ProjectDirectory.getProjectDirectory()) {
 						if (proj.getProjectStatus() == projectStatus_Enum.AVAILABLE) {
@@ -152,7 +152,7 @@ public class StudentController extends Controller {
 					Thread.sleep(3000);
 					studentController.run();
 				
-				case 7:
+				case 7: //View RequestHistory
 					cli.displayTitle("View Request History");
 					RequestDirectory.viewRequestHistory(studentModel.getuserID(),UserType_Enum.STUDENT);
 //					for (Request req : RequestDirectory.getRequestDirectory()) {
