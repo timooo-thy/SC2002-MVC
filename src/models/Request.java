@@ -3,34 +3,50 @@ package models;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Request {
-    private String senderID;
-    private String senderName;
-    private String senderEmail;
-    private String recipientID;
-    private String recipientName;
-    private String recipientEmail;
-    private int projectID;
-    private int newProjectID;
-    private String newProjectTitle;
-    private String newSupervisorID;
-    private String newSupervisorName;
-    private String newSupervisorEmail;
-    private RequestType_Enum requestType;
-    private RequestStatus_Enum requestStatus;
-    private int requestID;
-    private static ArrayList<Request> requests;
-    private static final String FILEPATH = "src/data/";	
-	private static final String FILENAME = "requests.txt";
-	private static Database d = new Database();
+import utilities.Database;
 
-    ////////////// Constructor //////////////
-    public Request(){
-        requests = new ArrayList<Request>();
-    }
+public class Request {
+	
+    private String senderID;
+    
+    private String senderName;
+    
+    private String senderEmail;
+    
+    private String recipientID;
+    
+    private String recipientName;
+    
+    private String recipientEmail;
+    
+    private int projectID;
+    
+    private int newProjectID;
+    
+    private String newProjectTitle;
+    
+    private String newSupervisorID;
+    
+    private String newSupervisorName;
+    
+    private String newSupervisorEmail;
+    
+    private RequestType_Enum requestType;
+    
+    private RequestStatus_Enum requestStatus;
+    
+    private int requestID;
+    
+    private static ArrayList<Request> requests = new ArrayList<Request>();
+    
+    private static final String FILEPATH = "src/data/";	
+    
+	private static final String FILENAME = "requests.txt";
+	
+	private static Database d = new Database();
     
     // CHANGETITLE
-    public static void RequestChange(String senderID,String senderName, String senderEmail, String recipientID,String recipientName, String recipientEmail, int projectID, String newProjectTitle, RequestType_Enum requestType, RequestStatus_Enum requestStatus,int requestID) {
+    public static void RequestChange(String senderID, String senderName, String senderEmail, String recipientID,String recipientName, String recipientEmail, int projectID, String newProjectTitle, RequestType_Enum requestType, RequestStatus_Enum requestStatus, int requestID) {
         this.senderID = senderID;
         this.senderName = senderName;
         this.senderEmail = senderEmail;
@@ -62,7 +78,7 @@ public class Request {
     }
 
     // CHANGESUPERVISOR
-    public Request(String senderID,String senderName, String senderEmail, String recipientID,String recipientName, String recipientEmail, int projectID, String newSupervisorID, String newSupervisorName, String newSupervisorEmail, RequestType_Enum requestType, RequestStatus_Enum requestStatus,int requestID) {
+    public Request(String senderID, String senderName, String senderEmail, String recipientID,String recipientName, String recipientEmail, int projectID, String newSupervisorID, String newSupervisorName, String newSupervisorEmail, RequestType_Enum requestType, RequestStatus_Enum requestStatus, int requestID) {
         this.senderID = senderID;
         this.senderName = senderName;
         this.senderEmail = senderEmail;
@@ -81,7 +97,7 @@ public class Request {
     }
     
     // TRANSFERSTUDENT
-    public Request(String senderID,String senderName, String senderEmail, String recipientID,String recipientName, String recipientEmail, int projectID,int newProjectID,RequestType_Enum requestType, RequestStatus_Enum requestStatus,int requestID) {
+    public Request(String senderID, String senderName, String senderEmail, String recipientID,String recipientName, String recipientEmail, int projectID,int newProjectID,RequestType_Enum requestType, RequestStatus_Enum requestStatus, int requestID) {
         this.senderID = senderID;
         this.senderName = senderName;
         this.senderEmail = senderEmail;
