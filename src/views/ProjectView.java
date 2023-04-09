@@ -6,7 +6,7 @@ import models.ProjectStatus_Enum;
 public class ProjectView {
 
 
-	public void printProjectInfo(int projectID){
+	public static void printProjectInfo(int projectID){
 		
 		System.out.println("Project ID: " + projectID);
 		System.out.println("Project Title: " + Project.getProject(projectID).getProjectTitle());
@@ -20,5 +20,15 @@ public class ProjectView {
 			System.out.println("Student Email: " +Project.getProject(projectID).getStudentEmail());		
 		}
 	}
-
+	
+	public static void projectInfo() {
+		for (int i = 0; i < Project.getProjectList().size(); i++) {
+			if (Project.getProjectList().get(i).getProjectStatus() == ProjectStatus_Enum.AVAILABLE) {
+				System.out.println("Project Id:" + Project.getProjectList().get(i).getProjectId());
+				System.out.println("Project Title:" + Project.getProjectList().get(i).getProjectTitle());
+				System.out.println("Supervisor Id:" + Project.getProjectList().get(i).getSupervisorName());
+				System.out.println("Supervisor Email:" + Project.getProjectList().get(i).getSupervisorEmail());
+			}
+		}
+	}
 }

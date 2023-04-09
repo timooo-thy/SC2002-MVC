@@ -23,14 +23,14 @@ public class Student extends User{
 	
 	private String studentPassword;
 
-    private int projectId;
+    private int projectID;
 
     public Student(String studentId, String studentEmail, String studentPassword, String studentName) {
 		this.studentId = studentId.toUpperCase();
 		this.studentName = studentName;
 		this.studentEmail = studentEmail;
 		this.studentPassword = studentPassword;
-        this.projectId = -1;
+        this.projectID = -1;
 		addStudent(this);
 	}
 
@@ -67,8 +67,8 @@ public class Student extends User{
 		return this.studentId;
 	}
 
-    public int getProjectId() {
-		return projectId;
+    public int getProjectID() {
+		return projectID;
 	}
 
     /*public setProjectID(int projectID) {

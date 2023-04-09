@@ -2,7 +2,12 @@ package controllers;
 
 import models.Student;
 import models.User;
-
+import models.Project;
+import models.ProjectStatus_Enum;
+import models.Request;
+import models.RequestStatus_Enum;
+import models.RequestType_Enum;
+import views.ProjectView;
 /**
  * Represents the Student Controller
  */
@@ -11,6 +16,8 @@ public class StudentController extends Controller {
 	private Student studentModel;
 	
 	private MainController mainController;
+	
+	private StudentController studentController;
 	
 	public void run(User user) throws Throwable{
 
@@ -26,7 +33,7 @@ public class StudentController extends Controller {
                 "3. Request to Register a Project ",
                 "4. Request Project Title Change ",
                 "5. Request Deregistration of Project ",
-                "6. View Available Projects",
+                "6. View Available Projects / View Project Details ",
                 "7. View Request History",
                 "8. Back"
 		};
@@ -84,7 +91,7 @@ public class StudentController extends Controller {
 					
 				case 3://request:Register Project
 					int projectChoice;
-					projectStatus_Enum projectStatus;
+					ProjectStatus_Enum projectStatus;
 					if (studentModel.getProjectID() != -1) {
 						cli.display("You are already registered for a project.");	
 					}
@@ -94,62 +101,71 @@ public class StudentController extends Controller {
 					else {
 						cli.display("Enter the project ID to register for:");
 						do {
-							projectChoice = cli.inputInteger("Project ID", 1, Project.size());
-//							projectStatus = ProjectDirectory.getProjectDirectory().get(projectChoice-1).getProjectStatus();
-							if (projectStatus == projectStatus_Enum.AVAILABLE) {
-								Request.Request(studentModel.getId(),studentModel.getName(),studentModel.getEmail(),/*fypCoordinatorModel.getId(),fypCoordinatorModel.getName(),fypCoordinatorModel.getEmail()*/,projectChoice,RequestType_Enum.REGISTERPROJECT,RequestStatus_Enum.PENDING,Request.size());// send request to register
-								ProjectDirectory.getProject(projectChoice-1).setProjectStatus(projectStatus_Enum.RESERVED);// change project status to reserved
+							projectChoice = cli.inputInteger("Project ID", 1, Project.getProjectList().size()+1);
+							if (projectStatus == ProjectStatus_Enum.AVAILABLE) {
+								Request.RequestSend(studentModel.getId(),studentModel.getName(),studentModel.getEmailAddress(),/*fypCoordinatorModel.getId(),fypCoordinatorModel.getName(),fypCoordinatorModel.getEmail()*/"ASFLI","ASFLI","ASFLI",projectChoice,RequestType_Enum.REGISTERPROJECT,RequestStatus_Enum.PENDING,Request.getRequests().size());// send request to register
+								Project.getProject(projectChoice).setProjectStatus(ProjectStatus_Enum.RESERVED);// change project status to reserved
 							}
-						} while (projectStatus != projectStatus_Enum.AVAILABLE);
+						} while (projectStatus != ProjectStatus_Enum.AVAILABLE);
+						// can do a catch throw exception
+						
 						cli.displayTitle("SUCCESS, YOUR REGISTRATION IS NOW PENDING FOR APPROVAL BY THE COORDINATOR");
 //						Request.updateFile(); // Update file
 //						Project.updateFile(); // Update file
 //						Student.updateFile(); // Update file						
 					}
 					Thread.sleep(1000);
-					studentController.run(); 
+					studentController.run(studentModel); 
 					
 				case 4: //Request: Project Title Change
 					String newTitle;					
 					cli.displayTitle("Request for Change of Project Title");
 					if (studentModel.getProjectID() == -1 || studentModel.getProjectID() == 0) {
 						cli.display("You are not registered for any projects.");
-						Thread.sleep(3000);
-						studentController.run();
 					}
-					//if student already registered, proceed title change
-//					cli.display("Your project title is : " + ProjectDirectory.getProject(Student.getProjectID()-1).getProjectTitle());
-					newTitle = cli.inputString("What would you like to change it to?","\n");
-					Request.Request(studentModel.getuserID(), studentModel.getName(), studentModel.getEmail(),/*supervisorModel.getName(),supervisorModel.getEmail(), Project.getProject(studentModel.getProjectID()-1).getSupervisorID()*/, newTitle, RequestType_Enum.CHANGETITLE,RequestStatus_Enum.PENDING,Request.size()); // Create change title request
-//					Project.updateFile(); // Update file
-					Thread.sleep(3000);
-					studentController.run();
+					else {
+						//if student already registered, proceed title change
+						Project allocatedProject = Project.getProject(studentModel.getProjectID());
+						cli.display("Your project title is : " + allocatedProject.getProjectTitle());
+						newTitle = cli.inputString("What would you like to change it to?","\n");
+						Request.RequestChange(studentModel.getId(),studentModel.getName(),studentModel.getEmailAddress(),allocatedProject.getSupervisorId(),allocatedProject.getSupervisorName(),allocatedProject.getSupervisorEmail(),allocatedProject.getProjectId(),newTitle,RequestType_Enum.CHANGETITLE,RequestStatus_Enum.PENDING,Request.getRequests().size());// send request to change title
+						cli.displayTitle("SUCCESS, YOUR REQUEST FOR CHANGING TITLE IS NOW PENDING FOR APPROVAL BY THE COORDINATOR");
+//						Request.updateFile(); // Update file
+					}
+					
+						Thread.sleep(3000);
+						studentController.run(studentModel);
 				
 				case 5: //Request: Project Deregistration
 					cli.displayTitle("Deregistering Project");
-//				cli.display("Request to deregister project: " + ProjectDirectory.getProject(Student.getProjectID()-1).getProjectTitle());
+					cli.display("Request to deregister project: " + Project.getProject(studentModel.getProjectID()).getProjectTitle());
 					cli.display("Enter 1 to confirm, 2 to exit. "); 
 					choice = cli.inputInteger("choice", 1, 2);
 					if (choice == 1) {
-						Request.Request(studentModel.getuserID(), studentModel.getName(), studentModel.getEmail(),/*supervisorModel.getName(),supervisorModel.getEmail(), Project.getProject(studentModel.getProjectID()-1).getSupervisorID()*/,studentModel.getProjectID(), RequestType_Enum.DEREGISTERPROJECT,RequestStatus_Enum.PENDING,Request.size()); // Send request to deregister
-//						Request.updateFile(); // Update file
+						Project allocatedProject = Project.getProject(studentModel.getProjectID());
+						Request.RequestSend(studentModel.getId(), studentModel.getName(), studentModel.getEmailAddress(),allocatedProject.getSupervisorId(),allocatedProject.getSupervisorName(),allocatedProject.getSupervisorEmail(),studentModel.getProjectID(), RequestType_Enum.DEREGISTERPROJECT,RequestStatus_Enum.PENDING,Request.getRequests().size()); // Send request to deregister
+						//cli.displayTitle();
+						//Request.updateFile(); // Update file
 					}
 					else {
 						cli.display("Request Cancelled");
 					}
 					
 					Thread.sleep(3000);
-					studentController.run();
+					studentController.run(studentModel);
 				case 6: //View available projects
+					if (studentModel.getProjectID() == -1) {
 					cli.displayTitle("View all available Projects");
-//					for (Project proj : ProjectDirectory.getProjectDirectory()) {
-//						if (proj.getProjectStatus() == projectStatus_Enum.AVAILABLE) {
-//							proj.projectDetails();
-						}
+					ProjectView.projectInfo();
 					}
-
+					else if (studentModel.getProjectID() == 0)
+						cli.display("Your request to select project is pending, please be patient!");
+					else {
+						cli.display("Here is the detail of your project: ");
+						ProjectView.printProjectInfo(studentModel.getProjectID());
+					}
 					Thread.sleep(3000);
-					studentController.run();
+					studentController.run(studentModel);
 				
 				case 7: //View RequestHistory
 					cli.displayTitle("View Request History");
@@ -159,10 +175,10 @@ public class StudentController extends Controller {
 //					}
 
 					Thread.sleep(3000);
-					studentController.run();
+					studentController.run(studentModel);
 					
 				default:
-				mainController.run(user);
+				studentController.run(studentModel);
 			}
 		}
 	}

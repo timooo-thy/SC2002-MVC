@@ -25,12 +25,12 @@ public class Request {
 	private static Database d = new Database();
 
     ////////////// Constructor //////////////
-    public static RequestDirectory(){
+    public Request(){
         requests = new ArrayList<Request>();
     }
     
     // CHANGETITLE
-    public Request(String senderID,String senderName, String senderEmail, String recipientID,String recipientName, String recipientEmail, int projectID, String newProjectTitle, RequestType_Enum requestType, RequestStatus_Enum requestStatus,int requestID) {
+    public static void RequestChange(String senderID,String senderName, String senderEmail, String recipientID,String recipientName, String recipientEmail, int projectID, String newProjectTitle, RequestType_Enum requestType, RequestStatus_Enum requestStatus,int requestID) {
         this.senderID = senderID;
         this.senderName = senderName;
         this.senderEmail = senderEmail;
@@ -46,7 +46,7 @@ public class Request {
     }
 
 	// REGISTERPROJECT and DEREGISTERPROJECT
-    public Request(String senderID,String senderName, String senderEmail, String recipientID,String recipientName, String recipientEmail, int projectID,RequestType_Enum requestType, RequestStatus_Enum requestStatus,int requestID) {
+    public static void RequestSend(String senderID,String senderName, String senderEmail, String recipientID,String recipientName, String recipientEmail, int projectID,RequestType_Enum requestType, RequestStatus_Enum requestStatus,int requestID) {
         this.senderID = senderID;
         this.senderName = senderName;
         this.senderEmail = senderEmail;
