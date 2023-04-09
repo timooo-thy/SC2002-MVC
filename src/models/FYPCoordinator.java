@@ -42,7 +42,7 @@ public class FYPCoordinator extends User{
 		return this.fypcoordinatorName;
 	}
 	
-	public String getEmailAddress(){
+	public String getEmail(){
 		return this.fypcoordinatorEmail;
 	}
 	

@@ -94,24 +94,23 @@ public class StudentController extends Controller {
 					else {
 						cli.display("Enter the project ID to register for:");
 						do {
-							projectChoice = cli.inputInteger("Project ID", 1, ProjectDirectory.getProjectDirectory().size());
-							projectStatus = ProjectDirectory.getProjectDirectory().get(projectChoice-1).getProjectStatus();
+							projectChoice = cli.inputInteger("Project ID", 1, Project.size());
+//							projectStatus = ProjectDirectory.getProjectDirectory().get(projectChoice-1).getProjectStatus();
 							if (projectStatus == projectStatus_Enum.AVAILABLE) {
-								RequestDirectory.createRequest(studentModel.getuserID(),"ASFLI",RequestType_Enum.REGISTERPROJECT, null, null);// send request
+								Request.Request(studentModel.getId(),studentModel.getName(),studentModel.getEmail(),/*fypCoordinatorModel.getId(),fypCoordinatorModel.getName(),fypCoordinatorModel.getEmail()*/,projectChoice,RequestType_Enum.REGISTERPROJECT,RequestStatus_Enum.PENDING,Request.size());// send request to register
 								ProjectDirectory.getProject(projectChoice-1).setProjectStatus(projectStatus_Enum.RESERVED);// change project status to reserved
 							}
 						} while (projectStatus != projectStatus_Enum.AVAILABLE);
 						cli.displayTitle("SUCCESS, YOUR REGISTRATION IS NOW PENDING FOR APPROVAL BY THE COORDINATOR");
 //						Request.updateFile(); // Update file
 //						Project.updateFile(); // Update file
-//						Student.updateFile(); // Update file
+//						Student.updateFile(); // Update file						
 					}
 					Thread.sleep(1000);
 					studentController.run(); 
 					
 				case 4: //Request: Project Title Change
-					String newTitle;
-					
+					String newTitle;					
 					cli.displayTitle("Request for Change of Project Title");
 					if (studentModel.getProjectID() == -1 || studentModel.getProjectID() == 0) {
 						cli.display("You are not registered for any projects.");
@@ -119,20 +118,20 @@ public class StudentController extends Controller {
 						studentController.run();
 					}
 					//if student already registered, proceed title change
-					cli.display("Your project title is : " + ProjectDirectory.getProject(Student.getProjectID()-1).getProjectTitle());
+//					cli.display("Your project title is : " + ProjectDirectory.getProject(Student.getProjectID()-1).getProjectTitle());
 					newTitle = cli.inputString("What would you like to change it to?","\n");
-					RequestDirectory.createRequest(studentModel.getuserID(), ProjectDirectory.getProject(studentModel.getProjectID()-1).getSupervisorID(), RequestType_Enum.CHANGETITLE, newTitle, null); // Create change title request
+					Request.Request(studentModel.getuserID(), studentModel.getName(), studentModel.getEmail(),/*supervisorModel.getName(),supervisorModel.getEmail(), Project.getProject(studentModel.getProjectID()-1).getSupervisorID()*/, newTitle, RequestType_Enum.CHANGETITLE,RequestStatus_Enum.PENDING,Request.size()); // Create change title request
 //					Project.updateFile(); // Update file
 					Thread.sleep(3000);
 					studentController.run();
 				
 				case 5: //Request: Project Deregistration
 					cli.displayTitle("Deregistering Project");
-					cli.display("Request to deregister project: " + ProjectDirectory.getProject(Student.getProjectID()-1).getProjectTitle());
+//				cli.display("Request to deregister project: " + ProjectDirectory.getProject(Student.getProjectID()-1).getProjectTitle());
 					cli.display("Enter 1 to confirm, 2 to exit. "); 
 					choice = cli.inputInteger("choice", 1, 2);
 					if (choice == 1) {
-						RequestDirectory.createRequest(studentModel.getuserID(), "ASFLI", RequestType_Enum.DEREGISTERPROJECT, null, null); // Create change title request
+						Request.Request(studentModel.getuserID(), studentModel.getName(), studentModel.getEmail(),/*supervisorModel.getName(),supervisorModel.getEmail(), Project.getProject(studentModel.getProjectID()-1).getSupervisorID()*/,studentModel.getProjectID(), RequestType_Enum.DEREGISTERPROJECT,RequestStatus_Enum.PENDING,Request.size()); // Send request to deregister
 //						Request.updateFile(); // Update file
 					}
 					else {
@@ -143,9 +142,9 @@ public class StudentController extends Controller {
 					studentController.run();
 				case 6: //View available projects
 					cli.displayTitle("View all available Projects");
-					for (Project proj : ProjectDirectory.getProjectDirectory()) {
-						if (proj.getProjectStatus() == projectStatus_Enum.AVAILABLE) {
-							proj.projectDetails();
+//					for (Project proj : ProjectDirectory.getProjectDirectory()) {
+//						if (proj.getProjectStatus() == projectStatus_Enum.AVAILABLE) {
+//							proj.projectDetails();
 						}
 					}
 
@@ -154,7 +153,7 @@ public class StudentController extends Controller {
 				
 				case 7: //View RequestHistory
 					cli.displayTitle("View Request History");
-					RequestDirectory.viewRequestHistory(studentModel.getuserID(),UserType_Enum.STUDENT);
+					RequestView.viewRequestHistory(studentModel.getuserID());
 //					for (Request req : RequestDirectory.getRequestDirectory()) {
 //						req.viewRequest();
 //					}

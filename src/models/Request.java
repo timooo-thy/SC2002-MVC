@@ -24,7 +24,6 @@ public class Request {
 	private static final String FILENAME = "requests.txt";
 	private static Database d = new Database();
 
-
     ////////////// Constructor //////////////
     public static RequestDirectory(){
         requests = new ArrayList<Request>();
@@ -43,7 +42,7 @@ public class Request {
         this.requestType = requestType;
         this.requestStatus = requestStatus;
         this.requestID = requestID;
-
+        this.addRequest(this);
     }
 
 	// REGISTERPROJECT and DEREGISTERPROJECT
@@ -59,6 +58,7 @@ public class Request {
         this.requestID = requestID; 
         this.projectID = projectID;
         this.senderName = senderName;
+        this.addRequest(this);
     }
 
     // CHANGESUPERVISOR
@@ -77,6 +77,7 @@ public class Request {
         this.requestID = requestID; 
         this.projectID = projectID;
         this.senderName = senderName;
+        this.addRequest(this);
     }
     
     // TRANSFERSTUDENT
@@ -93,6 +94,7 @@ public class Request {
         this.projectID = projectID;
         this.newProjectID = newProjectID;
         this.senderName = senderName;
+        this.addRequest(this);;
     }
     
     //////////// Class methods //////////////
@@ -243,7 +245,6 @@ public class Request {
 		return requests.get(i);
 	}
 
-	
 	public static void updateRequests(ArrayList<Request> r){
 		requests = r;
 	}
