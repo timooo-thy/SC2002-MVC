@@ -60,9 +60,9 @@ public class Project {
 	public Project() {}
 	
 	public Project(String supervisorName, String projectTitle) {
-		//this.supervisorId = getSupervisorNameToId(supervisorName).toUpperCase();
+		this.supervisorId = getSupervisorNameToId(supervisorName).toUpperCase();
 		this.supervisorName = supervisorName;
-		//this.supervisorEmail = getSupervisorNameToEmail(supervisorName);
+		this.supervisorEmail = getSupervisorNameToEmail(supervisorName);
         this.projectId = projectList.size()+1;
         this.projectTitle = projectTitle;
 		addProject(this);
@@ -364,16 +364,16 @@ public class Project {
 
 	// For ProjectStudentPostAllocation Interface //
 	
-	public void projectDetails() {
-		System.out.println("Project Id:" + getProjectId());
-		System.out.println("Project Title:" + getProjectTitle());
-		System.out.println("Supervisor Name:" + getSupervisorName());
-		System.out.println("Supervisor Id:" + getSupervisorId());
-		System.out.println("Supervisor Email:" + getSupervisorEmail());
-		System.out.println("Student Id:" + getStudentId());
-		System.out.println("Student Email:" + getStudentEmail());
-		System.out.println();
-	}
+	// public void projectDetails() {
+	// 	System.out.println("Project Id:" + getProjectId());
+	// 	System.out.println("Project Title:" + getProjectTitle());
+	// 	System.out.println("Supervisor Name:" + getSupervisorName());
+	// 	System.out.println("Supervisor Id:" + getSupervisorId());
+	// 	System.out.println("Supervisor Email:" + getSupervisorEmail());
+	// 	System.out.println("Student Id:" + getStudentId());
+	// 	System.out.println("Student Email:" + getStudentEmail());
+	// 	System.out.println();
+	// }
 
 }
 
