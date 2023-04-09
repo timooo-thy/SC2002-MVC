@@ -13,6 +13,7 @@ import models.User;
 import models.Supervisor;
 import models.FYPCoordinator;
 import models.Project;
+import models.Request;
 
 public class Database {
 	
@@ -102,6 +103,14 @@ public class Database {
 	    } catch (IOException e) {
 	        e.printStackTrace();
 	    }
+	}
+	
+	public HashMap<String, String> initializeRequestFile(String FILENAME, String FILEPATH) {
+		return null;
+	}
+	
+	public void updateRequestFile(String FILENAME, String FILEPATH, ArrayList<Request> list) {
+
 	}
 }
 

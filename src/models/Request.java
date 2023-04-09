@@ -269,14 +269,12 @@ public class Request {
 		HashMap<String, String[]> map  = d.initializeFile(FILENAME, FILEPATH);
 		for (String name : map.keySet()) {
         	String[] values = map.get(name);
-        	new Student(values[0], values[1], values[2], name); 
+        	new Request(); //change 
         }
 	}
 
-	public static void updateFile() {
-		ArrayList<Request> requests = new ArrayList<>(requests);
-		
-		d.updateFile(FILENAME,FILEPATH,requests);
+	public static void updateFile() {	
+		d.updateRequestFile(FILENAME,FILEPATH,requests);
 	}
 }
 

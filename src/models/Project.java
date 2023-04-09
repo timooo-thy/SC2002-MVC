@@ -247,9 +247,7 @@ public class Project {
 	}
 
 	public static void updateProjectFile() {
-		ArrayList<Project> newProjectList = new ArrayList<>(projectList);
-		
-		d.updateProjectFile(FILENAME,FILEPATH,newProjectList);
+		d.updateProjectFile(FILENAME,FILEPATH,projectList);
 	}
 
 	// For ProjectFYPCoordinator Interface //
