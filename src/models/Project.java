@@ -335,7 +335,7 @@ public class Project {
 	}
 	
 	public static void changeProjectTitle(int projectId, String tempProjectTitle) {
-		Project tempProject = ProjectDirectory.getProject(projectId);
+		Project tempProject = Project.getProject(projectId);
 		tempProject.setProjectTitle(tempProjectTitle);
 		System.out.println("Project Title has been changed successfully to...");
 		System.out.println("Project Title:" + tempProject.getProjectTitle());
@@ -364,16 +364,16 @@ public class Project {
 
 	// For ProjectStudentPostAllocation Interface //
 	
-	// public void projectDetails() {
-	// 	System.out.println("Project Id:" + getProjectId());
-	// 	System.out.println("Project Title:" + getProjectTitle());
-	// 	System.out.println("Supervisor Name:" + getSupervisorName());
-	// 	System.out.println("Supervisor Id:" + getSupervisorId());
-	// 	System.out.println("Supervisor Email:" + getSupervisorEmail());
-	// 	System.out.println("Student Id:" + getStudentId());
-	// 	System.out.println("Student Email:" + getStudentEmail());
-	// 	System.out.println();
-	// }
+//	public void projectDetails() {
+//		System.out.println("Project Id:" + getProjectId());
+//		System.out.println("Project Title:" + getProjectTitle());
+//		System.out.println("Supervisor Name:" + getSupervisorName());
+//		System.out.println("Supervisor Id:" + getSupervisorId());
+//		System.out.println("Supervisor Email:" + getSupervisorEmail());
+//		System.out.println("Student Id:" + getStudentId());
+//		System.out.println("Student Email:" + getStudentEmail());
+//		System.out.println();
+//	}
 
 }
 
