@@ -7,35 +7,35 @@ import utilities.Database;
 
 public class Request {
 	
-    private String senderID;
+    private String senderID = "-1";
     
-    private String senderName;
+    private String senderName = "-1";
     
-    private String senderEmail;
+    private String senderEmail = "-1";
     
-    private String recipientID;
+    private String recipientID = "-1";
     
-    private String recipientName;
+    private String recipientName = "-1";
     
-    private String recipientEmail;
+    private String recipientEmail = "-1";
     
-    private int projectID;
+    private int projectID = -1;
     
-    private int newProjectID;
+    private int newProjectID = -1;
     
-    private String newProjectTitle;
+    private String newProjectTitle = "-1";
     
-    private String newSupervisorID;
+    private String newSupervisorID = "-1";
     
-    private String newSupervisorName;
+    private String newSupervisorName = "-1";
     
-    private String newSupervisorEmail;
+    private String newSupervisorEmail = "-1";
     
     private RequestType_Enum requestType;
     
     private RequestStatus_Enum requestStatus;
     
-    private int requestID;
+    private int requestID = -1;
     
     private static ArrayList<Request> requests = new ArrayList<Request>();
     
@@ -46,8 +46,8 @@ public class Request {
 	private static Database d = new Database();
     
     // CHANGETITLE
-    public static void RequestChange(String senderID, String senderName, String senderEmail, String recipientID,String recipientName, String recipientEmail, int projectID, String newProjectTitle, RequestType_Enum requestType, RequestStatus_Enum requestStatus, int requestID) {
-        Request.senderID = senderID; //check here
+    public Request(String senderID, String senderName, String senderEmail, String recipientID,String recipientName, String recipientEmail, int projectID, String newProjectTitle, RequestType_Enum requestType, RequestStatus_Enum requestStatus, int requestID) {
+        this.senderID = senderID; 
         this.senderName = senderName;
         this.senderEmail = senderEmail;
         this.recipientID = recipientID;
@@ -62,7 +62,7 @@ public class Request {
     }
 
 	// REGISTERPROJECT and DEREGISTERPROJECT
-    public static void RequestSend(String senderID,String senderName, String senderEmail, String recipientID, String recipientName, String recipientEmail, int projectID, RequestType_Enum requestType, RequestStatus_Enum requestStatus, int requestID) {
+    public Request(String senderID,String senderName, String senderEmail, String recipientID, String recipientName, String recipientEmail, int projectID, RequestType_Enum requestType, RequestStatus_Enum requestStatus, int requestID) {
         this.senderID = senderID;
         this.senderName = senderName;
         this.senderEmail = senderEmail;
