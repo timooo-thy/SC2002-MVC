@@ -1,4 +1,4 @@
-package Views;
+package views;
 
 public class StudentView {
     
@@ -9,5 +9,4 @@ public class StudentView {
 		System.out.println("Student Password: " + password);
 		
 	}
-    //JH: I dun think we have anything else to add
 }

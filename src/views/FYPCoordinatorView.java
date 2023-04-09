@@ -1,4 +1,4 @@
-package Views;
+package views;
 
 public class FYPCoordinatorView {
     public void printFYPCoordinatorRecordInfo(String FYPCoordinatorId,String FYPCoordinatorName, String FYPCoordinatorEmail, String password){

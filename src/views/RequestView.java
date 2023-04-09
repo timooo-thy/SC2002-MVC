@@ -1,6 +1,6 @@
-package Views;
+package views;
 
-import requests.RequestDirectory;
+import models.RequestDirectory;
 
 
 public class RequestView {

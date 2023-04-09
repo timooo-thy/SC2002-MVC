@@ -1,0 +1,12 @@
+Supervisor Title
+Arvind Easwaran;Edge/Cloud Resource Management for Time-Sensitive Applications (2)
+Chen Change Loy;Encoding Images to Text Prompts with CLIP
+Chia Liang Tien;Smart Monitor for Studio Photographer
+Bo An;Designing Negotiation Agents to Parcitipate in International Competition
+A S Madhukumar;Deep Learning-Driven Edge Caching for 5G-and-Beyond Industrial IoT Networks
+Cong Gao;Deep Learning Supported Location-aware Keyword Query
+Alexei Sourin;Sonification of geometry 1
+Douglas Leslie Maskell;A Li-ion fast battery charger
+Cai Wentong;Creation of Meta-model for Agent-based Simulation Using Machine Learning Approach
+Dusit Niyato;Metaverse for virtual education 1
+Ke Yiping, Kelly;Graph-based Deep Models for Image Semantic Segmentation
