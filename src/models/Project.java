@@ -1,91 +1,167 @@
-package Project;
+package models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import utilities.Database;
 import java.util.Scanner;
-import User.*;
+//import models.Supervisor;
 
-
-public class Project /*implements ProjectSupervisor, ProjectStudentPreAllocation, ProjectStudentPostAllocation, ProjectFYPCoordinator*/ {
+public class Project {
 	
-	private int projectID;
-	private String supervisorID;
+	private static final String FILEPATH = "src/data/";
+	
+	private static final String FILENAME = "rollover project.txt";
+	
+	private static ArrayList<Project> projectList = new ArrayList<Project>();
+	
+	private static Database d = new Database();
+	
+	private int projectId;
+	
+	private String supervisorId;
+	
 	private String supervisorName;
-	private String tempSupervisorID;
-	private String tempSupervisorEmail;
-	private String supervisorEmail;
-	private String studentID;
-	private String studentName;
-	private String tempStudentID;
-	private String tempStudentEmail;
-	private String studentEmail;
-	private String projectTitle;
-	private String tempProjectTitle;
-	private projectStatus_Enum projectStatus;
-
-	private SupervisorDatabase supervisorDatabase = new SupervisorDatabase();
-	private ArrayList<Supervisor> supervisorList; 
 	
-	//Constructor 
+	private String supervisorEmail;
 
-	public Project(String supervisorName, String project_title,int projectID) {
-		setSupervisorName(supervisorName);
-		setProjectTitle(project_title);
-		setProjectID(projectID);
-		setProjectStatus(projectStatus_Enum.AVAILABLE);
-		setSupervisorEmail(getSupervisorListEmail(supervisorName));
-		setSupervisorID(getSupervisorListID(supervisorName));
-		setStudentName(null);
+	//private String tempSupervisorId;
+	
+	//private String tempSupervisorEmail;
+	
+	private String studentId;
+	
+	private String studentName;
+	
+	private String studentEmail;
+
+	//private String tempStudentId;
+	
+	//private String tempStudentEmail;
+	
+	private String projectTitle;
+	
+	//private String tempProjectTitle;
+	
+	private  ProjectStatus_Enum projectStatus;
+	
+	//private String newSupervisorName;
+	
+	//private  String newProjectTitle;
+
+	private static ArrayList<Supervisor> supervisorList; 
+
+	private static ArrayList<Student> studentList;
+		
+	Scanner sc = new Scanner(System.in);
+
+	////////////////////////////////////////////////////////////////////////////////////////
+
+	//Constructor 
+	public Project() {}
+	
+	public Project(String supervisorName, String projectTitle) {
+		//this.supervisorId = getSupervisorNameToId(supervisorName).toUpperCase();
+		this.supervisorName = supervisorName;
+		//this.supervisorEmail = getSupervisorNameToEmail(supervisorName);
+        this.projectId = projectList.size()+1;
+        this.projectTitle = projectTitle;
+		addProject(this);
+	}
+		
+	////////////////////////////////////////////////////////////////////////////////////////
+	
+	public static void addProject(Project project){
+		projectList.add(project);
+		updateProjectFile();
 	}
 	
-	Scanner sc = new Scanner(System.in);
+	public static ArrayList<Project> getProjectList(){
+		return projectList;
+	}
+	
+	//project id start from 1
+	public static Project getProject(int i){
+		return projectList.get(i-1);
+	}
 	
 	////////////////////////////////////////////////////////////////////////////////////////
 
-	// Get ID and Email based on Name
-	public String getSupervisorListEmail(String supervisorName){
-		if (supervisorList == null) {
-			supervisorList = this.getSupervisorList();
-		}
+	// Get Supervisor Id and Email based on Name
+	public String getSupervisorNameToEmail(String supervisorName){
 		for (int i = 0; i < supervisorList.size(); i++) {
-			if ((this.supervisorList.get(i).getname()).equals(supervisorName)) return supervisorList.get(i).getemail();
+			if ((supervisorList.get(i).getName()).equals(supervisorName)) return supervisorList.get(i).getEmailAddress();
 		}
 		return null;
 	}
 	
-	public String getSupervisorListID(String supervisorName) {
-		if (supervisorList == null) {
-			supervisorList = this.getSupervisorList();
-		}
+	public String getSupervisorNameToId(String supervisorName) {
 		for (int i = 0; i < supervisorList.size(); i++) {
-			if ((this.supervisorList.get(i).getname()).equals(supervisorName)) return supervisorList.get(i).getuserID();
+			if ((supervisorList.get(i).getName()).equals(supervisorName)) return supervisorList.get(i).getId();
 		}
 		return null;
 	}
+	
+	public String getSupervisorIdToEmail(String supervisorId){
+		for (int i = 0; i < supervisorList.size(); i++) {
+			if ((supervisorList.get(i).getId()).equals(supervisorId)) return supervisorList.get(i).getEmailAddress();
+		}
+		return null;
+	}
+	
+	public String getSupervisorIdToName(String supervisorId) {
+		for (int i = 0; i < supervisorList.size(); i++) {
+			if ((supervisorList.get(i).getId()).equals(supervisorId)) return supervisorList.get(i).getName();
+		}
+		return null;
+	}
+	
+	////////////////////////////////////////////////////////////////////////////////////////
+	
+	// Get Student Id and Email based on Name
+	public String getStudentNameToEmail(String studentName){
+		for (int i = 0; i < studentList.size(); i++) {
+			if ((studentList.get(i).getName()).equals(studentName)) return studentList.get(i).getEmailAddress();
+		}
+		return null;
+	}
+	
+	public String getStudentNameToId(String studentName) {
+		for (int i = 0; i < studentList.size(); i++) {
+		if ((studentList.get(i).getName()).equals(studentName)) return studentList.get(i).getId();
+		}
+		return null;
+	}
+	
+	public String getStudentIdToEmail(String studentId){
+		for (int i = 0; i < studentList.size(); i++) {
+			if ((studentList.get(i).getId()).equals(studentId)) return studentList.get(i).getEmailAddress();
+		}
+		return null;
+	}
+	
+	public String getStudentIdToName(String studentId) {
+		for (int i = 0; i < studentList.size(); i++) {
+		if ((studentList.get(i).getId()).equals(studentId)) return studentList.get(i).getName();
+		}
+		return null;
+	}
+	
 	//////////////////////////////////////////////////////////////////////////////////////
 
-	// Get supervisor List for finding ID and Email
-	public ArrayList<Supervisor> getSupervisorList(){
-		if (supervisorList == null) SupervisorDatabase.initialiseDatabase();
-		return supervisorDatabase.getSupervisorList();
-	}
-	///////////////////////////////////////////////////////////////////////////////////////
-
-	public int getProjectID() {
-		return projectID;
+	public int getProjectId() {
+		return this.projectId;
 	}
 	
-	public void setProjectID(int projectID) {
-		this.projectID = projectID;
-	}
 	///////////////////////////////////////////////////////////////////////////////////////
 
-	public String getSupervisorID() {
-		return supervisorID;
+	public String getSupervisorId() {
+		return this.supervisorId;
 	}
 
-	public void setSupervisorID(String supervisorID) {
-		this.supervisorID = supervisorID;
+	public void setSupervisorId(String supervisorId) {
+		this.supervisorId = supervisorId;
 	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////
 
 	public void setSupervisorName(String supervisorName) {
@@ -93,13 +169,13 @@ public class Project /*implements ProjectSupervisor, ProjectStudentPreAllocation
 	}
 	
 	public String getSupervisorName() {
-		return supervisorName;
+		return this.supervisorName;
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////
 
 	public String getSupervisorEmail() {
-		return supervisorEmail;
+		return this.supervisorEmail;
 	}
 
 	public void setSupervisorEmail(String supervisorEmail) {
@@ -108,12 +184,12 @@ public class Project /*implements ProjectSupervisor, ProjectStudentPreAllocation
 
 	///////////////////////////////////////////////////////////////////////////////////////
 
-	public String getStudentID() {
-		return studentID;
+	public String getStudentId() {
+		return this.studentId;
 	}
 
-	public void setStudentID(String studentID) {
-		this.studentID = studentID;
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////
@@ -123,13 +199,13 @@ public class Project /*implements ProjectSupervisor, ProjectStudentPreAllocation
 	}
 	
 	public String getStudentName() {
-		return studentName;
+		return this.studentName;
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////
 
 	public String getStudentEmail() {
-		return studentEmail;
+		return this.studentEmail;
 	}
 
 	public void setStudentEmail(String studentEmail) {
@@ -139,7 +215,7 @@ public class Project /*implements ProjectSupervisor, ProjectStudentPreAllocation
 	///////////////////////////////////////////////////////////////////////////////////////
 
 	public String getProjectTitle() {
-		return projectTitle;
+		return this.projectTitle;
 	}
 
 	public void setProjectTitle(String projectTitle) {
@@ -148,170 +224,156 @@ public class Project /*implements ProjectSupervisor, ProjectStudentPreAllocation
 	
 	///////////////////////////////////////////////////////////////////////////////////////
 
-	public projectStatus_Enum getProjectStatus() {
+	public ProjectStatus_Enum getProjectStatus() {
 		return this.projectStatus;
 	}
 
-	public void setProjectStatus(projectStatus_Enum projectStatus) {
+	public void setProjectStatus(ProjectStatus_Enum projectStatus) {
 		this.projectStatus = projectStatus;
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////
+	
+	public static void updateProjectList(ArrayList<Project> p){
+		projectList = p;
+	}
 
+	public static void initializeProjectFile() throws Throwable {
+		HashMap<String, String> map  = d.initializeProjectFile(FILENAME, FILEPATH);
+		for (String name : map.keySet()) {
+        	String title = map.get(name);
+        	new Project(name, title); 
+        }
+	}
 
-    public void setStudent(String studentID,String studentName,String studentEmail, projectStatus_Enum projectStatus) {
-        this.studentID = studentID;
-        this.studentName = studentName;
-        this.studentEmail = studentEmail;
-        this.projectStatus = projectStatus_Enum.ALLOCATED;
-    }
-
-    // public void allocateProject(int projectID, String studentID) {
-	// 	projectList.get(projectID).setStudentID(studentID);
-	// 	projectList.get(projectID).setStudentEmail(getStudentIDToEmail(studentID));
-	// 	projectList.get(projectID).setStudentName(getStudentIDToName(studentID));		
-	// 	projectList.get(projectID).setProjectStatus(projectStatus_Enum.ALLOCATED);
-	// 	System.out.println("Student has been changed successfully to...");
-	// 	System.out.println("Student ID:" + projectList.get(projectID).getStudentID());
-	// 	System.out.println("Student Email:" + projectList.get(projectID).getStudentEmail());
-	// }
+	public static void updateProjectFile() {
+		ArrayList<Project> newProjectList = new ArrayList<>(projectList);
+		
+		d.updateProjectFile(FILENAME,FILEPATH,newProjectList);
+	}
 
 	// For ProjectFYPCoordinator Interface //
-	public void changeSupervisor() {
-		System.out.println("Please enter the new Supervisor ID");
-		tempSupervisorID = sc.nextLine();
-		System.out.println("Please enter the new Supervisor Email");
-		tempSupervisorEmail = sc.nextLine();
-		setSupervisorID(tempSupervisorID);
-		setSupervisorEmail(tempSupervisorEmail);
+	
+	public void changeSupervisor(int projectId, String replacementSupervisorId) {
+		projectList.get(projectId).setSupervisorId(replacementSupervisorId);;
+		projectList.get(projectId).setSupervisorName(getSupervisorIdToName(replacementSupervisorId));
+		projectList.get(projectId).setSupervisorEmail(getSupervisorIdToEmail(replacementSupervisorId));
 		System.out.print("Supervisor has been changed successfully to...");
-		System.out.print("Supervisor ID:" + getSupervisorID());
+		System.out.print("Supervisor Id:" + getSupervisorId());
 		System.out.print("Supervisor Email:" + getSupervisorEmail());
-	}
-
-	// public void changeSupervisor(int projectID, String replacementSupervisorID) {
-	// 	projectList.get(projectID).setSupervisorID(replacementSupervisorID);;
-	// 	projectList.get(projectID).setSupervisorName(getSupervisorIDToName(replacementSupervisorID));
-	// 	projectList.get(projectID).setSupervisorEmail(getSupervisorIDToEmail(replacementSupervisorID));
-	// 	System.out.print("Supervisor has been changed successfully to...");
-	// 	System.out.print("Supervisor ID:" + getSupervisorID());
-	// 	System.out.print("Supervisor Email:" + getSupervisorEmail());
-	// }
-
-	public void changeStudent() {
-		System.out.println("Please enter the new Student ID");
-		tempStudentID = sc.nextLine();
-		System.out.println("Please enter the new Student Email");
-		tempStudentEmail = sc.nextLine();
-		setStudentID(tempStudentID);
-		setStudentEmail(tempStudentEmail);
-		System.out.print("Student has been changed successfully to...");
-		System.out.print("Student ID:" + getStudentID());
-		System.out.print("Student Email:" + getStudentEmail());
+		// do something to supervisor
 	}
 	
-	public void deregisterStudent() {
-		setStudentID(null);
-		setStudentName(null);
-		setStudentEmail(null);
-		setProjectStatus(projectStatus_Enum.AVAILABLE);
+	public void allocateProject(int projectId, String studentId) {
+		projectList.get(projectId).setStudentId(studentId);
+		projectList.get(projectId).setStudentEmail(getStudentIdToEmail(studentId));
+		projectList.get(projectId).setStudentName(getStudentIdToName(studentId));		
+		projectList.get(projectId).setProjectStatus(ProjectStatus_Enum.ALLOCATED);
+		System.out.println("Student has been changed successfully to...");
+		System.out.println("Student Id:" + projectList.get(projectId).getStudentId());
+		System.out.println("Student Email:" + projectList.get(projectId).getStudentEmail());
+		// do something to supervisor
 	}
-
-	// public void deregisterStudent(int projectID) {
-	// 	projectList.get(projectID).setStudentID(null);
-	// 	projectList.get(projectID).setStudentName(null);
-	// 	projectList.get(projectID).setStudentEmail(null);
-	// 	projectList.get(projectID).setProjectStatus(projectStatus_Enum.AVAILABLE);
-	// }
-
+	
+	public void deregisterStudent(int projectId/*, String studentId*/) {
+		projectList.get(projectId).setStudentId(null);
+		projectList.get(projectId).setStudentName(null);
+		projectList.get(projectId).setStudentEmail(null);
+		projectList.get(projectId).setProjectStatus(ProjectStatus_Enum.AVAILABLE);
+		// do something in supervisor
+	}
+	
+//	public void viewAllProject() {
+//		for (int i = 0; i < projectList.size(); i++) {
+//			System.out.printf("supervisor name : %s \n",projectList.get(i).getSupervisorName());
+//			System.out.printf("supervisor Id : %s \n",projectList.get(i).getSupervisorId()); 
+//			System.out.printf("supervisor email : %s \n",projectList.get(i).getSupervisorEmail());
+//			if (projectList.get(i).getProjectStatus() == projectStatus_Enum.ALLOCATED) {
+//				System.out.printf("student name : %s \n",projectList.get(i).getStudentName());
+//				System.out.printf("student Id : %s \n",projectList.get(i).getStudentId());
+//				System.out.printf("student Email : %s \n",projectList.get(i).getStudentEmail());
+//			}
+//			System.out.printf("project Id : %d \n",projectList.get(i).getProjectId());
+//			System.out.printf("Project title : %s \n",projectList.get(i).getProjectTitle());
+//			System.out.printf("project status : %s \n",projectList.get(i).getProjectStatus());
+//			System.out.println();
+//		}
+//	}
+	
+//	public voId getFilteredProjectDetails() {
+//		// filter based on sup name, availability, 
+//	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////
 
 	// For ProjectSupervisor Interface //
-	public void viewProject() {
-		System.out.println("\n");
-		System.out.println("Project ID:" + getProjectID());
-		System.out.println("Project Title:" + getProjectTitle());
-		System.out.println("\n");
+
+//	public static void getProjectDetails(String supervisorId) {
+//		for (int i = 0; i < projectList.size(); i++) {
+//			if ((projectList.get(i).getSupervisorId()).equals(supervisorId)) {
+//				System.out.printf("supervisor Id : %s \n",projectList.get(i).getSupervisorId()); 
+//				System.out.printf("supervisor email : %s \n",projectList.get(i).getSupervisorEmail());
+//				System.out.printf("project status : %s \n",projectList.get(i).getProjectStatus());
+//				if (projectList.get(i).getProjectStatus() == ProjectStatus_Enum.ALLOCATED) {
+//					System.out.printf("student name : %s \n",projectList.get(i).getStudentName());
+//					System.out.printf("student Id : %s \n",projectList.get(i).getStudentId());
+//					System.out.printf("student Email : %s \n",projectList.get(i).getStudentEmail());
+//					System.out.printf("project Id : %d \n",projectList.get(i).getProjectId());
+//					System.out.printf("Project title : %s \n",projectList.get(i).getProjectTitle());
+//				}
+//				else {
+//					System.out.printf("project Id : %d \n",projectList.get(i).getProjectId());
+//					System.out.printf("Project title : %s \n",projectList.get(i).getProjectTitle());
+//				}
+//				System.out.println();
+//			}
+//		}
+//	}
+	
+	public static void createProject() {
+		
 	}
 	
-	public static void changeProjectTitle(int projectID, String tempProjectTitle) {
-         Project tempProject = ProjectDirectory.getProject(projectID-1);
-         tempProject.setProjectTitle(tempProjectTitle);
-         System.out.print("Project Title has been changed successfully to...");
-         System.out.print("Project Title:" + tempProject.getProjectTitle());
+	public static void changeProjectTitle(int projectId, String tempProjectTitle) {
+		Project tempProject = ProjectDirectory.getProject(projectId);
+		tempProject.setProjectTitle(tempProjectTitle);
+		System.out.println("Project Title has been changed successfully to...");
+		System.out.println("Project Title:" + tempProject.getProjectTitle());
 	}
-
-    //   EDITED
-    // public static void getProjectDetails(String supervisorID) {
-	// 	for (int i = 0; i < projectList.size(); i++) {
-	// 		if ((projectList.get(i).getSupervisorID()).equals(supervisorID)) {
-	// 			System.out.printf("supervisor ID : %s \n",projectList.get(i).getSupervisorID()); 
-	// 			System.out.printf("supervisor email : %s \n",projectList.get(i).getSupervisorEmail());
-	// 			System.out.printf("project status : %s \n",projectList.get(i).getProjectStatus());
-	// 			if (projectList.get(i).getProjectStatus() == projectStatus_Enum.ALLOCATED) {
-	// 				System.out.printf("student name : %s \n",projectList.get(i).getStudentName());
-	// 				System.out.printf("student ID : %s \n",projectList.get(i).getStudentID());
-	// 				System.out.printf("student Email : %s \n",projectList.get(i).getStudentEmail());
-	// 				System.out.printf("project ID : %d \n",projectList.get(i).getProjectID());
-	// 				System.out.printf("Project title : %s \n",projectList.get(i).getProjectTitle());
-	// 			}
-	// 			else {
-	// 				System.out.printf("project ID : %d \n",projectList.get(i).getProjectID());
-	// 				System.out.printf("Project title : %s \n",projectList.get(i).getProjectTitle());
-	// 			}
-	// 			System.out.println();
-	// 			System.out.println();
-	// 		}
-	// 	}
-	// }
-
-    ///////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	///////////////////////////////////////////////////////////////////////////////////////
 
 	// For ProjectStudentPreAllocation Interface //
-
-	public void projectInfo() {
-		System.out.println("Project ID:" + getProjectID());
-		System.out.println("Project Title:" + getProjectTitle());
-		System.out.println("Supervisor ID:" + getSupervisorID());
-		System.out.println("Supervisor Email:" + getSupervisorEmail());
+//	public void projectInfo() {
+//		for (int i = 0; i < projectList.size(); i++) {
+//			if (projectList.get(i).projectStatus == projectStatus_Enum.AVAILABLE) {
+//				System.out.println("Project Id:" + projectList.get(i).getProjectId());
+//				System.out.println("Project Title:" + projectList.get(i).getProjectTitle());
+//				System.out.println("Supervisor Id:" + projectList.get(i).getSupervisorName());
+//				System.out.println("Supervisor Email:" + projectList.get(i).getSupervisorEmail());
+//			}
+//		}
+//	}
+	
+	public void selectProject() {
+		
 	}
-
-    // EDITED
-	// 	public void projectInfo() {
-	// 	for (int i = 0; i < projectList.size(); i++) {
-	// 		if (projectList.get(i).projectStatus == projectStatus_Enum.AVAILABLE) {
-	// 			System.out.println("Project ID:" + projectList.get(i).getProjectID());
-	// 			System.out.println("Project Title:" + projectList.get(i).getProjectTitle());
-	// 			System.out.println("Supervisor ID:" + projectList.get(i).getSupervisorName());
-	// 			System.out.println("Supervisor Email:" + projectList.get(i).getSupervisorEmail());
-	// 		}
-	// 	}
-	// }
-
-        public void chooseProject(){
-
-        }
-
+	
 	///////////////////////////////////////////////////////////////////////////////////////
 
 	// For ProjectStudentPostAllocation Interface //
+	
 	public void projectDetails() {
-		System.out.println("Project ID:" + getProjectID());
+		System.out.println("Project Id:" + getProjectId());
 		System.out.println("Project Title:" + getProjectTitle());
-		System.out.println("Supervisor ID:" + getSupervisorID());
+		System.out.println("Supervisor Name:" + getSupervisorName());
+		System.out.println("Supervisor Id:" + getSupervisorId());
 		System.out.println("Supervisor Email:" + getSupervisorEmail());
-		System.out.println("Student ID:" + getStudentID());
+		System.out.println("Student Id:" + getStudentId());
 		System.out.println("Student Email:" + getStudentEmail());
+		System.out.println();
 	}
 
-    // EDITED
-    // public void projectDetails() {
-	// 	System.out.println("Project ID:" + getProjectID());
-	// 	System.out.println("Project Title:" + getProjectTitle());
-	// 	System.out.println("Supervisor ID:" + getSupervisorID());
-	// 	System.out.println("Supervisor Email:" + getSupervisorEmail());
-	// 	System.out.println("Student ID:" + getStudentID());
-	// 	System.out.println("Student Email:" + getStudentEmail());
-	// }
-
 }
+
