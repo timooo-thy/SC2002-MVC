@@ -4,7 +4,7 @@ import models.User;
 import views.ConsoleInterface;
 
 // Abstract class Controller.
-public abstract class Controller{
+public abstract class Controller {
 	
 	/** Represents the General Interface. */
 	protected ConsoleInterface cli;

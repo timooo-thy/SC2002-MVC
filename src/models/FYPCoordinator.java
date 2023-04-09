@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import utilities.Database;
 
-public class FYPCoordinator extends User{
+public class FYPCoordinator extends User {
 	
 	private static final String FILEPATH = "src/data/";
 	

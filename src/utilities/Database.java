@@ -14,7 +14,7 @@ import models.Supervisor;
 import models.FYPCoordinator;
 import models.Project;
 
-public class Database{
+public class Database {
 	
 	public static void initializeAllData() throws Throwable {
 		Student.initializeFile();

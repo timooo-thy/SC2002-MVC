@@ -1,4 +1,4 @@
-package requests;
+package models;
 
 public interface IApproveRequest {
 	public abstract void approveRequest(int requestID);

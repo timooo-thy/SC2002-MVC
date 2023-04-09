@@ -3,10 +3,10 @@ package views;
 public class StudentView {
     
 	public void printStudentRecordInfo(String studentId,String studentName, String studentEmail, String password){
-		System.out.println("Student ID: " + studentId );
-		System.out.println("Student Name: " + studentName.toUpperCase() );
-		System.out.println("Student Email: " + studentEmail.toUpperCase() );
-		System.out.println("Student Password: " + password);
+		View.cli.display("Student ID: " + studentId );
+		View.cli.display("Student Name: " + studentName.toUpperCase() );
+		View.cli.display("Student Email: " + studentEmail.toUpperCase() );
+		View.cli.display("Student Password: " + password);
 		
 	}
 }

@@ -47,7 +47,7 @@ public class Request {
     
     // CHANGETITLE
     public static void RequestChange(String senderID, String senderName, String senderEmail, String recipientID,String recipientName, String recipientEmail, int projectID, String newProjectTitle, RequestType_Enum requestType, RequestStatus_Enum requestStatus, int requestID) {
-        this.senderID = senderID;
+        Request.senderID = senderID; //check here
         this.senderName = senderName;
         this.senderEmail = senderEmail;
         this.recipientID = recipientID;

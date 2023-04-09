@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import utilities.Database;
 
-public class Supervisor extends User{
+public class Supervisor extends User {
 	
 	private static final String FILEPATH = "src/data/";
 	
