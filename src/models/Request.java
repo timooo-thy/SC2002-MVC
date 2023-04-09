@@ -1,91 +1,266 @@
 package models;
 
-import requests.RequestStatus_Enum;
-import requests.RequestType_Enum;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Request {
     private String senderID;
+    private String senderName;
+    private String senderEmail;
     private String recipientID;
-    private RequestType_Enum requesttype;
-    private String requestdetail1;
-    private String requestdetail2;
-    private RequestStatus_Enum requeststatus;
+    private String recipientName;
+    private String recipientEmail;
+    private int projectID;
+    private int newProjectID;
+    private String newProjectTitle;
+    private String newSupervisorID;
+    private String newSupervisorName;
+    private String newSupervisorEmail;
+    private RequestType_Enum requestType;
+    private RequestStatus_Enum requestStatus;
     private int requestID;
+    private static ArrayList<Request> requests;
+    private static final String FILEPATH = "src/data/";	
+	private static final String FILENAME = "requests.txt";
+	private static Database d = new Database();
 
 
     ////////////// Constructor //////////////
-    public Request(String senderID,String recipientID,RequestType_Enum requesttype, String requestdetail1, String requestdetail2, RequestStatus_Enum requeststatus,int requestID) {
+    public static RequestDirectory(){
+        requests = new ArrayList<Request>();
+    }
+    
+    // CHANGETITLE
+    public Request(String senderID,String senderName, String senderEmail, String recipientID,String recipientName, String recipientEmail, int projectID, String newProjectTitle, RequestType_Enum requestType, RequestStatus_Enum requestStatus,int requestID) {
         this.senderID = senderID;
+        this.senderName = senderName;
+        this.senderEmail = senderEmail;
         this.recipientID = recipientID;
-        this.requesttype = requesttype;
-        this.requeststatus = requeststatus;
-        this.requestID = requestID; 
-        this.requestdetail1 = requestdetail1;
-        this.requestdetail2 = requestdetail2;
+        this.recipientName = recipientName;
+        this.recipientEmail = recipientEmail;
+        this.projectID = projectID;
+        this.newProjectTitle = newProjectTitle;
+        this.requestType = requestType;
+        this.requestStatus = requestStatus;
+        this.requestID = requestID;
+
     }
 
+	// REGISTERPROJECT and DEREGISTERPROJECT
+    public Request(String senderID,String senderName, String senderEmail, String recipientID,String recipientName, String recipientEmail, int projectID,RequestType_Enum requestType, RequestStatus_Enum requestStatus,int requestID) {
+        this.senderID = senderID;
+        this.senderName = senderName;
+        this.senderEmail = senderEmail;
+        this.recipientID = recipientID;
+        this.recipientName = recipientName;
+        this.recipientEmail = recipientEmail;
+        this.requestType = requestType;
+        this.requestStatus = requestStatus;
+        this.requestID = requestID; 
+        this.projectID = projectID;
+        this.senderName = senderName;
+    }
+
+    // CHANGESUPERVISOR
+    public Request(String senderID,String senderName, String senderEmail, String recipientID,String recipientName, String recipientEmail, int projectID, String newSupervisorID, String newSupervisorName, String newSupervisorEmail, RequestType_Enum requestType, RequestStatus_Enum requestStatus,int requestID) {
+        this.senderID = senderID;
+        this.senderName = senderName;
+        this.senderEmail = senderEmail;
+        this.recipientID = recipientID;
+        this.recipientName = recipientName;
+        this.recipientEmail = recipientEmail;
+        this.newSupervisorID = newSupervisorID;
+        this.newSupervisorName = newSupervisorName;
+        this.newSupervisorEmail = newSupervisorEmail;
+        this.requestType = requestType;
+        this.requestStatus = requestStatus;
+        this.requestID = requestID; 
+        this.projectID = projectID;
+        this.senderName = senderName;
+    }
+    
+    // TRANSFERSTUDENT
+    public Request(String senderID,String senderName, String senderEmail, String recipientID,String recipientName, String recipientEmail, int projectID,int newProjectID,RequestType_Enum requestType, RequestStatus_Enum requestStatus,int requestID) {
+        this.senderID = senderID;
+        this.senderName = senderName;
+        this.senderEmail = senderEmail;
+        this.recipientID = recipientID;
+        this.recipientName = recipientName;
+        this.recipientEmail = recipientEmail;
+        this.requestType = requestType;
+        this.requestStatus = requestStatus;
+        this.requestID = requestID; 
+        this.projectID = projectID;
+        this.newProjectID = newProjectID;
+        this.senderName = senderName;
+    }
+    
     //////////// Class methods //////////////
  
     public void approve() {
-    	requeststatus = RequestStatus_Enum.APPROVED;
+    	requestStatus = RequestStatus_Enum.APPROVED;
         return;
     } // Approve request 
 
 
     public void reject() {
-        requeststatus = RequestStatus_Enum.REJECTED;
+        requestStatus = RequestStatus_Enum.REJECTED;
         return;
     } // Reject request
     
+	public void addRequest(Request r) {
+		requests.add(r);
+		updateFile();
+	}
   
 
     /////////////Accessors and mutators///////////////
-    // gets
     public String getSenderID() {
-        return this.senderID;
-    }
-    public String getRecipientID() {
-        return this.recipientID;
-    }
-    public RequestType_Enum getRequestType() {
-        return this.requesttype;
-    }
-    public RequestStatus_Enum getRequestStatus() {
-        return this.requeststatus;
-    }
-    public int getRequestID() {
-        return this.requestID;
-    }
-    public String getRequestDetail1() {
-        return this.requestdetail1;
-    }
-    public String getRequestDetail2() {
-        return this.requestdetail2;
-    }
-    //sets
-    public void setSenderID(String senderID) {
-        this.senderID = senderID;
-    }
-    public void setRecipientID(String recipientID) {
-        this.recipientID = recipientID;
-    }
-    public void setRequestType(RequestType_Enum requesttype) {
-        this.requesttype = requesttype;
-    }
-    public void setRequestStatus(RequestStatus_Enum requeststatus) {
-        this.requeststatus = requeststatus;
-    }
-    public void setRequestID(int requestID) {
-        this.requestID = requestID;
-    }
-    public void setRequestDetail1(String requestdetail1) {
-        this.requestdetail1 = requestdetail1;
-    }
-    public void setRequestDetail2(String requestdetail2) {
-        this.requestdetail2 = requestdetail2;
-    }
+		return senderID;
+	}
 
+	public void setSenderID(String senderID) {
+		this.senderID = senderID;
+	}
 
+	public String getSenderName() {
+		return senderName;
+	}
+
+	public void setSenderName(String senderName) {
+		this.senderName = senderName;
+	}
+
+	public String getSenderEmail() {
+		return senderEmail;
+	}
+
+	public void setSenderEmail(String senderEmail) {
+		this.senderEmail = senderEmail;
+	}
+
+	public String getRecipientID() {
+		return recipientID;
+	}
+
+	public void setRecipientID(String recipientID) {
+		this.recipientID = recipientID;
+	}
+
+	public String getRecipientName() {
+		return recipientName;
+	}
+
+	public void setRecipientName(String recipientName) {
+		this.recipientName = recipientName;
+	}
+
+	public String getRecipientEmail() {
+		return recipientEmail;
+	}
+
+	public void setRecipientEmail(String recipientEmail) {
+		this.recipientEmail = recipientEmail;
+	}
+
+	public int getProjectID() {
+		return projectID;
+	}
+
+	public void setProjectID(int projectID) {
+		this.projectID = projectID;
+	}
+
+	public int getNewProjectID() {
+		return newProjectID;
+	}
+
+	public void setNewProjectID(int newProjectID) {
+		this.newProjectID = newProjectID;
+	}
+
+	public String getNewProjectTitle() {
+		return newProjectTitle;
+	}
+
+	public void setNewProjectTitle(String newProjectTitle) {
+		this.newProjectTitle = newProjectTitle;
+	}
+
+	public String getNewSupervisorID() {
+		return newSupervisorID;
+	}
+
+	public void setNewSupervisorID(String newSupervisorID) {
+		this.newSupervisorID = newSupervisorID;
+	}
+
+	public String getNewSupervisorName() {
+		return newSupervisorName;
+	}
+
+	public void setNewSupervisorName(String newSupervisorName) {
+		this.newSupervisorName = newSupervisorName;
+	}
+
+	public String getNewSupervisorEmail() {
+		return newSupervisorEmail;
+	}
+
+	public void setNewSupervisorEmail(String newSupervisorEmail) {
+		this.newSupervisorEmail = newSupervisorEmail;
+	}
+
+	public RequestType_Enum getRequestType() {
+		return requestType;
+	}
+
+	public void setRequestType(RequestType_Enum requestType) {
+		this.requestType = requestType;
+	}
+
+	public RequestStatus_Enum getRequestStatus() {
+		return requestStatus;
+	}
+
+	public void setRequestStatus(RequestStatus_Enum requestStatus) {
+		this.requestStatus = requestStatus;
+	}
+
+	public int getRequestID() {
+		return requestID;
+	}
+
+	public void setRequestID(int requestID) {
+		this.requestID = requestID;
+	}
+    
+	public static ArrayList<Request> getRequests(){
+		return requests;
+	}
+	
+	public static Request getRequest(int i){
+		return requests.get(i);
+	}
+
+	
+	public static void updateRequests(ArrayList<Request> r){
+		requests = r;
+	}
+
+	public static void initializeFile() throws Throwable {
+		HashMap<String, String[]> map  = d.initializeFile(FILENAME, FILEPATH);
+		for (String name : map.keySet()) {
+        	String[] values = map.get(name);
+        	new Student(values[0], values[1], values[2], name); 
+        }
+	}
+
+	public static void updateFile() {
+		ArrayList<Request> requests = new ArrayList<>(requests);
+		
+		d.updateFile(FILENAME,FILEPATH,requests);
+	}
 }
 
 

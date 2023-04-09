@@ -15,7 +15,7 @@ public class StudentController extends Controller {
 	public void run(User user) throws Throwable{
 
         if(user instanceof Student) {
-		    studentModel = (Student)user;
+		    studentModel = (Student)user; 
 		}
             
 		mainController = new MainController();
