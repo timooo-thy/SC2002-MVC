@@ -44,7 +44,7 @@ public class RequestView {
 					View.cli.display("Requesting to deregister from projectID: " + Request.getRequest(requestID-1).getProjectID());
 				}
 				else if (Request.getRequest(requestID-1).getRequestType() == RequestType_Enum.CHANGESUPERVISOR) {
-					View.cli.display("For projectID " + Request.getRequest(requestID-1).getProjectID() + " , " + Request.getRequest(requestID-1).getSenderID() + "is requesting to change the supervisor to: " + Request.getRequest(requestID-1).getNewSupervisorName());
+					View.cli.display("For projectID " + Request.getRequest(requestID-1).getProjectID() + " , " + Request.getRequest(requestID-1).getSenderID() + " is requesting to change the supervisor to: " + Request.getRequest(requestID-1).getNewSupervisorName());
 				}
 				
 				View.cli.display("Request Status: " +Request.getRequest(requestID-1).getRequestStatus().toString());

@@ -112,7 +112,7 @@ public class FYPCoordinatorController extends Controller {
 						cli.display("----------------------------");
 					}
 					
-					Thread.sleep(2000);
+					Thread.sleep(3000);
 					break; //break; //fypCoordinatorController.run(); 
 				
 				// Modify project title
@@ -137,7 +137,7 @@ public class FYPCoordinatorController extends Controller {
 					cli.displayTitle("\nProject Name has been changed successfully");
 					
 					
-					Thread.sleep(2000);
+					Thread.sleep(3000);
 					break; //break; //fypCoordinatorController.run();
 				
 				// View all projects
@@ -148,7 +148,7 @@ public class FYPCoordinatorController extends Controller {
 						cli.display("----------------------------");
 					}
 					
-					Thread.sleep(2000);
+					Thread.sleep(3000);
 					break; //fypCoordinatorController.run();
 				
 				// View pending requests
@@ -162,7 +162,7 @@ public class FYPCoordinatorController extends Controller {
 						}
 					}				
 					
-					Thread.sleep(2000);
+					Thread.sleep(3000);
 					break; //fypCoordinatorController.run();
 					
 				// Approve requests
@@ -301,7 +301,7 @@ public class FYPCoordinatorController extends Controller {
 					
 					
 					
-					Thread.sleep(2000);
+					Thread.sleep(3000);
 					break; //fypCoordinatorController.run();
 
 				// View request history	

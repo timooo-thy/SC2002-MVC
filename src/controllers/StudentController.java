@@ -29,13 +29,13 @@ public class StudentController extends Controller {
 		mainController = new MainController();
 
 		String[] menu = {
-                "1. Change Password ",
-				"2. Logout ",
-                "3. Request to Register a Project ",
-                "4. Request Project Title Change ",
-                "5. Request Deregistration of Project ",
-                "6. View Available Projects / View Project Details ",
-                "7. View Request History",
+                "Change Password ",
+                "Request to Register a Project ",
+                "Request Project Title Change ",
+                "Request Deregistration of Project ",
+                "View Available Projects / View Project Details ",
+                "View Request History",
+				"Logout ",
 		};
 		
 		int choice = 0;
@@ -84,12 +84,8 @@ public class StudentController extends Controller {
 				    }
 					    
 					break;
-
-				case 2://logout
-					cli.display("Logging out...");
-					return;
 					
-				case 3://request:Register Project
+				case 2://request:Register Project
 					int projectChoice;
 					ProjectStatus_Enum projectStatus;
 					
@@ -116,10 +112,10 @@ public class StudentController extends Controller {
 					else {
 						cli.display("You are already registered for a project.");				
 					}
-					Thread.sleep(1000);
+					Thread.sleep(3000);
 					break;
 					
-				case 4: //Request: Project Title Change
+				case 3: //Request: Project Title Change
 					String newTitle;					
 					cli.displayTitle("Request for Change of Project Title");
 					if (studentModel.getProjectID() == -1 || studentModel.getProjectID() == 0) {
@@ -138,7 +134,7 @@ public class StudentController extends Controller {
 						Thread.sleep(3000);
 						break;
 				
-				case 5: //Request: Project Deregistration
+				case 4: //Request: Project Deregistration
 					cli.displayTitle("Deregistering Project");
 					cli.display("Request to deregister project: " + Project.getProject(studentModel.getProjectID()).getProjectTitle());
 					cli.display("Enter 1 to confirm, 2 to exit. "); 
@@ -157,7 +153,7 @@ public class StudentController extends Controller {
 					Thread.sleep(3000);
 					break;
 					
-				case 6: //View available projects
+				case 5: //View available projects
 					ProjectView projectView = new ProjectView();
 					if (studentModel.getProjectID() == -1) {
 						cli.displayTitle("View all Available Projects");
@@ -172,14 +168,18 @@ public class StudentController extends Controller {
 					Thread.sleep(3000);
 					break;
 				
-				case 7: //View RequestHistory
+				case 6: //View RequestHistory
 					cli.displayTitle("View Request History");
 					RequestView.printRequestHistory(studentModel.getId());
 					Thread.sleep(3000);
 					break;
 				
+				case 7:
+					cli.display("Logging out...");
+					return;
+				
 				default:
-				studentController.run(studentModel);
+					return;
 			}
 		}
 	}
