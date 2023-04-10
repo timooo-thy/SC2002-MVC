@@ -9,7 +9,7 @@ public class Project {
 	
 	private static final String FILEPATH = "src/data/";
 	
-	private static final String FILENAME = "rollover project.txt";
+	private static final String FILENAME = "rolloverproject.txt";
 	
 	private static ArrayList<Project> projectList = new ArrayList<Project>();
 	
@@ -252,8 +252,8 @@ public class Project {
 		HashMap<Integer, Object[]> map  = d.initializeProjectFile(FILENAME, FILEPATH);
 		for (int projId : map.keySet()) {
         	Object[] values = map.get(projId);       	
-        		new Project((String)values[1],(String) values[2],(ProjectStatus_Enum) values[4]); 
-        		if ((ProjectStatus_Enum)values[4] != ProjectStatus_Enum.ALLOCATED) {
+        		new Project((String)values[0], (String)values[1], (ProjectStatus_Enum)values[3]); 
+        		if ((ProjectStatus_Enum)values[3] != ProjectStatus_Enum.ALLOCATED) {
         			
         		}
         }

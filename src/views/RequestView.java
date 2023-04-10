@@ -2,7 +2,6 @@ package views;
 
 import models.*;
 
-
 public class RequestView {
 
 	public static void printRequestInfo(int requestID){

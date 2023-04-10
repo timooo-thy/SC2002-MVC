@@ -142,7 +142,7 @@ public class Database {
 	        PrintWriter writer = new PrintWriter(FILEPATH+FILENAME, "UTF-8");
 	        writer.println("ProjectId;supervisorName;Title;studentName;projectStatus");
 	        for (Project proj : list) {
-	            writer.println(proj.getProjectId()+ ";" + proj.getSupervisorName() + ";" + proj.getProjectTitle()+ ";" +proj.getProjectStatus());
+	            writer.println(proj.getProjectId()+ ";" + proj.getSupervisorName() + ";" + proj.getProjectTitle()+ ";" + proj.getStudentName() + ";" + proj.getProjectStatus());
 	        }
 	        writer.close();
 	    } catch (IOException e) {

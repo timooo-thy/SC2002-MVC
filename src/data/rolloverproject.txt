@@ -1,0 +1,17 @@
+ProjectId;supervisorName;Title;studentName;projectStatus
+1;A S Madhukumar;Machine Learning-based Interference Mitigation in a Multi-tier Networks;null;AVAILABLE
+2;A S Madhukumar;Deep Learning-Driven Edge Caching for 5G-and-Beyond Industrial IoT Networks;null;AVAILABLE
+3;Alexei Sourin;Sonification of geometry 1;null;AVAILABLE
+4;Arvind Easwaran;Edge/Cloud Resource Management for Time-Sensitive Applications (2);null;AVAILABLE
+5;Bo An;Deep Reinforcement Learning for Complex Environment;null;AVAILABLE
+6;Bo An;Build Software Agents for Power Trading Agent Competition;null;AVAILABLE
+7;Bo An;Designing Negotiation Agents to Parcitipate in International Competition;null;AVAILABLE
+8;Cai Wentong;Creation of Meta-model for Agent-based Simulation Using Machine Learning Approach;null;AVAILABLE
+9;Chen Change Loy;Encoding Images to Text Prompts with CLIP;null;AVAILABLE
+10;Chia Liang Tien;Smart Monitor for Studio Photographer;null;AVAILABLE
+11;Cong Gao;Developing a demonstration system for spatial data exploration and visualization;null;AVAILABLE
+12;Cong Gao;Deep Learning Supported Location-aware Keyword Query;null;AVAILABLE
+13;Douglas Leslie Maskell;An AI based Li-ion fast battery charger for power tools;null;AVAILABLE
+14;Douglas Leslie Maskell;A Li-ion fast battery charger;null;AVAILABLE
+15;Dusit Niyato;Metaverse for virtual education 1;null;AVAILABLE
+16;Ke Yiping, Kelly;Graph-based Deep Models for Image Semantic Segmentation;null;AVAILABLE

@@ -98,7 +98,7 @@ public class FYPCoordinatorController extends Controller {
 						break; //break; //fypCoordinatorController.run();
 					}
 					
-					new Project(supervisorName,projectTitle);
+					//new Project(supervisorName,projectTitle);
 //					Project.updateFile(); // Update file
 //					Supervior.updateFile(); // Update file
 				
@@ -170,7 +170,6 @@ public class FYPCoordinatorController extends Controller {
 					
 					String[] requestsMenu = {
 							"Approve Project Allocation",
-							"Approve Student Transfer " ,
 							"Approve Title Change ",
 							"Approve Supervisor Change ",
 							"Approve Deregistration ",
@@ -179,7 +178,8 @@ public class FYPCoordinatorController extends Controller {
 					
 					choice = 0;
 					while(choice <= requestsMenu.length) {
-						
+						if(choice==5)
+							break;
 						cli.displayTitle("Approve Requests");
 						cli.display(requestsMenu);
 						
@@ -214,7 +214,7 @@ public class FYPCoordinatorController extends Controller {
 							}
 							cli.display("Enter 1 to Approve Request \nEnter 2 to Reject Request");
 							confirmation = cli.inputInteger("choice", 1, 2);
-							if (confirmation == 1) {
+							/*if (confirmation == 1) {
 								Request.getRequest(choice-1).approve();
 								// Update student projectID
 								Student.setProjectID(Request.getRequest(choice-1).getProjectID());
@@ -231,7 +231,7 @@ public class FYPCoordinatorController extends Controller {
 //								Request.updateFile(); // Update file
 //								Student.updateFile(); // Update file
 //								Project.updateFile(); // Update file
-							}
+							}*/
 							
 							
 							break; //fypCoordinatorController.run();
@@ -289,15 +289,14 @@ public class FYPCoordinatorController extends Controller {
 								
 								break; //fypCoordinatorController.run();
 							// Back	
-							case 6:
-							
-							break; //fypCoordinatorController.run();
+							case 5:
+								break; //fypCoordinatorController.run();
 							
 	// INCOMEPLETE CODE INCOMEPLETE CODE INCOMEPLETE CODE INCOMEPLETE CODE INCOMEPLETE CODE INCOMEPLETE CODE INCOMEPLETE CODE INCOMEPLETE CODE 	
 						}
 					}
 
-					break; //fypCoordinatorController.run();
+						//fypCoordinatorController.run();
 							
 					
 					
