@@ -19,10 +19,6 @@ public class SupervisorController extends Controller {
 	
 	private MainController mainController;
 	
-	private ProjectView projView = new ProjectView();
-	
-	private RequestView reqView = new RequestView();
-	
 	public void run(User user) throws Throwable{
 
         if(user instanceof Supervisor) {
@@ -95,7 +91,7 @@ public class SupervisorController extends Controller {
 					String projectTitle;
 					cli.display("Please enter the Project title");
 					projectTitle = cli.inputString("project title");
-					Project.addProject(new Project(supervisorModel.getName(), projectTitle));
+					//Project.addProject(new Project(supervisorModel.getName(), projectTitle));
 					
 					cli.displayTitle("\nPROJECT HAS BEEN ADDED SUCCESSFULLY");
 					//Project.updateFile();
@@ -106,7 +102,7 @@ public class SupervisorController extends Controller {
 					cli.displayTitle("View project created by you");
 					for (Project proj : Project.getProjectList()) {
 						if (proj.getSupervisorName() == supervisorModel.getName()) 
-							projView.printProjectInfo(proj.getProjectId());
+							ProjectView.printProjectInfo(proj.getProjectId());
 					}
 					
 					cli.displayTitle("\nPROJECT LIST HAS BEEN PRINTED");
@@ -121,7 +117,7 @@ public class SupervisorController extends Controller {
 					}
 					else {
 						for (Project proj : supervisorModel.getSupervisedProjectList()) {
-							projView.printProjectInfo(proj.getProjectId());
+							ProjectView.printProjectInfo(proj.getProjectId());
 						}
 						break;
 					}
@@ -136,7 +132,7 @@ public class SupervisorController extends Controller {
 					for (Request req : Request.getRequests()) {
 						if (req.getRequestStatus() == RequestStatus_Enum.PENDING) {
 							if (req.getRequestType() == RequestType_Enum.CHANGETITLE) {
-								reqView.printRequestInfo(req.getRequestID());
+								RequestView.printRequestInfo(req.getRequestID());
 								cli.display("----------------------------");
 							}
 						}
@@ -165,7 +161,7 @@ public class SupervisorController extends Controller {
 					//RequestDirectory.getIncomingRequests(UserType_Enum.SUPERVISOR);
 					for (Request req : Request.getRequests()) {
 						if (req.getRequestType() == RequestType_Enum.CHANGETITLE && req.getRequestStatus() == RequestStatus_Enum.PENDING) {
-							reqView.printRequestInfo(req.getRequestID());
+							RequestView.printRequestInfo(req.getRequestID());
 							cli.display("----------------------------");
 						}
 					}	
@@ -175,7 +171,7 @@ public class SupervisorController extends Controller {
 					//View request history and status
 					cli.displayTitle("View Request History");
 					//RequestDirectory.viewRequestHistory(supervisorModel.getuserID(),UserType_Enum.SUPERVISOR);
-						reqView.printRequestHistory(supervisorModel.getId());
+						RequestView.printRequestHistory(supervisorModel.getId());
 						cli.display("----------------------------");
 					
 					break;

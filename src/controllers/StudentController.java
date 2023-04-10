@@ -36,7 +36,6 @@ public class StudentController extends Controller {
                 "5. Request Deregistration of Project ",
                 "6. View Available Projects / View Project Details ",
                 "7. View Request History",
-                "8. Back"
 		};
 		
 		int choice = 0;
@@ -178,7 +177,7 @@ public class StudentController extends Controller {
 					RequestView.printRequestHistory(studentModel.getId());
 					Thread.sleep(3000);
 					break;
-					
+				
 				default:
 				studentController.run(studentModel);
 			}
