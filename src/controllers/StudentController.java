@@ -158,15 +158,16 @@ public class StudentController extends Controller {
 					Thread.sleep(3000);
 					studentController.run(studentModel);
 				case 6: //View available projects
+					ProjectView projectView = new ProjectView();
 					if (studentModel.getProjectID() == -1) {
 					cli.displayTitle("View all available Projects");
-					ProjectView.projectInfo();
+					projectView.projectAvailableInfo();
 					}
 					else if (studentModel.getProjectID() == 0)
 						cli.display("Your request to select project is pending, please be patient!");
 					else {
 						cli.display("Here is the detail of your project: ");
-						ProjectView.printProjectInfo(studentModel.getProjectID());
+						projectView.printProjectInfo(studentModel.getProjectID());
 					}
 					Thread.sleep(3000);
 					studentController.run(studentModel);

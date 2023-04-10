@@ -65,6 +65,7 @@ public class Project {
 		this.supervisorEmail = getSupervisorNameToEmail(supervisorName);
         this.projectId = projectList.size()+1;
         this.projectTitle = projectTitle;
+        this.projectStatus = ProjectStatus_Enum.AVAILABLE;
 		addProject(this);
 	}
 		
@@ -81,7 +82,7 @@ public class Project {
 	
 	//project id start from 1
 	public static Project getProject(int i){
-		return projectList.get(i);
+		return projectList.get(i-1);
 	}
 	
 	////////////////////////////////////////////////////////////////////////////////////////

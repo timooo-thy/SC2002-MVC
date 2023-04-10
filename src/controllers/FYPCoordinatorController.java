@@ -126,12 +126,12 @@ public class FYPCoordinatorController extends Controller {
 					}
 					
 					cli.display("Enter Project ID to change title:");
-					choice = cli.inputInteger("choice", 1, Project.getProjectList().size());
+					choice = cli.inputInteger("choice", 1, Project.getProjectList().size()+1);
 
 
 					newTitle = cli.inputString("Enter new title:","Eg. Molecular Genetics Studies");
 					
-					Project.getProject(choice-1).setProjectTitle(newTitle);
+					Project.getProject(choice).setProjectTitle(newTitle);
 //					Project.updateFile(); // Update file
 					
 					cli.displayTitle("\nProject Name has been changed successfully");
@@ -227,7 +227,7 @@ public class FYPCoordinatorController extends Controller {
 							else {
 								Request.getRequest(choice-1).reject();
 								Student.setProjectID(-1);
-								Project.getProject(choice-1).setProjectStatus(ProjectStatus_Enum.AVAILABLE);
+								Project.getProject(choice).setProjectStatus(ProjectStatus_Enum.AVAILABLE);
 //								Request.updateFile(); // Update file
 //								Student.updateFile(); // Update file
 //								Project.updateFile(); // Update file
