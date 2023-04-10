@@ -1,5 +1,5 @@
-# NTU SCSE SC2002 OODP Assignment: FYPRSA
- FYP Registration System Application
+# NTU SCSE SC2002 OODP Assignment
+ FYP Registration System Application (FYPRSA)
  
  ## About
  In today's academic environment, Final Year Projects play a crucial role in every university student. It is essential to have an efficient system that can manage and monitor the progress of these projects, which involves collaboration between Students, Supervisors, and the FYP Coordinator. 
