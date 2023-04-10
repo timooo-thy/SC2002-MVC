@@ -161,8 +161,8 @@ public class StudentController extends Controller {
 				case 6: //View available projects
 					ProjectView projectView = new ProjectView();
 					if (studentModel.getProjectID() == -1) {
-					cli.displayTitle("View all Available Projects");
-					projectView.projectAvailableInfo();
+						cli.displayTitle("View all Available Projects");
+						projectView.projectAvailableInfo();
 					}
 					else if (studentModel.getProjectID() == 0)
 						cli.display("Your request to select project is pending, please be patient!");
@@ -175,7 +175,6 @@ public class StudentController extends Controller {
 				
 				case 7: //View RequestHistory
 					cli.displayTitle("View Request History");
-					cli.display(studentModel.getId());
 					RequestView.printRequestHistory(studentModel.getId());
 					Thread.sleep(3000);
 					break;

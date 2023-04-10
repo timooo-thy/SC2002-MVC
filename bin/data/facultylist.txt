@@ -1,21 +1,19 @@
 Name Email Password
 Arvind Easwaran;ARVINDE@ntu.edu.sg;password
 Wen Yonggang;YGWEN@ntu.edu.sg;password
+Pan, Sinno Jialin;SINNOPAN@ntu.edu.sg;password
 Luo Jun;JUNLUO@ntu.edu.sg;password
 Sun Aixin;AXSUN@ntu.edu.sg;password
 Zhang Hanwang;HANWANGZHANG@ntu.edu.sg;password
 Alexei Sourin;ASSOURIN@ntu.edu.sg;password
-He Ying; YHE@ntu.edu.sg;password
-"Pan, Sinno Jialin";SINNOPAN@ntu.edu.sg;password
+He Ying;YHE@ntu.edu.sg;password
 Smitha K G;SMITHA@ntu.edu.sg;password
 Oh Hong Lye;HLOH@ntu.edu.sg;password
-"Ke Yiping, Kelly";YPKE@ntu.edu.sg;password
 Chen Change Loy;CCLOY@ntu.edu.sg;password
 Joty Shafiq Rayhan;SRJOTY@ntu.edu.sg;password
 Lu Shijian;SHIJIAN.LU@ntu.edu.sg;password
 Li Fang;ASFLI@ntu.edu.sg;password
 Tay Kian Boon;kianboon.tay@ntu.edu.sg;password
-"Vun Chan Hua, Nicholas";ASCHVUN@ntu.edu.sg;password
 Liu Weichen;LIU@ntu.edu.sg;password
 Liu Ziwei;ziwei.liu@ntu.edu.sg;password
 Ong Yew Soon;ASYSOng@ntu.edu.sg;password
@@ -48,6 +46,7 @@ Yu Han;HAN.YU@ntu.edu.sg;password
 Kong Wai-Kin Adams;ADAMSKONG@ntu.edu.sg;password
 Shen Zhiqi;ZQSHEN@ntu.edu.sg;password
 Luo Siqiang;siqiang.luo@ntu.edu.sg;password
+Vun Chan Hua, Nicholas;ASCHVUN@ntu.edu.sg;password
 Liu Yang;YANGLIU@ntu.edu.sg;password
 Ng Wee Keong;AWKNG@ntu.edu.sg;password
 Lin Shang-Wei;SHANG-WEI.LIN@ntu.edu.sg;password
@@ -55,6 +54,7 @@ Luu Anh Tuan;anhtuan.luu@ntu.edu.sg;password
 Douglas Leslie Maskell;ASDOUGLAS@ntu.edu.sg;password
 Vidya Sudarshan;vidya.sudarshan@ntu.edu.sg;password
 Zhao Jun;JUNZHAO@ntu.edu.sg;password
+Ke Yiping, Kelly;YPKE@ntu.edu.sg;password
 Qian Kemao;MKMQIAN@ntu.edu.sg;password
 Goh Wooi Boon;ASWBGOH@ntu.edu.sg;password
 Lee Bu Sung;EBSLEE@ntu.edu.sg;password
