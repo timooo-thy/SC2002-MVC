@@ -1,4 +1,4 @@
-Name Email Password
+name;email;password
 CALVIN;CT113@e.ntu.edu.sg;password
 RAWAL;AKY013@e.ntu.edu.sg;password
 ERNEST;ELI34@e.ntu.edu.sg;password

@@ -1,4 +1,4 @@
-ProjectId;supervisorName;Title;studentName;projectStatus
+projectId;supervisorName;Title;studentName;projectStatus
 1;A S Madhukumar;Machine Learning-based Interference Mitigation in a Multi-tier Networks;null;AVAILABLE
 2;A S Madhukumar;Deep Learning-Driven Edge Caching for 5G-and-Beyond Industrial IoT Networks;null;AVAILABLE
 3;Alexei Sourin;Sonification of geometry 1;null;AVAILABLE
