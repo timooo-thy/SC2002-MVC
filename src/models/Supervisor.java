@@ -13,6 +13,8 @@ public class Supervisor extends User {
 
 	private static ArrayList<Supervisor> supervisorsList = new ArrayList<Supervisor>();
 
+	private static ArrayList<Project> supervisedProjectList = new ArrayList<Project>();
+	
 	private static Database d = new Database();
 	
 	private String supervisorId;
@@ -75,6 +77,25 @@ public class Supervisor extends User {
         this.projectID=projectID;
     }*/
 	
+    public ArrayList<Project> getSupervisedProjectList(){
+    	if (supervisedProjectList == null) return null;
+    	return this.supervisedProjectList;
+    }
+    
+    public ArrayList<Project> getSupervisedProjectList(String supervisorId){
+    	for (Supervisor sup : Supervisor.getSupervisorsList())
+    		if (sup.getId() == supervisorId)
+    			return getSupervisedProjectList();
+    	return null;
+    }
+    
+    public static Supervisor getSuperVisor(String supervisorId) {
+    	for (Supervisor sup : supervisorsList) {
+    		if (sup.getId() == supervisorId) return sup;
+    	}
+    	return null;
+    }
+    
 	public static boolean duplicateSupervisorId(String supervisorId) {
 
 		for (Supervisor s : supervisorsList) {

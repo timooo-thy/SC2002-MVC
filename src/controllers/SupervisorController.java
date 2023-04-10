@@ -34,11 +34,12 @@ public class SupervisorController extends Controller {
                 "1. Change Password ",
 				"2. Add a new project " ,
 				"3. View project created by you ",
-				"4. Modify project title upon request ",
-				"5. Request FYP coordinator to change supervisor in charged ",
-                "6. View pending request ",
-                "7. View request history and status ",
-				"8. Logout "
+				"4. View superivsed project ",
+				"5. Modify project title upon request ",
+				"6. Request FYP coordinator to change supervisor in charged ",
+                "7. View pending request ",
+                "8. View request history and status ",
+				"9. Logout "
 		};
 		
 		int choice = 0;
@@ -109,8 +110,22 @@ public class SupervisorController extends Controller {
 					
 					cli.displayTitle("\nPROJECT LIST HAS BEEN PRINTED");
 					break;
-					
+				
 				case 4:
+					//View supervised project
+					cli.displayTitle("View supervised project");
+					if (supervisorModel.getSupervisedProjectList() == null) {
+						cli.display("Currectly not supervising any project");
+						break;
+					}
+					else {
+						for (Project proj : supervisorModel.getSupervisedProjectList()) {
+							projView.printProjectInfo(proj.getProjectId());
+						}
+						break;
+					}
+					
+				case 5:
 					//Modify project title upon request
 					cli.displayTitle("Changing project title upon student request");
 					cli.displayTitle("Approve Title Change");
@@ -129,7 +144,7 @@ public class SupervisorController extends Controller {
 					cli.displayTitle("\nPROJECT TITLE HAS BEEN UPDATED");
 					break;
 					
-				case 5:
+				case 6:
 					//Request FYP coordinator to change supervisor in charged
 					cli.displayTitle("Sending request to change supervisor in charged");
 					
@@ -137,13 +152,13 @@ public class SupervisorController extends Controller {
 					int projectID = cli.inputInteger("project ID");      
 				    cli.display("Enter the replacement supervisorID: ");
 				    String newSupervisorID = cli.inputString("supervisor ID");
-				    new Request(supervisorModel.getId(),supervisorModel.getName(),supervisorModel.getEmailAddress(), "ASFLI", "ASFLI", "ASFLI",projectID,newSupervisorID,RequestType_Enum.CHANGESUPERVISOR,projectID,supervisorID);
+				    new Request(supervisorModel.getId(),supervisorModel.getName(),supervisorModel.getEmailAddress(), "ASFLI", "ASFLI", "ASFLI",projectID,newSupervisorID,RequestType_Enum.CHANGESUPERVISOR,RequestStatus_Enum.PENDING,Request.getRequests().size());
 					
 				    // Request.updateFile(); // Update file
 					cli.displayTitle("\nREQUEST HAS BEEN SENT");
 					break;
 					
-				case 6:
+				case 7:
 					//View pending request
 					cli.displayTitle("View pending request");
 					//RequestDirectory.getIncomingRequests(UserType_Enum.SUPERVISOR);
@@ -155,7 +170,7 @@ public class SupervisorController extends Controller {
 					}	
 					break;
 					
-				case 7:
+				case 8:
 					//View request history and status
 					cli.displayTitle("View Request History");
 					//RequestDirectory.viewRequestHistory(supervisorModel.getuserID(),UserType_Enum.SUPERVISOR);
@@ -163,7 +178,8 @@ public class SupervisorController extends Controller {
 						cli.display("----------------------------");
 					
 					break;
-				case 8:
+					
+				case 9:
 					cli.display("Logging out...");
 					return;
 									

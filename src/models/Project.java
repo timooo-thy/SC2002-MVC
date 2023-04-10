@@ -3,7 +3,7 @@ package models;
 import java.util.ArrayList;
 import java.util.HashMap;
 import utilities.Database;
-import java.util.Scanner;
+import models.Supervisor;
 
 public class Project {
 	
@@ -263,9 +263,9 @@ public class Project {
 	// For ProjectFYPCoordinator Interface //
 	
 	public void changeSupervisor(int projectId, String replacementSupervisorId) {
-		projectList.get(projectId).setSupervisorId(replacementSupervisorId);;
-		projectList.get(projectId).setSupervisorName(getSupervisorIdToName(replacementSupervisorId));
-		projectList.get(projectId).setSupervisorEmail(getSupervisorIdToEmail(replacementSupervisorId));
+		projectList.get(projectId-1).setSupervisorId(replacementSupervisorId);;
+		projectList.get(projectId-1).setSupervisorName(getSupervisorIdToName(replacementSupervisorId));
+		projectList.get(projectId-1).setSupervisorEmail(getSupervisorIdToEmail(replacementSupervisorId));
 		System.out.print("Supervisor has been changed successfully to...");
 		System.out.print("Supervisor Id:" + getSupervisorId());
 		System.out.print("Supervisor Email:" + getSupervisorEmail());
@@ -273,70 +273,29 @@ public class Project {
 	}
 	
 	public void allocateProject(int projectId, String studentId) {
-		projectList.get(projectId).setStudentId(studentId);
-		projectList.get(projectId).setStudentEmail(getStudentIdToEmail(studentId));
-		projectList.get(projectId).setStudentName(getStudentIdToName(studentId));		
-		projectList.get(projectId).setProjectStatus(ProjectStatus_Enum.ALLOCATED);
+		projectList.get(projectId-1).setStudentId(studentId);
+		projectList.get(projectId-1).setStudentEmail(getStudentIdToEmail(studentId));
+		projectList.get(projectId-1).setStudentName(getStudentIdToName(studentId));		
+		projectList.get(projectId-1).setProjectStatus(ProjectStatus_Enum.ALLOCATED);
 		System.out.println("Student has been changed successfully to...");
 		System.out.println("Student Id:" + projectList.get(projectId).getStudentId());
 		System.out.println("Student Email:" + projectList.get(projectId).getStudentEmail());
 		// do something to supervisor
 	}
 	
-	public void deregisterStudent(int projectId/*, String studentId*/) {
-		projectList.get(projectId).setStudentId(null);
-		projectList.get(projectId).setStudentName(null);
-		projectList.get(projectId).setStudentEmail(null);
-		projectList.get(projectId).setProjectStatus(ProjectStatus_Enum.AVAILABLE);
+	public void deregisterStudent(int projectId) {
+		Project tempProj = projectList.get(projectId-1);
+		Supervisor tempSup = Supervisor.getSuperVisor(tempProj.getSupervisorId()); 
+		tempProj.setStudentId(null);
+		tempProj.setStudentName(null);
+		tempProj.setStudentEmail(null);
+		tempProj.setProjectStatus(ProjectStatus_Enum.AVAILABLE);
 		// do something in supervisor
+		for (Project proj : tempSup.getSupervisedProjectList()) {
+			//if (proj.getProjectId() == projectId) tempSup.getS
+		}
+			
 	}
-	
-//	public void viewAllProject() {
-//		for (int i = 0; i < projectList.size(); i++) {
-//			System.out.printf("supervisor name : %s \n",projectList.get(i).getSupervisorName());
-//			System.out.printf("supervisor Id : %s \n",projectList.get(i).getSupervisorId()); 
-//			System.out.printf("supervisor email : %s \n",projectList.get(i).getSupervisorEmail());
-//			if (projectList.get(i).getProjectStatus() == projectStatus_Enum.ALLOCATED) {
-//				System.out.printf("student name : %s \n",projectList.get(i).getStudentName());
-//				System.out.printf("student Id : %s \n",projectList.get(i).getStudentId());
-//				System.out.printf("student Email : %s \n",projectList.get(i).getStudentEmail());
-//			}
-//			System.out.printf("project Id : %d \n",projectList.get(i).getProjectId());
-//			System.out.printf("Project title : %s \n",projectList.get(i).getProjectTitle());
-//			System.out.printf("project status : %s \n",projectList.get(i).getProjectStatus());
-//			System.out.println();
-//		}
-//	}
-	
-//	public voId getFilteredProjectDetails() {
-//		// filter based on sup name, availability, 
-//	}
-	
-	///////////////////////////////////////////////////////////////////////////////////////
-
-	// For ProjectSupervisor Interface //
-
-//	public static void getProjectDetails(String supervisorId) {
-//		for (int i = 0; i < projectList.size(); i++) {
-//			if ((projectList.get(i).getSupervisorId()).equals(supervisorId)) {
-//				System.out.printf("supervisor Id : %s \n",projectList.get(i).getSupervisorId()); 
-//				System.out.printf("supervisor email : %s \n",projectList.get(i).getSupervisorEmail());
-//				System.out.printf("project status : %s \n",projectList.get(i).getProjectStatus());
-//				if (projectList.get(i).getProjectStatus() == ProjectStatus_Enum.ALLOCATED) {
-//					System.out.printf("student name : %s \n",projectList.get(i).getStudentName());
-//					System.out.printf("student Id : %s \n",projectList.get(i).getStudentId());
-//					System.out.printf("student Email : %s \n",projectList.get(i).getStudentEmail());
-//					System.out.printf("project Id : %d \n",projectList.get(i).getProjectId());
-//					System.out.printf("Project title : %s \n",projectList.get(i).getProjectTitle());
-//				}
-//				else {
-//					System.out.printf("project Id : %d \n",projectList.get(i).getProjectId());
-//					System.out.printf("Project title : %s \n",projectList.get(i).getProjectTitle());
-//				}
-//				System.out.println();
-//			}
-//		}
-//	}
 	
 	public static void createProject() {
 		
@@ -350,38 +309,9 @@ public class Project {
 	}
 	
 	
-	///////////////////////////////////////////////////////////////////////////////////////
-
-	// For ProjectStudentPreAllocation Interface //
-//	public void projectInfo() {
-//		for (int i = 0; i < projectList.size(); i++) {
-//			if (projectList.get(i).projectStatus == projectStatus_Enum.AVAILABLE) {
-//				System.out.println("Project Id:" + projectList.get(i).getProjectId());
-//				System.out.println("Project Title:" + projectList.get(i).getProjectTitle());
-//				System.out.println("Supervisor Id:" + projectList.get(i).getSupervisorName());
-//				System.out.println("Supervisor Email:" + projectList.get(i).getSupervisorEmail());
-//			}
-//		}
-//	}
-	
 	public void selectProject() {
 		
 	}
 	
-	///////////////////////////////////////////////////////////////////////////////////////
-
-	// For ProjectStudentPostAllocation Interface //
-	
-//	public void projectDetails() {
-//		System.out.println("Project Id:" + getProjectId());
-//		System.out.println("Project Title:" + getProjectTitle());
-//		System.out.println("Supervisor Name:" + getSupervisorName());
-//		System.out.println("Supervisor Id:" + getSupervisorId());
-//		System.out.println("Supervisor Email:" + getSupervisorEmail());
-//		System.out.println("Student Id:" + getStudentId());
-//		System.out.println("Student Email:" + getStudentEmail());
-//		System.out.println();
-//	}
-
 }
 
