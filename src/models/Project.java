@@ -61,12 +61,28 @@ public class Project {
         this.projectStatus = projStatus;
 		addProject(this);
 	}
-		
+	
+	public Project(String supervisorName, String projectTitle, String studentName, ProjectStatus_Enum projStatus) {
+		this.supervisorId = getSupervisorNameToId(supervisorName).toUpperCase();
+		this.supervisorName = supervisorName;
+		this.supervisorEmail = getSupervisorNameToEmail(supervisorName);
+		this.studentName = studentName;
+		this.studentId = getStudentIdToName(studentName);
+		this.studentEmail = getStudentIdToEmail(studentName);
+        this.projectId = projectList.size()+1;
+        this.projectTitle = projectTitle;
+        this.projectStatus = projStatus;
+		addProject(this);
+	}
+	
 	////////////////////////////////////////////////////////////////////////////////////////
 	
 	public static void addProject(Project project){
 		projectList.add(project);
 		updateProjectFile();
+	}
+	public static void addSupervisedProject(String supervisorId,Project p) {
+		Supervisor.getSupervisorFromName(supervisorId).getSupervisedProjectList().add(p);
 	}
 	
 	public static ArrayList<Project> getProjectList(){
@@ -252,10 +268,10 @@ public class Project {
 		HashMap<Integer, Object[]> map  = d.initializeProjectFile(FILENAME, FILEPATH);
 		for (int projId : map.keySet()) {
         	Object[] values = map.get(projId);       	
-        		new Project((String)values[0], (String)values[1], (ProjectStatus_Enum)values[3]); 
-        		if ((ProjectStatus_Enum)values[3] != ProjectStatus_Enum.ALLOCATED) {
-        			
+        		if ((ProjectStatus_Enum)values[3] == ProjectStatus_Enum.ALLOCATED) {
+        				addSupervisedProject((String)values[0], new Project((String)values[0],(String) values[1],(String) values[2],(ProjectStatus_Enum) values[3]));
         		}
+        		else new Project((String)values[0],(String) values[1],(ProjectStatus_Enum) values[3]); 
         }
 	}
 
@@ -288,7 +304,7 @@ public class Project {
 	
 	public void deregisterStudent(int projectId) {
 		Project tempProj = projectList.get(projectId-1);
-		Supervisor tempSup = Supervisor.getSuperVisor(tempProj.getSupervisorId()); 
+		Supervisor tempSup = Supervisor.getSupervisorFromId(tempProj.getSupervisorId()); 
 		tempProj.setStudentId(null);
 		tempProj.setStudentName(null);
 		tempProj.setStudentEmail(null);

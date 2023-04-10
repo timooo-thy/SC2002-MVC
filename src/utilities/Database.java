@@ -74,42 +74,6 @@ public class Database {
 	    }
 	}
 	
-//	public HashMap<String, String> initializeProjectFile(String FILENAME, String FILEPATH) {
-//		File model = new File(FILEPATH + FILENAME);
-//		HashMap<String, String> map = new HashMap<>();
-//		try {
-//            FileReader fileReader = new FileReader(model);
-//            BufferedReader bufferedReader = new BufferedReader(fileReader);
-//            bufferedReader.readLine();
-//            String line;
-//            while ((line = bufferedReader.readLine()) != null) {
-//            	String[] splitLine = line.trim().split(";");
-//            	String title = splitLine[1];
-//            	String name = splitLine[0].trim(); 
-//                map.put(name, title);
-//            }
-//            bufferedReader.close();
-//        }
-//        catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//		return map;
-//        
-//	}
-//	
-//	public void updateProjectFile(String FILENAME, String FILEPATH, ArrayList<Project> list) {
-//		try {
-//	        PrintWriter writer = new PrintWriter(FILEPATH+FILENAME/*, "UTF-8"*/);
-//	        writer.println("Supervisor Title");
-//	        for (Project project : list) {
-//	            writer.println(project.getSupervisorName() + ";" + project.getProjectTitle());
-//	        }
-//	        writer.close();
-//	    } catch (IOException e) {
-//	        e.printStackTrace();
-//	    }
-//	}
-	
 	public HashMap<Integer, Object[]> initializeProjectFile(String FILENAME, String FILEPATH) {
 		File model = new File(FILEPATH + FILENAME);
 		HashMap<Integer, Object[]> map = new HashMap<>();
@@ -142,7 +106,7 @@ public class Database {
 	        PrintWriter writer = new PrintWriter(FILEPATH+FILENAME, "UTF-8");
 	        writer.println("ProjectId;supervisorName;Title;studentName;projectStatus");
 	        for (Project proj : list) {
-	            writer.println(proj.getProjectId()+ ";" + proj.getSupervisorName() + ";" + proj.getProjectTitle()+ ";" + proj.getStudentName() + ";" + proj.getProjectStatus());
+	            writer.println(proj.getProjectId()+ ";" + proj.getSupervisorName() + ";" + proj.getProjectTitle() + ";" + proj.getStudentName() + ";" + proj.getProjectStatus());
 	        }
 	        writer.close();
 	    } catch (IOException e) {
