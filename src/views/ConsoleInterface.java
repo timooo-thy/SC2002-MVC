@@ -92,6 +92,20 @@ public class ConsoleInterface {
 		}
 	}
 	
+	public int inputInteger(String title) {
+		
+		while (true) {
+			try {
+				System.out.print(">> " + title + ": ");
+				int input =sc.nextInt();
+				sc.nextLine();
+				return input;
+			} catch (InputMismatchException e) {
+				sc.nextLine();
+			}
+			System.out.println("   ERROR: Please enter a valid input.");
+		}
+	}
 	/**
 	 * Input a String with length restrictions.
 	 *
