@@ -5,7 +5,7 @@ import models.*;
 
 public class RequestView {
 
-	public void printRequestInfo(int requestID){
+	public static void printRequestInfo(int requestID){
 		
 		View.cli.display("Request ID: " + requestID);
 		View.cli.display("Request Type: " + Request.getRequest(requestID-1).getRequestType());
@@ -27,7 +27,7 @@ public class RequestView {
 	}
 	
 
-	public void printRequestHistory(String userID){
+	public static void printRequestHistory(String userID){
 		for (Request req : Request.getRequests()) {
 			int requestID = req.getRequestID();
 			if (Request.getRequest(requestID-1).getSenderID().equals(userID)) {
