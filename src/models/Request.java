@@ -128,7 +128,7 @@ public class Request {
     
 	public void addRequest(Request r) {
 		requests.add(r);
-		updateFile();
+		updateRequestFile();
 	}
   
 
@@ -267,30 +267,30 @@ public class Request {
 		requests = r;
 	}
 
-	public static void initializeFile() throws Throwable {
+	public static void initializeRequestFile() throws Throwable {
 		HashMap<Integer, Object[]> map  = d.initializeRequestFile(FILENAME, FILEPATH);
 		for (int requestID : map.keySet()) {
         	Object[] values = map.get(requestID);
         	
-        	if((int)values[13]==1) {
-        		//new request
+        	if((RequestType_Enum)values[12]==RequestType_Enum.CHANGETITLE) {
+        		new Request((String)values[0],(String)values[1], (String)values[2], (String)values[3], (String)values[4], (String)values[5], (int)values[6], (int)values[7], (RequestType_Enum)values[12], (RequestStatus_Enum)values[13], requestID);
         	}
         	
-        	else if((int)values[13]==2) {
-        		// new request
+        	else if((RequestType_Enum)values[12]==RequestType_Enum.REGISTERPROJECT) {
+        		new Request((String)values[0],(String)values[1], (String)values[2], (String)values[3], (String)values[4], (String)values[5], (int)values[6], (RequestType_Enum)values[12], (RequestStatus_Enum)values[13], requestID);
         	}
         	
-        	else if((int)values[13]==3) {
-        		//new request
+        	else if((RequestType_Enum)values[12]==RequestType_Enum.DEREGISTERPROJECT) {
+        		new Request((String)values[0],(String)values[1], (String)values[2], (String)values[3], (String)values[4], (String)values[5], (int)values[6], (RequestType_Enum)values[12], (RequestStatus_Enum)values[13], requestID);
         	}
         	
-        	else if((int)values[13]==4) {
-        		//new request
+        	else if((RequestType_Enum)values[12]==RequestType_Enum.CHANGESUPERVISOR) {
+        		new Request((String)values[0],(String)values[1], (String)values[2], (String)values[3], (String)values[4], (String)values[5], (int)values[6], (String)values[9], (String)values[10], (String)values[11], (RequestType_Enum)values[12], (RequestStatus_Enum)values[13], requestID);
         	}
         }
 	}
 
-	public static void updateFile() {	
+	public static void updateRequestFile() {	
 		d.updateRequestFile(FILENAME,FILEPATH,requests);
 	}
 }

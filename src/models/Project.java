@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import utilities.Database;
 import java.util.Scanner;
-//import models.Supervisor;
 
 public class Project {
 	
@@ -47,13 +46,7 @@ public class Project {
 	//private String newSupervisorName;
 	
 	//private  String newProjectTitle;
-
-	private static ArrayList<Supervisor> supervisorList; 
-
-	private static ArrayList<Student> studentList;
 		
-	Scanner sc = new Scanner(System.in);
-
 	////////////////////////////////////////////////////////////////////////////////////////
 
 	//Constructor 
@@ -89,29 +82,37 @@ public class Project {
 
 	// Get Supervisor Id and Email based on Name
 	public String getSupervisorNameToEmail(String supervisorName){
-		for (int i = 0; i < supervisorList.size(); i++) {
-			if ((supervisorList.get(i).getName()).equals(supervisorName)) return supervisorList.get(i).getEmailAddress();
+		for (int i = 0; i < Supervisor.getSupervisorsList().size(); i++) {
+			if ((Supervisor.getSupervisorsList().get(i).getName()).equals(supervisorName)) {
+				return Supervisor.getSupervisorsList().get(i).getEmailAddress();
+			}
 		}
 		return null;
 	}
 	
 	public String getSupervisorNameToId(String supervisorName) {
-		for (int i = 0; i < supervisorList.size(); i++) {
-			if ((supervisorList.get(i).getName()).equals(supervisorName)) return supervisorList.get(i).getId();
+		for (int i = 0; i < Supervisor.getSupervisorsList().size(); i++) {
+			if ((Supervisor.getSupervisorsList().get(i).getName()).equals(supervisorName)) {
+				return Supervisor.getSupervisorsList().get(i).getId();
+			}
 		}
 		return null;
 	}
 	
 	public String getSupervisorIdToEmail(String supervisorId){
-		for (int i = 0; i < supervisorList.size(); i++) {
-			if ((supervisorList.get(i).getId()).equals(supervisorId)) return supervisorList.get(i).getEmailAddress();
+		for (int i = 0; i < Supervisor.getSupervisorsList().size(); i++) {
+			if ((Supervisor.getSupervisorsList().get(i).getId()).equals(supervisorId)) {
+				return Supervisor.getSupervisorsList().get(i).getEmailAddress();
+			}
 		}
 		return null;
 	}
 	
 	public String getSupervisorIdToName(String supervisorId) {
-		for (int i = 0; i < supervisorList.size(); i++) {
-			if ((supervisorList.get(i).getId()).equals(supervisorId)) return supervisorList.get(i).getName();
+		for (int i = 0; i < Supervisor.getSupervisorsList().size(); i++) {
+			if ((Supervisor.getSupervisorsList().get(i).getId()).equals(supervisorId)) {
+				return Supervisor.getSupervisorsList().get(i).getName();
+			}
 		}
 		return null;
 	}
@@ -120,29 +121,37 @@ public class Project {
 	
 	// Get Student Id and Email based on Name
 	public String getStudentNameToEmail(String studentName){
-		for (int i = 0; i < studentList.size(); i++) {
-			if ((studentList.get(i).getName()).equals(studentName)) return studentList.get(i).getEmailAddress();
+		for (int i = 0; i < Student.getStudentsList().size(); i++) {
+			if ((Student.getStudentsList().get(i).getName()).equals(studentName)) {
+				return Student.getStudentsList().get(i).getEmailAddress();
+			}
 		}
 		return null;
 	}
 	
 	public String getStudentNameToId(String studentName) {
-		for (int i = 0; i < studentList.size(); i++) {
-		if ((studentList.get(i).getName()).equals(studentName)) return studentList.get(i).getId();
+		for (int i = 0; i < Student.getStudentsList().size(); i++) {
+			if ((Student.getStudentsList().get(i).getName()).equals(studentName)) {
+				return Student.getStudentsList().get(i).getId();
+			}
 		}
 		return null;
 	}
 	
 	public String getStudentIdToEmail(String studentId){
-		for (int i = 0; i < studentList.size(); i++) {
-			if ((studentList.get(i).getId()).equals(studentId)) return studentList.get(i).getEmailAddress();
+		for (int i = 0; i < Student.getStudentsList().size(); i++) {
+			if ((Student.getStudentsList().get(i).getId()).equals(studentId)) {
+				return Student.getStudentsList().get(i).getEmailAddress();
+			}
 		}
 		return null;
 	}
 	
 	public String getStudentIdToName(String studentId) {
-		for (int i = 0; i < studentList.size(); i++) {
-		if ((studentList.get(i).getId()).equals(studentId)) return studentList.get(i).getName();
+		for (int i = 0; i < Student.getStudentsList().size(); i++) {
+			if ((Student.getStudentsList().get(i).getId()).equals(studentId)) {
+				return Student.getStudentsList().get(i).getName();
+			}
 		}
 		return null;
 	}

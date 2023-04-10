@@ -14,6 +14,8 @@ import models.Supervisor;
 import models.FYPCoordinator;
 import models.Project;
 import models.Request;
+import models.RequestStatus_Enum;
+import models.RequestType_Enum;
 
 public class Database {
 	
@@ -22,6 +24,7 @@ public class Database {
 		Supervisor.initializeFile();
 		FYPCoordinator.initializeFile();
 		Project.initializeProjectFile();
+		Request.initializeRequestFile();
 	}
 	
 	public static void updateAllData() throws Throwable {
@@ -29,6 +32,7 @@ public class Database {
 		Supervisor.updateFile();
 		FYPCoordinator.updateFile();
 		Project.updateProjectFile();
+		Request.updateRequestFile();
 	}
 	
 	public HashMap<String, String[]> initializeFile(String FILENAME, String FILEPATH) {
@@ -127,9 +131,26 @@ public class Database {
             	String newSupervisorID = splitLine[9];
             	String newSupervisorName = splitLine[10];
             	String newSupervisorEmail = splitLine[11];
-            	String requestType = splitLine[12];
-            	String requestStatus = splitLine[13];
+            	RequestType_Enum requestType = RequestType_Enum.valueOf(splitLine[12]);
+            	RequestStatus_Enum requestStatus = RequestStatus_Enum.valueOf(splitLine[13]);
             	int requestID = Integer.parseInt(splitLine[14]);
+            	
+            	System.out.println(senderID);
+            	System.out.println(senderName);
+            	System.out.println(senderEmail);
+            	System.out.println(recipientID);
+            	System.out.println(recipientEmail);
+            	System.out.println(projectID);
+            	System.out.println(newProjectID);
+            	System.out.println(newProjectTitle);
+            	System.out.println(newSupervisorID);
+            	System.out.println(newSupervisorName);
+            	System.out.println(newSupervisorEmail);
+            	System.out.println(requestType);
+            	System.out.println(requestStatus);
+            	System.out.println(requestID);
+            	System.out.println(recipientName);
+            	
 
                 map.put(requestID, new Object[] {senderID, senderName, senderEmail, recipientID, 
                 		recipientName, recipientEmail, projectID, newProjectID, newProjectTitle, 
@@ -146,7 +167,7 @@ public class Database {
 	public void updateRequestFile(String FILENAME, String FILEPATH, ArrayList<Request> list) {
 		try {
 	        PrintWriter writer = new PrintWriter(FILEPATH+FILENAME, "UTF-8");
-	        writer.println("Supervisor Title");
+	        writer.println("senderID;senderName;senderEmail;recipientID;recipientName;recipientEmail;projectID;newProjectID;newProjectTitle;newSupervisorID;newSupervisorName;newSupervisorEmail;requestType;requestStatus;requestID");
 	        for (Request request : list) {
 	            writer.println(request.getSenderID() + ";" + request.getSenderName() + ";" + request.getSenderEmail() + ";" 
 	            		+ request.getRecipientID() + ";" + request.getRecipientName() + ";" + request.getRecipientEmail() + ";" 

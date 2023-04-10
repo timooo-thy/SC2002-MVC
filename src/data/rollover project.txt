@@ -9,4 +9,3 @@ Alexei Sourin;Sonification of geometry 1
 Douglas Leslie Maskell;A Li-ion fast battery charger
 Cai Wentong;Creation of Meta-model for Agent-based Simulation Using Machine Learning Approach
 Dusit Niyato;Metaverse for virtual education 1
-Ke Yiping, Kelly;Graph-based Deep Models for Image Semantic Segmentation
