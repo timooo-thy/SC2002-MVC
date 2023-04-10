@@ -95,6 +95,7 @@ public class SupervisorController extends Controller {
 					
 					cli.displayTitle("\nPROJECT HAS BEEN ADDED SUCCESSFULLY");
 					//Project.updateFile();
+					Thread.sleep(3000);
 					break;
 					
 				case 3:
@@ -106,6 +107,7 @@ public class SupervisorController extends Controller {
 					}
 					
 					cli.displayTitle("\nPROJECT LIST HAS BEEN PRINTED");
+					Thread.sleep(3000);
 					break;
 				
 				case 4:
@@ -113,12 +115,14 @@ public class SupervisorController extends Controller {
 					cli.displayTitle("View supervised project");
 					if (supervisorModel.getSupervisedProjectList() == null) {
 						cli.display("Currectly not supervising any project");
+						Thread.sleep(3000);
 						break;
 					}
 					else {
 						for (Project proj : supervisorModel.getSupervisedProjectList()) {
 							ProjectView.printProjectInfo(proj.getProjectId());
 						}
+						Thread.sleep(3000);
 						break;
 					}
 					
@@ -139,6 +143,7 @@ public class SupervisorController extends Controller {
 					}	
 					
 					cli.displayTitle("\nPROJECT TITLE HAS BEEN UPDATED");
+					Thread.sleep(3000);
 					break;
 					
 				case 6:
@@ -153,6 +158,7 @@ public class SupervisorController extends Controller {
 					
 				    // Request.updateFile(); // Update file
 					cli.displayTitle("\nREQUEST HAS BEEN SENT");
+					Thread.sleep(3000);
 					break;
 					
 				case 7:
@@ -165,6 +171,7 @@ public class SupervisorController extends Controller {
 							cli.display("----------------------------");
 						}
 					}	
+					Thread.sleep(3000);
 					break;
 					
 				case 8:
@@ -173,11 +180,12 @@ public class SupervisorController extends Controller {
 					//RequestDirectory.viewRequestHistory(supervisorModel.getuserID(),UserType_Enum.SUPERVISOR);
 						RequestView.printRequestHistory(supervisorModel.getId());
 						cli.display("----------------------------");
-					
+						Thread.sleep(3000);
 					break;
 					
 				case 9:
 					cli.display("Logging out...");
+					Thread.sleep(3000);
 					return;
 									
 				default:
