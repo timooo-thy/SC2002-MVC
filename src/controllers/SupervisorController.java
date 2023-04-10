@@ -28,15 +28,15 @@ public class SupervisorController extends Controller {
 		mainController = new MainController();
 
 		String[] menu = {
-                "1. Change Password ",
-				"2. Add a new project " ,
-				"3. View project created by you ",
-				"4. View superivsed project ",
-				"5. Modify project title upon request ",
-				"6. Request FYP coordinator to change supervisor in charged ",
-                "7. View pending request ",
-                "8. View request history and status ",
-				"9. Logout "
+                "Change Password ",
+				"Add a new project " ,
+				"View project created by you ",
+				"View superivsed project ",
+				"Modify project title upon request ",
+				"Request FYP coordinator to change supervisor in charged ",
+                "View pending request ",
+                "View request history and status ",
+				"Logout "
 		};
 		
 		int choice = 0;
