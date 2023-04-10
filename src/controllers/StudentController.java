@@ -152,13 +152,8 @@ public class StudentController extends Controller {
 					
 					Thread.sleep(3000);
 					break;
-					
-<<<<<<< Updated upstream
+
 				case 5: //View available projects
-					ProjectView projectView = new ProjectView();
-=======
-				case 6: //View available projects
->>>>>>> Stashed changes
 					if (studentModel.getProjectID() == -1) {
 						cli.displayTitle("View all Available Projects");
 						ProjectView.projectAvailableInfo();
