@@ -8,11 +8,7 @@ import models.*;
 
 public class FYPCoordinatorController extends Controller {
 	
-	
 	private FYPCoordinator FYPCoordinatorModel;
-	
-	private ProjectView projView = new ProjectView();
-	private RequestView reqView = new RequestView();
 	
 	private MainController mainController;
 	
@@ -98,8 +94,8 @@ public class FYPCoordinatorController extends Controller {
 						break; //break; //fypCoordinatorController.run();
 					}
 					
-					//new Project(supervisorName,projectTitle);
-//					Project.updateFile(); // Update file
+					//new Project(supervisorName, projectTitle);
+//					Project.updateProjectFile(); // Update file
 //					Supervior.updateFile(); // Update file
 				
 					cli.displayTitle("\nProject has been created successfully");
@@ -108,7 +104,7 @@ public class FYPCoordinatorController extends Controller {
 			
 					
 					for (Project proj : Project.getProjectList()) {
-						projView.printProjectInfo(proj.getProjectId());
+						ProjectView.printProjectInfo(proj.getProjectId());
 						cli.display("----------------------------");
 					}
 					
@@ -121,7 +117,7 @@ public class FYPCoordinatorController extends Controller {
 					
 					cli.displayTitle("Modify Project Title");
 					for (Project proj : Project.getProjectList()) {
-						projView.printProjectInfo(proj.getProjectId());
+						ProjectView.printProjectInfo(proj.getProjectId());
 						cli.display("----------------------------");
 					}
 					
@@ -132,7 +128,7 @@ public class FYPCoordinatorController extends Controller {
 					newTitle = cli.inputString("Enter new title:","Eg. Molecular Genetics Studies");
 					
 					Project.getProject(choice).setProjectTitle(newTitle);
-//					Project.updateFile(); // Update file
+//					Project.updateProjectFile(); // Update file
 					
 					cli.displayTitle("\nProject Name has been changed successfully");
 					
@@ -144,7 +140,7 @@ public class FYPCoordinatorController extends Controller {
 				case 4:
 					cli.displayTitle("View All Projects");
 					for (Project proj : Project.getProjectList()) {
-						projView.printProjectInfo(proj.getProjectId());
+						ProjectView.printProjectInfo(proj.getProjectId());
 						cli.display("----------------------------");
 					}
 					
@@ -157,7 +153,7 @@ public class FYPCoordinatorController extends Controller {
 					
 					for (Request req : Request.getRequests()) {
 						if (req.getRequestStatus() == RequestStatus_Enum.PENDING) {
-							reqView.printRequestInfo(req.getRequestID());
+							RequestView.printRequestInfo(req.getRequestID());
 							cli.display("----------------------------");
 						}
 					}				
@@ -197,7 +193,7 @@ public class FYPCoordinatorController extends Controller {
 							for (Request req : Request.getRequests()) {
 								if (req.getRequestStatus() == RequestStatus_Enum.PENDING) {
 									if (req.getRequestType() == RequestType_Enum.REGISTERPROJECT) {
-										reqView.printRequestInfo(req.getRequestID());
+										RequestView.printRequestInfo(req.getRequestID());
 										allocationRequestID.add(req.getRequestID());
 										cli.display("----------------------------");
 									}
@@ -220,17 +216,17 @@ public class FYPCoordinatorController extends Controller {
 								Student.setProjectID(Request.getRequest(choice-1).getProjectID());
 								// Update project
 								Project.getProject(Request.getRequest(choice-1).getProjectID()-1).setStudent(Request.getRequest(choice-1).getSenderID(),"StudentName","StudentEmail",ProjectStatus_Enum.ALLOCATED);
-//								Request.updateFile(); // Update file
+//								Request.updateRequestFile(); // Update file
 //								Student.updateFile(); // Update file
-//								Project.updateFile(); // Update file
+//								Project.updateProjectFile(); // Update file
 							}
 							else {
 								Request.getRequest(choice-1).reject();
 								Student.setProjectID(-1);
 								Project.getProject(choice).setProjectStatus(ProjectStatus_Enum.AVAILABLE);
-//								Request.updateFile(); // Update file
+//								Request.updateRequestFile(); // Update file
 //								Student.updateFile(); // Update file
-//								Project.updateFile(); // Update file
+//								Project.updateProjectFile(); // Update file
 							}*/
 							
 							
@@ -247,7 +243,7 @@ public class FYPCoordinatorController extends Controller {
 								for (Request req : Request.getRequests()) {
 									if (req.getRequestStatus() == RequestStatus_Enum.PENDING) {
 										if (req.getRequestType() == RequestType_Enum.CHANGETITLE) {
-											reqView.printRequestInfo(req.getRequestID());
+											RequestView.printRequestInfo(req.getRequestID());
 											cli.display("----------------------------");
 										}
 									}
@@ -265,7 +261,7 @@ public class FYPCoordinatorController extends Controller {
 								for (Request req : Request.getRequests()) {
 									if (req.getRequestStatus() == RequestStatus_Enum.PENDING) {
 										if (req.getRequestType() == RequestType_Enum.CHANGESUPERVISOR) {
-											reqView.printRequestInfo(req.getRequestID());
+											RequestView.printRequestInfo(req.getRequestID());
 											cli.display("----------------------------");
 										}
 									}
@@ -281,7 +277,7 @@ public class FYPCoordinatorController extends Controller {
 								for (Request req : Request.getRequests()) {
 									if (req.getRequestStatus() == RequestStatus_Enum.PENDING) {
 										if (req.getRequestType() == RequestType_Enum.DEREGISTERPROJECT) {
-											reqView.printRequestInfo(req.getRequestID());
+											RequestView.printRequestInfo(req.getRequestID());
 											cli.display("----------------------------");
 										}
 									}
@@ -310,7 +306,7 @@ public class FYPCoordinatorController extends Controller {
 					cli.displayTitle("View Request History");
 					
 					for (Request req : Request.getRequests()) {
-						reqView.printRequestInfo(req.getRequestID());
+						RequestView.printRequestInfo(req.getRequestID());
 						cli.display("----------------------------");
 					}
 		

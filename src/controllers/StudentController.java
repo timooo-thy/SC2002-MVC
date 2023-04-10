@@ -20,7 +20,7 @@ public class StudentController extends Controller {
 	
 	private StudentController studentController;
 	
-	public void run(User user) throws Throwable{
+	public void run(User user) throws Throwable {
 
         if(user instanceof Student) {
 		    studentModel = (Student)user; 
@@ -153,17 +153,21 @@ public class StudentController extends Controller {
 					Thread.sleep(3000);
 					break;
 					
+<<<<<<< Updated upstream
 				case 5: //View available projects
 					ProjectView projectView = new ProjectView();
+=======
+				case 6: //View available projects
+>>>>>>> Stashed changes
 					if (studentModel.getProjectID() == -1) {
 						cli.displayTitle("View all Available Projects");
-						projectView.projectAvailableInfo();
+						ProjectView.projectAvailableInfo();
 					}
 					else if (studentModel.getProjectID() == 0)
 						cli.display("Your request to select project is pending, please be patient!");
 					else {
 						cli.display("Here is the detail of your project: ");
-						projectView.printProjectInfo(studentModel.getProjectID());
+						ProjectView.printProjectInfo(studentModel.getProjectID());
 					}
 					Thread.sleep(3000);
 					break;
