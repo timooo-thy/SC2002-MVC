@@ -113,9 +113,9 @@ public class StudentController extends Controller {
 						// can do a catch throw exception
 						
 						cli.displayTitle("SUCCESS, YOUR REGISTRATION IS NOW PENDING FOR APPROVAL BY THE COORDINATOR");
-//						Request.updateFile(); // Update file
-//						Project.updateFile(); // Update file
-//						Student.updateFile(); // Update file						
+						Request.updateRequestFile(); // Update file
+						Project.updateProjectFile(); // Update file
+						Student.updateFile(); // Update file						
 					}
 					Thread.sleep(1000);
 					break;
@@ -133,7 +133,7 @@ public class StudentController extends Controller {
 						newTitle = cli.inputString("What would you like to change it to?","\n");
 						new Request(studentModel.getId(),studentModel.getName(),studentModel.getEmailAddress(),allocatedProject.getSupervisorId(),allocatedProject.getSupervisorName(),allocatedProject.getSupervisorEmail(),allocatedProject.getProjectId(),newTitle,RequestType_Enum.CHANGETITLE,RequestStatus_Enum.PENDING,Request.getRequests().size());// send request to change title
 						cli.displayTitle("SUCCESS, YOUR REQUEST FOR CHANGING TITLE IS NOW PENDING FOR APPROVAL BY THE COORDINATOR");
-//						Request.updateFile(); // Update file
+						Request.updateRequestFile();
 					}
 					
 						Thread.sleep(3000);
@@ -149,7 +149,7 @@ public class StudentController extends Controller {
 						new Request(studentModel.getId(),studentModel.getName(), studentModel.getEmailAddress(), allocatedProject.getSupervisorId(), allocatedProject.getSupervisorName(), allocatedProject.getSupervisorEmail(), studentModel.getProjectID(), RequestType_Enum.DEREGISTERPROJECT, RequestStatus_Enum.PENDING, Request.getRequests().size()+1);
 						
 						//cli.displayTitle();
-						//Request.updateFile(); // Update file
+						Request.updateRequestFile(); // Update file
 					}
 					else {
 						cli.display("Request Cancelled");
@@ -176,10 +176,6 @@ public class StudentController extends Controller {
 				case 7: //View RequestHistory
 					cli.displayTitle("View Request History");
 					RequestView.printRequestHistory(studentModel.getId());
-//					for (Request req : RequestDirectory.getRequestDirectory()) {
-//						req.viewRequest();
-//					}
-
 					Thread.sleep(3000);
 					break;
 					
