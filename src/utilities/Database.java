@@ -23,7 +23,7 @@ public class Database {
 		Student.initializeFile();
 		Supervisor.initializeFile();
 		FYPCoordinator.initializeFile();
-		//Project.initializeProjectFile();
+		Project.initializeProjectFile();
 		Request.initializeRequestFile();
 	}
 	
@@ -31,7 +31,7 @@ public class Database {
 		Student.updateFile();
 		Supervisor.updateFile();
 		FYPCoordinator.updateFile();
-		//Project.updateProjectFile();
+		Project.updateProjectFile();
 		Request.updateRequestFile();
 	}
 	
