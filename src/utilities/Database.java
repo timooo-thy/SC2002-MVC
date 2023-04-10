@@ -16,6 +16,7 @@ import models.Project;
 import models.Request;
 import models.RequestStatus_Enum;
 import models.RequestType_Enum;
+import models.ProjectStatus_Enum;
 
 public class Database {
 	
@@ -23,7 +24,7 @@ public class Database {
 		Student.initializeFile();
 		Supervisor.initializeFile();
 		FYPCoordinator.initializeFile();
-		//Project.initializeProjectFile();
+		Project.initializeProjectFile();
 		Request.initializeRequestFile();
 	}
 	
@@ -31,7 +32,7 @@ public class Database {
 		Student.updateFile();
 		Supervisor.updateFile();
 		FYPCoordinator.updateFile();
-		//Project.updateProjectFile();
+		Project.updateProjectFile();
 		Request.updateRequestFile();
 	}
 	
@@ -73,9 +74,45 @@ public class Database {
 	    }
 	}
 	
-	public HashMap<String, String> initializeProjectFile(String FILENAME, String FILEPATH) {
+//	public HashMap<String, String> initializeProjectFile(String FILENAME, String FILEPATH) {
+//		File model = new File(FILEPATH + FILENAME);
+//		HashMap<String, String> map = new HashMap<>();
+//		try {
+//            FileReader fileReader = new FileReader(model);
+//            BufferedReader bufferedReader = new BufferedReader(fileReader);
+//            bufferedReader.readLine();
+//            String line;
+//            while ((line = bufferedReader.readLine()) != null) {
+//            	String[] splitLine = line.trim().split(";");
+//            	String title = splitLine[1];
+//            	String name = splitLine[0].trim(); 
+//                map.put(name, title);
+//            }
+//            bufferedReader.close();
+//        }
+//        catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//		return map;
+//        
+//	}
+//	
+//	public void updateProjectFile(String FILENAME, String FILEPATH, ArrayList<Project> list) {
+//		try {
+//	        PrintWriter writer = new PrintWriter(FILEPATH+FILENAME/*, "UTF-8"*/);
+//	        writer.println("Supervisor Title");
+//	        for (Project project : list) {
+//	            writer.println(project.getSupervisorName() + ";" + project.getProjectTitle());
+//	        }
+//	        writer.close();
+//	    } catch (IOException e) {
+//	        e.printStackTrace();
+//	    }
+//	}
+	
+	public HashMap<Integer, Object[]> initializeProjectFile(String FILENAME, String FILEPATH) {
 		File model = new File(FILEPATH + FILENAME);
-		HashMap<String, String> map = new HashMap<>();
+		HashMap<Integer, Object[]> map = new HashMap<>();
 		try {
             FileReader fileReader = new FileReader(model);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -83,9 +120,13 @@ public class Database {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
             	String[] splitLine = line.trim().split(";");
-            	String title = splitLine[1];
-            	String name = splitLine[0].trim(); 
-                map.put(name, title);
+            	int id = Integer.parseInt(splitLine[0]); 
+            	String supName = splitLine[1];
+            	String title = splitLine[2];
+            	String studName = splitLine[3];
+            	ProjectStatus_Enum projectStatus = ProjectStatus_Enum.valueOf(splitLine[4]);
+                map.put(id, new Object[] {
+                		supName, title, studName, projectStatus});
             }
             bufferedReader.close();
         }
@@ -98,10 +139,10 @@ public class Database {
 	
 	public void updateProjectFile(String FILENAME, String FILEPATH, ArrayList<Project> list) {
 		try {
-	        PrintWriter writer = new PrintWriter(FILEPATH+FILENAME/*, "UTF-8"*/);
-	        writer.println("Supervisor Title");
-	        for (Project project : list) {
-	            writer.println(project.getSupervisorName() + ";" + project.getProjectTitle());
+	        PrintWriter writer = new PrintWriter(FILEPATH+FILENAME, "UTF-8");
+	        writer.println("ProjectId;supervisorName;Title;studentName;projectStatus");
+	        for (Project proj : list) {
+	            writer.println(proj.getProjectId()+ ";" + proj.getSupervisorName() + ";" + proj.getProjectTitle()+ ";" +proj.getProjectStatus());
 	        }
 	        writer.close();
 	    } catch (IOException e) {

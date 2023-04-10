@@ -52,13 +52,13 @@ public class Project {
 	//Constructor 
 	public Project() {}
 	
-	public Project(String supervisorName, String projectTitle) {
+	public Project(String supervisorName, String projectTitle, ProjectStatus_Enum projStatus) {
 		this.supervisorId = getSupervisorNameToId(supervisorName).toUpperCase();
 		this.supervisorName = supervisorName;
 		this.supervisorEmail = getSupervisorNameToEmail(supervisorName);
         this.projectId = projectList.size()+1;
         this.projectTitle = projectTitle;
-        this.projectStatus = ProjectStatus_Enum.AVAILABLE;
+        this.projectStatus = projStatus;
 		addProject(this);
 	}
 		
@@ -249,10 +249,13 @@ public class Project {
 	}
 
 	public static void initializeProjectFile() throws Throwable {
-		HashMap<String, String> map  = d.initializeProjectFile(FILENAME, FILEPATH);
-		for (String name : map.keySet()) {
-        	String title = map.get(name);
-        	new Project(name, title); 
+		HashMap<Integer, Object[]> map  = d.initializeProjectFile(FILENAME, FILEPATH);
+		for (int projId : map.keySet()) {
+        	Object[] values = map.get(projId);       	
+        		new Project((String)values[1],(String) values[2],(ProjectStatus_Enum) values[4]); 
+        		if ((ProjectStatus_Enum)values[4] != ProjectStatus_Enum.ALLOCATED) {
+        			
+        		}
         }
 	}
 
