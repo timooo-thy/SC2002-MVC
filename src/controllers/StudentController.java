@@ -94,13 +94,7 @@ public class StudentController extends Controller {
 					int projectChoice;
 					ProjectStatus_Enum projectStatus;
 					
-					if (studentModel.getProjectID() != -1) {
-						cli.display("You are already registered for a project.");	
-					}
-					else if (studentModel.getProjectID() != 0) {
-						cli.display("You already have a pending request for registration.");
-					}
-					else {
+					if (studentModel.getProjectID() == -1) {
 						cli.display("Enter the project ID to register for:");
 						do {
 							projectChoice = cli.inputInteger("Project ID", 1, Project.getProjectList().size()+1);
@@ -115,7 +109,13 @@ public class StudentController extends Controller {
 						cli.displayTitle("SUCCESS, YOUR REGISTRATION IS NOW PENDING FOR APPROVAL BY THE COORDINATOR");
 						Request.updateRequestFile(); // Update file
 						Project.updateProjectFile(); // Update file
-						Student.updateFile(); // Update file						
+						Student.updateFile(); // Update file	
+					}
+					else if (studentModel.getProjectID() == 0) {
+						cli.display("You already have a pending request for registration.");
+					}
+					else {
+						cli.display("You are already registered for a project.");				
 					}
 					Thread.sleep(1000);
 					break;
@@ -161,7 +161,7 @@ public class StudentController extends Controller {
 				case 6: //View available projects
 					ProjectView projectView = new ProjectView();
 					if (studentModel.getProjectID() == -1) {
-					cli.displayTitle("View all available Projects");
+					cli.displayTitle("View all Available Projects");
 					projectView.projectAvailableInfo();
 					}
 					else if (studentModel.getProjectID() == 0)
@@ -175,6 +175,7 @@ public class StudentController extends Controller {
 				
 				case 7: //View RequestHistory
 					cli.displayTitle("View Request History");
+					cli.display(studentModel.getId());
 					RequestView.printRequestHistory(studentModel.getId());
 					Thread.sleep(3000);
 					break;
