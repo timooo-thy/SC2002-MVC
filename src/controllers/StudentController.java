@@ -118,7 +118,7 @@ public class StudentController extends Controller {
 //						Student.updateFile(); // Update file						
 					}
 					Thread.sleep(1000);
-					studentController.run(studentModel); 
+					break;
 					
 				case 4: //Request: Project Title Change
 					String newTitle;					
@@ -137,7 +137,7 @@ public class StudentController extends Controller {
 					}
 					
 						Thread.sleep(3000);
-						studentController.run(studentModel);
+						break;
 				
 				case 5: //Request: Project Deregistration
 					cli.displayTitle("Deregistering Project");
@@ -156,7 +156,8 @@ public class StudentController extends Controller {
 					}
 					
 					Thread.sleep(3000);
-					studentController.run(studentModel);
+					break;
+					
 				case 6: //View available projects
 					ProjectView projectView = new ProjectView();
 					if (studentModel.getProjectID() == -1) {
@@ -170,7 +171,7 @@ public class StudentController extends Controller {
 						projectView.printProjectInfo(studentModel.getProjectID());
 					}
 					Thread.sleep(3000);
-					studentController.run(studentModel);
+					break;
 				
 				case 7: //View RequestHistory
 					cli.displayTitle("View Request History");
@@ -180,7 +181,7 @@ public class StudentController extends Controller {
 //					}
 
 					Thread.sleep(3000);
-					studentController.run(studentModel);
+					break;
 					
 				default:
 				studentController.run(studentModel);

@@ -168,7 +168,7 @@ public class SupervisorController extends Controller {
 					return;
 									
 				default:
-				mainController.run(user);
+				mainController.run(supervisorModel);
 			}
 		}
 	}

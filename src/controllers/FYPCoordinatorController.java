@@ -327,7 +327,7 @@ public class FYPCoordinatorController extends Controller {
 					return;
 									
 				default:
-				mainController.run(user);
+				mainController.run(FYPCoordinatorModel);
 			}
 		}
 	}
