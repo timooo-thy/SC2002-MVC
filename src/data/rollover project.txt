@@ -1,17 +1,17 @@
-Supervisor	Title
-A S Madhukumar;Machine Learning-based Interference Mitigation in a Multi-tier Networks
-A S Madhukumar;Deep Learning-Driven Edge Caching for 5G-and-Beyond Industrial IoT Networks
-Alexei Sourin;Sonification of geometry 1
-Arvind Easwaran;Edge/Cloud Resource Management for Time-Sensitive Applications (2)
-Bo An;Deep Reinforcement Learning for Complex Environment
-Bo An;Build Software Agents for Power Trading Agent Competition
-Bo An;Designing Negotiation Agents to Parcitipate in International Competition
-Cai Wentong;Creation of Meta-model for Agent-based Simulation Using Machine Learning Approach
-Chen Change Loy;Encoding Images to Text Prompts with CLIP
-Chia Liang Tien;Smart Monitor for Studio Photographer
-Cong Gao;Developing a demonstration system for spatial data exploration and visualization 
-Cong Gao;Deep Learning Supported Location-aware Keyword Query
-Douglas Leslie Maskell;An AI based Li-ion fast battery charger for power tools
-Douglas Leslie Maskell;A Li-ion fast battery charger
-Dusit Niyato;Metaverse for virtual education 1
-Ke Yiping, Kelly;Graph-based Deep Models for Image Semantic Segmentation
+id;supervisor;title;studentName;projectStatus
+1;A S Madhukumar;Machine Learning-based Interference Mitigation in a Multi-tier Networks;"-1";AVAILABLE
+2;A S Madhukumar;Deep Learning-Driven Edge Caching for 5G-and-Beyond Industrial IoT Networks;"-1";AVAILABLE
+3;Alexei Sourin;Sonification of geometry 1;"-1";AVAILABLE
+4;Arvind Easwaran;Edge/Cloud Resource Management for Time-Sensitive Applications (2);"-1";AVAILABLE
+5;Bo An;Deep Reinforcement Learning for Complex Environment;"-1";AVAILABLE
+6;Bo An;Build Software Agents for Power Trading Agent Competition;"-1";AVAILABLE
+7;Bo An;Designing Negotiation Agents to Parcitipate in International Competition;"-1";AVAILABLE
+8;Cai Wentong;Creation of Meta-model for Agent-based Simulation Using Machine Learning Approach;"-1";AVAILABLE
+9;Chen Change Loy;Encoding Images to Text Prompts with CLIP;"-1";AVAILABLE
+10;Chia Liang Tien;Smart Monitor for Studio Photographer;"-1";AVAILABLE
+11;Cong Gao;Developing a demonstration system for spatial data exploration and visualization;"-1";AVAILABLE
+12;Cong Gao;Deep Learning Supported Location-aware Keyword Query;"-1";AVAILABLE
+13;Douglas Leslie Maskell;An AI based Li-ion fast battery charger for power tools;"-1";AVAILABLE
+14;Douglas Leslie Maskell;A Li-ion fast battery charger;"-1";AVAILABLE
+15;Dusit Niyato;Metaverse for virtual education 1;"-1";AVAILABLE
+16;Ke Yiping, Kelly;Graph-based Deep Models for Image Semantic Segmentation;"-1";AVAILABLE

@@ -20,6 +20,7 @@ public class SupervisorController extends Controller {
 	private MainController mainController;
 	
 	private ProjectView projView = new ProjectView();
+	
 	private RequestView reqView = new RequestView();
 	
 	public void run(User user) throws Throwable{
