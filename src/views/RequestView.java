@@ -11,13 +11,13 @@ public class RequestView {
 		View.cli.display("Sender ID: " +Request.getRequest(requestID-1).getSenderID());
 		View.cli.display("Recipient ID: " +Request.getRequest(requestID-1).getRecipientID());
 		if (Request.getRequest(requestID-1).getRequestType() == RequestType_Enum.CHANGETITLE) {
-			View.cli.display("Requesting to change title to: " + Request.getRequest(requestID-1).getNewProjectTitle());
+			View.cli.display("Requesting to Change Title to: " + Request.getRequest(requestID-1).getNewProjectTitle());
 		}
 		else if (Request.getRequest(requestID-1).getRequestType() == RequestType_Enum.REGISTERPROJECT) {
-			View.cli.display("Requesting to register to Project ID: " + Request.getRequest(requestID-1).getProjectID());
+			View.cli.display("Requesting to Register to Project ID: " + Request.getRequest(requestID-1).getProjectID());
 		}
 		else if (Request.getRequest(requestID-1).getRequestType() == RequestType_Enum.DEREGISTERPROJECT) {
-			View.cli.display("Requesting to deregister from Project ID: " + Request.getRequest(requestID-1).getProjectID());
+			View.cli.display("Requesting to Deregister from Project ID: " + Request.getRequest(requestID-1).getProjectID());
 		}
 		else if (Request.getRequest(requestID-1).getRequestType() == RequestType_Enum.CHANGESUPERVISOR) {
 			View.cli.display("For Project ID " + Request.getRequest(requestID-1).getProjectID() + " , " + Request.getRequest(requestID-1).getSenderID() + "is requesting to change the supervisor to: " + Request.getRequest(requestID-1).getNewSupervisorName());
@@ -35,13 +35,13 @@ public class RequestView {
 				View.cli.display("Sender ID: " + Request.getRequest(requestID-1).getSenderID());
 				View.cli.display("Recipient ID: " + Request.getRequest(requestID-1).getRecipientID());
 				if (Request.getRequest(requestID-1).getRequestType() == RequestType_Enum.CHANGETITLE) {
-					View.cli.display("Requesting to change title to: " + Request.getRequest(requestID-1).getNewProjectTitle());
+					View.cli.display("Requesting to Change Title to: " + Request.getRequest(requestID-1).getNewProjectTitle());
 				}
 				else if (Request.getRequest(requestID-1).getRequestType() == RequestType_Enum.REGISTERPROJECT) {
-					View.cli.display("Requesting to register to Project ID: " + Request.getRequest(requestID-1).getProjectID());
+					View.cli.display("Requesting to Register to Project ID: " + Request.getRequest(requestID-1).getProjectID());
 				}
 				else if (Request.getRequest(requestID-1).getRequestType() == RequestType_Enum.DEREGISTERPROJECT) {
-					View.cli.display("Requesting to deregister from Project ID: " + Request.getRequest(requestID-1).getProjectID());
+					View.cli.display("Requesting to Deregister from Project ID: " + Request.getRequest(requestID-1).getProjectID());
 				}
 				else if (Request.getRequest(requestID-1).getRequestType() == RequestType_Enum.CHANGESUPERVISOR) {
 					View.cli.display("For Project ID " + Request.getRequest(requestID-1).getProjectID() + " , " + Request.getRequest(requestID-1).getSenderID() + " is requesting to change the supervisor to: " + Request.getRequest(requestID-1).getNewSupervisorName());
@@ -62,13 +62,13 @@ public class RequestView {
 				View.cli.display("Sender ID: " + Request.getRequest(requestID-1).getSenderID());
 				View.cli.display("Recipient ID: " + Request.getRequest(requestID-1).getRecipientID());
 				if (Request.getRequest(requestID-1).getRequestType() == RequestType_Enum.CHANGETITLE) {
-					View.cli.display("Requesting to change title to: " + Request.getRequest(requestID-1).getNewProjectTitle());
+					View.cli.display("Requesting to Change Title to: " + Request.getRequest(requestID-1).getNewProjectTitle());
 				}
 				else if (Request.getRequest(requestID-1).getRequestType() == RequestType_Enum.REGISTERPROJECT) {
-					View.cli.display("Requesting to register to Project ID: " + Request.getRequest(requestID-1).getProjectID());
+					View.cli.display("Requesting to Register to Project ID: " + Request.getRequest(requestID-1).getProjectID());
 				}
 				else if (Request.getRequest(requestID-1).getRequestType() == RequestType_Enum.DEREGISTERPROJECT) {
-					View.cli.display("Requesting to deregister from Project ID: " + Request.getRequest(requestID-1).getProjectID());
+					View.cli.display("Requesting to Deregister from Project ID: " + Request.getRequest(requestID-1).getProjectID());
 				}
 				else if (Request.getRequest(requestID-1).getRequestType() == RequestType_Enum.CHANGESUPERVISOR) {
 					View.cli.display("For Project ID " + Request.getRequest(requestID-1).getProjectID() + " , " + Request.getRequest(requestID-1).getSenderID() + " is requesting to change the supervisor to: " + Request.getRequest(requestID-1).getNewSupervisorName());
