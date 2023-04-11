@@ -95,8 +95,9 @@ public class StudentController extends Controller {
 							projectChoice = cli.inputInteger("Project ID", 1, Project.getProjectList().size()+1);
 							projectStatus = Project.getProject(projectChoice).getProjectStatus();
 							if (projectStatus == ProjectStatus_Enum.AVAILABLE) {
-								new Request(studentModel.getId(), studentModel.getName(), studentModel.getEmailAddress(), "ASFLI", "Li Fang", "ASFLI@ntu.edu.sg", projectChoice, RequestType_Enum.REGISTERPROJECT, RequestStatus_Enum.PENDING, Request.getRequests().size()+1);// send request to register
-								Project.selectProject(projectChoice);
+								new Request(studentModel.getId(), studentModel.getName(), studentModel.getEmailAddress(), "ASFLI", "Li Fang", "ASFLI@ntu.edu.sg", projectChoice, RequestType_Enum.REGISTERPROJECT, RequestStatus_Enum.PENDING, Request.getRequests().size()+1);// send request to register								Project.selectProject(projectChoice);
+								projectStatus = Project.getProject(projectChoice).getProjectStatus();
+								studentModel.setProjectID(0);
 							}
 						} while (projectStatus != ProjectStatus_Enum.AVAILABLE);
 						// can do a catch throw exception
@@ -136,20 +137,24 @@ public class StudentController extends Controller {
 				
 				case 4: //Request: Project Deregistration
 					cli.displayTitle("Deregistering Project");
-					cli.display("Request to deregister project: " + Project.getProject(studentModel.getProjectID()).getProjectTitle());
-					cli.display("Enter 1 to confirm, 2 to exit. "); 
-					choice = cli.inputInteger("choice", 1, 2);
-					if (choice == 1) {
-						Project allocatedProject = Project.getProject(studentModel.getProjectID());
-					
-						new Request(studentModel.getId(),studentModel.getName(),studentModel.getEmailAddress(),"ASFLI", "Li Fang", "ASFLI@ntu.edu.sg",allocatedProject.getProjectId(),RequestType_Enum.DEREGISTERPROJECT,RequestStatus_Enum.PENDING,Request.getRequests().size());// send request to register
-						//cli.displayTitle();
-						Request.updateRequestFile(); // Update file
-					}
+					// check project id first
+					if (studentModel.getProjectID() == -1 || studentModel.getProjectID() == 0) 
+						cli.display("You are not registered for any projects.");
 					else {
-						cli.display("Request Cancelled");
+						cli.display("Request to deregister project: " + Project.getProject(studentModel.getProjectID()).getProjectTitle());
+						cli.display("Enter 1 to confirm, 2 to exit. "); 
+						choice = cli.inputInteger("choice", 1, 2);
+						if (choice == 1) {
+							Project allocatedProject = Project.getProject(studentModel.getProjectID());
+						
+							new Request(studentModel.getId(),studentModel.getName(),studentModel.getEmailAddress(),"ASFLI", "Li Fang", "ASFLI@ntu.edu.sg",allocatedProject.getProjectId(),RequestType_Enum.DEREGISTERPROJECT,RequestStatus_Enum.PENDING,Request.getRequests().size());// send request to register
+							//cli.displayTitle();
+							Request.updateRequestFile(); // Update file
+						}
+						else {
+							cli.display("Request Cancelled");
+						}
 					}
-					
 					Thread.sleep(3000);
 					break;
 					
@@ -175,7 +180,7 @@ public class StudentController extends Controller {
 				
 				case 7:
 					cli.display("Logging out...");
-					Thread.sleep(3000);
+					Thread.sleep(1000);
 					return;
 				
 				default:

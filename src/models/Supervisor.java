@@ -13,7 +13,7 @@ public class Supervisor extends User {
 
 	private static ArrayList<Supervisor> supervisorsList = new ArrayList<Supervisor>();
 
-	private ArrayList<Project> supervisedProjectList = new ArrayList<Project>();
+	private ArrayList<Project> supervisedProjectList = new ArrayList<Project>(0);
 	
 	private static Database d = new Database();
 	
@@ -78,31 +78,72 @@ public class Supervisor extends User {
     }*/
 	
     public ArrayList<Project> getSupervisedProjectList(){
-    	if (supervisedProjectList == null) return null;
     	return this.supervisedProjectList;
     }
     
-    public ArrayList<Project> getSupervisedProjectList(String supervisorId){
+    
+    public static ArrayList<Project> getSupervisedProjectList(String supervisorId){
     	for (Supervisor sup : Supervisor.getSupervisorsList())
-    		if (sup.getId() == supervisorId)
-    			return getSupervisedProjectList();
+    		if (sup.getId().equals(supervisorId))
+    			return sup.getSupervisedProjectList();
     	return null;
     }
     
+ 	//////////////////////////////////////////////////////////////////////////////////////
+
     public static Supervisor getSupervisorFromId(String supervisorId) {
     	for (Supervisor sup : supervisorsList) {
-    		if (sup.getId() == supervisorId) return sup;
+    		if (sup.getId().equals(supervisorId)) return sup;
     	}
     	return null;
     }
     
     public static Supervisor getSupervisorFromName(String supervisorName) {
     	for (Supervisor sup : supervisorsList) {
-    		if (sup.getName() == supervisorName) return sup;
+    		if (sup.getName().equals(supervisorName)) return sup;
     	}
     	return null;
     }
     
+ // Get Supervisor Id or Name and Email based on Name or Id
+ 	public static String getSupervisorNameToEmail(String supervisorName){
+ 		for (Supervisor sup : Supervisor.getSupervisorsList()) {
+ 			if (sup.getName().equals(supervisorName)) {
+ 				return sup.getEmailAddress();
+ 			}
+ 		}
+ 		return null;
+ 	}
+ 	
+ 	public static String getSupervisorNameToId(String supervisorName) {
+ 		for (Supervisor sup : Supervisor.getSupervisorsList()) {
+ 			if (sup.getName().equals(supervisorName)) {
+ 				return sup.getId();
+ 			}
+ 		}
+ 		return null;
+ 	}
+ 	
+ 	public static String getSupervisorIdToEmail(String supervisorId){
+ 		for (Supervisor sup : Supervisor.getSupervisorsList()) {
+ 			if (sup.getId().equals(supervisorId)) {
+ 				return sup.getEmailAddress();
+ 			}
+ 		}
+ 		return null;
+ 	}
+ 	
+ 	public static String getSupervisorIdToName(String supervisorId) {
+ 		for (Supervisor sup : Supervisor.getSupervisorsList()) {
+ 			if (sup.getId().equals(supervisorId)) {
+ 				return sup.getName();
+ 			}
+ 		}
+ 		return null;
+ 	}
+ 		
+ 	//////////////////////////////////////////////////////////////////////////////////////
+ 	
 	public static boolean duplicateSupervisorId(String supervisorId) {
 
 		for (Supervisor s : supervisorsList) {

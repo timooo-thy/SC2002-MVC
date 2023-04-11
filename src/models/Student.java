@@ -74,32 +74,17 @@ public class Student extends User {
         this.projectID = projectID;
     }
 	
+	
 	public static boolean duplicateStudentId(String studentId) {
 
 		for (Student s : studentsList) {
+
 			if (s.getId().equalsIgnoreCase(studentId)) {
 				return true;
 			}
 		}
+
 		return false;
-	}
-	
-	public static Student getStudentFromID(String studentID) {
-		for (Student s : studentsList) {
-			if (s.getId().equals(studentID)) {
-				return s;
-			}
-		}
-		return null;
-	}
-	
-	public static Student getStudentFromName(String studentName) {
-		for (Student s : studentsList) {
-			if (s.getName().equals(studentName)) {
-				return s;
-			}
-		}
-		return null;
 	}
 	
 	public static int getTotalNumberOfStudents(){
@@ -130,7 +115,69 @@ public class Student extends User {
 		
 		return studentMenu;
 	}
+	
+	///////////////////////////////////////////////////////////////////////
 
+	public static Student getStudentFromName(String studentName) {
+		for (Student s : studentsList) {
+			if (s.getName().equals(studentName)) {
+				return s;
+			}
+		}
+		return null;
+	}
+		
+	 //return student object based on name
+
+	public static Student getStudentFromID(String studentID) {
+		for (Student s : studentsList) {
+			if (s.getId().equals(studentID)) {
+				return s;
+			}
+		}
+		return null;
+	}	
+	//return student object based on id
+	
+	// Get Student Id or Name and Email based on Name or Id
+	public static String getStudentNameToEmail(String studentName){
+		for (Student stud : Student.getStudentsList()) {
+			if ((stud.getName()).equals(studentName)) {
+				return stud.getEmailAddress();
+			}
+		}
+		return null;
+	}
+	
+	public static String getStudentNameToId(String studentName) {
+		for (Student stud : Student.getStudentsList()) {
+			if ((stud.getName()).equals(studentName)) {
+				return stud.getId();
+			}
+		}
+		return null;
+	}
+	
+	public static String getStudentIdToEmail(String studentId){
+		for (Student stud : Student.getStudentsList()) {
+			if ((stud.getId()).equals(studentId)) {
+				return stud.getEmailAddress();
+			}
+		}
+		return null;
+	}
+	
+	public static String getStudentIdToName(String studentId) {
+		for (Student stud : Student.getStudentsList()) {
+			if ((stud.getId()).equals(studentId)) {
+				return stud.getName();
+			}
+		}
+		return null;
+	}
+	
+	///////////////////////////////////////////////////////////////////////
+	
 	public static void updateStudentsList(ArrayList<Student> s){
 		studentsList = s;
 	}

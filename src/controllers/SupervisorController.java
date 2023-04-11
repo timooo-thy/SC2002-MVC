@@ -3,6 +3,7 @@ package controllers;
 import java.util.ArrayList;
 
 import models.Project;
+import models.ProjectStatus_Enum;
 import models.Request;
 import models.RequestStatus_Enum;
 import models.Supervisor;
@@ -42,6 +43,7 @@ public class SupervisorController extends Controller {
 				"Create Project",//done
 				"Modify Own Project Title", //done
 				"View Supervised Projects", //done
+				"View Project created",
 				"Approve/Reject Title Change Requests (if any)", //done
 				"Request to Change Supervisor", //done
 				"View Incoming and Outgoing Request History and Status", //doing
@@ -94,42 +96,36 @@ public class SupervisorController extends Controller {
 					String projectTitle;
 					cli.display("Please enter the Project title: ");
 					projectTitle = cli.inputString("Project title: ");
-					//Project.addProject(new Project(supervisorModel.getName(), projectTitle));
+					new Project(supervisorModel.getName(),projectTitle,ProjectStatus_Enum.AVAILABLE);
 					
 					cli.displayTitle("\nPROJECT HAS BEEN ADDED SUCCESSFULLY");
 					//Project.updateFile();
-					Thread.sleep(3000);
+					Thread.sleep(1000);
 					break;
 					
 				
 				case 3:
 					//Modify own project title
 					cli.displayTitle("Modify Own Project Title");
-					if (supervisorModel.getSupervisedProjectList() == null) {
-						cli.display("Currectly not supervising any project, unable to modify own project title");
-						Thread.sleep(3000);
-						break;
-					}
-					else {
-						int count=0;
-						for (Project proj : supervisorModel.getSupervisedProjectList()) {
-							ProjectView.printProjectInfo(proj.getProjectId());
-							count++;
+						for (Project proj : Project.getProjectList()) {
+							if (proj.getSupervisorId().equals(supervisorModel.getId())) {
+								ProjectView.printProjectInfo(proj.getProjectId());
+							}
 						}
-						int id = cli.inputInteger("Choose projectId to modify project title", 1, count);
+						//need to do expection handling
+						int id = cli.inputInteger("Choose projectId to modify project title");
 						String newtitle = cli.inputString("Enter new project title");
 						Project.changeProjectTitle(id, newtitle);
 						cli.displayTitle("\nPROJECT TITLE HAS BEEN UPDATED");
 						Thread.sleep(3000);
 						break;
-					}
 				
 				case 4:
-					//View supervised project/view projects created
+					// View supervised project
 					cli.displayTitle("View supervised projects");
-					if (supervisorModel.getSupervisedProjectList() == null) {
+					if (supervisorModel.getSupervisedProjectList().size() == 0) {
 						cli.display("Currectly not supervising any project");
-						Thread.sleep(3000);
+						Thread.sleep(2000);
 						break;
 					}
 					else {
@@ -139,9 +135,18 @@ public class SupervisorController extends Controller {
 						Thread.sleep(3000);
 						break;
 					}
-					
-				
 				case 5:
+					//View project Created
+					cli.displayTitle("View projects created");
+					for (Project proj : Project.getProjectList()) {
+						if (proj.getSupervisorId().equals(supervisorModel.getId())) {
+							ProjectView.printProjectInfo(proj.getProjectId());
+						}
+					}
+					Thread.sleep(3000);
+					break;
+					
+				case 6:
 					//approve/reject title change requests
 					cli.displayTitle("Approve Title Change Requests");
 					choice = cli.inputInteger("Enter Request ID: ", 1, Request.getRequests().size());
@@ -185,19 +190,19 @@ public class SupervisorController extends Controller {
 							}
 						}
 					
-				case 6:
+				case 7:
 					//Request FYP coordinator to change supervisor in charge
 					cli.displayTitle("Request to change supervisor in charge");
-					
+					//exception handling
 					int projectID = cli.inputInteger("Enter project ID");      
 				    String newSupervisorID = cli.inputString("Enter the replacement supervisor ID");
-				    new Request(supervisorModel.getId(),supervisorModel.getName(),supervisorModel.getEmailAddress(), "ASFLI", "Li Fang", "ASFLI@ntu.edu.sg",projectID,newSupervisorID,Project.getSupervisorIdToName(newSupervisorID),Project.getSupervisorIdToEmail(newSupervisorID),RequestType_Enum.CHANGESUPERVISOR,RequestStatus_Enum.PENDING,Request.getRequests().size());
+				    new Request(supervisorModel.getId(),supervisorModel.getName(),supervisorModel.getEmailAddress(), "ASFLI", "Li Fang", "ASFLI@ntu.edu.sg",projectID,newSupervisorID,Supervisor.getSupervisorIdToName(newSupervisorID),Supervisor.getSupervisorIdToEmail(newSupervisorID),RequestType_Enum.CHANGESUPERVISOR,RequestStatus_Enum.PENDING,Request.getRequests().size());
 				    // Request.updateFile(); // Update file
 					cli.displayTitle("REQUEST HAS BEEN SENT");
 					Thread.sleep(3000);
 					break;
 					
-				case 7: 
+				case 8: 
 					//View Incoming and Outgoing Request History and Status
 					String[] historyMenu = {
 							"View incoming requests history and status",
@@ -229,12 +234,13 @@ public class SupervisorController extends Controller {
 						Thread.sleep(3000);
 						break;
 					default: 
+						//cannot do return
 						return;
 					}
 					
-				case 8:
+				case 9:
 					cli.display("Logging out...");
-					Thread.sleep(3000);
+					Thread.sleep(1000);
 					return;
 									
 				default:

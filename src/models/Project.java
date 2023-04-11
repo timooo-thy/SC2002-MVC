@@ -3,6 +3,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import utilities.Database;
+import models.Supervisor;
 
 public class Project {
 	
@@ -54,9 +55,9 @@ public class Project {
 	public Project() {}
 	
 	public Project(String supervisorName, String projectTitle, ProjectStatus_Enum projStatus) {
-		this.supervisorId = getSupervisorNameToId(supervisorName).toUpperCase();
+		this.supervisorId = Supervisor.getSupervisorNameToId(supervisorName).toUpperCase();
 		this.supervisorName = supervisorName;
-		this.supervisorEmail = getSupervisorNameToEmail(supervisorName);
+		this.supervisorEmail = Supervisor.getSupervisorNameToEmail(supervisorName);
         this.projectId = projectList.size()+1;
         this.projectTitle = projectTitle;
         this.projectStatus = projStatus;
@@ -64,12 +65,12 @@ public class Project {
 	}
 
 	public Project(String supervisorName, String projectTitle, String studentName, ProjectStatus_Enum projStatus) {
-		this.supervisorId = getSupervisorNameToId(supervisorName).toUpperCase();
+		this.supervisorId = Supervisor.getSupervisorNameToId(supervisorName).toUpperCase();
 		this.supervisorName = supervisorName;
-		this.supervisorEmail = getSupervisorNameToEmail(supervisorName);
+		this.supervisorEmail = Supervisor.getSupervisorNameToEmail(supervisorName);
 		this.studentName = studentName;
-		this.studentId = getStudentIdToName(studentName);
-		this.studentEmail = getStudentIdToEmail(studentName);
+		this.studentId = Student.getStudentNameToId(studentName).toUpperCase();
+		this.studentEmail = Student.getStudentNameToEmail(studentName);
         this.projectId = projectList.size()+1;
         this.projectTitle = projectTitle;
         this.projectStatus = projStatus;
@@ -93,85 +94,6 @@ public class Project {
 	}
 	
 	////////////////////////////////////////////////////////////////////////////////////////
-
-	// shldnt be here
-	// Get Supervisor Id and Email based on Name
-	public static String getSupervisorNameToEmail(String supervisorName){
-		for (int i = 0; i < Supervisor.getSupervisorsList().size(); i++) {
-			if ((Supervisor.getSupervisorsList().get(i).getName()).equals(supervisorName)) {
-				return Supervisor.getSupervisorsList().get(i).getEmailAddress();
-			}
-		}
-		return null;
-	}
-	
-	public static String getSupervisorNameToId(String supervisorName) {
-		for (int i = 0; i < Supervisor.getSupervisorsList().size(); i++) {
-			if ((Supervisor.getSupervisorsList().get(i).getName()).equals(supervisorName)) {
-				return Supervisor.getSupervisorsList().get(i).getId();
-			}
-		}
-		return null;
-	}
-	
-	public static String getSupervisorIdToEmail(String supervisorId){
-		for (int i = 0; i < Supervisor.getSupervisorsList().size(); i++) {
-			if ((Supervisor.getSupervisorsList().get(i).getId()).equals(supervisorId)) {
-				return Supervisor.getSupervisorsList().get(i).getEmailAddress();
-			}
-		}
-		return null;
-	}
-	
-	public static String getSupervisorIdToName(String supervisorId) {
-		for (int i = 0; i < Supervisor.getSupervisorsList().size(); i++) {
-			if ((Supervisor.getSupervisorsList().get(i).getId()).equals(supervisorId)) {
-				return Supervisor.getSupervisorsList().get(i).getName();
-			}
-		}
-		return null;
-	}
-	
-	////////////////////////////////////////////////////////////////////////////////////////
-	
-	// Get Student Id and Email based on Name
-	public static String getStudentNameToEmail(String studentName){
-		for (int i = 0; i < Student.getStudentsList().size(); i++) {
-			if ((Student.getStudentsList().get(i).getName()).equals(studentName)) {
-				return Student.getStudentsList().get(i).getEmailAddress();
-			}
-		}
-		return null;
-	}
-	
-	public static String getStudentNameToId(String studentName) {
-		for (int i = 0; i < Student.getStudentsList().size(); i++) {
-			if ((Student.getStudentsList().get(i).getName()).equals(studentName)) {
-				return Student.getStudentsList().get(i).getId();
-			}
-		}
-		return null;
-	} 
-	
-	public static String getStudentIdToEmail(String studentId){
-		for (int i = 0; i < Student.getStudentsList().size(); i++) {
-			if ((Student.getStudentsList().get(i).getId()).equals(studentId)) {
-				return Student.getStudentsList().get(i).getEmailAddress();
-			}
-		}
-		return null;
-	}
-	
-	public static String getStudentIdToName(String studentId) {
-		for (int i = 0; i < Student.getStudentsList().size(); i++) {
-			if ((Student.getStudentsList().get(i).getId()).equals(studentId)) {
-				return Student.getStudentsList().get(i).getName();
-			}
-		}
-		return null;
-	}
-	
-	//////////////////////////////////////////////////////////////////////////////////////
 
 	public int getProjectId() {
 		return this.projectId;
@@ -263,13 +185,15 @@ public class Project {
 		projectList = p;
 	}
 
+	// value 0 = sup name, value 1 = title, value 2 = student
 	public static void initializeProjectFile() throws Throwable {
 		HashMap<Integer, Object[]> map  = d.initializeProjectFile(FILENAME, FILEPATH);
 		for (int projId : map.keySet()) {
         	Object[] values = map.get(projId);       	
         		if ((ProjectStatus_Enum)values[3] == ProjectStatus_Enum.ALLOCATED) {
-        			addSupervisedProject((String)values[0], new Project((String)values[0],(String) values[1],(String) values[2],(ProjectStatus_Enum) values[3]));
-        			Student.getStudentFromName((String)values[2]).setProjectID(projId); //set student project id if allocated
+					addSupervisedProject((String)values[0], new Project((String)values[0],(String) values[1],(String) values[2],(ProjectStatus_Enum) values[3]));  
+					
+					Student.getStudentFromName((String)values[2]).setProjectID(projId); //set student project id if allocated
         		}
         		else new Project((String)values[0],(String) values[1],(ProjectStatus_Enum) values[3]); 
         }
@@ -284,14 +208,13 @@ public class Project {
 	// Supervised Project
 	
 	public static void addSupervisedProject(String supervisorId,Project p) {
-		Supervisor.getSupervisorFromName(supervisorId).getSupervisedProjectList().add(p);
+		Supervisor.getSupervisorFromId(supervisorId).getSupervisedProjectList().add(p);
 	}
 	
 	// 2 is max, if size is 2 cannot allocate project
-	public static boolean isAvailable(String supervisorId) {
+	public static boolean isAvailable(String supervisorId) { // error here
 		return (!(Supervisor.getSupervisorFromId(supervisorId).getSupervisedProjectList().size() == MAX_PROJECT));
 	}
-	
 	
 	///////////////////////////////////////////////////////////////////////////////////////
 
@@ -310,8 +233,8 @@ public class Project {
 		else supervisingProjList.remove(projectId-1);
 		
 		tempProj.setSupervisorId(replacementSupervisorId);
-		tempProj.setSupervisorName(getSupervisorIdToName(replacementSupervisorId));
-		tempProj.setSupervisorEmail(getSupervisorIdToEmail(replacementSupervisorId));
+		tempProj.setSupervisorName(Supervisor.getSupervisorIdToName(replacementSupervisorId));
+		tempProj.setSupervisorEmail(Supervisor.getSupervisorIdToEmail(replacementSupervisorId));
 		Project.addSupervisedProject(replacementSupervisorId, tempProj);
 		ArrayList<Project> newSupervisingProjList = Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList();
 		if (newSupervisingProjList.size() == 2) {
@@ -323,17 +246,16 @@ public class Project {
 //		View.cli.display("Supervisor has been changed successfully to...");
 //		View.cli.display("Supervisor Id:" + tempProj.getSupervisorId());
 //		View.cli.display("Supervisor Email:" + tempProj.getSupervisorEmail());
-		// do something to supervisor
 	}
 	
 	public static void allocateProject(int projectId, String studentId) {
 		Project tempProj = getProject(projectId);
 		tempProj.setStudentId(studentId);
-		tempProj.setStudentEmail(getStudentIdToEmail(studentId));
-		tempProj.setStudentName(getStudentIdToName(studentId));		
+		tempProj.setStudentEmail(Student.getStudentIdToEmail(studentId));
+		tempProj.setStudentName(Student.getStudentIdToName(studentId));		
 		tempProj.setProjectStatus(ProjectStatus_Enum.ALLOCATED);
 		Project.addSupervisedProject(tempProj.getSupervisorId(),tempProj);
-		if (Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList().size()==2) {
+		if ((Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList().size())==2) {
 			for (Project proj : Project.getProjectList() ) {
 				if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.AVAILABLE)
 					proj.setProjectStatus(ProjectStatus_Enum.UNAVAILABLE);
@@ -351,13 +273,11 @@ public class Project {
 		// do something in supervisor
 		if (Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList().size()==2) {
 			for (Project proj : Project.getProjectList() ) {
-				if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.AVAILABLE)
-					proj.setProjectStatus(ProjectStatus_Enum.UNAVAILABLE);
+				if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.UNAVAILABLE)
+					proj.setProjectStatus(ProjectStatus_Enum.AVAILABLE);
 			}
 		}
-		for (Project proj : tempSup.getSupervisedProjectList()) {
-			tempSup.getSupervisedProjectList().remove(projectId-1); 
-		}
+		tempSup.getSupervisedProjectList().remove(projectId-1); 
 		tempProj.setStudentId(null);
 		tempProj.setStudentName(null);
 		tempProj.setStudentEmail(null);
@@ -375,7 +295,7 @@ public class Project {
 	public static void selectProject(int projectId) {
 		Project tempProj = Project.getProject(projectId);
 		tempProj.setProjectStatus(ProjectStatus_Enum.RESERVED);// change project status to reserved
-		if (Supervisor.getSupervisorFromName(tempProj.getSupervisorName()).getSupervisedProjectList().size()==2) {
+		if ((Supervisor.getSupervisorFromId(tempProj.getSupervisorId())).getSupervisedProjectList().size()==2) {
 			for (Project proj : Project.getProjectList() ) {
 				if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.AVAILABLE)
 					proj.setProjectStatus(ProjectStatus_Enum.UNAVAILABLE);
