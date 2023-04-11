@@ -311,6 +311,9 @@ public class SupervisorController extends Controller {
 					
 					while (choice<=historyMenu.length) {
 						cli.displayTitle("View Incoming and Outgoing Request History and Status");
+						if (RequestView.checkForNew(supervisorModel.getId())) {
+							cli.displayTitle("*New Requests for Viewing*");
+						}
 						cli.display(historyMenu);
 						
 						choice = cli.inputInteger("choice", 1, historyMenu.length);

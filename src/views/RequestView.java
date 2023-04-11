@@ -114,4 +114,13 @@ public class RequestView {
 		return confirmation;
 	}
 	
+	public static int checkForNew(String recipientUserID) {
+		for (Request req : Request.getRequests()) {
+			int requestID = req.getRequestID();
+			if (Request.getRequestStatus(requestID) == RequestStatus.PENDING && Request.getRequest(requestID).getRecipientID().equals(recipientUserID)) {
+			    return 1;
+			}
+		}
+		
+		return 0;
 }
