@@ -273,7 +273,7 @@ public class Request {
         	Object[] values = map.get(requestID);
         	
         	if((RequestType_Enum)values[12]==RequestType_Enum.CHANGETITLE) {
-        		new Request((String)values[0],(String)values[1], (String)values[2], (String)values[3], (String)values[4], (String)values[5], (int)values[6], (int)values[7], (RequestType_Enum)values[12], (RequestStatus_Enum)values[13], requestID);
+        		new Request((String)values[0],(String)values[1], (String)values[2], (String)values[3], (String)values[4], (String)values[5], (int)values[6], (String)values[8], (RequestType_Enum)values[12], (RequestStatus_Enum)values[13], requestID);
         	}
         	
         	else if((RequestType_Enum)values[12]==RequestType_Enum.REGISTERPROJECT) {

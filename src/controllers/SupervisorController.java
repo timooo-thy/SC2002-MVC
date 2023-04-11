@@ -195,8 +195,8 @@ public class SupervisorController extends Controller {
 					cli.displayTitle("Request to change supervisor in charge");
 					//exception handling
 					int projectID = cli.inputInteger("Enter project ID");      
-				    String newSupervisorID = cli.inputString("Enter the replacement supervisor ID");
-				    new Request(supervisorModel.getId(),supervisorModel.getName(),supervisorModel.getEmailAddress(), "ASFLI", "Li Fang", "ASFLI@ntu.edu.sg",projectID,newSupervisorID,Supervisor.getSupervisorIdToName(newSupervisorID),Supervisor.getSupervisorIdToEmail(newSupervisorID),RequestType_Enum.CHANGESUPERVISOR,RequestStatus_Enum.PENDING,Request.getRequests().size());
+				    String newSupervisorID = cli.inputString("the Replacement Supervisor ID");
+				    new Request(supervisorModel.getId(),supervisorModel.getName(),supervisorModel.getEmailAddress(), "ASFLI", "Li Fang", "ASFLI@ntu.edu.sg",projectID,newSupervisorID,Supervisor.getSupervisorIdToName(newSupervisorID),Supervisor.getSupervisorIdToEmail(newSupervisorID),RequestType_Enum.CHANGESUPERVISOR,RequestStatus_Enum.PENDING,Request.getRequests().size()+1);
 				    // Request.updateFile(); // Update file
 					cli.displayTitle("REQUEST HAS BEEN SENT");
 					Thread.sleep(3000);
@@ -219,23 +219,23 @@ public class SupervisorController extends Controller {
 						cli.displayTitle("View Incoming and Outgoing Request History and Status");
 						cli.display(historyMenu);
 						
-						choice = cli.inputInteger("choice",1,historyMenu.length);
+						choice = cli.inputInteger("choice", 1, historyMenu.length);
 					}
 					
 					switch(choice) {
-					case 1:
-						cli.displayTitle("View Incoming Request History"); //pass in ???
-						RequestView.printIncomingRequestHistory(supervisorModel.getId());	
-						Thread.sleep(3000);
-						break;
-					case 2:
-						cli.displayTitle("View Outgoing Request History");
-						RequestView.printRequestHistory(supervisorModel.getId());
-						Thread.sleep(3000);
-						break;
-					default: 
-						//cannot do return
-						return;
+						case 1:
+							cli.displayTitle("View Incoming Request History"); //pass in ???
+							RequestView.printIncomingRequestHistory(supervisorModel.getId());	
+							Thread.sleep(3000);
+							break;
+						case 2:
+							cli.displayTitle("View Outgoing Request History");
+							RequestView.printRequestHistory(supervisorModel.getId());
+							Thread.sleep(3000);
+							break;
+						default: 
+							//cannot do return
+							return;
 					}
 					
 				case 9:

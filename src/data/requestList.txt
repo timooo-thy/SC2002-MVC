@@ -1,2 +1,6 @@
 senderID;senderName;senderEmail;recipientID;recipientName;recipientEmail;projectID;newProjectID;newProjectTitle;newSupervisorID;newSupervisorName;newSupervisorEmail;requestType;requestStatus;requestID
-YCHERN;CHERN;YCHERN@e.ntu.edu.sg;ASMADHUKUMAR;A S Madhukumar;ASMADHUKUMAR@ntu.edu.sg;1;-1;-1;-1;-1;-1;REGISTERPROJECT;PENDING;1
+YCHERN;CHERN;YCHERN@e.ntu.edu.sg;ASMADHUKUMAR;A S Madhukumar;ASMADHUKUMAR@ntu.edu.sg;1;-1;-1;-1;-1;-1;REGISTERPROJECT;APPROVED;1
+CT113;CALVIN;CT113@e.ntu.edu.sg;BOAN;Bo An;BOAN@ntu.edu.sg;7;-1;ilovelifang;-1;-1;-1;CHANGETITLE;APPROVED;2
+CT113;CALVIN;CT113@e.ntu.edu.sg;ASFLI;Li Fang;ASFLI@ntu.edu.sg;7;-1;-1;-1;-1;-1;DEREGISTERPROJECT;PENDING;3
+BOAN;Bo An;BOAN@ntu.edu.sg;ASFLI;Li Fang;ASFLI@ntu.edu.sg;3213;-1;-1;ASFLI;Li Fang;ASFLI@ntu.edu.sg;CHANGESUPERVISOR;PENDING;4
+BOAN;Bo An;BOAN@ntu.edu.sg;ASFLI;Li Fang;ASFLI@ntu.edu.sg;123;-1;-1;ASFLI;Li Fang;ASFLI@ntu.edu.sg;CHANGESUPERVISOR;PENDING;5

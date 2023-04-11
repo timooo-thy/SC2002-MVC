@@ -127,9 +127,9 @@ public class StudentController extends Controller {
 						//if student already registered, proceed title change
 						Project allocatedProject = Project.getProject(studentModel.getProjectID());
 						cli.display("Your project title is : " + allocatedProject.getProjectTitle());
-						newTitle = cli.inputString("What would you like to change it to?","\n");
-						new Request(studentModel.getId(),studentModel.getName(),studentModel.getEmailAddress(),allocatedProject.getSupervisorId(),allocatedProject.getSupervisorName(),allocatedProject.getSupervisorEmail(),allocatedProject.getProjectId(),newTitle,RequestType_Enum.CHANGETITLE,RequestStatus_Enum.PENDING,Request.getRequests().size());// send request to change title
-						cli.displayTitle("SUCCESS, YOUR REQUEST FOR CHANGING TITLE IS NOW PENDING FOR APPROVAL BY THE COORDINATOR");
+						newTitle = cli.inputString("What would you like to change it to?");
+						new Request(studentModel.getId(),studentModel.getName(),studentModel.getEmailAddress(),allocatedProject.getSupervisorId(),allocatedProject.getSupervisorName(),allocatedProject.getSupervisorEmail(),allocatedProject.getProjectId(),newTitle,RequestType_Enum.CHANGETITLE,RequestStatus_Enum.PENDING,Request.getRequests().size()+1);// send request to change title
+						cli.displayTitle("SUCCESS, YOUR REQUEST FOR CHANGING TITLE IS NOW PENDING FOR APPROVAL BY THE SUPERVISOR");
 						Request.updateRequestFile();
 					}
 					
@@ -148,7 +148,7 @@ public class StudentController extends Controller {
 						if (choice == 1) {
 							Project allocatedProject = Project.getProject(studentModel.getProjectID());
 						
-							new Request(studentModel.getId(),studentModel.getName(),studentModel.getEmailAddress(),"ASFLI", "Li Fang", "ASFLI@ntu.edu.sg",allocatedProject.getProjectId(),RequestType_Enum.DEREGISTERPROJECT,RequestStatus_Enum.PENDING,Request.getRequests().size());// send request to register
+							new Request(studentModel.getId(),studentModel.getName(),studentModel.getEmailAddress(),"ASFLI", "Li Fang", "ASFLI@ntu.edu.sg",allocatedProject.getProjectId(),RequestType_Enum.DEREGISTERPROJECT,RequestStatus_Enum.PENDING,Request.getRequests().size()+1);// send request to register
 							//cli.displayTitle();
 							Request.updateRequestFile(); // Update file
 						}

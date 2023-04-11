@@ -93,14 +93,16 @@ public class Supervisor extends User {
 
     public static Supervisor getSupervisorFromId(String supervisorId) {
     	for (Supervisor sup : supervisorsList) {
-    		if (sup.getId().equals(supervisorId)) return sup;
+    		if (sup.getId().equals(supervisorId)) 
+    			return sup;
     	}
     	return null;
     }
     
     public static Supervisor getSupervisorFromName(String supervisorName) {
     	for (Supervisor sup : supervisorsList) {
-    		if (sup.getName().equals(supervisorName)) return sup;
+    		if (sup.getName().equals(supervisorName)) 
+    			return sup;
     	}
     	return null;
     }

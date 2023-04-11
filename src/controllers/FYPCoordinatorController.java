@@ -77,7 +77,7 @@ public class FYPCoordinatorController extends Controller {
 				            tries--;
 				        }
 				    }
-					    
+				    Thread.sleep(3000);    
 					break;
 					// Create Project
 				case 2:
@@ -131,7 +131,6 @@ public class FYPCoordinatorController extends Controller {
 //					Project.updateProjectFile(); // Update file
 					
 					cli.displayTitle("\nProject Name has been changed successfully");
-					
 					
 					Thread.sleep(3000);
 					break; //break; //fypCoordinatorController.run();
@@ -248,7 +247,7 @@ public class FYPCoordinatorController extends Controller {
 //								Student.updateFile(); // Update file
 //								Project.updateProjectFile(); // Update file
 							}
-							
+							Thread.sleep(3000);
 							break; //fypCoordinatorController.run();
 							
 	//INCOMEPLETE CODE INCOMEPLETE CODE INCOMEPLETE CODE INCOMEPLETE CODE INCOMEPLETE CODE INCOMEPLETE CODE INCOMEPLETE CODE INCOMEPLETE CODE
@@ -288,8 +287,7 @@ public class FYPCoordinatorController extends Controller {
 									Request.getRequest(choice).reject();
 								}
 								
-								
-								
+								Thread.sleep(3000);
 								break; //fypCoordinatorController.run();
 							// Approve Supervisor Change 
 							case 3:
@@ -333,7 +331,7 @@ public class FYPCoordinatorController extends Controller {
 									// Reject Request
 									Request.getRequest(choice).reject();
 								}
-								
+								Thread.sleep(3000);
 								break; //fypCoordinatorController.run();
 							// Approve Deregistration 
 							case 4:
@@ -375,7 +373,6 @@ public class FYPCoordinatorController extends Controller {
 						}
 					}		
 					
-					
 					break; //fypCoordinatorController.run();
 
 				// View request history	
@@ -387,7 +384,7 @@ public class FYPCoordinatorController extends Controller {
 						RequestView.printRequestInfo(req.getRequestID());
 						cli.display("----------------------------");
 					}
-		
+					Thread.sleep(3000);
 					break; //fypCoordinatorController.run();
 					
 		
@@ -477,6 +474,7 @@ public class FYPCoordinatorController extends Controller {
 					
 				case 9:
 					cli.display("Logging out...");
+					Thread.sleep(1000);
 					return;
 									
 				default:

@@ -22,7 +22,7 @@ public class RequestView {
 			View.cli.display("Requesting to Deregister from Project ID: " + Request.getRequest(requestID).getProjectID());
 		}
 		else if (Request.getRequest(requestID).getRequestType() == RequestType_Enum.CHANGESUPERVISOR) {
-			View.cli.display("For Project ID " + Request.getRequest(requestID).getProjectID() + " , " + Request.getRequest(requestID).getSenderID() + "is requesting to change the supervisor to: " + Request.getRequest(requestID).getNewSupervisorName());
+			View.cli.display("For Project ID " + Request.getRequest(requestID).getProjectID() + ", " + Request.getRequest(requestID).getSenderID() + " is requesting to change the supervisor to: " + Request.getRequest(requestID).getNewSupervisorName());
 		}
 		View.cli.display("Request Status: " + Request.getRequest(requestID).getRequestStatus().toString());
 	}
@@ -32,6 +32,7 @@ public class RequestView {
 		for (Request req : Request.getRequests()) {
 			int requestID = req.getRequestID();
 			if (Request.getRequest(requestID).getSenderID().equals(userID)) {
+				View.cli.display("----------------------------------------------------------------------------");
 				View.cli.display("Request ID: " + Request.getRequest(requestID).getRequestID());
 				View.cli.display("Request Type: " + Request.getRequest(requestID).getRequestType());
 				View.cli.display("Sender ID: " + Request.getRequest(requestID).getSenderID());
@@ -59,6 +60,7 @@ public class RequestView {
 		for (Request req : Request.getRequests()) {
 			int requestID = req.getRequestID();
 			if (Request.getRequest(requestID).getRecipientID().equals(recipientUserID)) {
+				View.cli.display("----------------------------------------------------------------------------");
 				View.cli.display("Request ID: " + Request.getRequest(requestID).getRequestID());
 				View.cli.display("Request Type: " + Request.getRequest(requestID).getRequestType());
 				View.cli.display("Sender ID: " + Request.getRequest(requestID).getSenderID());
@@ -81,6 +83,7 @@ public class RequestView {
 		
 		}
 	}
+	
 	public static int requestRequestID() {
 		// Initialise Pending requests list
 		ArrayList<Integer> allocationRequestID = new ArrayList<>();

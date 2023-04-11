@@ -1,5 +1,5 @@
-projectId;supervisorName;Title;studentName;projectStatus
-1;A S Madhukumar;Machine Learning-Based Interference Mitigation in a Multi-Tier Networks;CHERN;AVAILABLE
+ProjectId;supervisorName;Title;studentName;projectStatus
+1;A S Madhukumar;Machine Learning-Based Interference Mitigation in a Multi-Tier Networks;-1;AVAILABLE
 2;A S Madhukumar;Deep Learning-Driven Edge Caching for 5G-and-Beyond Industrial IoT Networks;-1;AVAILABLE
 3;Alexei Sourin;Sonification of Geometry 1;-1;AVAILABLE
 4;Arvind Easwaran;Edge/Cloud Resource Management for Time-Sensitive Applications (2);-1;AVAILABLE

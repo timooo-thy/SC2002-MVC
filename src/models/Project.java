@@ -191,7 +191,7 @@ public class Project {
 		for (int projId : map.keySet()) {
         	Object[] values = map.get(projId);       	
         		if ((ProjectStatus_Enum)values[3] == ProjectStatus_Enum.ALLOCATED) {
-					addSupervisedProject((String)values[0], new Project((String)values[0],(String) values[1],(String) values[2],(ProjectStatus_Enum) values[3]));  
+					addSupervisedProject((String)values[0], new Project((String)values[0], (String)values[1], (String)values[2], (ProjectStatus_Enum)values[3]));  
 					
 					Student.getStudentFromName((String)values[2]).setProjectID(projId); //set student project id if allocated
         		}
@@ -208,7 +208,7 @@ public class Project {
 	// Supervised Project
 	
 	public static void addSupervisedProject(String supervisorId,Project p) {
-		Supervisor.getSupervisorFromId(supervisorId).getSupervisedProjectList().add(p);
+		Supervisor.getSupervisorFromName(supervisorId).getSupervisedProjectList().add(p);
 	}
 	
 	// 2 is max, if size is 2 cannot allocate project
