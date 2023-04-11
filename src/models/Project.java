@@ -9,7 +9,7 @@ public class Project {
 	
 	private static final String FILEPATH = "src/data/";
 	
-	private static final String FILENAME = "rolloverproject.txt";
+	private static final String FILENAME = "projectList.txt";
 	
 	private static ArrayList<Project> projectList = new ArrayList<Project>();
 	

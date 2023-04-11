@@ -139,24 +139,6 @@ public class Database {
             	RequestType_Enum requestType = RequestType_Enum.valueOf(splitLine[12]);
             	RequestStatus_Enum requestStatus = RequestStatus_Enum.valueOf(splitLine[13]);
             	int requestID = Integer.parseInt(splitLine[14]);
-            	
-            	System.out.println(senderID);
-            	System.out.println(senderName);
-            	System.out.println(senderEmail);
-            	System.out.println(recipientID);
-            	System.out.println(recipientEmail);
-            	System.out.println(projectID);
-            	System.out.println(newProjectID);
-            	System.out.println(newProjectTitle);
-            	System.out.println(newSupervisorID);
-            	System.out.println(newSupervisorName);
-            	System.out.println(newSupervisorEmail);
-            	System.out.println(requestType);
-            	System.out.println(requestStatus);
-            	System.out.println(requestID);
-            	System.out.println(recipientName);
-            	
-
                 map.put(requestID, new Object[] {senderID, senderName, senderEmail, recipientID, 
                 		recipientName, recipientEmail, projectID, newProjectID, newProjectTitle, 
                 		newSupervisorID, newSupervisorName, newSupervisorEmail, requestType, requestStatus});

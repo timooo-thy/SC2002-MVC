@@ -9,7 +9,7 @@ public class Student extends User {
 	
 	private static final String FILEPATH = "src/data/";
 	
-	private static final String FILENAME = "studentlist.txt";
+	private static final String FILENAME = "studentList.txt";
 
 	private static ArrayList<Student> studentsList = new ArrayList<Student>();
 

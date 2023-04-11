@@ -9,7 +9,7 @@ public class Supervisor extends User {
 	
 	private static final String FILEPATH = "src/data/";
 	
-	private static final String FILENAME = "facultylist.txt";
+	private static final String FILENAME = "facultyList.txt";
 
 	private static ArrayList<Supervisor> supervisorsList = new ArrayList<Supervisor>();
 

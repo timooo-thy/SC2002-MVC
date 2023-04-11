@@ -1,3 +1,0 @@
-senderID;senderName;senderEmail;recipientID;recipientName;recipientEmail;projectID;newProjectID;newProjectTitle;newSupervisorID;newSupervisorName;newSupervisorEmail;requestType;requestStatus;requestID
-YCHERN;Chern;ABC@gg.com;AAA;WTF;LOL@gg.com;1;-1;-1;NEWGUY;NEWGUYNAME;NEWGUYEMAIL;CHANGESUPERVISOR;PENDING;1
-123;Timothy;timothylhy@hotmail.com;321;Bob;bob@hotmail.com;1;-1;-1;-1;-1;-1;CHANGESUPERVISOR;PENDING;2

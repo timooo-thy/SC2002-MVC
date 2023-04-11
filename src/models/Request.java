@@ -41,7 +41,7 @@ public class Request {
     
     private static final String FILEPATH = "src/data/";	
     
-	private static final String FILENAME = "requests.txt";
+	private static final String FILENAME = "requestList.txt";
 	
 	private static Database d = new Database();
     
