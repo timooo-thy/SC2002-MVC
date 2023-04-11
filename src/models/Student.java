@@ -74,7 +74,6 @@ public class Student extends User {
         this.projectID = projectID;
     }
 	
-	
 	public static boolean duplicateStudentId(String studentId) {
 
 		for (Student s : studentsList) {
@@ -88,6 +87,15 @@ public class Student extends User {
 	public static Student getStudentFromID(String studentID) {
 		for (Student s : studentsList) {
 			if (s.getId().equals(studentID)) {
+				return s;
+			}
+		}
+		return null;
+	}
+	
+	public static Student getStudentFromName(String studentName) {
+		for (Student s : studentsList) {
+			if (s.getName().equals(studentName)) {
 				return s;
 			}
 		}
