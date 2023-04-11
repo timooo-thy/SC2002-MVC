@@ -13,7 +13,7 @@ public class Supervisor extends User {
 
 	private static ArrayList<Supervisor> supervisorsList = new ArrayList<Supervisor>();
 
-	private static ArrayList<Project> supervisedProjectList = new ArrayList<Project>();
+	private ArrayList<Project> supervisedProjectList = new ArrayList<Project>();
 	
 	private static Database d = new Database();
 	

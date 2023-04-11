@@ -29,7 +29,7 @@ public class Project {
 	
 	private String studentId;
 	
-	private String studentName;
+	private String studentName = "-1";
 	
 	private String studentEmail;
 
@@ -46,6 +46,8 @@ public class Project {
 	//private String newSupervisorName;
 	
 	//private  String newProjectTitle;
+	
+	private static final int MAX_PROJECT = 2;
 		
 	////////////////////////////////////////////////////////////////////////////////////////
 
@@ -79,11 +81,7 @@ public class Project {
 	
 	public static void addProject(Project project){
 		projectList.add(project);
-		updateProjectFile();
-	}
-	
-	public static void addSupervisedProject(String supervisorId,Project p) {
-		Supervisor.getSupervisorFromName(supervisorId).getSupervisedProjectList().add(p);
+		//updateProjectFile();
 	}
 
 	public static ArrayList<Project> getProjectList(){
@@ -97,6 +95,7 @@ public class Project {
 	
 	////////////////////////////////////////////////////////////////////////////////////////
 
+	// shldnt be here
 	// Get Supervisor Id and Email based on Name
 	public static String getSupervisorNameToEmail(String supervisorName){
 		for (int i = 0; i < Supervisor.getSupervisorsList().size(); i++) {
@@ -137,7 +136,7 @@ public class Project {
 	////////////////////////////////////////////////////////////////////////////////////////
 	
 	// Get Student Id and Email based on Name
-	public String getStudentNameToEmail(String studentName){
+	public static String getStudentNameToEmail(String studentName){
 		for (int i = 0; i < Student.getStudentsList().size(); i++) {
 			if ((Student.getStudentsList().get(i).getName()).equals(studentName)) {
 				return Student.getStudentsList().get(i).getEmailAddress();
@@ -146,7 +145,7 @@ public class Project {
 		return null;
 	}
 	
-	public String getStudentNameToId(String studentName) {
+	public static String getStudentNameToId(String studentName) {
 		for (int i = 0; i < Student.getStudentsList().size(); i++) {
 			if ((Student.getStudentsList().get(i).getName()).equals(studentName)) {
 				return Student.getStudentsList().get(i).getId();
@@ -155,7 +154,7 @@ public class Project {
 		return null;
 	}
 	
-	public String getStudentIdToEmail(String studentId){
+	public static String getStudentIdToEmail(String studentId){
 		for (int i = 0; i < Student.getStudentsList().size(); i++) {
 			if ((Student.getStudentsList().get(i).getId()).equals(studentId)) {
 				return Student.getStudentsList().get(i).getEmailAddress();
@@ -164,7 +163,7 @@ public class Project {
 		return null;
 	}
 	
-	public String getStudentIdToName(String studentId) {
+	public static String getStudentIdToName(String studentId) {
 		for (int i = 0; i < Student.getStudentsList().size(); i++) {
 			if ((Student.getStudentsList().get(i).getId()).equals(studentId)) {
 				return Student.getStudentsList().get(i).getName();
@@ -269,7 +268,6 @@ public class Project {
 		HashMap<Integer, Object[]> map  = d.initializeProjectFile(FILENAME, FILEPATH);
 		for (int projId : map.keySet()) {
         	Object[] values = map.get(projId);       	
-        		new Project((String)values[0], (String)values[1], (ProjectStatus_Enum)values[3]); 
         		if ((ProjectStatus_Enum)values[3] == ProjectStatus_Enum.ALLOCATED) {
         				addSupervisedProject((String)values[0], new Project((String)values[0],(String) values[1],(String) values[2],(ProjectStatus_Enum) values[3]));
         		}
@@ -281,59 +279,109 @@ public class Project {
 		d.updateProjectFile(FILENAME,FILEPATH,projectList);
 	}
 
+	///////////////////////////////////////////////////////////////////////////////////////
+	
+	// Supervised Project
+	
+	public static void addSupervisedProject(String supervisorId,Project p) {
+		Supervisor.getSupervisorFromName(supervisorId).getSupervisedProjectList().add(p);
+	}
+	
+	// 2 is max, if size is 2 cannot allocate project
+	public static boolean isAvailable(String supervisorId) {
+		return (!(Supervisor.getSupervisorFromId(supervisorId).getSupervisedProjectList().size() == MAX_PROJECT));
+	}
+	
+	
+	///////////////////////////////////////////////////////////////////////////////////////
+
 	// For ProjectFYPCoordinator Interface //
 	
-	public void changeSupervisor(int projectId, String replacementSupervisorId) {
-		projectList.get(projectId-1).setSupervisorId(replacementSupervisorId);;
-		projectList.get(projectId-1).setSupervisorName(getSupervisorIdToName(replacementSupervisorId));
-		projectList.get(projectId-1).setSupervisorEmail(getSupervisorIdToEmail(replacementSupervisorId));
-		System.out.print("Supervisor has been changed successfully to...");
-		System.out.print("Supervisor Id:" + getSupervisorId());
-		System.out.print("Supervisor Email:" + getSupervisorEmail());
+	public static void changeSupervisor(int projectId, String replacementSupervisorId) {
+		Project tempProj = Project.getProject(projectId);
+		ArrayList<Project> supervisingProjList = Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList();
+		if (supervisingProjList.size() == 2) {
+			for (Project proj : Project.getProjectList() ) {
+				if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.UNAVAILABLE)
+					proj.setProjectStatus(ProjectStatus_Enum.AVAILABLE);
+			}
+			supervisingProjList.remove(projectId-1);
+		}
+		else supervisingProjList.remove(projectId-1);
+		
+		tempProj.setSupervisorId(replacementSupervisorId);
+		tempProj.setSupervisorName(getSupervisorIdToName(replacementSupervisorId));
+		tempProj.setSupervisorEmail(getSupervisorIdToEmail(replacementSupervisorId));
+		Project.addSupervisedProject(replacementSupervisorId, tempProj);
+		ArrayList<Project> newSupervisingProjList = Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList();
+		if (newSupervisingProjList.size() == 2) {
+			for (Project proj : Project.getProjectList() ) {
+				if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.AVAILABLE)
+					proj.setProjectStatus(ProjectStatus_Enum.UNAVAILABLE);
+			}
+		}
+//		View.cli.display("Supervisor has been changed successfully to...");
+//		View.cli.display("Supervisor Id:" + tempProj.getSupervisorId());
+//		View.cli.display("Supervisor Email:" + tempProj.getSupervisorEmail());
 		// do something to supervisor
 	}
 	
-	public void allocateProject(int projectId, String studentId) {
-		projectList.get(projectId-1).setStudentId(studentId);
-		projectList.get(projectId-1).setStudentEmail(getStudentIdToEmail(studentId));
-		projectList.get(projectId-1).setStudentName(getStudentIdToName(studentId));		
-		projectList.get(projectId-1).setProjectStatus(ProjectStatus_Enum.ALLOCATED);
-		System.out.println("Student has been changed successfully to...");
-		System.out.println("Student Id:" + projectList.get(projectId).getStudentId());
-		System.out.println("Student Email:" + projectList.get(projectId).getStudentEmail());
+	public static void allocateProject(int projectId, String studentId) {
+		Project tempProj = getProject(projectId);
+		tempProj.setStudentId(studentId);
+		tempProj.setStudentEmail(getStudentIdToEmail(studentId));
+		tempProj.setStudentName(getStudentIdToName(studentId));		
+		tempProj.setProjectStatus(ProjectStatus_Enum.ALLOCATED);
+		Project.addSupervisedProject(tempProj.getSupervisorId(),tempProj);
+		if (Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList().size()==2) {
+			for (Project proj : Project.getProjectList() ) {
+				if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.AVAILABLE)
+					proj.setProjectStatus(ProjectStatus_Enum.UNAVAILABLE);
+			}
+		}
+//		View.cli.display("Student has been changed successfully to...");
+//		View.cli.display("Student Id:" + projectList.get(projectId).getStudentId());
+//		View.cli.display("Student Email:" + projectList.get(projectId).getStudentEmail());
 		// do something to supervisor
 	}
 	
-	public void deregisterStudent(int projectId) {
+	public static void deregisterStudent(int projectId) {
 		Project tempProj = projectList.get(projectId-1);
-		Supervisor tempSup = Supervisor.getSuperVisor(tempProj.getSupervisorId()); 
+		Supervisor tempSup = Supervisor.getSupervisorFromId(tempProj.getSupervisorId()); 
+		// do something in supervisor
+		if (Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList().size()==2) {
+			for (Project proj : Project.getProjectList() ) {
+				if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.AVAILABLE)
+					proj.setProjectStatus(ProjectStatus_Enum.UNAVAILABLE);
+			}
+		}
+		for (Project proj : tempSup.getSupervisedProjectList()) {
+			tempSup.getSupervisedProjectList().remove(projectId-1); 
+		}
 		tempProj.setStudentId(null);
 		tempProj.setStudentName(null);
 		tempProj.setStudentEmail(null);
 		tempProj.setProjectStatus(ProjectStatus_Enum.AVAILABLE);
-		// do something in supervisor
-		for (Project proj : tempSup.getSupervisedProjectList()) {
-			//if (proj.getProjectId() == projectId) tempSup.getS
-		}
-			
-	}
-	
-	public static void createProject() {
-		
 	}
 	
 	public static void changeProjectTitle(int projectId, String tempProjectTitle) {
 		Project tempProject = Project.getProject(projectId);
 		tempProject.setProjectTitle(tempProjectTitle);
-		System.out.println("Project Title has been changed successfully to...");
-		System.out.println("Project Title:" + tempProject.getProjectTitle());
+//		View.cli.display("Project Title has been changed successfully to...");
+//		cli.display("Project Title:" + tempProject.getProjectTitle());
 	}
 	
 	
-	public void selectProject() {
-		
+	public static void selectProject(int projectId) {
+		Project tempProj = Project.getProject(projectId);
+		tempProj.setProjectStatus(ProjectStatus_Enum.RESERVED);// change project status to reserved
+		if (Supervisor.getSupervisorFromName(tempProj.getSupervisorName()).getSupervisedProjectList().size()==2) {
+			for (Project proj : Project.getProjectList() ) {
+				if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.AVAILABLE)
+					proj.setProjectStatus(ProjectStatus_Enum.UNAVAILABLE);
+			}
+		}
 	}
-	
 }
 
 
