@@ -95,11 +95,12 @@ public class StudentController extends Controller {
 							projectChoice = cli.inputInteger("Project ID", 1, Project.getProjectList().size()+1);
 							projectStatus = Project.getProject(projectChoice).getProjectStatus();
 							if (projectStatus == ProjectStatus_Enum.AVAILABLE) {
-								new Request(studentModel.getId(), studentModel.getName(), studentModel.getEmailAddress(), "ASFLI", "Li Fang", "ASFLI@ntu.edu.sg", projectChoice, RequestType_Enum.REGISTERPROJECT, RequestStatus_Enum.PENDING, Request.getRequests().size()+1);// send request to register								Project.selectProject(projectChoice);
+								new Request(studentModel.getId(), studentModel.getName(), studentModel.getEmailAddress(), "ASFLI", "Li Fang", "ASFLI@ntu.edu.sg", projectChoice, RequestType_Enum.REGISTERPROJECT, RequestStatus_Enum.PENDING, Request.getRequests().size()+1);// send request to register
+								Project.selectProject(projectChoice);
 								projectStatus = Project.getProject(projectChoice).getProjectStatus();
 								studentModel.setProjectID(0);
 							}
-						} while (projectStatus != ProjectStatus_Enum.AVAILABLE);
+						} while (projectStatus == ProjectStatus_Enum.AVAILABLE);
 						// can do a catch throw exception
 						
 						cli.displayTitle("SUCCESS, YOUR REGISTRATION IS NOW PENDING FOR APPROVAL BY THE COORDINATOR");
