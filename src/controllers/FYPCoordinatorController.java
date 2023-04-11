@@ -322,7 +322,7 @@ public class FYPCoordinatorController extends Controller {
 					return;
 									
 				default:
-				mainController.run(FYPCoordinatorModel);
+					return;
 			}
 		}
 	}

@@ -95,7 +95,7 @@ public class StudentController extends Controller {
 							projectChoice = cli.inputInteger("Project ID", 1, Project.getProjectList().size()+1);
 							projectStatus = Project.getProject(projectChoice).getProjectStatus();
 							if (projectStatus == ProjectStatus_Enum.AVAILABLE) {
-								new Request(studentModel.getId(),studentModel.getName(),studentModel.getEmailAddress(),/*fypCoordinatorModel.getId(),fypCoordinatorModel.getName(),fypCoordinatorModel.getEmail()*/"ASFLI","ASFLI","ASFLI",projectChoice,RequestType_Enum.REGISTERPROJECT,RequestStatus_Enum.PENDING,Request.getRequests().size());// send request to register
+								new Request(studentModel.getId(),studentModel.getName(),studentModel.getEmailAddress(),"ASFLI", "Li Fang", "ASFLI@ntu.edu.sg",projectChoice,RequestType_Enum.REGISTERPROJECT,RequestStatus_Enum.PENDING,Request.getRequests().size());// send request to register
 								Project.getProject(projectChoice).setProjectStatus(ProjectStatus_Enum.RESERVED);// change project status to reserved
 							}
 						} while (projectStatus != ProjectStatus_Enum.AVAILABLE);
@@ -141,8 +141,8 @@ public class StudentController extends Controller {
 					choice = cli.inputInteger("choice", 1, 2);
 					if (choice == 1) {
 						Project allocatedProject = Project.getProject(studentModel.getProjectID());
-						new Request(studentModel.getId(),studentModel.getName(), studentModel.getEmailAddress(), allocatedProject.getSupervisorId(), allocatedProject.getSupervisorName(), allocatedProject.getSupervisorEmail(), studentModel.getProjectID(), RequestType_Enum.DEREGISTERPROJECT, RequestStatus_Enum.PENDING, Request.getRequests().size()+1);
-						
+					
+						new Request(studentModel.getId(),studentModel.getName(),studentModel.getEmailAddress(),"ASFLI", "Li Fang", "ASFLI@ntu.edu.sg",allocatedProject.getProjectId(),RequestType_Enum.DEREGISTERPROJECT,RequestStatus_Enum.PENDING,Request.getRequests().size());// send request to register
 						//cli.displayTitle();
 						Request.updateRequestFile(); // Update file
 					}
@@ -152,7 +152,7 @@ public class StudentController extends Controller {
 					
 					Thread.sleep(3000);
 					break;
-
+					
 				case 5: //View available projects
 					if (studentModel.getProjectID() == -1) {
 						cli.displayTitle("View all Available Projects");
@@ -175,6 +175,7 @@ public class StudentController extends Controller {
 				
 				case 7:
 					cli.display("Logging out...");
+					Thread.sleep(3000);
 					return;
 				
 				default:
@@ -183,5 +184,4 @@ public class StudentController extends Controller {
 		}
 	}
 }
-
 

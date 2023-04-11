@@ -1,4 +1,4 @@
-package models;
+  package models;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,7 +61,7 @@ public class Project {
         this.projectStatus = projStatus;
 		addProject(this);
 	}
-	
+
 	public Project(String supervisorName, String projectTitle, String studentName, ProjectStatus_Enum projStatus) {
 		this.supervisorId = getSupervisorNameToId(supervisorName).toUpperCase();
 		this.supervisorName = supervisorName;
@@ -74,17 +74,18 @@ public class Project {
         this.projectStatus = projStatus;
 		addProject(this);
 	}
-	
+
 	////////////////////////////////////////////////////////////////////////////////////////
 	
 	public static void addProject(Project project){
 		projectList.add(project);
 		updateProjectFile();
 	}
+	
 	public static void addSupervisedProject(String supervisorId,Project p) {
 		Supervisor.getSupervisorFromName(supervisorId).getSupervisedProjectList().add(p);
 	}
-	
+
 	public static ArrayList<Project> getProjectList(){
 		return projectList;
 	}
@@ -97,7 +98,7 @@ public class Project {
 	////////////////////////////////////////////////////////////////////////////////////////
 
 	// Get Supervisor Id and Email based on Name
-	public String getSupervisorNameToEmail(String supervisorName){
+	public static String getSupervisorNameToEmail(String supervisorName){
 		for (int i = 0; i < Supervisor.getSupervisorsList().size(); i++) {
 			if ((Supervisor.getSupervisorsList().get(i).getName()).equals(supervisorName)) {
 				return Supervisor.getSupervisorsList().get(i).getEmailAddress();
@@ -106,7 +107,7 @@ public class Project {
 		return null;
 	}
 	
-	public String getSupervisorNameToId(String supervisorName) {
+	public static String getSupervisorNameToId(String supervisorName) {
 		for (int i = 0; i < Supervisor.getSupervisorsList().size(); i++) {
 			if ((Supervisor.getSupervisorsList().get(i).getName()).equals(supervisorName)) {
 				return Supervisor.getSupervisorsList().get(i).getId();
@@ -115,7 +116,7 @@ public class Project {
 		return null;
 	}
 	
-	public String getSupervisorIdToEmail(String supervisorId){
+	public static String getSupervisorIdToEmail(String supervisorId){
 		for (int i = 0; i < Supervisor.getSupervisorsList().size(); i++) {
 			if ((Supervisor.getSupervisorsList().get(i).getId()).equals(supervisorId)) {
 				return Supervisor.getSupervisorsList().get(i).getEmailAddress();
@@ -124,7 +125,7 @@ public class Project {
 		return null;
 	}
 	
-	public String getSupervisorIdToName(String supervisorId) {
+	public static String getSupervisorIdToName(String supervisorId) {
 		for (int i = 0; i < Supervisor.getSupervisorsList().size(); i++) {
 			if ((Supervisor.getSupervisorsList().get(i).getId()).equals(supervisorId)) {
 				return Supervisor.getSupervisorsList().get(i).getName();
@@ -268,6 +269,7 @@ public class Project {
 		HashMap<Integer, Object[]> map  = d.initializeProjectFile(FILENAME, FILEPATH);
 		for (int projId : map.keySet()) {
         	Object[] values = map.get(projId);       	
+        		new Project((String)values[0], (String)values[1], (ProjectStatus_Enum)values[3]); 
         		if ((ProjectStatus_Enum)values[3] == ProjectStatus_Enum.ALLOCATED) {
         				addSupervisedProject((String)values[0], new Project((String)values[0],(String) values[1],(String) values[2],(ProjectStatus_Enum) values[3]));
         		}
@@ -304,7 +306,7 @@ public class Project {
 	
 	public void deregisterStudent(int projectId) {
 		Project tempProj = projectList.get(projectId-1);
-		Supervisor tempSup = Supervisor.getSupervisorFromId(tempProj.getSupervisorId()); 
+		Supervisor tempSup = Supervisor.getSuperVisor(tempProj.getSupervisorId()); 
 		tempProj.setStudentId(null);
 		tempProj.setStudentName(null);
 		tempProj.setStudentEmail(null);
@@ -333,4 +335,6 @@ public class Project {
 	}
 	
 }
+
+
 
