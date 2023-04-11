@@ -7,7 +7,7 @@ import models.*;
 public class RequestView {
 
 	public static void printRequestInfo(int requestID){
-		
+		View.cli.display("----------------------------------------------------------------------------");
 		View.cli.display("Request ID: " + requestID);
 		View.cli.display("Request Type: " + Request.getRequest(requestID).getRequestType());
 		View.cli.display("Sender ID: " +Request.getRequest(requestID).getSenderID());
