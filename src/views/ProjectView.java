@@ -28,9 +28,9 @@ public class ProjectView {
 		for (int i = 0; i < Project.getProjectList().size(); i++) {
 			if (Project.getProjectList().get(i).getProjectStatus() == ProjectStatus_Enum.AVAILABLE) {
 				View.cli.display("----------------------------------------------------------------------------");
-				View.cli.display("Project Id: " + Project.getProjectList().get(i).getProjectId());
+				View.cli.display("Project ID: " + Project.getProjectList().get(i).getProjectId());
 				View.cli.display("Project Title: " + Project.getProjectList().get(i).getProjectTitle());
-				View.cli.display("Supervisor Id: " + Project.getProjectList().get(i).getSupervisorName());
+				View.cli.display("Supervisor ID: " + Project.getProjectList().get(i).getSupervisorName());
 				View.cli.display("Supervisor Email: " + Project.getProjectList().get(i).getSupervisorEmail());
 			}
 		}

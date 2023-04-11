@@ -11,7 +11,7 @@ projectId;supervisorName;Title;studentName;projectStatus
 10;Chia Liang Tien;Smart Monitor for Studio Photographer;-1;AVAILABLE
 11;Cong Gao;Developing A Demonstration System for Spatial Data Exploration and Visualisation;-1;AVAILABLE
 12;Cong Gao;Deep Learning Supported Location-Aware Keyword Query;-1;AVAILABLE
-13;Douglas Leslie Maskell;An AI based Li-ion Fast Battery Charger for Power Tools;-1;AVAILABLE
+13;Douglas Leslie Maskell;An AI-Based Li-ion Fast Battery Charger for Power Tools;-1;AVAILABLE
 14;Douglas Leslie Maskell;A Li-ion Fast Battery Charger;-1;AVAILABLE
 15;Dusit Niyato;Metaverse for Virtual Education 1;-1;AVAILABLE
-16;Ke Yiping, Kelly;Graph-based Deep Models for Image Semantic Segmentation;-1;AVAILABLE
+16;Ke Yiping, Kelly;Graph-Based Deep Models for Image Semantic Segmentation;-1;AVAILABLE
