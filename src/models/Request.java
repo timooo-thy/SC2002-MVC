@@ -260,7 +260,7 @@ public class Request {
 	}
 	
 	public static Request getRequest(int i){
-		return requests.get(i);
+		return requests.get(i-1);
 	}
 
 	public static void updateRequests(ArrayList<Request> r){

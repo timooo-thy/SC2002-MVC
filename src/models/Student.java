@@ -96,7 +96,7 @@ public class Student extends User {
 	}
 	
 	public static Student getStudent(int i){
-		return studentsList.get(i);
+		return studentsList.get(i-1);
 	}
 	
 	public static void removeStudent(Student s){

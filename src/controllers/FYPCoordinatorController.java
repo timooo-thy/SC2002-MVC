@@ -215,7 +215,7 @@ public class FYPCoordinatorController extends Controller {
 							// Else continue with approval
 							String studentID = Request.getRequest(choice).getSenderID();
 							String studentName = Request.getRequest(choice).getSenderName();
-							String studentEmail = Request.getRequest(choice-1).getSenderEmail();
+							String studentEmail = Request.getRequest(choice).getSenderEmail();
 							int projectID = Request.getRequest(choice).getProjectID();
 							
 							// Confirmation for approval
@@ -239,7 +239,7 @@ public class FYPCoordinatorController extends Controller {
 							}
 							else {
 								// Reject Request
-								Request.getRequest(choice-1).reject();
+								Request.getRequest(choice).reject();
 								// Update student projectID
 								Student.getStudentFromID(studentID).setProjectID(-1);
 								// Make Project available again after rejecting request
@@ -285,7 +285,7 @@ public class FYPCoordinatorController extends Controller {
 								// Reject
 								else {
 									// Reject Request
-									Request.getRequest(choice-1).reject();
+									Request.getRequest(choice).reject();
 								}
 								
 								
@@ -331,7 +331,7 @@ public class FYPCoordinatorController extends Controller {
 								// Reject
 								else {
 									// Reject Request
-									Request.getRequest(choice-1).reject();
+									Request.getRequest(choice).reject();
 								}
 								
 								break; //fypCoordinatorController.run();
