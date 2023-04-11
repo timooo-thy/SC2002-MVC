@@ -96,7 +96,7 @@ public class StudentController extends Controller {
 							projectStatus = Project.getProject(projectChoice).getProjectStatus();
 							if (projectStatus == ProjectStatus_Enum.AVAILABLE) {
 								new Request(studentModel.getId(),studentModel.getName(),studentModel.getEmailAddress(),"ASFLI", "Li Fang", "ASFLI@ntu.edu.sg",projectChoice,RequestType_Enum.REGISTERPROJECT,RequestStatus_Enum.PENDING,Request.getRequests().size());// send request to register
-								Project.getProject(projectChoice).setProjectStatus(ProjectStatus_Enum.RESERVED);// change project status to reserved
+								Project.selectProject(projectChoice);
 							}
 						} while (projectStatus != ProjectStatus_Enum.AVAILABLE);
 						// can do a catch throw exception
