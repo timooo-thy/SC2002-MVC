@@ -78,13 +78,20 @@ public class Student extends User {
 	public static boolean duplicateStudentId(String studentId) {
 
 		for (Student s : studentsList) {
-
 			if (s.getId().equalsIgnoreCase(studentId)) {
 				return true;
 			}
 		}
-
 		return false;
+	}
+	
+	public static Student getStudentFromID(String studentID) {
+		for (Student s : studentsList) {
+			if (s.getId().equals(studentID)) {
+				return s;
+			}
+		}
+		return null;
 	}
 	
 	public static int getTotalNumberOfStudents(){

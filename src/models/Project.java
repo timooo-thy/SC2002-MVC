@@ -154,15 +154,6 @@ public class Project {
 		return null;
 	} 
 	
-	public static Student getStudentFromName(String studentName) {
-		for (int i = 0; i < Student.getStudentsList().size(); i++) {
-			if ((Student.getStudentsList().get(i).getName()).equals(studentName)) {
-				return Student.getStudentsList().get(i);
-			}
-		}
-		return null;
-	} //return student object based on name
-	
 	public static String getStudentIdToEmail(String studentId){
 		for (int i = 0; i < Student.getStudentsList().size(); i++) {
 			if ((Student.getStudentsList().get(i).getId()).equals(studentId)) {
