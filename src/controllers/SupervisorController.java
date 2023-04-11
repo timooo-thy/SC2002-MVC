@@ -150,7 +150,7 @@ public class SupervisorController extends Controller {
 							      if (proj.getSupervisorId().equals(supervisorModel.getId())) {
 							       ProjectView.printProjectInfo(proj.getProjectId());
 							       allocationProjectID.add(proj.getProjectId());
-							       cli.display("----------------------------");
+									cli.display("------------------------------------");
 							      }
 							     }
 							     
@@ -223,7 +223,7 @@ public class SupervisorController extends Controller {
 								for (Request req : Request.getRequests()) {
 									if (req.getRequestStatus() == RequestStatus_Enum.PENDING && req.getRequestType() == RequestType_Enum.CHANGETITLE) {
 										RequestView.printRequestInfo(req.getRequestID());
-										cli.display("----------------------------");
+										cli.display("------------------------------------");
 										count++;
 									}
 								}
