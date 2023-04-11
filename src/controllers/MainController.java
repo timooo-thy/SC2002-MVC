@@ -48,13 +48,16 @@ public class MainController extends Controller {
         	            break;
         	        }
                 }
+                
                 if(currentUser!=null) {
                 	cli.display("Welcome " + currentUser.getName());
                 	studentController.run(currentUser);
                 }
+                
                 else {
                 	cli.display("Wrong username/password... Try again.");
                 }
+                
                 break;
             
 			case 2:
@@ -66,13 +69,16 @@ public class MainController extends Controller {
         	            break;
         	        }
                 }
+                
                 if(currentUser!=null) {
                 	cli.display("Welcome " + currentUser.getName());
                 	supervisorController.run(currentUser);
                 }
+                
                 else {
                 	cli.display("Wrong username/password... Try again.");
                 }
+                
                 break;
                 
 			case 3:
@@ -84,13 +90,16 @@ public class MainController extends Controller {
         	            break;
         	        }
                 }
+                
                 if(currentUser!=null) {
                 	cli.display("Welcome " + currentUser.getName());
                 	fypcoordinatorController.run(currentUser);
                 }
+                
                 else {
                 	cli.display("Wrong username/password... Try again.");
                 }
+                
                 break;
 	
 			case 4:
