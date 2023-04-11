@@ -40,8 +40,8 @@ public class MainController extends Controller {
 			switch(choice) {
 			
 			case 1:
-                String studentid = cli.inputString("ID: ");
-                String studentpassword = cli.inputString("Password: ");
+                String studentid = cli.inputString("ID");
+                String studentpassword = cli.inputString("Password");
                 for(Student student:Student.getStudentsList()) {
         	        if(student != null && student.getId().equals(studentid) && student.getPassword().equals(studentpassword)){
         	            currentUser=student;
@@ -58,8 +58,8 @@ public class MainController extends Controller {
                 break;
             
 			case 2:
-                String supervisorid = cli.inputString("ID: ");
-                String supervisorpassword = cli.inputString("Password: ");
+                String supervisorid = cli.inputString("ID");
+                String supervisorpassword = cli.inputString("Password");
                 for(Supervisor supervisor:Supervisor.getSupervisorsList()) {
         	        if(supervisor != null && supervisor.getId().equals(supervisorid) && supervisor.getPassword().equals(supervisorpassword)){
         	            currentUser=supervisor;
@@ -76,8 +76,8 @@ public class MainController extends Controller {
                 break;
                 
 			case 3:
-                String fypcoordinatorid = cli.inputString("ID: ");
-                String fypcoordinatorpassword = cli.inputString("Password: ");
+                String fypcoordinatorid = cli.inputString("ID");
+                String fypcoordinatorpassword = cli.inputString("Password");
                 for(FYPCoordinator fypcoordinator:FYPCoordinator.getFYPCoordinatorsList()) {
         	        if(fypcoordinator != null && fypcoordinator.getId().equals(fypcoordinatorid) && fypcoordinator.getPassword().equals(fypcoordinatorpassword)){
         	            currentUser=fypcoordinator;

@@ -33,7 +33,7 @@ public class SupervisorController extends Controller {
 //                "Change Password ",
 //				"Add a new project " , case1
 //				"View project created by you ", case2
-//				"View superivsed project ", case3
+//				"View supervised project ", case3
 //				"Modify project title upon request ", APPROVE REQ case 4
 //				"Request FYP coordinator to change supervisor in charged ", SEND REQ case 5
 //               "View pending request ", case 6
@@ -92,18 +92,18 @@ public class SupervisorController extends Controller {
 					
 				case 2:
 					//Add a new project
-					String Menu = {
-							"Create a project",
+					String[] Menu_2 = {
+							"Create a Project",
 							"Back"
 					};
 					
 					choice = 0;
 					
-					while (choice<=Menu.length) {
+					while (choice<=Menu_2.length) {
 						cli.displayTitle("Create New Project Menu");
 						cli.display("------------------------------------");
-						cli.display(Menu);
-						choice = cli.inputInteger("choice",1,Menu.length);
+						cli.display(Menu_2);
+						choice = cli.inputInteger("choice",1,Menu_2.length);
 						
 						switch (choice) {
 							case 1:
@@ -128,18 +128,18 @@ public class SupervisorController extends Controller {
 				case 3:
 					//Modify own project title
 					
-					String Menu = {
+					String[] Menu_3 = {
 							"Modify own project title",
 							"Back"
 					};
 					
 					choice = 0;
 					
-					while (choice<=Menu.length) {
+					while (choice<=Menu_3.length) {
 						cli.displayTitle("Modify Own Project Title Menu");
 						cli.display("------------------------------------");
-						cli.display(Menu);
-						choice = cli.inputInteger("choice",1,Menu.length);
+						cli.display(Menu_3);
+						choice = cli.inputInteger("choice",1,Menu_3.length);
 						
 						switch (choice) {
 							case 1:
@@ -161,7 +161,7 @@ public class SupervisorController extends Controller {
 							     int id = cli.inputInteger("Choose Project ID to modify Project Title");
 							     String newtitle = cli.inputString("new Project Title");
 							     Project.changeProjectTitle(id, newtitle);
-							     cli.displayTitle("\nPROJECT TITLE HAS BEEN UPDATED");
+							     cli.displayTitle("Project Title has been updated");
 							     Project.updateProjectFile();
 							     Thread.sleep(3000);
 							     break;
@@ -200,18 +200,18 @@ public class SupervisorController extends Controller {
 					
 				case 6:
 					//approve/reject title change requests
-					String Menu = {
+					String[] Menu_6 = {
 							"Approve/Reject a request",
 							"Back"
 					};
 					
 					choice = 0;
 					
-					while (choice<=Menu.length) {
+					while (choice<=Menu_6.length) {
 						cli.displayTitle("Approve/Reject Title change Requests Menu");
 						cli.display("------------------------------------");
-						cli.display(Menu);
-						choice = cli.inputInteger("choice",1,Menu.length);
+						cli.display(Menu_6);
+						choice = cli.inputInteger("choice",1,Menu_6.length);
 						
 						switch(choice) {
 							case 1:
@@ -268,19 +268,19 @@ public class SupervisorController extends Controller {
 					
 				case 7:
 					//Request FYP coordinator to change supervisor in charge
-					String Menu = {
+					String[] Menu_7 = {
 							"Make a request",
 							"Back"
 					};
 					
 					choice = 0;
 					
-					while (choice<=Menu.length) {
+					while (choice<=Menu_7.length) {
 						cli.displayTitle("Request to Change Supervisor in Charge Menu");
 						cli.display("------------------------------------");
-						cli.display(Menu);
+						cli.display(Menu_7);
 						
-						choice = cli.inputInteger("choice",1,Menu.length);
+						choice = cli.inputInteger("choice",1,Menu_7.length);
 						
 						switch (choice) {
 							case 1:

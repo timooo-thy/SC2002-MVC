@@ -12,18 +12,23 @@ public class RequestView {
 		View.cli.display("Request Type: " + Request.getRequest(requestID).getRequestType());
 		View.cli.display("Sender ID: " +Request.getRequest(requestID).getSenderID());
 		View.cli.display("Recipient ID: " +Request.getRequest(requestID).getRecipientID());
+		
 		if (Request.getRequest(requestID).getRequestType() == RequestType_Enum.CHANGETITLE) {
 			View.cli.display("Requesting to Change Title to: " + Request.getRequest(requestID).getNewProjectTitle());
 		}
+		
 		else if (Request.getRequest(requestID).getRequestType() == RequestType_Enum.REGISTERPROJECT) {
 			View.cli.display("Requesting to Register to Project ID: " + Request.getRequest(requestID).getProjectID());
 		}
+		
 		else if (Request.getRequest(requestID).getRequestType() == RequestType_Enum.DEREGISTERPROJECT) {
 			View.cli.display("Requesting to Deregister from Project ID: " + Request.getRequest(requestID).getProjectID());
 		}
+		
 		else if (Request.getRequest(requestID).getRequestType() == RequestType_Enum.CHANGESUPERVISOR) {
 			View.cli.display("For Project ID " + Request.getRequest(requestID).getProjectID() + ", " + Request.getRequest(requestID).getSenderID() + " is requesting to change the supervisor to: " + Request.getRequest(requestID).getNewSupervisorName());
 		}
+		
 		View.cli.display("Request Status: " + Request.getRequest(requestID).getRequestStatus().toString());
 	}
 	

@@ -156,7 +156,7 @@ public class ConsoleInterface {
     public String inputString(String title) {
 		while(true) {
 			try {
-				System.out.println(">> Input " + title);
+				System.out.print(">> Input " + title + ": ");
 				String input = sc.nextLine();
 				
 				return input;
