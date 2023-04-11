@@ -1,5 +1,7 @@
  package views;
 
+import java.util.ArrayList;
+
 import models.*;
 
 public class RequestView {
@@ -79,4 +81,29 @@ public class RequestView {
 		
 		}
 	}
+	public static int requestRequestID() {
+		// Initialise Pending requests list
+		ArrayList<Integer> allocationRequestID = new ArrayList<>();
+		for (Request req : Request.getRequests()) {
+			if (req.getRequestStatus() == RequestStatus_Enum.PENDING) {
+				RequestView.printRequestInfo(req.getRequestID());
+				allocationRequestID.add(req.getRequestID());
+			}
+		}
+		int requestID = -1; 
+		while (!allocationRequestID.contains(requestID)) {
+			View.cli.displayTitle("Approve Project Allocation");
+			requestID = View.cli.inputInteger("Enter Request ID (Enter 0 to exit): ", 0, Request.getRequests().size());
+		}
+		return requestID;
+	}
+	public static int requestConfirmation() {
+		// Initialise Pending requests list
+		int confirmation = -1;
+		View.cli.display("Enter 1 to Approve Request \nEnter 2 to Reject Request");
+		confirmation = View.cli.inputInteger("choice (Enter 0 to exit): ", 0, 2);
+		
+		return confirmation;
+	}
+	
 }
