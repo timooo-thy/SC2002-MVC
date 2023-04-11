@@ -152,7 +152,16 @@ public class Project {
 			}
 		}
 		return null;
-	}
+	} 
+	
+	public static Student getStudentFromName(String studentName) {
+		for (int i = 0; i < Student.getStudentsList().size(); i++) {
+			if ((Student.getStudentsList().get(i).getName()).equals(studentName)) {
+				return Student.getStudentsList().get(i);
+			}
+		}
+		return null;
+	} //return student object based on name
 	
 	public static String getStudentIdToEmail(String studentId){
 		for (int i = 0; i < Student.getStudentsList().size(); i++) {
@@ -269,7 +278,8 @@ public class Project {
 		for (int projId : map.keySet()) {
         	Object[] values = map.get(projId);       	
         		if ((ProjectStatus_Enum)values[3] == ProjectStatus_Enum.ALLOCATED) {
-        				addSupervisedProject((String)values[0], new Project((String)values[0],(String) values[1],(String) values[2],(ProjectStatus_Enum) values[3]));
+        			addSupervisedProject((String)values[0], new Project((String)values[0],(String) values[1],(String) values[2],(ProjectStatus_Enum) values[3]));
+        			getStudentFromName((String)values[2]).setProjectID(projId); //set student project id if allocated
         		}
         		else new Project((String)values[0],(String) values[1],(ProjectStatus_Enum) values[3]); 
         }

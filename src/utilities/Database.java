@@ -64,7 +64,7 @@ public class Database {
 	public void updateFile(String FILENAME, String FILEPATH, ArrayList<User> list) {
 		try {
 	        PrintWriter writer = new PrintWriter(FILEPATH+FILENAME, "UTF-8");
-	        writer.println("Name Email Password");
+	        writer.println("name;email;password");
 	        for (User user : list) {
 	            writer.println(user.getName() + ";" + user.getEmailAddress()+ ";" + user.getPassword());
 	        }

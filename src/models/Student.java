@@ -23,14 +23,13 @@ public class Student extends User {
 	
 	private String studentPassword;
 
-    private int projectID;
+    private int projectID = -1;
 
     public Student(String studentId, String studentEmail, String studentPassword, String studentName) {
 		this.studentId = studentId.toUpperCase();
 		this.studentName = studentName;
 		this.studentEmail = studentEmail;
 		this.studentPassword = studentPassword;
-        this.projectID = -1;
 		addStudent(this);
 	}
 

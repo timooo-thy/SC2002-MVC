@@ -1,2 +1,2 @@
-Name Email Password
+name;email;password
 Li Fang;ASFLI@ntu.edu.sg;password

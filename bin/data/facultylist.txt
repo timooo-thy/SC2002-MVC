@@ -1,4 +1,4 @@
-Name Email Password
+name;email;password
 Arvind Easwaran;ARVINDE@ntu.edu.sg;password
 Wen Yonggang;YGWEN@ntu.edu.sg;password
 Pan, Sinno Jialin;SINNOPAN@ntu.edu.sg;password
