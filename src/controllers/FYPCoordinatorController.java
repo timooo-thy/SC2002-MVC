@@ -42,7 +42,7 @@ public class FYPCoordinatorController extends Controller {
 		while(choice <= menu.length) {
 			
 			cli.displayTitle("FYPCOORDINATOR FUNCTIONS");
-		    newPending = RequestView.checkForNew(supervisorModel.getId());
+		    newPending = RequestView.checkForNew(FYPCoordinatorModel.getId());
 			cli.display(menu);
 			
 			choice = cli.inputInteger("choice", 1, menu.length);
