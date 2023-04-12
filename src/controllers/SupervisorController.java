@@ -146,7 +146,7 @@ public class SupervisorController extends Controller {
 							    	if (proj.getSupervisorId().equals(supervisorModel.getId())) {
 								    	ProjectView.printProjectInfo(proj.getProjectId());
 								    	ownProjectID.add(proj.getProjectId());
-								    	cli.display("------------------------------------");
+										cli.display("------------------------------------");
 								     }
 							    }
 							     
@@ -403,6 +403,7 @@ public class SupervisorController extends Controller {
 				
 				case 9: //View Profile
 					cli.displayTitle("View Profile");
+					cli.display("------------------------------------");
 					SupervisorView.printSupervisorRecordInfo(supervisorModel.getId(), supervisorModel.getName(), supervisorModel.getEmailAddress(), supervisorModel.getPassword());
 					Thread.sleep(3000);
 					break;

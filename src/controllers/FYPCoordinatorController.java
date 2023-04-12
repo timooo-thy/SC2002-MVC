@@ -57,7 +57,7 @@ public class FYPCoordinatorController extends Controller {
 				    while (tries > 0 && !isPasswordChanged) {
 	
 				        try {
-				            String currentPass = cli.inputString("your current password: ");
+				            String currentPass = cli.inputString("Your current password: ");
 	
 				            if (!currentPass.equals(FYPCoordinatorModel.getPassword())) {
 				                tries--;
@@ -65,9 +65,9 @@ public class FYPCoordinatorController extends Controller {
 				                continue;
 				            }
 	
-				            String newPass = cli.inputString("your new password: ");
+				            String newPass = cli.inputString("Your new password: ");
 	
-				            String confirmPass = cli.inputString("password to reconfirm: ");
+				            String confirmPass = cli.inputString("Password to reconfirm: ");
 	
 				            if (!newPass.equals(confirmPass)) {
 				                cli.display("Passwords do not match. Please try again.");
@@ -102,14 +102,13 @@ public class FYPCoordinatorController extends Controller {
 					new Project(FYPCoordinatorModel.getName(),projectTitle,ProjectStatus_Enum.AVAILABLE);
 
 				
-					cli.displayTitle("\nProject has been created successfully");
+					cli.displayTitle("Project has been created successfully");
 					cli.display("Current Project List");
-					cli.display("------------------------------------");
-			
+					cli.display("------------------------------------");			
 					
 					for (Project proj : Project.getProjectList()) {
 						ProjectView.printProjectInfo(proj.getProjectId());
-						cli.display("----------------------------");
+						cli.display("------------------------------------");
 					}
 					
 					Database.updateAllData();
@@ -121,9 +120,10 @@ public class FYPCoordinatorController extends Controller {
 					String newTitle;
 					
 					cli.displayTitle("Modify Project Title");
+					cli.display("------------------------------------");
 					for (Project proj : Project.getProjectList()) {
 						ProjectView.printProjectInfo(proj.getProjectId());
-						cli.display("----------------------------");
+						cli.display("------------------------------------");
 					}
 					
 					cli.display("Enter Project ID to change title:");
@@ -134,7 +134,7 @@ public class FYPCoordinatorController extends Controller {
 					
 					Project.getProject(choice).setProjectTitle(newTitle);
 					
-					cli.displayTitle("\nProject Name has been changed successfully");
+					cli.displayTitle("Project Name has been changed successfully");
 					
 					Database.updateAllData();
 					Thread.sleep(3000);
@@ -270,7 +270,7 @@ public class FYPCoordinatorController extends Controller {
 									if (req.getRequestStatus() == RequestStatus_Enum.PENDING) {
 										if (req.getRequestType() == RequestType_Enum.CHANGETITLE) {
 											RequestView.printRequestInfo(req.getRequestID());
-											cli.display("----------------------------");
+											cli.display("------------------------------------");
 										}
 									}
 								}	
@@ -307,7 +307,7 @@ public class FYPCoordinatorController extends Controller {
 									if (req.getRequestStatus() == RequestStatus_Enum.PENDING) {
 										if (req.getRequestType() == RequestType_Enum.CHANGESUPERVISOR) {
 											RequestView.printRequestInfo(req.getRequestID());
-											cli.display("----------------------------");
+											cli.display("------------------------------------");
 										}
 									}
 								}
@@ -352,7 +352,7 @@ public class FYPCoordinatorController extends Controller {
 									if (req.getRequestStatus() == RequestStatus_Enum.PENDING) {
 										if (req.getRequestType() == RequestType_Enum.DEREGISTERPROJECT) {
 											RequestView.printRequestInfo(req.getRequestID());
-											cli.display("----------------------------");
+											cli.display("------------------------------------");
 										}
 									}
 								}	
@@ -394,7 +394,7 @@ public class FYPCoordinatorController extends Controller {
 					
 					for (Request req : Request.getRequests()) {
 						RequestView.printRequestInfo(req.getRequestID());
-						cli.display("----------------------------");
+						cli.display("------------------------------------");
 					}
 					
 					Database.updateAllData();
@@ -427,7 +427,7 @@ public class FYPCoordinatorController extends Controller {
 									ProjectView.printProjectInfo(proj.getProjectId());
 								}
 							}
-							cli.display("----------------------------");
+							cli.display("------------------------------------");
 							
 							Database.updateAllData();
 							Thread.sleep(3000);
@@ -500,6 +500,7 @@ public class FYPCoordinatorController extends Controller {
 					
 				case 9: //View Profile
 					cli.displayTitle("View Profile");
+					cli.display("------------------------------------");
 					FYPCoordinatorView.printFYPCoordinatorRecordInfo(FYPCoordinatorModel.getId(), FYPCoordinatorModel.getName(), FYPCoordinatorModel.getEmailAddress(), FYPCoordinatorModel.getPassword());
 					Thread.sleep(3000);
 					break;
