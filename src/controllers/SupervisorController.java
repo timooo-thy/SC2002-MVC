@@ -11,6 +11,7 @@ import models.User;
 import models.RequestType_Enum;
 import views.ProjectView;
 import views.RequestView;
+import views.SupervisorView;
 
 
 public class SupervisorController extends Controller {
@@ -29,25 +30,17 @@ public class SupervisorController extends Controller {
 		mainController = new MainController();
 
 		
-		String[] menu = { //change to similar structure to fypcoordinatorcontroller
-//                "Change Password ",
-//				"Add a new project " , case1
-//				"View project created by you ", case2
-//				"View supervised project ", case3
-//				"Modify project title upon request ", APPROVE REQ case 4
-//				"Request FYP coordinator to change supervisor in charged ", SEND REQ case 5
-//               "View pending request ", case 6
-//                "View request history", case 7
-//				"Logout " case 8
-				"Change Password",//done
-				"Create Project",//done
-				"Modify Own Project Title", //done
-				"View Supervised Projects", //done
+		String[] menu = { 
+				"Change Password",
+				"Create Project",
+				"Modify Own Project Title",
+				"View Supervised Projects",
 				"View Project created",
-				"Approve/Reject Title Change Requests (if any)", //done
-				"Request to Change Supervisor", //done
+				"Approve/Reject Title Change Requests (if any)",
+				"Request to Change Supervisor",
 				"View Incoming and Outgoing Request History and Status", //doing
-				"Logout" //done
+				"View Profile",
+				"Logout"
 		};
 		
 		int choice = 0;
@@ -334,7 +327,13 @@ public class SupervisorController extends Controller {
 					}
 				}
 					
-				case 9:
+				case 9: //View Profile
+					cli.displayTitle("View Profile");
+					SupervisorView.printSupervisorRecordInfo(supervisorModel.getId(), supervisorModel.getName(), supervisorModel.getEmailAddress(), supervisorModel.getPassword());
+					Thread.sleep(3000);
+					break;
+					
+				case 10:
 					cli.display("Logging out...");
 					Thread.sleep(1000);
 					return;

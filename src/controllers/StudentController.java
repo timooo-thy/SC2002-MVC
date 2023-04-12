@@ -164,9 +164,17 @@ public class StudentController extends Controller {
 					
 				case 5: //View available projects
 					cli.displayTitle("View all Available Projects");
-					ProjectView.projectAvailableInfo();
+					if(studentModel.getProjectID() != -1 | studentModel.getProjectID() != 0) {
+						cli.display("You are currently allocated to a FYP and do not have access to available project list.");
+					}
+					
+					else {
+						ProjectView.projectAvailableInfo();
+					}
+					
 					Thread.sleep(3000);
 					break;
+					
 					
 				case 6: //View project details
 					if (studentModel.getProjectID() == -1) {

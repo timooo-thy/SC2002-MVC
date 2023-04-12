@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import views.FYPCoordinatorView;
 import views.ProjectView;
 import views.RequestView;
-import views.StudentView;
 import models.*;
 import utilities.Database;
 
@@ -227,6 +226,7 @@ public class FYPCoordinatorController extends Controller {
 							confirmation = RequestView.requestConfirmation();
 							
 							if (confirmation == 0) break;
+							
 							else if (confirmation == 1) {
 								// Approve Request
 								Request.getRequest(choice).approve();
@@ -240,7 +240,7 @@ public class FYPCoordinatorController extends Controller {
 								
 								Request.updateRequestFile(); // Update file
 //								Student.updateFile(); // Update file
-//								Project.updateProjectFile(); // Update file
+								Project.updateProjectFile(); // Update file
 							}
 							else {
 								// Reject Request

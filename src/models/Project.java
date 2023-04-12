@@ -207,8 +207,8 @@ public class Project {
 	
 	// Supervised Project
 	
-	public static void addSupervisedProject(String supervisorId,Project p) {
-		Supervisor.getSupervisorFromName(supervisorId).getSupervisedProjectList().add(p);
+	public static void addSupervisedProject(String supervisorName,Project p) {
+		Supervisor.getSupervisorFromName(supervisorName).getSupervisedProjectList().add(p);
 	}
 	
 	// 2 is max, if size is 2 cannot allocate project
@@ -254,7 +254,7 @@ public class Project {
 		tempProj.setStudentEmail(Student.getStudentIdToEmail(studentId));
 		tempProj.setStudentName(Student.getStudentIdToName(studentId));		
 		tempProj.setProjectStatus(ProjectStatus_Enum.ALLOCATED);
-		Project.addSupervisedProject(tempProj.getSupervisorId(),tempProj);
+		Project.addSupervisedProject(tempProj.getSupervisorName(),tempProj);
 		if ((Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList().size())==2) {
 			for (Project proj : Project.getProjectList() ) {
 				if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.AVAILABLE)
