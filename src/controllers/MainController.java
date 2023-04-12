@@ -55,7 +55,8 @@ public class MainController extends Controller {
                 }
                 
                 else {
-                	cli.display("Wrong username/password... Try again.");
+                	cli.display("Wrong Username/Password. Try again.");
+                	Thread.sleep(1000);
                 }
                 
                 break;
@@ -76,7 +77,8 @@ public class MainController extends Controller {
                 }
                 
                 else {
-                	cli.display("Wrong username/password... Try again.");
+                	cli.display("Wrong Username/Password. Try again.");
+                	Thread.sleep(1000);
                 }
                 
                 break;
@@ -97,7 +99,8 @@ public class MainController extends Controller {
                 }
                 
                 else {
-                	cli.display("Wrong username/password... Try again.");
+                	cli.display("Wrong Username/Password. Try again.");
+                	Thread.sleep(1000);
                 }
                 
                 break;

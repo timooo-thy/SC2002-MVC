@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 
+import views.FYPCoordinatorView;
 import views.ProjectView;
 import views.RequestView;
 import models.*;
@@ -30,6 +31,7 @@ public class FYPCoordinatorController extends Controller {
 				"Approve Requests ",
 				"View Request History ",
 				"Generate Project Details Report (with filters)",
+				"View Profile",
 				"Logout"
 		};
 		
@@ -224,6 +226,7 @@ public class FYPCoordinatorController extends Controller {
 							confirmation = RequestView.requestConfirmation();
 							
 							if (confirmation == 0) break;
+							
 							else if (confirmation == 1) {
 								// Approve Request
 								Request.getRequest(choice).approve();
@@ -238,6 +241,7 @@ public class FYPCoordinatorController extends Controller {
 								Request.updateRequestFile(); // Update file
 //								Student.updateFile(); // Update file
 //								Project.updateProjectFile(); // Update file
+								cli.display("Request has been approved.");
 							}
 							else {
 								// Reject Request
@@ -249,6 +253,7 @@ public class FYPCoordinatorController extends Controller {
 //								Request.updateRequestFile(); // Update file
 //								Student.updateFile(); // Update file
 //								Project.updateProjectFile(); // Update file
+								cli.display("Request has been rejected.");
 							}
 							Database.updateAllData();
 							Thread.sleep(3000);
@@ -492,7 +497,13 @@ public class FYPCoordinatorController extends Controller {
 					}
 					break;
 					
-				case 9:
+				case 9: //View Profile
+					cli.displayTitle("View Profile");
+					FYPCoordinatorView.printFYPCoordinatorRecordInfo(FYPCoordinatorModel.getId(), FYPCoordinatorModel.getName(), FYPCoordinatorModel.getEmailAddress(), FYPCoordinatorModel.getPassword());
+					Thread.sleep(3000);
+					break;
+					
+				case 10:
 					cli.display("Logging out...");
 					
 					Database.updateAllData();

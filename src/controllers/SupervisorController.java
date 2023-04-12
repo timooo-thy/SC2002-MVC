@@ -11,6 +11,7 @@ import models.User;
 import models.RequestType_Enum;
 import views.ProjectView;
 import views.RequestView;
+import views.SupervisorView;
 
 
 public class SupervisorController extends Controller {
@@ -22,37 +23,31 @@ public class SupervisorController extends Controller {
 	
 	public void run(User user) throws Throwable{
 
-        if(user instanceof Supervisor) {
+		if(user instanceof Supervisor) {
 		    supervisorModel = (Supervisor)user;
 		}
             
 		mainController = new MainController();
 
 		
-		String[] menu = { //change to similar structure to fypcoordinatorcontroller
-//                "Change Password ",
-//				"Add a new project " , case1
-//				"View project created by you ", case2
-//				"View supervised project ", case3
-//				"Modify project title upon request ", APPROVE REQ case 4
-//				"Request FYP coordinator to change supervisor in charged ", SEND REQ case 5
-//               "View pending request ", case 6
-//                "View request history", case 7
-//				"Logout " case 8
-				"Change Password",//done
-				"Create Project",//done
-				"Modify Own Project Title", //done
-				"View Supervised Projects", //done
+		String[] menu = { 
+				"Change Password",
+				"Create Project",
+				"Modify Own Project Title",
+				"View Supervised Projects",
 				"View Project created",
-				"Approve/Reject Title Change Requests (if any)", //done
-				"Request to Change Supervisor", //done
+				"Approve/Reject Title Change Requests (if any)",
+				"Request to Change Supervisor",
 				"View Incoming and Outgoing Request History and Status", //doing
-				"Logout" //done
+				"View Profile",
+				"Logout"
 		};
 		
 		int choice = 0;
+		int id;
+		int minichoice;
 		
-		while(choice <= menu.length) {
+		while(choice < menu.length) {
 			
 			cli.displayTitle("SUPERVISOR FUNCTIONS");
 			cli.display(menu);
@@ -99,7 +94,7 @@ public class SupervisorController extends Controller {
 					
 					choice = 0;
 					
-					while (choice<=Menu_2.length) {
+					while (choice<Menu_2.length) {
 						cli.displayTitle("Create New Project Menu");
 						cli.display("------------------------------------");
 						cli.display(Menu_2);
@@ -111,8 +106,9 @@ public class SupervisorController extends Controller {
 								String projectTitle;
 								cli.display("Please enter the Project Title: ");
 								projectTitle = cli.inputString("Project Title: ");
-								new Project(supervisorModel.getName(),projectTitle,ProjectStatus_Enum.AVAILABLE);
-								
+								if (supervisorModel.getSupervisedProjectList().size()!= 2)
+									new Project(supervisorModel.getName(),projectTitle,ProjectStatus_Enum.AVAILABLE);
+								else new Project(supervisorModel.getName(),projectTitle,ProjectStatus_Enum.UNAVAILABLE);
 								cli.displayTitle("Project has been added successfully");
 								Project.updateProjectFile();
 								Thread.sleep(3000);
@@ -123,7 +119,7 @@ public class SupervisorController extends Controller {
 								break;						
 						}
 					}
-					
+					break;
 				
 				case 3:
 					//Modify own project title
@@ -135,7 +131,7 @@ public class SupervisorController extends Controller {
 					
 					choice = 0;
 					
-					while (choice<=Menu_3.length) {
+					while (choice<Menu_3.length) {
 						cli.displayTitle("Modify Own Project Title Menu");
 						cli.display("------------------------------------");
 						cli.display(Menu_3);
@@ -144,40 +140,58 @@ public class SupervisorController extends Controller {
 						switch (choice) {
 							case 1:
 								cli.displayTitle("Modify Own Project Title");
-							     ArrayList<Integer> allocationProjectID = new ArrayList<>();
+							    ArrayList<Integer> ownProjectID = new ArrayList<>();
+							    id = -1;
+							    for (Project proj : Project.getProjectList()) {
+							    	if (proj.getSupervisorId().equals(supervisorModel.getId())) {
+								    	ProjectView.printProjectInfo(proj.getProjectId());
+								    	ownProjectID.add(proj.getProjectId());
+								    	cli.display("------------------------------------");
+								     }
+							    }
 							     
-							     for (Project proj : Project.getProjectList()) {
-							      if (proj.getSupervisorId().equals(supervisorModel.getId())) {
-							       ProjectView.printProjectInfo(proj.getProjectId());
-							       allocationProjectID.add(proj.getProjectId());
-									cli.display("------------------------------------");
-							      }
-							     }
+							    if(ownProjectID.size()==0) {
+							    	cli.display("No project for you to modify!");
+							    	break;
+							    }
 							     
-							     if(allocationProjectID.size()==0) {
-							      break;
-							     }
+							    while (!ownProjectID.contains(id)) {
+								    id = cli.inputInteger("Choose Project ID to modify Project Title (Enter 0 to exit):");
+								    if (id == 0) break;
+								    if (!ownProjectID.contains(id))
+								    	 cli.display("Please enter a valid project ID");
+							    }  
 							     
-							     int id = cli.inputInteger("Choose Project ID to modify Project Title");
-							     String newtitle = cli.inputString("new Project Title");
-							     Project.changeProjectTitle(id, newtitle);
-							     cli.displayTitle("Project Title has been updated");
-							     Project.updateProjectFile();
-							     Thread.sleep(3000);
-							     break;
+								if (id == 0) 
+									break; 
+								
+							    String newtitle = cli.inputString("new Project Title");
+							    cli.display("Enter 1 to confirm, 2 to cancel. "); 
+									minichoice = cli.inputInteger("choice", 1, 2);
+									if (choice == 1) {
+										Project.changeProjectTitle(id, newtitle);									
+										cli.displayTitle("Project Title has been updated");
+									    Project.updateProjectFile();
+									}
+									else {
+										cli.display("Modification Cancelled");
+									}
+							    Thread.sleep(3000);
+							    break;
 							case 2:
 								break;
 							default:
 								break;
 						}
 					}
-				
+					break;
+					
 				case 4:
 					// View supervised project
 					cli.displayTitle("View Supervised Projects");
 					if (supervisorModel.getSupervisedProjectList().size() == 0) {
 						cli.display("Currectly not supervising any project");
-						Thread.sleep(3000);
+						Thread.sleep(1000);
 						break;
 					}
 					else {
@@ -187,6 +201,7 @@ public class SupervisorController extends Controller {
 						Thread.sleep(3000);
 						break;
 					}
+					
 				case 5:
 					//View project Created
 					cli.displayTitle("View Projects Created");
@@ -204,55 +219,68 @@ public class SupervisorController extends Controller {
 							"Approve/Reject a request",
 							"Back"
 					};
-					
+					String[] Menu_6_2 = {
+							"Approve",
+							"Reject",
+							"Back"
+					};
 					choice = 0;
 					
-					while (choice<=Menu_6.length) {
+					while (choice < Menu_6.length) {
 						cli.displayTitle("Approve/Reject Title change Requests Menu");
 						cli.display("------------------------------------");
 						cli.display(Menu_6);
 						choice = cli.inputInteger("choice",1,Menu_6.length);
-						
+						ArrayList<Integer> requestTitleChangeID = new ArrayList<>();
 						switch(choice) {
 							case 1:
 								cli.displayTitle("Approve/reject title change requests");
-								choice = cli.inputInteger("Enter request ID: ", 1, Request.getRequests().size());
-								cli.display("Pending title change requests");
-								cli.display("------------------------------------");
-								int count=0;
 								for (Request req : Request.getRequests()) {
 									if (req.getRequestStatus() == RequestStatus_Enum.PENDING && req.getRequestType() == RequestType_Enum.CHANGETITLE) {
 										RequestView.printRequestInfo(req.getRequestID());
+										requestTitleChangeID.add(req.getRequestID());
 										cli.display("------------------------------------");
-										count++;
 									}
 								}
-									if (count==0) {
+									if (requestTitleChangeID.size() == 0) {
 										cli.display("There are no pending requests");
-										Thread.sleep(3000);
+										Thread.sleep(1000);
 										break;
 									}
 									else {
-										int selection = cli.inputInteger("Select request", 1, count);
-										int choice2 = cli.inputInteger("(1) Approve\n(2)Reject\n(3)Back ", 1, 3);
+										int selection = -1;
+										while (!requestTitleChangeID.contains(selection)) {
+											selection = cli.inputInteger("Select request (0 to exit)");
+											if (selection == 0) {
+												cli.display("Cancelled");
+												break;
+											}
+											if (!requestTitleChangeID.contains(selection))
+												cli.display("Please enter a valid request ID");
+										}
+										if (selection == 0) 
+											break;
+										
+										cli.display(Menu_6_2);
+										int choice2 = cli.inputInteger("choice ", 1, Menu_6_2.length);
 										if (choice2==1) {
 											Project.changeProjectTitle(Request.getRequest(selection).getProjectID(),Request.getRequest(selection).getNewProjectTitle());
 											Request.getRequest(selection).setRequestStatus(RequestStatus_Enum.APPROVED);
 											cli.displayTitle("Request approved");
 											cli.displayTitle("Project title has been updated");
-											Thread.sleep(3000);
+											Thread.sleep(1000);
 											break;
 
 										}
 										else if (choice2==2) {
 											Request.getRequest(selection).setRequestStatus(RequestStatus_Enum.REJECTED);
 											cli.displayTitle("Request rejected");
-											Thread.sleep(3000);
+											Thread.sleep(1000);
 											break;
 										}
 										else if (choice2==3) {
-											cli.displayTitle("Returning to main page...");
-											Thread.sleep(3000);
+											cli.displayTitle("Returning to request menu...");
+											Thread.sleep(1000);
 											break;
 										}
 									}
@@ -264,7 +292,7 @@ public class SupervisorController extends Controller {
 						}
 						
 					}
-					
+					break;
 					
 				case 7:
 					//Request FYP coordinator to change supervisor in charge
@@ -275,7 +303,7 @@ public class SupervisorController extends Controller {
 					
 					choice = 0;
 					
-					while (choice<=Menu_7.length) {
+					while (choice<Menu_7.length) {
 						cli.displayTitle("Request to Change Supervisor in Charge Menu");
 						cli.display("------------------------------------");
 						cli.display(Menu_7);
@@ -285,9 +313,46 @@ public class SupervisorController extends Controller {
 						switch (choice) {
 							case 1:
 								cli.displayTitle("Request to change supervisor in charge");
-								int projectID = cli.inputInteger("Enter project ID");      
-							    String newSupervisorID = cli.inputString("Enter the Replacement Supervisor ID");
-							    new Request(supervisorModel.getId(),supervisorModel.getName(),supervisorModel.getEmailAddress(), "ASFLI", "Li Fang", "ASFLI@ntu.edu.sg",projectID,newSupervisorID,Supervisor.getSupervisorIdToName(newSupervisorID),Supervisor.getSupervisorIdToEmail(newSupervisorID),RequestType_Enum.CHANGESUPERVISOR,RequestStatus_Enum.PENDING,Request.getRequests().size()+1);
+								if (supervisorModel.getSupervisedProjectList().size() == 0) {
+									cli.display("Currently not supervising any project!");
+									Thread.sleep(1000);
+									break;
+								}
+								id = -1;
+								minichoice = -1;
+								ArrayList<Integer> supervisedProjectID = new ArrayList<>();
+							    
+							     for (Project proj : supervisorModel.getSupervisedProjectList()) {
+							       ProjectView.printProjectInfo(proj.getProjectId());
+							       supervisedProjectID.add(proj.getProjectId());
+									cli.display("------------------------------------");
+							      }
+							     while (!supervisedProjectID.contains(id)) {
+										id = cli.inputInteger("Select Project ID (Enter 0 to exit): ");
+										if (id == 0) {
+											break; 
+										}
+										if (!supervisedProjectID.contains(id))
+											cli.display("Please enter a valid project ID");
+									}
+									// Exit if Coordinator chose to quit
+									if (id == 0) 
+										break; 
+							     
+								minichoice = 0;
+							    String newSupervisorID = cli.inputString("the Replacement Supervisor ID");
+							    while (minichoice != 1) {
+							    	for (Supervisor sup : Supervisor.getSupervisorsList()) {
+							    		if (sup.getId().equals(newSupervisorID)) {
+							    			minichoice = 1;
+							    			break;
+							    		}
+							    	}
+							    	if (minichoice == 1) break;
+							    	cli.display("Supervisor ID does not exist!");
+								    newSupervisorID = cli.inputString("the Replacement Supervisor ID");
+							    }							    
+							    new Request(supervisorModel.getId(),supervisorModel.getName(),supervisorModel.getEmailAddress(), "ASFLI", "Li Fang", "ASFLI@ntu.edu.sg",id,newSupervisorID,Supervisor.getSupervisorIdToName(newSupervisorID),Supervisor.getSupervisorIdToEmail(newSupervisorID),RequestType_Enum.CHANGESUPERVISOR,RequestStatus_Enum.PENDING,Request.getRequests().size()+1);
 							    // Request.updateFile(); // Update file
 								cli.displayTitle("Request has been sent");
 								Thread.sleep(3000);
@@ -298,6 +363,7 @@ public class SupervisorController extends Controller {
 								break;
 						}
 					}
+					break;
 					
 				case 8: 
 					//View Incoming and Outgoing Request History and Status
@@ -309,7 +375,7 @@ public class SupervisorController extends Controller {
 					
 					choice = 0;
 					
-					while (choice<=historyMenu.length) {
+					while (choice<historyMenu.length) {
 						cli.displayTitle("View Incoming and Outgoing Request History and Status");
 						if (RequestView.checkForNew(supervisorModel.getId())) {
 							cli.displayTitle("*New Requests for Viewing*");
@@ -336,8 +402,15 @@ public class SupervisorController extends Controller {
 							break;
 					}
 				}
+				break;
+				
+				case 9: //View Profile
+					cli.displayTitle("View Profile");
+					SupervisorView.printSupervisorRecordInfo(supervisorModel.getId(), supervisorModel.getName(), supervisorModel.getEmailAddress(), supervisorModel.getPassword());
+					Thread.sleep(3000);
+					break;
 					
-				case 9:
+				case 10:
 					cli.display("Logging out...");
 					Thread.sleep(1000);
 					return;
