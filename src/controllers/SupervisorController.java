@@ -64,11 +64,11 @@ public class SupervisorController extends Controller {
 				    while (tries > 0 && !isPasswordChanged) {
 	
 				        try {
-				            String currentPass = cli.inputString("Your current password: ");
+				            String currentPass = cli.inputString("Your current password");
 	
-				            String newPass = cli.inputString("Your new password: ");
+				            String newPass = cli.inputString("Your new password");
 	
-				            String confirmPass = cli.inputString("Password to reconfirm: ");
+				            String confirmPass = cli.inputString("Password to reconfirm");
 	
 				            if (!newPass.equals(confirmPass)) {
 				                cli.display("Passwords do not match. Please try again.");
@@ -98,7 +98,7 @@ public class SupervisorController extends Controller {
 						cli.displayTitle("Create New Project Menu");
 						cli.display("------------------------------------");
 						cli.display(Menu_2);
-						choice = cli.inputInteger("choice",1,Menu_2.length);
+						choice = cli.inputInteger("Choice",1,Menu_2.length);
 						
 						switch (choice) {
 							case 1:
@@ -135,7 +135,7 @@ public class SupervisorController extends Controller {
 						cli.displayTitle("Modify Own Project Title Menu");
 						cli.display("------------------------------------");
 						cli.display(Menu_3);
-						choice = cli.inputInteger("choice",1,Menu_3.length);
+						choice = cli.inputInteger("Choice",1,Menu_3.length);
 						
 						switch (choice) {
 							case 1:
@@ -197,6 +197,7 @@ public class SupervisorController extends Controller {
 					else {
 						for (Project proj : supervisorModel.getSupervisedProjectList()) {
 							ProjectView.printProjectInfo(proj.getProjectId());
+							cli.display("------------------------------------");
 						}
 						Thread.sleep(3000);
 						break;
@@ -230,7 +231,7 @@ public class SupervisorController extends Controller {
 						cli.displayTitle("Approve/Reject Title Change Requests Menu");
 						cli.display("------------------------------------");
 						cli.display(Menu_6);
-						choice = cli.inputInteger("choice",1,Menu_6.length);
+						choice = cli.inputInteger("Choice",1,Menu_6.length);
 						ArrayList<Integer> requestTitleChangeID = new ArrayList<>();
 						switch(choice) {
 							case 1:
@@ -262,7 +263,7 @@ public class SupervisorController extends Controller {
 											break;
 										
 										cli.display(Menu_6_2);
-										int choice2 = cli.inputInteger("choice ", 1, Menu_6_2.length);
+										int choice2 = cli.inputInteger("Choice ", 1, Menu_6_2.length);
 										if (choice2==1) {
 											Project.changeProjectTitle(Request.getRequest(selection).getProjectID(),Request.getRequest(selection).getNewProjectTitle());
 											Request.getRequest(selection).setRequestStatus(RequestStatus_Enum.APPROVED);
@@ -308,7 +309,7 @@ public class SupervisorController extends Controller {
 						cli.display("------------------------------------");
 						cli.display(Menu_7);
 						
-						choice = cli.inputInteger("choice",1,Menu_7.length);
+						choice = cli.inputInteger("Choice",1,Menu_7.length);
 						
 						switch (choice) {
 							case 1:
@@ -340,7 +341,7 @@ public class SupervisorController extends Controller {
 										break; 
 							     
 								minichoice = 0;
-							    String newSupervisorID = cli.inputString("the Replacement Supervisor ID");
+							    String newSupervisorID = cli.inputString("Enter the Replacement Supervisor ID");
 							    while (minichoice != 1) {
 							    	for (Supervisor sup : Supervisor.getSupervisorsList()) {
 							    		if (sup.getId().equals(newSupervisorID)) {
@@ -350,7 +351,7 @@ public class SupervisorController extends Controller {
 							    	}
 							    	if (minichoice == 1) break;
 							    	cli.display("Supervisor ID does not exist!");
-								    newSupervisorID = cli.inputString("the Replacement Supervisor ID");
+								    newSupervisorID = cli.inputString("Enter the Replacement Supervisor ID");
 							    }							    
 							    new Request(supervisorModel.getId(),supervisorModel.getName(),supervisorModel.getEmailAddress(), "ASFLI", "Li Fang", "ASFLI@ntu.edu.sg",id,newSupervisorID,Supervisor.getSupervisorIdToName(newSupervisorID),Supervisor.getSupervisorIdToEmail(newSupervisorID),RequestType_Enum.CHANGESUPERVISOR,RequestStatus_Enum.PENDING,Request.getRequests().size()+1);
 							    // Request.updateFile(); // Update file
@@ -379,7 +380,7 @@ public class SupervisorController extends Controller {
 						cli.displayTitle("View Incoming and Outgoing Request History and Status");
 						cli.display(historyMenu);
 						
-						choice = cli.inputInteger("choice", 1, historyMenu.length);
+						choice = cli.inputInteger("Choice", 1, historyMenu.length);
 					
 					
 					switch(choice) {

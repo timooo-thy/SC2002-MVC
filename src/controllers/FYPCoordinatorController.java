@@ -57,7 +57,7 @@ public class FYPCoordinatorController extends Controller {
 				    while (tries > 0 && !isPasswordChanged) {
 	
 				        try {
-				            String currentPass = cli.inputString("Your current password: ");
+				            String currentPass = cli.inputString("Your current password");
 	
 				            if (!currentPass.equals(FYPCoordinatorModel.getPassword())) {
 				                tries--;
@@ -65,9 +65,9 @@ public class FYPCoordinatorController extends Controller {
 				                continue;
 				            }
 	
-				            String newPass = cli.inputString("Your new password: ");
+				            String newPass = cli.inputString("Your new password");
 	
-				            String confirmPass = cli.inputString("Password to reconfirm: ");
+				            String confirmPass = cli.inputString("Password to reconfirm");
 	
 				            if (!newPass.equals(confirmPass)) {
 				                cli.display("Passwords do not match. Please try again.");
@@ -127,7 +127,7 @@ public class FYPCoordinatorController extends Controller {
 					}
 					
 					cli.display("Enter Project ID to change title:");
-					choice = cli.inputInteger("choice", 1, Project.getProjectList().size());
+					choice = cli.inputInteger("Choice", 1, Project.getProjectList().size());
 
 
 					newTitle = cli.inputString("Enter New Title ","Eg. Molecular Genetics Studies");
@@ -185,7 +185,7 @@ public class FYPCoordinatorController extends Controller {
 						cli.displayTitle("Approve Requests");
 						cli.display(requestsMenu);
 						
-						choice = cli.inputInteger("choice", 1, requestsMenu.length);
+						choice = cli.inputInteger("Choice", 1, requestsMenu.length);
 						
 						switch(choice) {
 						
@@ -200,7 +200,7 @@ public class FYPCoordinatorController extends Controller {
 									if (req.getRequestType() == RequestType_Enum.REGISTERPROJECT) {
 										RequestView.printRequestInfo(req.getRequestID());
 										allocationRequestID.add(req.getRequestID());
-										cli.display("----------------------------");
+										cli.display("------------------------------------");
 									}
 								}
 							}	
@@ -391,7 +391,7 @@ public class FYPCoordinatorController extends Controller {
 				case 7:
 					
 					cli.displayTitle("View Request History");
-					
+					cli.display("------------------------------------");
 					for (Request req : Request.getRequests()) {
 						RequestView.printRequestInfo(req.getRequestID());
 						cli.display("------------------------------------");
@@ -405,7 +405,7 @@ public class FYPCoordinatorController extends Controller {
 				// Generate Project Details Report (with filters)	
 				case 8:
 					cli.displayTitle("Generate Project Details Report(with filters)");
-					
+					cli.display("------------------------------------");
 					String[] projectMenu = {
 							"Filter using Supervisor ID",
 							"Filter using Project Status ",
@@ -425,15 +425,15 @@ public class FYPCoordinatorController extends Controller {
 							for (Project proj : Project.getProjectList()) {
 								if (proj.getSupervisorId().equals(tempSupervisorId)) {
 									ProjectView.printProjectInfo(proj.getProjectId());
+									cli.display("------------------------------------");
+
 								}
-							}
-							cli.display("------------------------------------");
-							
+							}							
 							Database.updateAllData();
 							Thread.sleep(3000);
 							break;
 						case 2:
-							cli.display("Please choose project status: ");
+							cli.display("Please choose project status:");
 							String [] projStatus = { 
 									"Available",
 									"Reserved",
@@ -449,6 +449,7 @@ public class FYPCoordinatorController extends Controller {
 								for (Project proj : Project.getProjectList()) {
 									if (proj.getProjectStatus()==(ProjectStatus_Enum.AVAILABLE)) {
 										ProjectView.printProjectInfo(proj.getProjectId());
+										cli.display("------------------------------------");
 									}
 								}
 								
@@ -461,6 +462,7 @@ public class FYPCoordinatorController extends Controller {
 								for (Project proj : Project.getProjectList()) {
 									if (proj.getProjectStatus()==(ProjectStatus_Enum.RESERVED)) {
 										ProjectView.printProjectInfo(proj.getProjectId());
+										cli.display("------------------------------------");
 									}
 								}
 								
@@ -473,6 +475,7 @@ public class FYPCoordinatorController extends Controller {
 								for (Project proj : Project.getProjectList()) {
 									if (proj.getProjectStatus()==(ProjectStatus_Enum.ALLOCATED)) {
 										ProjectView.printProjectInfo(proj.getProjectId());
+										cli.display("------------------------------------");
 									}
 								}
 								
@@ -485,6 +488,7 @@ public class FYPCoordinatorController extends Controller {
 								for (Project proj : Project.getProjectList()) {
 									if (proj.getProjectStatus()==(ProjectStatus_Enum.UNAVAILABLE)) {
 										ProjectView.printProjectInfo(proj.getProjectId());
+										cli.display("------------------------------------");
 									}
 								}
 								
