@@ -240,7 +240,8 @@ public class FYPCoordinatorController extends Controller {
 								
 								Request.updateRequestFile(); // Update file
 //								Student.updateFile(); // Update file
-								Project.updateProjectFile(); // Update file
+//								Project.updateProjectFile(); // Update file
+								cli.display("Request has been approved.");
 							}
 							else {
 								// Reject Request
@@ -252,6 +253,7 @@ public class FYPCoordinatorController extends Controller {
 //								Request.updateRequestFile(); // Update file
 //								Student.updateFile(); // Update file
 //								Project.updateProjectFile(); // Update file
+								cli.display("Request has been rejected.");
 							}
 							Database.updateAllData();
 							Thread.sleep(3000);

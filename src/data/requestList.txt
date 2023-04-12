@@ -1,2 +1,1 @@
 senderID;senderName;senderEmail;recipientID;recipientName;recipientEmail;projectID;newProjectID;newProjectTitle;newSupervisorID;newSupervisorName;newSupervisorEmail;requestType;requestStatus;requestID
-YCHERN;CHERN;YCHERN@e.ntu.edu.sg;ASFLI;Li Fang;ASFLI@ntu.edu.sg;7;-1;-1;-1;-1;-1;REGISTERPROJECT;APPROVED;1
