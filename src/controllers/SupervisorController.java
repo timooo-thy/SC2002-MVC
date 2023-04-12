@@ -49,6 +49,7 @@ public class SupervisorController extends Controller {
 		while(choice < menu.length) {
 			
 			cli.displayTitle("SUPERVISOR FUNCTIONS");
+		    newPending = RequestView.checkForNew(supervisorModel.getId());
 			cli.display(menu);
 			
 			choice = cli.inputInteger("choice", 1, menu.length);
