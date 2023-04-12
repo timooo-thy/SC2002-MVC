@@ -22,7 +22,7 @@ public class FYPCoordinatorController extends Controller {
             
 		mainController = new MainController();
 		
-		String newPending = RequestView.checkForNew(FYPCoordinatorModel.getId());		
+		String newPending = RequestView.checkForNew(FYPCoordinatorModel.getId());	
 		String[] menu = {
                 "Change Password ",
                 "Create Project ",
@@ -42,6 +42,7 @@ public class FYPCoordinatorController extends Controller {
 		while(choice <= menu.length) {
 			
 			cli.displayTitle("FYPCOORDINATOR FUNCTIONS");
+		    newPending = RequestView.checkForNew(supervisorModel.getId());
 			cli.display(menu);
 			
 			choice = cli.inputInteger("choice", 1, menu.length);
