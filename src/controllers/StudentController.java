@@ -48,7 +48,7 @@ public class StudentController extends Controller {
 			cli.displayTitle("STUDENT FUNCTIONS");
 			cli.display(menu);
 			
-			choice = cli.inputInteger("choice", 1, menu.length);
+			choice = cli.inputInteger("Choice", 1, menu.length);
 			
 			switch(choice) {
 			
@@ -91,13 +91,12 @@ public class StudentController extends Controller {
 				case 2://request:Register Project
 					int projectChoice;
 					ProjectStatus_Enum projectStatus;
-					
+					cli.displayTitle("Register Project");
 					if (studentModel.getProjectID() == -1) {
 						ProjectView.projectAvailableInfo();
-						cli.display("------------------------------------");
-						cli.display("Enter the Project ID to Register for");
 						do {
-							projectChoice = cli.inputInteger("Project ID", 1, Project.getProjectList().size()+1);
+							projectChoice = cli.inputInteger("Enter the Project ID to register for (Enter 0 to exit)", 0, Project.getProjectList().size()+1);
+							if (projectChoice==0) break;
 							projectStatus = Project.getProject(projectChoice).getProjectStatus();
 							if (projectStatus == ProjectStatus_Enum.AVAILABLE) {
 								new Request(studentModel.getId(), studentModel.getName(), studentModel.getEmailAddress(), "ASFLI", "Li Fang", "ASFLI@ntu.edu.sg", projectChoice, RequestType_Enum.REGISTERPROJECT, RequestStatus_Enum.PENDING, Request.getRequests().size()+1);// send request to register
@@ -108,6 +107,11 @@ public class StudentController extends Controller {
 							}
 						} while (projectStatus == ProjectStatus_Enum.AVAILABLE);
 						// can do a catch throw exception
+						if (projectChoice==0) {
+							cli.displayTitle("Cancelling Request...")
+							Thread.sleep(1000);
+							break;
+						}
 						
 						if(studentModel.getProjectID()!=0) {
 							cli.displayTitle("Project is being reserved by another student");
@@ -116,41 +120,50 @@ public class StudentController extends Controller {
 						Project.updateProjectFile(); // Update file
 						Student.updateFile(); // Update file	
 					}
+					
 					else if (studentModel.getProjectID() == 0) {
-						cli.display("You already have a pending request for registration");
+						cli.displayTitle("You already have a pending request for registration");
 					}
+					
+					else if (studentModel.getProjectID() == -2) {
+						cli.displayTitle("You are not allowed to register for a project as you have deregistered your FYP");
+					}
+					
 					else {
-						cli.display("You are already registered for a project");				
+						cli.displayTitle("You are already registered for a project");				
 					}
-					Thread.sleep(3000);
+					Thread.sleep(1000);
 					break;
 					
 				case 3: //Request: Project Title Change
 					String newTitle;					
 					cli.displayTitle("Request for Change of Project Title");
-					cli.display("------------------------------------");
 					if (studentModel.getProjectID() == -1 || studentModel.getProjectID() == 0) {
-						cli.display("You have not registered for any project");
+						cli.displayTitle("You have not registered for any project");
 					}
 					else {
 						//if student already registered, proceed title change
 						Project allocatedProject = Project.getProject(studentModel.getProjectID());
 						cli.display("Your project title is : " + allocatedProject.getProjectTitle());
-						newTitle = cli.inputString("Your new title to change");
+						newTitle = cli.inputString("Your new title to change (Enter 0 to exit)");
+						Thread.sleep(1000);
+						if (newTitle.equals("0")) {
+							cli.displayTitle("Cancelling Project Title Change Request...");
+							Thread.sleep(1000);
+							break;
+						}
 						new Request(studentModel.getId(),studentModel.getName(),studentModel.getEmailAddress(),allocatedProject.getSupervisorId(),allocatedProject.getSupervisorName(),allocatedProject.getSupervisorEmail(),allocatedProject.getProjectId(),newTitle,RequestType_Enum.CHANGETITLE,RequestStatus_Enum.PENDING,Request.getRequests().size()+1);// send request to change title
 						cli.displayTitle("Success, your request for changing title is now pending for approval by the supervisor");
 						Request.updateRequestFile();
 					}
-					
-						Thread.sleep(3000);
+						Thread.sleep(1000);
 						break;
 				
 				case 4: //Request: Project Deregistration
 					cli.displayTitle("Deregistering Project");
-					cli.display("------------------------------------");
 					// check project id first
 					if (studentModel.getProjectID() == -1 || studentModel.getProjectID() == 0) 
-						cli.display("You are not registered for any projects");
+						cli.displayTitle("You are not registered for any projects");
 					else {
 						cli.display("Request to Deregister Project: " + Project.getProject(studentModel.getProjectID()).getProjectTitle());
 						
@@ -167,27 +180,26 @@ public class StudentController extends Controller {
 							new Request(studentModel.getId(),studentModel.getName(),studentModel.getEmailAddress(),"ASFLI", "Li Fang", "ASFLI@ntu.edu.sg",allocatedProject.getProjectId(),RequestType_Enum.DEREGISTERPROJECT,RequestStatus_Enum.PENDING,Request.getRequests().size()+1);// send request to register
 							//cli.displayTitle();
 							Request.updateRequestFile(); // Update file
-							cli.display("Request to deregister project has been sent");
+							cli.displayTitle("Request to deregister project has been sent");
 						}
 						else {
-							cli.display("Request to deregister project has been cancelled");
+							cli.displayTitle("Request to deregister project has been cancelled");
 						}
 					}
-					Thread.sleep(3000);
+					Thread.sleep(1000);
 					break;
 					
 				case 5: //View available projects
 					cli.displayTitle("View all Available Projects");
-					cli.display("------------------------------------");
 					if(studentModel.getProjectID() != -1 & studentModel.getProjectID() != 0) {
-						cli.display("You are currently allocated to a FYP and do not have access to available project list");
+						cli.displayTitle("You are currently allocated to a FYP and do not have access to available project list");
 					}
 					
 					else {
 						ProjectView.projectAvailableInfo();
 					}
 					
-					Thread.sleep(3000);
+					Thread.sleep(1000);
 					break;
 					
 					
@@ -196,31 +208,29 @@ public class StudentController extends Controller {
 						cli.displayTitle("You have not registered for a project");
 					}
 					else if (studentModel.getProjectID() == 0)
-						cli.display("Your request to select project is pending. Please be patient!");
+						cli.displayTitle("Your request to select project is pending. Please be patient!");
 					else {
-						cli.display("Details of your project: ");
+						cli.displayTitle("Details of your project: ");
 						ProjectView.printProjectInfo(studentModel.getProjectID());
 					}
-					Thread.sleep(3000);
+					Thread.sleep(1000);
 					break;
 				
 				
 				case 7: //View RequestHistory
 					cli.displayTitle("View Request History");
-					cli.display("------------------------------------");
 					RequestView.printRequestHistory(studentModel.getId());
-					Thread.sleep(3000);
+					Thread.sleep(1000);
 					break;
 					
 				case 8: //View Profile
 					cli.displayTitle("View Profile");
-					cli.display("------------------------------------");
 					StudentView.printStudentRecordInfo(studentModel.getId(), studentModel.getName(), studentModel.getEmailAddress(), studentModel.getPassword());
-					Thread.sleep(3000);
+					Thread.sleep(1000);
 					break;
 				
 				case 9:
-					cli.display("Logging out...");
+					cli.displayTitle("Logging out...");
 					Thread.sleep(1000);
 					return;
 				
