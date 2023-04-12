@@ -84,8 +84,7 @@ public class RequestView {
 				}
 				
 				View.cli.display("Request Status: " + Request.getRequest(requestID).getRequestStatus().toString());
-		}
-		
+			}
 		}
 	}
 	
@@ -114,13 +113,13 @@ public class RequestView {
 		return confirmation;
 	}
 	
-	public static int checkForNew(String recipientUserID) {
+	public static String checkForNew(String recipientUserID) {
 		for (Request req : Request.getRequests()) {
 			int requestID = req.getRequestID();
-			if (Request.getRequestStatus(requestID) == RequestStatus.PENDING && Request.getRequest(requestID).getRecipientID().equals(recipientUserID)) {
-			    return 1;
+			if (Request.getRequest(requestID).getRequestStatus() == RequestStatus_Enum.PENDING && Request.getRequest(requestID).getRecipientID().equals(recipientUserID)) {
+			    return "(NEW)";
 			}
 		}
-		
-		return 0;
+		return "";
+	}
 }

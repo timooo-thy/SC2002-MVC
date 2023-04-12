@@ -29,14 +29,14 @@ public class SupervisorController extends Controller {
             
 		mainController = new MainController();
 
-		
+		String newPending = RequestView.checkForNew(supervisorModel.getId());	
 		String[] menu = { 
 				"Change Password",
 				"Create Project",
 				"Modify Own Project Title",
 				"View Supervised Projects",
 				"View Project created",
-				"Approve/Reject Title Change Requests (if any)",
+				"Approve/Reject Title Change Requests " + newPending,
 				"Request to Change Supervisor",
 				"View Incoming and Outgoing Request History and Status", //doing
 				"View Profile",
@@ -377,9 +377,6 @@ public class SupervisorController extends Controller {
 					
 					while (choice<historyMenu.length) {
 						cli.displayTitle("View Incoming and Outgoing Request History and Status");
-						if (RequestView.checkForNew(supervisorModel.getId())) {
-							cli.displayTitle("*New Requests for Viewing*");
-						}
 						cli.display(historyMenu);
 						
 						choice = cli.inputInteger("choice", 1, historyMenu.length);

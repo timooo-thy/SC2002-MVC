@@ -79,7 +79,7 @@ public class ConsoleInterface {
 		
 		while (true) {
 			try {
-				System.out.print(">> " + title + " (" + lower + "~" + upper + "): ");
+				System.out.print(">> " + title + ": ");
 				int input =sc.nextInt();
 				sc.nextLine();
 				if (input >= lower & input <= upper) {

@@ -21,13 +21,14 @@ public class FYPCoordinatorController extends Controller {
 		}
             
 		mainController = new MainController();
-
+		
+		String newPending = RequestView.checkForNew(FYPCoordinatorModel.getId());		
 		String[] menu = {
                 "Change Password ",
                 "Create Project ",
 				"Modify Project Title " ,
 				"View All Projects ",
-				"View Pending Requests ",
+				"View Pending Requests " + newPending,
 				"Approve Requests ",
 				"View Request History ",
 				"Generate Project Details Report (with filters)",
@@ -154,7 +155,6 @@ public class FYPCoordinatorController extends Controller {
 				// View pending requests
 				case 5:
 					cli.displayTitle("View All Pending Requests");
-					
 					for (Request req : Request.getRequests()) {
 						if (req.getRequestStatus() == RequestStatus_Enum.PENDING) {
 							RequestView.printRequestInfo(req.getRequestID());
