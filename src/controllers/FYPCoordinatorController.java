@@ -91,8 +91,8 @@ public class FYPCoordinatorController extends Controller {
 					String supervisorName;				
 					String projectTitle;
 					
-					cli.display("Please enter the Project title: ");
-					projectTitle = cli.inputString("Project title: ");
+					cli.display("Please Enter the Project Title: ");
+					projectTitle = cli.inputString("Project Title: ");
 					confirmation = cli.inputInteger("Confirm Choice? Enter: \n 1 to Confirm \n 2 to Cancel", 1, 2);
 					
 					if (confirmation == 2) {
@@ -129,7 +129,7 @@ public class FYPCoordinatorController extends Controller {
 					choice = cli.inputInteger("choice", 1, Project.getProjectList().size());
 
 
-					newTitle = cli.inputString("Enter new title ","Eg. Molecular Genetics Studies");
+					newTitle = cli.inputString("Enter New Title ","Eg. Molecular Genetics Studies");
 					
 					Project.getProject(choice).setProjectTitle(newTitle);
 					
@@ -207,7 +207,7 @@ public class FYPCoordinatorController extends Controller {
 							choice = -1;
 							while (!allocationRequestID.contains(choice)) {
 								cli.displayTitle("Approve Project Allocation");
-								choice = cli.inputInteger("Enter Request ID (Enter 0 to exit): ", 0, Request.getRequests().size());
+								choice = cli.inputInteger("Enter Request ID (Enter 0 to exit)", 0, Request.getRequests().size());
 								if (choice == 0) {
 									break; 
 								}
@@ -312,13 +312,13 @@ public class FYPCoordinatorController extends Controller {
 								}
 								cli.displayTitle("Approve Supervisor Change");
 								
-								requestID = cli.inputInteger("Enter Request ID: ", 1, Request.getRequests().size());
+								requestID = cli.inputInteger("Enter Request ID (Enter 0 to exit)", 0, Request.getRequests().size());
 								if (requestID == 0) break;
 
 								confirmation = RequestView.requestConfirmation();
 								
 								projectID = Request.getRequest(requestID).getProjectID();
-								String newSupervisorID = Request.getRequest(requestID).getNewSupervisorID();
+								String newSupervisorName = Request.getRequest(requestID).getNewSupervisorName();
 //								String newSupervisorName = Request.getRequest(requestID).getNewSupervisorName();
 //								String newSupervisorEmail = Request.getRequest(requestID).getNewSupervisorEmail();
 								
@@ -331,7 +331,7 @@ public class FYPCoordinatorController extends Controller {
 //									Project.getProject(projectID).setSupervisorId(newSupervisorID);
 //									Project.getProject(projectID).setSupervisorName(newSupervisorName);
 //									Project.getProject(projectID).setSupervisorEmail(newSupervisorEmail);
-									Project.changeSupervisor(projectID, newSupervisorID);
+									Project.changeSupervisor(projectID, newSupervisorName);
 									
 									
 								}
@@ -356,7 +356,7 @@ public class FYPCoordinatorController extends Controller {
 									}
 								}	
 								cli.displayTitle("Approve Deregistration");
-								requestID = cli.inputInteger("Enter Request ID: ", 1, Request.getRequests().size());
+								requestID = cli.inputInteger("Enter Request ID (Enter 0 to exit)", 0, Request.getRequests().size());
 								confirmation = RequestView.requestConfirmation();
 								
 								projectID = Request.getRequest(requestID).getProjectID();
@@ -419,7 +419,7 @@ public class FYPCoordinatorController extends Controller {
 						innerChoice = cli.inputInteger("choice", 1, projectMenu.length);
 						switch(innerChoice) {
 						case 1:
-							String tempSupervisorId = cli.inputString("Please enter supervisor ID");
+							String tempSupervisorId = cli.inputString("Please Enter Supervisor ID");
 							cli.displayTitle("Generating project details ");
 							for (Project proj : Project.getProjectList()) {
 								if (proj.getSupervisorId().equals(tempSupervisorId)) {

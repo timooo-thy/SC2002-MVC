@@ -93,7 +93,9 @@ public class StudentController extends Controller {
 					ProjectStatus_Enum projectStatus;
 					
 					if (studentModel.getProjectID() == -1) {
-						cli.display("Enter the project ID to register for:");
+						ProjectView.projectAvailableInfo();
+						cli.display("----------------------------------------------------------------------------");
+						cli.display("Enter the Project ID to Register for:");
 						do {
 							projectChoice = cli.inputInteger("Project ID", 1, Project.getProjectList().size()+1);
 							projectStatus = Project.getProject(projectChoice).getProjectStatus();
@@ -102,11 +104,14 @@ public class StudentController extends Controller {
 								Project.selectProject(projectChoice);
 								projectStatus = Project.getProject(projectChoice).getProjectStatus();
 								studentModel.setProjectID(0);
+								cli.displayTitle("Success, your registration is pending for approval by the coordinator");
 							}
 						} while (projectStatus == ProjectStatus_Enum.AVAILABLE);
 						// can do a catch throw exception
 						
-						cli.displayTitle("SUCCESS, YOUR REGISTRATION IS NOW PENDING FOR APPROVAL BY THE COORDINATOR");
+						if(studentModel.getProjectID()!=0) {
+							cli.displayTitle("Project is being reserved by another student");
+						}
 						Request.updateRequestFile(); // Update file
 						Project.updateProjectFile(); // Update file
 						Student.updateFile(); // Update file	
@@ -145,7 +150,7 @@ public class StudentController extends Controller {
 					if (studentModel.getProjectID() == -1 || studentModel.getProjectID() == 0) 
 						cli.display("You are not registered for any projects.");
 					else {
-						cli.display("Request to deregister project: " + Project.getProject(studentModel.getProjectID()).getProjectTitle());
+						cli.display("Request to Deregister Project: " + Project.getProject(studentModel.getProjectID()).getProjectTitle());
 						
 						String menu_item[] = {
 							"Confirm",
@@ -160,6 +165,7 @@ public class StudentController extends Controller {
 							new Request(studentModel.getId(),studentModel.getName(),studentModel.getEmailAddress(),"ASFLI", "Li Fang", "ASFLI@ntu.edu.sg",allocatedProject.getProjectId(),RequestType_Enum.DEREGISTERPROJECT,RequestStatus_Enum.PENDING,Request.getRequests().size()+1);// send request to register
 							//cli.displayTitle();
 							Request.updateRequestFile(); // Update file
+							cli.display("Request Sent");
 						}
 						else {
 							cli.display("Request Cancelled");
@@ -170,7 +176,7 @@ public class StudentController extends Controller {
 					
 				case 5: //View available projects
 					cli.displayTitle("View all Available Projects");
-					if(studentModel.getProjectID() != -1 | studentModel.getProjectID() != 0) {
+					if(studentModel.getProjectID() != -1 & studentModel.getProjectID() != 0) {
 						cli.display("You are currently allocated to a FYP and do not have access to available project list.");
 					}
 					
@@ -189,7 +195,7 @@ public class StudentController extends Controller {
 					else if (studentModel.getProjectID() == 0)
 						cli.display("Your request to select project is pending. Please be patient!");
 					else {
-						cli.display("Here is the detail of your project: ");
+						cli.display("Here are the details of your project: ");
 						ProjectView.printProjectInfo(studentModel.getProjectID());
 					}
 					Thread.sleep(3000);

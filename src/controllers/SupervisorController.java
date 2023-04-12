@@ -16,7 +16,6 @@ import views.SupervisorView;
 
 public class SupervisorController extends Controller {
 	
-	
 	private Supervisor supervisorModel;
 	
 	private MainController mainController;
@@ -35,7 +34,7 @@ public class SupervisorController extends Controller {
 				"Create Project",
 				"Modify Own Project Title",
 				"View Supervised Projects",
-				"View Project created",
+				"View Projects Created",
 				"Approve/Reject Title Change Requests " + newPending,
 				"Request to Change Supervisor",
 				"View Incoming and Outgoing Request History and Status", //doing
@@ -156,7 +155,7 @@ public class SupervisorController extends Controller {
 							    }
 							     
 							    while (!ownProjectID.contains(id)) {
-								    id = cli.inputInteger("Choose Project ID to modify Project Title (Enter 0 to exit):");
+								    id = cli.inputInteger("Choose Project ID to modify Project Title (Enter 0 to exit)");
 								    if (id == 0) break;
 								    if (!ownProjectID.contains(id))
 								    	 cli.display("Please enter a valid project ID");
@@ -227,14 +226,14 @@ public class SupervisorController extends Controller {
 					choice = 0;
 					
 					while (choice < Menu_6.length) {
-						cli.displayTitle("Approve/Reject Title change Requests Menu");
+						cli.displayTitle("Approve/Reject Title Change Requests Menu");
 						cli.display("------------------------------------");
 						cli.display(Menu_6);
 						choice = cli.inputInteger("choice",1,Menu_6.length);
 						ArrayList<Integer> requestTitleChangeID = new ArrayList<>();
 						switch(choice) {
 							case 1:
-								cli.displayTitle("Approve/reject title change requests");
+								cli.displayTitle("Approve/Reject Title Change Requests");
 								for (Request req : Request.getRequests()) {
 									if (req.getRequestStatus() == RequestStatus_Enum.PENDING && req.getRequestType() == RequestType_Enum.CHANGETITLE) {
 										RequestView.printRequestInfo(req.getRequestID());
@@ -250,7 +249,7 @@ public class SupervisorController extends Controller {
 									else {
 										int selection = -1;
 										while (!requestTitleChangeID.contains(selection)) {
-											selection = cli.inputInteger("Select request (0 to exit)");
+											selection = cli.inputInteger("Enter Request ID (0 to exit)");
 											if (selection == 0) {
 												cli.display("Cancelled");
 												break;
@@ -266,20 +265,20 @@ public class SupervisorController extends Controller {
 										if (choice2==1) {
 											Project.changeProjectTitle(Request.getRequest(selection).getProjectID(),Request.getRequest(selection).getNewProjectTitle());
 											Request.getRequest(selection).setRequestStatus(RequestStatus_Enum.APPROVED);
-											cli.displayTitle("Request approved");
-											cli.displayTitle("Project title has been updated");
+											cli.displayTitle("Request Approved");
+											cli.displayTitle("Project Title has been updated");
 											Thread.sleep(1000);
 											break;
 
 										}
 										else if (choice2==2) {
 											Request.getRequest(selection).setRequestStatus(RequestStatus_Enum.REJECTED);
-											cli.displayTitle("Request rejected");
+											cli.displayTitle("Request Rejected");
 											Thread.sleep(1000);
 											break;
 										}
 										else if (choice2==3) {
-											cli.displayTitle("Returning to request menu...");
+											cli.displayTitle("Returning to Request Menu...");
 											Thread.sleep(1000);
 											break;
 										}
@@ -312,7 +311,7 @@ public class SupervisorController extends Controller {
 						
 						switch (choice) {
 							case 1:
-								cli.displayTitle("Request to change supervisor in charge");
+								cli.displayTitle("Request to Change Supervisor in Charge");
 								if (supervisorModel.getSupervisedProjectList().size() == 0) {
 									cli.display("Currently not supervising any project!");
 									Thread.sleep(1000);
@@ -328,12 +327,12 @@ public class SupervisorController extends Controller {
 									cli.display("------------------------------------");
 							      }
 							     while (!supervisedProjectID.contains(id)) {
-										id = cli.inputInteger("Select Project ID (Enter 0 to exit): ");
+										id = cli.inputInteger("Select Project ID (Enter 0 to exit) ");
 										if (id == 0) {
 											break; 
 										}
 										if (!supervisedProjectID.contains(id))
-											cli.display("Please enter a valid project ID");
+											cli.display("Please enter a valid Project ID");
 									}
 									// Exit if Coordinator chose to quit
 									if (id == 0) 
@@ -368,8 +367,8 @@ public class SupervisorController extends Controller {
 				case 8: 
 					//View Incoming and Outgoing Request History and Status
 					String[] historyMenu = {
-							"View incoming requests history and status",
-							"View outgoing requests history and status",
+							"View Incoming Requests History and Status",
+							"View Outgoing Requests History and Status",
 							"Back"
 					};
 					

@@ -1,5 +1,6 @@
   package models;
 
+import java.sql.ClientInfoStatus;
 import java.util.ArrayList;
 import java.util.HashMap;
 import utilities.Database;
@@ -222,15 +223,20 @@ public class Project {
 	
 	public static void changeSupervisor(int projectId, String replacementSupervisorId) {
 		Project tempProj = Project.getProject(projectId);
+		Supervisor tempSup = Supervisor.getSupervisorFromId(tempProj.getSupervisorId()); 
 		ArrayList<Project> supervisingProjList = Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList();
 		if (supervisingProjList.size() == 2) {
 			for (Project proj : Project.getProjectList() ) {
 				if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.UNAVAILABLE)
 					proj.setProjectStatus(ProjectStatus_Enum.AVAILABLE);
 			}
-			supervisingProjList.remove(projectId-1);
 		}
-		else supervisingProjList.remove(projectId-1);
+		
+		for(int i=0;i<tempSup.getSupervisedProjectList().size();i++) {
+			if(tempSup.getSupervisedProjectList().get(i).getProjectId()==projectId) {
+				tempSup.getSupervisedProjectList().remove(i);
+			}
+		}
 		
 		tempProj.setSupervisorId(replacementSupervisorId);
 		tempProj.setSupervisorName(Supervisor.getSupervisorIdToName(replacementSupervisorId));
@@ -268,7 +274,7 @@ public class Project {
 	}
 	
 	public static void deregisterStudent(int projectId) {
-		Project tempProj = projectList.get(projectId-1);
+		Project tempProj = projectList.get(projectId);
 		Supervisor tempSup = Supervisor.getSupervisorFromId(tempProj.getSupervisorId()); 
 		// do something in supervisor
 		if (Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList().size()==2) {
@@ -277,7 +283,13 @@ public class Project {
 					proj.setProjectStatus(ProjectStatus_Enum.AVAILABLE);
 			}
 		}
-		tempSup.getSupervisedProjectList().remove(projectId-1); 
+		
+		for(int i=0;i<tempSup.getSupervisedProjectList().size();i++) {
+			if(tempSup.getSupervisedProjectList().get(i).getProjectId()==projectId) {
+				tempSup.getSupervisedProjectList().remove(i);
+			}
+		}
+		
 		tempProj.setStudentId(null);
 		tempProj.setStudentName(null);
 		tempProj.setStudentEmail(null);
