@@ -9,6 +9,7 @@ import models.RequestStatus_Enum;
 import models.RequestType_Enum;
 import views.ProjectView;
 import views.RequestView;
+import views.StudentView;
 /**
  * Represents the Student Controller
  */
@@ -33,8 +34,10 @@ public class StudentController extends Controller {
                 "Request to Register a Project ",
                 "Request Project Title Change ",
                 "Request Deregistration of Project ",
-                "View Available Projects / View Project Details ",
+                "View Available Projects",
+                "View Project Details ",
                 "View Request History",
+                "View Profile",
 				"Logout ",
 		};
 		
@@ -160,12 +163,17 @@ public class StudentController extends Controller {
 					break;
 					
 				case 5: //View available projects
+					cli.displayTitle("View all Available Projects");
+					ProjectView.projectAvailableInfo();
+					Thread.sleep(3000);
+					break;
+					
+				case 6: //View project details
 					if (studentModel.getProjectID() == -1) {
-						cli.displayTitle("View all Available Projects");
-						ProjectView.projectAvailableInfo();
+						cli.displayTitle("You have not registered for a project.");
 					}
 					else if (studentModel.getProjectID() == 0)
-						cli.display("Your request to select project is pending, please be patient!");
+						cli.display("Your request to select project is pending. Please be patient!");
 					else {
 						cli.display("Here is the detail of your project: ");
 						ProjectView.printProjectInfo(studentModel.getProjectID());
@@ -173,13 +181,20 @@ public class StudentController extends Controller {
 					Thread.sleep(3000);
 					break;
 				
-				case 6: //View RequestHistory
+				
+				case 7: //View RequestHistory
 					cli.displayTitle("View Request History");
 					RequestView.printRequestHistory(studentModel.getId());
 					Thread.sleep(3000);
 					break;
+					
+				case 8: //View Profile
+					cli.displayTitle("View Profile");
+					StudentView.printStudentRecordInfo(studentModel.getId(), studentModel.getName(), studentModel.getEmailAddress(), studentModel.getPassword());
+					Thread.sleep(3000);
+					break;
 				
-				case 7:
+				case 9:
 					cli.display("Logging out...");
 					Thread.sleep(1000);
 					return;

@@ -2,8 +2,10 @@ package controllers;
 
 import java.util.ArrayList;
 
+import views.FYPCoordinatorView;
 import views.ProjectView;
 import views.RequestView;
+import views.StudentView;
 import models.*;
 import utilities.Database;
 
@@ -30,6 +32,7 @@ public class FYPCoordinatorController extends Controller {
 				"Approve Requests ",
 				"View Request History ",
 				"Generate Project Details Report (with filters)",
+				"View Profile",
 				"Logout"
 		};
 		
@@ -492,7 +495,13 @@ public class FYPCoordinatorController extends Controller {
 					}
 					break;
 					
-				case 9:
+				case 9: //View Profile
+					cli.displayTitle("View Profile");
+					FYPCoordinatorView.printFYPCoordinatorRecordInfo(FYPCoordinatorModel.getId(), FYPCoordinatorModel.getName(), FYPCoordinatorModel.getEmailAddress(), FYPCoordinatorModel.getPassword());
+					Thread.sleep(3000);
+					break;
+					
+				case 10:
 					cli.display("Logging out...");
 					
 					Database.updateAllData();
