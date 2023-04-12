@@ -205,23 +205,23 @@ public class FYPCoordinatorController extends Controller {
 								}
 							}	
 							
-							choice = -1;
-							while (!allocationRequestID.contains(choice)) {
+							int requestID = -1;
+							while (!allocationRequestID.contains(requestID)) {
 								cli.displayTitle("Approve Project Allocation");
-								choice = cli.inputInteger("Enter Request ID (Enter 0 to exit)", 0, Request.getRequests().size());
-								if (choice == 0) {
+								requestID = cli.inputInteger("Enter Request ID (Enter 0 to exit)", 0, Request.getRequests().size());
+								if (requestID == 0) {
 									break; 
 								}
 							}
 							// Exit if Coordinator chose to quit
-							if (choice == 0) {
+							if (requestID == 0) {
 								break; 
 							}
 							// Else continue with approval
-							String studentID = Request.getRequest(choice).getSenderID();
-							String studentName = Request.getRequest(choice).getSenderName();
-							String studentEmail = Request.getRequest(choice).getSenderEmail();
-							int projectID = Request.getRequest(choice).getProjectID();
+							String studentID = Request.getRequest(requestID).getSenderID();
+							String studentName = Request.getRequest(requestID).getSenderName();
+							String studentEmail = Request.getRequest(requestID).getSenderEmail();
+							int projectID = Request.getRequest(requestID).getProjectID();
 							
 							// Confirmation for approval
 							confirmation = RequestView.requestConfirmation();
@@ -230,7 +230,7 @@ public class FYPCoordinatorController extends Controller {
 							
 							else if (confirmation == 1) {
 								// Approve Request
-								Request.getRequest(choice).approve();
+								Request.getRequest(requestID).approve();
 								// Update student projectID
 								Student.getStudentFromID(studentID).setProjectID(projectID);
 								
@@ -246,11 +246,11 @@ public class FYPCoordinatorController extends Controller {
 							}
 							else {
 								// Reject Request
-								Request.getRequest(choice).reject();
+								Request.getRequest(requestID).reject();
 								// Update student projectID
 								Student.getStudentFromID(studentID).setProjectID(-1);
 								// Make Project available again after rejecting request
-								Project.getProject(choice).setProjectStatus(ProjectStatus_Enum.AVAILABLE);
+								Project.getProject(requestID).setProjectStatus(ProjectStatus_Enum.AVAILABLE);
 //								Request.updateRequestFile(); // Update file
 //								Student.updateFile(); // Update file
 //								Project.updateProjectFile(); // Update file
@@ -275,7 +275,7 @@ public class FYPCoordinatorController extends Controller {
 									}
 								}	
 								cli.displayTitle("Approve Title Change");
-								int requestID = RequestView.requestRequestID();
+								requestID = RequestView.requestRequestID();
 								if (requestID == 0) break;
 
 								confirmation = RequestView.requestConfirmation();
