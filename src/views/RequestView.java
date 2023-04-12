@@ -113,9 +113,8 @@ public class RequestView {
 	
 	public static String checkForNew(String recipientUserID) {
 		for (Request req : Request.getRequests()) {
-			int requestID = req.getRequestID();
-			if (Request.getRequest(requestID).getRequestStatus() == RequestStatus_Enum.PENDING && Request.getRequest(requestID).getRecipientID().equals(recipientUserID)) {
-			    return "(NEW)";
+			if (req.getRequestStatus() == RequestStatus_Enum.PENDING && req.getRecipientID().equals(recipientUserID)) {
+				return "(NEW)";
 			}
 		}
 		return "";
