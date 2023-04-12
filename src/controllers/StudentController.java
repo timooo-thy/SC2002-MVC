@@ -130,7 +130,7 @@ public class StudentController extends Controller {
 					cli.displayTitle("Request for Change of Project Title");
 					cli.display("------------------------------------");
 					if (studentModel.getProjectID() == -1 || studentModel.getProjectID() == 0) {
-						cli.display("You are not registered for any project");
+						cli.display("You have not registered for any project");
 					}
 					else {
 						//if student already registered, proceed title change
