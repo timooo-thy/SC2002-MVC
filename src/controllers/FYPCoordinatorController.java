@@ -243,16 +243,13 @@ public class FYPCoordinatorController extends Controller {
 					
 			// View Pending Requests
 			case 3:
-				cli.displayTitle("View All Pending Requests");
 				ArrayList <Integer> pendingRequestID = new ArrayList<>();
-				cli.displayTitle("All Pending Requests");
+				cli.displayTitle("View All Pending Requests");
 				for (Request req : Request.getRequests()) {
 					if (req.getRequestStatus() == RequestStatus_Enum.PENDING) {
-						if (req.getRequestType() == RequestType_Enum.DEREGISTERPROJECT) {
-							RequestView.printRequestInfo(req.getRequestID());
-							cli.display("------------------------------------");
-							pendingRequestID.add(req.getRequestID());
-						}
+						RequestView.printRequestInfo(req.getRequestID());
+						cli.display("------------------------------------");
+						pendingRequestID.add(req.getRequestID());
 					}
 				}	
 				
