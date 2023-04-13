@@ -3,7 +3,7 @@ ProjectId;supervisorName;Title;studentName;projectStatus
 2;A S Madhukumar;Deep Learning-Driven Edge Caching for 5G-and-Beyond Industrial IoT Networks;-1;AVAILABLE
 3;Alexei Sourin;Sonification of Geometry 1;-1;AVAILABLE
 4;Arvind Easwaran;Edge/Cloud Resource Management for Time-Sensitive Applications (2);-1;AVAILABLE
-5;Bo An;Deep Reinforcement Learning for Complex Environment;-1;UNAVAILABLE
+5;Dusit Niyato;Deep Reinforcement Learning for Complex Environment;-1;UNAVAILABLE
 6;Bo An;Build Software Agents for Power Trading Agent Competition;LIU;ALLOCATED
 7;Bo An;Designing Negotiation Agents to Participate in International Competition;-1;RESERVED
 8;Cai Wentong;Creation of Meta-model for Agent-Based Simulation Using Machine Learning Approach;-1;AVAILABLE

@@ -40,8 +40,8 @@ public class MainController extends Controller {
 			switch(choice) {
 			
 			case 1:
-                String studentid = cli.inputString("ID");
-                String studentpassword = cli.inputString("Password");
+                String studentid = cli.inputString("your ID");
+                String studentpassword = cli.inputString("your password");
                 for(Student student:Student.getStudentsList()) {
         	        if(student != null && student.getId().equals(studentid) && student.getPassword().equals(studentpassword)){
         	            currentUser=student;

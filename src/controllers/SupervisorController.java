@@ -29,14 +29,13 @@ public class SupervisorController extends Controller {
             
 		mainController = new MainController();
 
-		String newPending = RequestView.checkForNew(supervisorModel.getId());	
 		String[] menu = { 
 				"Change Password",
 				"Create Project",
 				"Modify Own Project Title",
 				"View Supervised Projects",
 				"View Projects Created",
-				"Approve/Reject Title Change Requests " + newPending,
+				"Approve/Reject Title Change Requests ",
 				"Request to Change Supervisor",
 				"View Incoming and Outgoing Request History and Status", //doing
 				"View Profile",
@@ -50,7 +49,8 @@ public class SupervisorController extends Controller {
 		while(choice < menu.length) {
 			
 			cli.displayTitle("SUPERVISOR FUNCTIONS");
-			newPending = RequestView.checkForNew(supervisorModel.getId());
+			String newPending = RequestView.checkForNew(supervisorModel.getId());
+			menu[5] = "Approve/Reject Title Change Requests " + newPending;
 			cli.display(menu);
 			
 			choice = cli.inputInteger("Choice", 1, menu.length);
@@ -65,11 +65,11 @@ public class SupervisorController extends Controller {
 				    while (tries > 0 && !isPasswordChanged) {
 	
 				        try {
-				            String currentPass = cli.inputString("Your current password");
+				            String currentPass = cli.inputString("your current password");
 	
-				            String newPass = cli.inputString("Your new password");
+				            String newPass = cli.inputString("your new password");
 	
-				            String confirmPass = cli.inputString("Password to reconfirm");
+				            String confirmPass = cli.inputString("password to reconfirm");
 	
 				            if (!newPass.equals(confirmPass)) {
 				                cli.displayTitle("Passwords do not match. Please try again.");

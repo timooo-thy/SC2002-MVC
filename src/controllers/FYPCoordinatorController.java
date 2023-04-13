@@ -21,14 +21,13 @@ public class FYPCoordinatorController extends Controller {
 		}
             
 		mainController = new MainController();
-		
-		String newPending = RequestView.checkForNew(FYPCoordinatorModel.getId());		
+			
 		String[] menu = {
                 "Change Password ",
                 "Create Project ",
 				"Modify Project Title " ,
 				"View All Projects ",
-				"View Pending Requests " + newPending,
+				"View Pending Requests ",
 				"Approve Requests ",
 				"View Request History ",
 				"Generate Project Details Report (with filters)",
@@ -42,7 +41,9 @@ public class FYPCoordinatorController extends Controller {
 		while(choice <= menu.length) {
 			
 			cli.displayTitle("FYPCOORDINATOR FUNCTIONS");
-		    newPending = RequestView.checkForNew(FYPCoordinatorModel.getId());
+		    String newPending = RequestView.checkForNew(FYPCoordinatorModel.getId());
+		    menu[5] = "Approve/Reject Title Change Requests " + newPending;
+		    
 			cli.display(menu);
 			
 			choice = cli.inputInteger("Choice", 1, menu.length);
@@ -65,9 +66,9 @@ public class FYPCoordinatorController extends Controller {
 				                continue;
 				            }
 	
-				            String newPass = cli.inputString("Your new password");
+				            String newPass = cli.inputString("your new password");
 	
-				            String confirmPass = cli.inputString("Password to reconfirm");
+				            String confirmPass = cli.inputString("password to reconfirm");
 	
 				            if (!newPass.equals(confirmPass)) {
 				                cli.displayTitle("Passwords do not match. Please try again.");
