@@ -8,6 +8,15 @@ import views.RequestView;
 import models.*;
 import utilities.Database;
 
+/**
+ * This class represents a controller for a FYP Coordinator in the FYP Registration System.
+ * It extends the abstract class Controller and overrides its run() method.
+ * @author Timothy Lee
+ * @author Justin Wong
+ * @author Jun Hao
+ * @author Lee Cheng Yao
+ * @author Abhishekh
+ */
 public class FYPCoordinatorController extends Controller {
 	
 	/**
@@ -25,7 +34,6 @@ public class FYPCoordinatorController extends Controller {
 	 * It takes in a User object as a parameter and throws any exceptions that may occur during execution.
 	 * 
 	 * @param user The currently logged in FYP Coordinator.
-	 * @throws IOException If there is an input/output error during the execution of the method.
 	 * @throws ClassNotFoundException If the specified class cannot be found.
 	 */
 	public void run(User user) throws Throwable{
