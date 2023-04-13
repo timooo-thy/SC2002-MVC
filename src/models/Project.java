@@ -221,9 +221,9 @@ public class Project {
 
 	// For ProjectFYPCoordinator Interface //
 	
-	public static void changeSupervisor(int projectId, String replacementSupervisorId) {
+	public static void changeSupervisor(int projectId, String replacementSupervisorName) {
 		Project tempProj = Project.getProject(projectId);
-		Supervisor tempSup = Supervisor.getSupervisorFromId(tempProj.getSupervisorId()); 
+		Supervisor tempSup = Supervisor.getSupervisorFromName(tempProj.getSupervisorName()); 
 		ArrayList<Project> supervisingProjList = Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList();
 		if (supervisingProjList.size() == 2) {
 			for (Project proj : Project.getProjectList() ) {
@@ -238,10 +238,10 @@ public class Project {
 			}
 		}
 		
-		tempProj.setSupervisorId(replacementSupervisorId);
-		tempProj.setSupervisorName(Supervisor.getSupervisorIdToName(replacementSupervisorId));
-		tempProj.setSupervisorEmail(Supervisor.getSupervisorIdToEmail(replacementSupervisorId));
-		Project.addSupervisedProject(replacementSupervisorId, tempProj);
+		tempProj.setSupervisorName(replacementSupervisorName);
+		tempProj.setSupervisorId(Supervisor.getSupervisorNameToId(replacementSupervisorName));
+		tempProj.setSupervisorEmail(Supervisor.getSupervisorNameToEmail(replacementSupervisorName));
+		Project.addSupervisedProject(replacementSupervisorName, tempProj);
 		ArrayList<Project> newSupervisingProjList = Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList();
 		if (newSupervisingProjList.size() == 2) {
 			for (Project proj : Project.getProjectList() ) {
@@ -274,10 +274,11 @@ public class Project {
 	}
 	
 	public static void deregisterStudent(int projectId) {
-		Project tempProj = projectList.get(projectId);
+		//Project tempProj = Project.getProjectList().get(projectId);
+		Project tempProj = Project.getProject(projectId);
 		Supervisor tempSup = Supervisor.getSupervisorFromId(tempProj.getSupervisorId()); 
 		// do something in supervisor
-		if (Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList().size()==2) {
+		if (Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList().size() == MAX_PROJECT) {
 			for (Project proj : Project.getProjectList() ) {
 				if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.UNAVAILABLE)
 					proj.setProjectStatus(ProjectStatus_Enum.AVAILABLE);
@@ -289,9 +290,8 @@ public class Project {
 				tempSup.getSupervisedProjectList().remove(i);
 			}
 		}
-		
 		tempProj.setStudentId(null);
-		tempProj.setStudentName(null);
+		tempProj.setStudentName("-1");
 		tempProj.setStudentEmail(null);
 		tempProj.setProjectStatus(ProjectStatus_Enum.AVAILABLE);
 	}

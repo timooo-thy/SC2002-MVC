@@ -8,6 +8,7 @@ import models.Request;
 import models.RequestStatus_Enum;
 import models.Supervisor;
 import models.User;
+import utilities.Database;
 import models.RequestType_Enum;
 import views.ProjectView;
 import views.RequestView;
@@ -49,7 +50,7 @@ public class SupervisorController extends Controller {
 		while(choice < menu.length) {
 			
 			cli.displayTitle("SUPERVISOR FUNCTIONS");
-		    newPending = RequestView.checkForNew(supervisorModel.getId());
+			newPending = RequestView.checkForNew(supervisorModel.getId());
 			cli.display(menu);
 			
 			choice = cli.inputInteger("choice", 1, menu.length);
@@ -76,14 +77,16 @@ public class SupervisorController extends Controller {
 				            }
 				             supervisorModel.setPassword(newPass);
 				            isPasswordChanged = true;
-				            cli.display("Password has been changed successfully!");
+				            cli.display("Password has been changed successfully! Please relogin. ");
 	
 				        } catch (Exception e) {
 				            System.out.println("Error: " + e.getMessage() + ". Please try again.");
 				            tries--;
 				        }
 				    }
-					break;
+				    Database.updateAllData();
+				    Thread.sleep(1000);    
+					return;
 					
 				case 2:
 					//Add a new project
@@ -146,7 +149,7 @@ public class SupervisorController extends Controller {
 							    	if (proj.getSupervisorId().equals(supervisorModel.getId())) {
 								    	ProjectView.printProjectInfo(proj.getProjectId());
 								    	ownProjectID.add(proj.getProjectId());
-										cli.display("------------------------------------");
+								    	cli.display("------------------------------------");
 								     }
 							    }
 							     
@@ -167,7 +170,7 @@ public class SupervisorController extends Controller {
 								
 							    String newtitle = cli.inputString("new Project Title");
 							    cli.display("Enter 1 to confirm, 2 to cancel. "); 
-									minichoice = cli.inputInteger("choice", 1, 2);
+									minichoice = cli.inputInteger("Choice", 1, 2);
 									if (choice == 1) {
 										Project.changeProjectTitle(id, newtitle);									
 										cli.displayTitle("Project Title has been updated");
@@ -341,7 +344,7 @@ public class SupervisorController extends Controller {
 										break; 
 							     
 								minichoice = 0;
-							    String newSupervisorID = cli.inputString("Enter the Replacement Supervisor ID");
+							    String newSupervisorID = cli.inputString("the Replacement Supervisor ID");
 							    while (minichoice != 1) {
 							    	for (Supervisor sup : Supervisor.getSupervisorsList()) {
 							    		if (sup.getId().equals(newSupervisorID)) {
@@ -351,7 +354,7 @@ public class SupervisorController extends Controller {
 							    	}
 							    	if (minichoice == 1) break;
 							    	cli.display("Supervisor ID does not exist!");
-								    newSupervisorID = cli.inputString("Enter the Replacement Supervisor ID");
+								    newSupervisorID = cli.inputString("the Replacement Supervisor ID");
 							    }							    
 							    new Request(supervisorModel.getId(),supervisorModel.getName(),supervisorModel.getEmailAddress(), "ASFLI", "Li Fang", "ASFLI@ntu.edu.sg",id,newSupervisorID,Supervisor.getSupervisorIdToName(newSupervisorID),Supervisor.getSupervisorIdToEmail(newSupervisorID),RequestType_Enum.CHANGESUPERVISOR,RequestStatus_Enum.PENDING,Request.getRequests().size()+1);
 							    // Request.updateFile(); // Update file

@@ -2,6 +2,7 @@ package controllers;
 
 import models.Student;
 import models.User;
+import utilities.Database;
 import models.Project;
 import models.ProjectStatus_Enum;
 import models.Request;
@@ -73,20 +74,21 @@ public class StudentController extends Controller {
 				            String confirmPass = cli.inputString("Password to reconfirm");
 	
 				            if (!newPass.equals(confirmPass)) {
-				                cli.display("Passwords do not match. Please try again");
+				                cli.display("Passwords do not match. Please try again.");
 				                continue;
 				            }
 				            studentModel.setPassword(newPass);
 				            isPasswordChanged = true;
-				            cli.display("Password has been changed successfully!");
+				            cli.display("Password has been changed successfully! Please relogin. ");
 	
 				        } catch (Exception e) {
 				            System.out.println("Error: " + e.getMessage() + ". Please try again.");
 				            tries--;
 				        }
 				    }
-					    
-					break;
+				    Database.updateAllData();
+				    Thread.sleep(1000);    
+					return;
 					
 				case 2://request:Register Project
 					int projectChoice;
@@ -95,9 +97,9 @@ public class StudentController extends Controller {
 					if (studentModel.getProjectID() == -1) {
 						ProjectView.projectAvailableInfo();
 						cli.display("------------------------------------");
-						cli.display("Enter the Project ID to Register for");
+						cli.display("Enter the Project ID to Register for:");
 						do {
-							projectChoice = cli.inputInteger("Project ID", 1, Project.getProjectList().size()+1);
+							projectChoice = cli.inputInteger("Project ID", 1, Project.getProjectList().size());
 							projectStatus = Project.getProject(projectChoice).getProjectStatus();
 							if (projectStatus == ProjectStatus_Enum.AVAILABLE) {
 								new Request(studentModel.getId(), studentModel.getName(), studentModel.getEmailAddress(), "ASFLI", "Li Fang", "ASFLI@ntu.edu.sg", projectChoice, RequestType_Enum.REGISTERPROJECT, RequestStatus_Enum.PENDING, Request.getRequests().size()+1);// send request to register
@@ -117,10 +119,10 @@ public class StudentController extends Controller {
 						Student.updateFile(); // Update file	
 					}
 					else if (studentModel.getProjectID() == 0) {
-						cli.display("You already have a pending request for registration");
+						cli.display("You already have a pending request for registration.");
 					}
 					else {
-						cli.display("You are already registered for a project");				
+						cli.display("You are already registered for a project.");				
 					}
 					Thread.sleep(3000);
 					break;
@@ -130,7 +132,7 @@ public class StudentController extends Controller {
 					cli.displayTitle("Request for Change of Project Title");
 					cli.display("------------------------------------");
 					if (studentModel.getProjectID() == -1 || studentModel.getProjectID() == 0) {
-						cli.display("You have not registered for any project");
+						cli.display("You have not registered for any project.");
 					}
 					else {
 						//if student already registered, proceed title change
@@ -147,10 +149,10 @@ public class StudentController extends Controller {
 				
 				case 4: //Request: Project Deregistration
 					cli.displayTitle("Deregistering Project");
-					cli.display("------------------------------------");
 					// check project id first
+					cli.display("------------------------------------");
 					if (studentModel.getProjectID() == -1 || studentModel.getProjectID() == 0) 
-						cli.display("You are not registered for any projects");
+						cli.display("You are not registered for any projects.");
 					else {
 						cli.display("Request to Deregister Project: " + Project.getProject(studentModel.getProjectID()).getProjectTitle());
 						
@@ -180,7 +182,7 @@ public class StudentController extends Controller {
 					cli.displayTitle("View all Available Projects");
 					cli.display("------------------------------------");
 					if(studentModel.getProjectID() != -1 & studentModel.getProjectID() != 0) {
-						cli.display("You are currently allocated to a FYP and do not have access to available project list");
+						cli.display("You are currently allocated to a FYP and do not have access to available project list.");
 					}
 					
 					else {
@@ -193,7 +195,7 @@ public class StudentController extends Controller {
 					
 				case 6: //View project details
 					if (studentModel.getProjectID() == -1) {
-						cli.displayTitle("You have not registered for a project");
+						cli.displayTitle("You have not registered for a project.");
 					}
 					else if (studentModel.getProjectID() == 0)
 						cli.display("Your request to select project is pending. Please be patient!");

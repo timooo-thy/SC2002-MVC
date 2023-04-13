@@ -22,7 +22,7 @@ public class FYPCoordinatorController extends Controller {
             
 		mainController = new MainController();
 		
-		String newPending = RequestView.checkForNew(FYPCoordinatorModel.getId());	
+		String newPending = RequestView.checkForNew(FYPCoordinatorModel.getId());		
 		String[] menu = {
                 "Change Password ",
                 "Create Project ",
@@ -42,7 +42,7 @@ public class FYPCoordinatorController extends Controller {
 		while(choice <= menu.length) {
 			
 			cli.displayTitle("FYPCOORDINATOR FUNCTIONS");
-		    newPending = RequestView.checkForNew(supervisorModel.getId());
+			newPending = RequestView.checkForNew(supervisorModel.getId()); //what?
 			cli.display(menu);
 			
 			choice = cli.inputInteger("choice", 1, menu.length);
@@ -75,7 +75,7 @@ public class FYPCoordinatorController extends Controller {
 				            }
 				             FYPCoordinatorModel.setPassword(newPass);
 				            isPasswordChanged = true;
-				            cli.display("Password has been changed successfully!");
+				            cli.display("Password has been changed successfully! Please relogin. ");
 	
 				        } catch (Exception e) {
 				            System.out.println("Error: " + e.getMessage() + ". Please try again.");
@@ -84,8 +84,8 @@ public class FYPCoordinatorController extends Controller {
 				    }
 				    
 				    Database.updateAllData();
-				    Thread.sleep(3000);    
-					break;
+				    Thread.sleep(1000);    
+					return;
 				// Create Project
 				case 2:
 					
@@ -104,11 +104,11 @@ public class FYPCoordinatorController extends Controller {
 				
 					cli.displayTitle("Project has been created successfully");
 					cli.display("Current Project List");
-					cli.display("------------------------------------");			
-					
+					cli.display("------------------------------------");
+			
 					for (Project proj : Project.getProjectList()) {
 						ProjectView.printProjectInfo(proj.getProjectId());
-						cli.display("------------------------------------");
+					cli.display("------------------------------------");
 					}
 					
 					Database.updateAllData();
@@ -146,7 +146,7 @@ public class FYPCoordinatorController extends Controller {
 					cli.displayTitle("View All Projects");
 					for (Project proj : Project.getProjectList()) {
 						ProjectView.printProjectInfo(proj.getProjectId());
-						cli.display("----------------------------");
+						cli.display("------------------------------------");
 					}
 					
 					Database.updateAllData();
@@ -159,7 +159,7 @@ public class FYPCoordinatorController extends Controller {
 					for (Request req : Request.getRequests()) {
 						if (req.getRequestStatus() == RequestStatus_Enum.PENDING) {
 							RequestView.printRequestInfo(req.getRequestID());
-							cli.display("----------------------------");
+							cli.display("------------------------------------");
 						}
 					}				
 					
@@ -327,7 +327,7 @@ public class FYPCoordinatorController extends Controller {
 								// Approve
 								if (confirmation == 1) {
 									// Approve Request
-									Request.getRequest(choice).approve();
+									Request.getRequest(requestID).approve();
 									// Update project new supervisor
 //									Project.getProject(projectID).setSupervisorId(newSupervisorID);
 //									Project.getProject(projectID).setSupervisorName(newSupervisorName);
@@ -339,7 +339,7 @@ public class FYPCoordinatorController extends Controller {
 								// Reject
 								else {
 									// Reject Request
-									Request.getRequest(choice).reject();
+									Request.getRequest(requestID).reject();
 								}
 								Database.updateAllData();
 								Thread.sleep(3000);
@@ -392,6 +392,7 @@ public class FYPCoordinatorController extends Controller {
 					
 					cli.displayTitle("View Request History");
 					cli.display("------------------------------------");
+
 					for (Request req : Request.getRequests()) {
 						RequestView.printRequestInfo(req.getRequestID());
 						cli.display("------------------------------------");
@@ -406,6 +407,7 @@ public class FYPCoordinatorController extends Controller {
 				case 8:
 					cli.displayTitle("Generate Project Details Report(with filters)");
 					cli.display("------------------------------------");
+					
 					String[] projectMenu = {
 							"Filter using Supervisor ID",
 							"Filter using Project Status ",
@@ -426,9 +428,9 @@ public class FYPCoordinatorController extends Controller {
 								if (proj.getSupervisorId().equals(tempSupervisorId)) {
 									ProjectView.printProjectInfo(proj.getProjectId());
 									cli.display("------------------------------------");
-
 								}
-							}							
+							}
+							
 							Database.updateAllData();
 							Thread.sleep(3000);
 							break;
