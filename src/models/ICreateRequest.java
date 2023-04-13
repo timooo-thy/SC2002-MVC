@@ -2,6 +2,11 @@ package models;
 
 /**
  * This interface defines the method signature for creating a request.
+ * @author Timothy Lee
+ * @author Justin Wong
+ * @author Jun Hao
+ * @author Lee Cheng Yao
+ * @author Abhishekh
  */
 public interface ICreateRequest {
 	

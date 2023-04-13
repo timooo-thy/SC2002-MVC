@@ -4,7 +4,15 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-
+/**
+ * The ConsoleInterface class represents a console-based user interface that provides methods to display messages, input integers, and input strings. 
+ * It also contains a Scanner object to handle user input.
+ * @author Timothy Lee
+ * @author Justin Wong
+ * @author Jun Hao
+ * @author Lee Cheng Yao
+ * @author Abhishekh
+ */
 public class ConsoleInterface {
 
 	/** Represents the scanner. */

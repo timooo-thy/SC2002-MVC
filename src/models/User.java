@@ -3,6 +3,11 @@ package models;
 /**
  * The User class is an abstract class that serves as the parent class for all user types in the FYP Registration System.
  * It defines the common properties and methods of all users such as id, email address, name and password.
+ * @author Timothy Lee
+ * @author Justin Wong
+ * @author Jun Hao
+ * @author Lee Cheng Yao
+ * @author Abhishekh
  */
 public abstract class User {
 

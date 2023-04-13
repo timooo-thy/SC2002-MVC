@@ -20,6 +20,11 @@ import models.ProjectStatus_Enum;
 
 /**
  * This class represents the methods to initialise and update the database.
+ * @author Timothy Lee
+ * @author Justin Wong
+ * @author Jun Hao
+ * @author Lee Cheng Yao
+ * @author Abhishekh
  */
 public class Database {
     

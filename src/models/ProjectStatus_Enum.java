@@ -2,7 +2,12 @@ package models;
 
 /**
  * This enum represents the different possible statuses for a project in the FYP Registration System.
- *The possible statuses are AVAILABLE, RESERVED, UNAVAILABLE, and ALLOCATED.
+ * The possible statuses are AVAILABLE, RESERVED, UNAVAILABLE, and ALLOCATED.
+ * @author Timothy Lee
+ * @author Justin Wong
+ * @author Jun Hao
+ * @author Lee Cheng Yao
+ * @author Abhishekh
  */
 public enum ProjectStatus_Enum {
 	

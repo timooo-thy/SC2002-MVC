@@ -2,6 +2,11 @@ package models;
 
 /**
  * The IApproveRequest interface defines methods to approve or reject a request.
+ * @author Timothy Lee
+ * @author Justin Wong
+ * @author Jun Hao
+ * @author Lee Cheng Yao
+ * @author Abhishekh
  */
 public interface IApproveRequest {
 	

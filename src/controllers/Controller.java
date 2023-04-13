@@ -5,6 +5,11 @@ import views.ConsoleInterface;
 
 /**
  * The Controller class is an abstract class that provides a general interface for all controllers in the application.
+ * @author Timothy Lee
+ * @author Justin Wong
+ * @author Jun Hao
+ * @author Lee Cheng Yao
+ * @author Abhishekh
  */
 public abstract class Controller {
 	

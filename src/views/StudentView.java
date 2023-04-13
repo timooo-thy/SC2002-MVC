@@ -2,6 +2,11 @@ package views;
 
 /**
  * The StudentView class provides methods for displaying information about Students in a console-based user interface.
+ * @author Timothy Lee
+ * @author Justin Wong
+ * @author Jun Hao
+ * @author Lee Cheng Yao
+ * @author Abhishekh
  */
 public class StudentView {
     

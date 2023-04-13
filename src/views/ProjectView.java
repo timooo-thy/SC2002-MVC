@@ -5,6 +5,11 @@ import models.ProjectStatus_Enum;
 
 /**
  * The ProjectView class provides methods for displaying information about projects in a console-based user interface.
+ * @author Timothy Lee
+ * @author Justin Wong
+ * @author Jun Hao
+ * @author Lee Cheng Yao
+ * @author Abhishekh
  */
 public class ProjectView {
 

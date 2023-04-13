@@ -8,6 +8,11 @@ import utilities.Database;
  * This class represents a Supervisor who can supervise projects in the system.
  * It extends the User class and contains a list of supervised projects and methods to add and remove them.
  * It also has methods to retrieve and update information about the supervisors from the database.
+ * @author Timothy Lee
+ * @author Justin Wong
+ * @author Jun Hao
+ * @author Lee Cheng Yao
+ * @author Abhishekh
  */
 public class Supervisor extends User {
 	

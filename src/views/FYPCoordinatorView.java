@@ -2,6 +2,11 @@ package views;
 
 /**
  * The FYPCoordinatorView class provides methods for displaying information about FYP Coordinators in a console-based user interface.
+ * @author Timothy Lee
+ * @author Justin Wong
+ * @author Jun Hao
+ * @author Lee Cheng Yao
+ * @author Abhishekh
  */
 public class FYPCoordinatorView {
     

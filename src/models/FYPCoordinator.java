@@ -8,6 +8,11 @@ import utilities.Database;
  * This class represents a FYP Coordinator who can supervise everything in the system.
  * It extends the User class and methods to oversee projects and accept requests.
  * It also has methods to retrieve and update information about the fyp coordinators from the database.
+ * @author Timothy Lee
+ * @author Justin Wong
+ * @author Jun Hao
+ * @author Lee Cheng Yao
+ * @author Abhishekh
  */
 public class FYPCoordinator extends User {
 	

@@ -3,6 +3,11 @@ package models;
 /**
  * This enum represents the different types of requests that can be made in the FYP Registration System.
  * The possible types are CHANGETITLE, REGISTERPROJECT, DEREGISTERPROJECT, and CHANGESUPERVISOR.
+ * @author Timothy Lee
+ * @author Justin Wong
+ * @author Jun Hao
+ * @author Lee Cheng Yao
+ * @author Abhishekh
  */
 public enum RequestType_Enum {
 	

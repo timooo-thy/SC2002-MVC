@@ -8,6 +8,15 @@ import views.RequestView;
 import models.*;
 import utilities.Database;
 
+/**
+ * This class represents a controller for a FYP Coordinator in the FYP Registration System.
+ * It extends the abstract class Controller and overrides its run() method.
+ * @author Timothy Lee
+ * @author Justin Wong
+ * @author Jun Hao
+ * @author Lee Cheng Yao
+ * @author Abhishekh
+ */
 public class FYPCoordinatorController extends Controller {
 	
 	/**

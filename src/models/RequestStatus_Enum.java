@@ -3,6 +3,11 @@ package models;
 /**
  * This enum represents the different possible statuses for a request in the FYP Registration System.
  * The possible statuses are APPROVED, PENDING, and REJECTED.
+ * @author Timothy Lee
+ * @author Justin Wong
+ * @author Jun Hao
+ * @author Lee Cheng Yao
+ * @author Abhishekh
  */
 public enum RequestStatus_Enum {
 	

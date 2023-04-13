@@ -7,6 +7,11 @@ import utilities.Database;
 /**
  * The FYPRSA class is the main class that initialises the FYP Registration System Application and runs the main controller.
  * It also initialises and updates the application's database.
+ * @author Timothy Lee
+ * @author Justin Wong
+ * @author Jun Hao
+ * @author Lee Cheng Yao
+ * @author Abhishekh
  */
 public class FYPRSA {
 	

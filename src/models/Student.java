@@ -8,6 +8,11 @@ import utilities.Database;
  * The Student class represents a student in the system.
  * It extends the User class and provides methods to manage the list of students.
  * It also has methods to retrieve and update information about the students from the database.
+ * @author Timothy Lee
+ * @author Justin Wong
+ * @author Jun Hao
+ * @author Lee Cheng Yao
+ * @author Abhishekh
  */
 public class Student extends User {
 	

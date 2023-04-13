@@ -18,6 +18,11 @@ import views.SupervisorView;
 /**
  * This class represents a controller for a Supervisor in the FYP Registration System.
  * It extends the abstract class Controller and overrides its run() method.
+ * @author Timothy Lee
+ * @author Justin Wong
+ * @author Jun Hao
+ * @author Lee Cheng Yao
+ * @author Abhishekh
  */
 public class SupervisorController extends Controller {
 	

@@ -9,6 +9,11 @@ import models.FYPCoordinator;
 /**
  * The MainController class is responsible for handling the main menu of the FYP Registration System Application (FYPRSA).
  * It routes users to their respective controllers based on their chosen role.
+ * @author Timothy Lee
+ * @author Justin Wong
+ * @author Jun Hao
+ * @author Lee Cheng Yao
+ * @author Abhishekh
  */
 public class MainController extends Controller {
     
