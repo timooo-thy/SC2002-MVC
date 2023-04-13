@@ -65,18 +65,18 @@ public class FYPCoordinatorController extends Controller {
 			 */
 			cli.displayTitle("FYPCOORDINATOR FUNCTIONS");
 			newPending = RequestView.checkForNew(FYPCoordinatorModel.getId());
-		    
 			cli.display(menu);
 			
 			choice = cli.inputInteger("Choice", 1, menu.length);
 			
 			switch(choice) {
 			
+			// Change password
+			/*
+			 * Case 1 enables user to change password. If attempt to key current password is wrong 3 times, attempt is failed
+			 * If successful, password is changed and user will have to log in again.
+			 */
 			case 1:
-				/**
-				 * Case 1 enables user to change password. If attempt to key current password is wrong 3 times, attempt is failed
-				 * If successful, password is changed and user will have to log in again.
-				 */
 			    boolean isPasswordChanged = false;
 			    int tries = 3;
 
@@ -114,12 +114,12 @@ public class FYPCoordinatorController extends Controller {
 				return;
 			
 			// Create/Update/View Projects
+			/*
+			 *	Case 2 enables user to Create,Update and View project.  
+			 *	Creating a project will add a project into the project list.
+			 *	Updating a project brings user to another menu where they are able to modify project title or change supervisor
+			 */
 			case 2:
-				/**
-				 *	Case 2 enables user to Create,Update and View project.  
-				 *	Creating a project will add a project into the project list.
-				 *	Updating a project brings user to another menu where they are able to modify project title or change supervisor
-				 */
 				String [] projectsSubMenu = {
 						"Create Project",
 						"Update Project",
@@ -252,14 +252,14 @@ public class FYPCoordinatorController extends Controller {
 				break;
 					
 			// View Pending Requests
+			/*
+			 * User will be able to view all pending requests.
+			 * By entering the requestID, they are able to take action on that particular request.
+			 * User will be prompted to confirm their decision. 
+			 * They will be redirected to either approve or reject these pending requests.
+			 * User will also be able to view and approve requests according to the different filters set.
+			 */
 			case 3:
-				/*
-				 * User will be able to view all pending requests.
-				 * By entering the requestID, they are able to take action on that particular request.
-				 * User will be prompted to confirm their decision. 
-				 * They will be redirected to either approve or reject these pending requests.
-				 * User will be able to view requests according to the different filters set.
-				 */
 				ArrayList <Integer> pendingRequestID = new ArrayList<>();
 				cli.displayTitle("View All Pending Requests");
 				for (Request req : Request.getRequests()) {
@@ -276,27 +276,10 @@ public class FYPCoordinatorController extends Controller {
 					break;
 				}
 				
-				cli.displayTitle("Approve Pending Requests");
-				int requestID = cli.inputInteger("Enter Request ID (Enter 0 to exit)", 0, Request.getRequests().size());
-				confirmation = RequestView.requestConfirmation();
-				
-				int projectID = Request.getRequest(requestID).getProjectID();
-				String studentID = Request.getRequest(requestID).getSenderID();
-				
-				if (confirmation == 0) break;
-				if (confirmation == 1) {
-					Request.getRequest(requestID).approve();
-					cli.displayTitle("This method is not actually implemented yet, Lol");
-				}
-				else {
-					Request.getRequest(requestID).reject();
-					cli.displayTitle("This method is not actually implemented yet, Lol");
-				}
-				
 				// Print Request Sub Menu
 				String [] requestsSubMenu = {
-						"Approve/Reject by Request ID",
-						"Approve/Reject with Filters",
+						"Approve/Reject Using Request ID",
+						"Approve/Reject With Filters",
 						"View All Pending Requests",
 						"Back"
 				};
@@ -306,14 +289,34 @@ public class FYPCoordinatorController extends Controller {
 				while(requestsSubMenuChoice <= requestsSubMenu.length) {
 					if(requestsSubMenuChoice==4) break;
 					
-					cli.displayTitle("Approve Requests Menu");
+					cli.displayTitle("Approve/Reject Requests Menu");
 					cli.display(requestsSubMenu);
 					
 					requestsSubMenuChoice = cli.inputInteger("Choice", 1, requestsSubMenu.length);
 				switch (requestsSubMenuChoice) {
 				
-				// Approve/Reject Requests by Request ID
+				// Approve/Reject Using Request ID
 				case 1:
+					cli.displayTitle("Approve/Reject Using Request ID");
+					int requestID = cli.inputInteger("Enter Request ID (Enter 0 to exit)", 0, Request.getRequests().size());
+					if (requestID == 0) break;
+					
+					confirmation = RequestView.requestConfirmation();
+					int projectID = Request.getRequest(requestID).getProjectID();
+					String studentID = Request.getRequest(requestID).getSenderID();
+					
+					if (confirmation == 0) break;
+					if (confirmation == 1) {
+						Request.getRequest(requestID).approve();
+						cli.displayTitle("This method is not actually implemented yet, Lol");
+					}
+					else {
+						Request.getRequest(requestID).reject();
+						cli.displayTitle("This method is not actually implemented yet, Lol");
+					}
+					
+				// Approve/Reject Requests With Filters
+				case 2:
 					int approveChoice;
 					String [] approveRequestsFiltersSubMenu = {
 							"Approve/Reject Project Allocation",
@@ -325,15 +328,13 @@ public class FYPCoordinatorController extends Controller {
 					
 					approveChoice = 0;
 					while(approveChoice <= approveRequestsFiltersSubMenu.length) {
-						if(approveChoice==5)
-							break;
-						cli.displayTitle("Approve Requests Menu");
+						if(approveChoice==5) break;
+						cli.displayTitle("Approve/Reject With Filters");
 						cli.display(approveRequestsFiltersSubMenu);
 						
 						approveChoice = cli.inputInteger("Choice", 1, approveRequestsFiltersSubMenu.length);
 						
 						switch(approveChoice) {
-						
 							// Approve/Reject Project Allocation
 							case 1:
 								ArrayList<Integer> allocationRequestID = new ArrayList<>();
@@ -349,6 +350,7 @@ public class FYPCoordinatorController extends Controller {
 								}	
 								if (allocationRequestID.size()==0) {
 									cli.displayTitle("There are no pending Project Allocation requests");
+									Thread.sleep(1000);
 									break;
 								}
 								requestID = -1;
@@ -414,10 +416,11 @@ public class FYPCoordinatorController extends Controller {
 								
 								if (titleRequestID.size()==0) {
 									cli.displayTitle("There are no pending Title Change requests");
+									Thread.sleep(1000);
 									break;
 								}
 								
-								cli.displayTitle("Approve Title Change");
+								cli.displayTitle("Approve/Reject Title Change");
 								requestID = RequestView.requestRequestID();
 								if (requestID == 0) break;
 
@@ -428,15 +431,12 @@ public class FYPCoordinatorController extends Controller {
 								
 								// Approve
 								if (confirmation == 1) {
-									// Approve Request
 									Request.getRequest(requestID).approve();
-									// Update project title
 									Project.changeProjectTitle(projectID, newProjectTitle);
 									cli.displayTitle("Title Change Has Been Approved");
 								}
 								// Reject
 								else {
-									// Reject Request
 									Request.getRequest(requestID).reject();
 									cli.displayTitle("Title Change Has Been Rejected");
 								}
@@ -460,10 +460,11 @@ public class FYPCoordinatorController extends Controller {
 								
 								if (supChangeRequestID.size()==0) {
 									cli.displayTitle("There are no pending Supervisor Change requests");
+									Thread.sleep(1000);
 									break;
 								}
 								
-								cli.displayTitle("Approve Supervisor Change");
+								cli.displayTitle("Approve/Reject Supervisor Change");
 								requestID = cli.inputInteger("Enter Request ID (Enter 0 to exit)", 0, Request.getRequests().size());
 								if (requestID == 0) break;
 
@@ -479,7 +480,6 @@ public class FYPCoordinatorController extends Controller {
 									// Update project new supervisor
 									Project.changeSupervisor(projectID, newSupervisorName);
 									cli.displayTitle("Supervisor Change Has Been Approved");
-									
 								}
 								// Reject
 								else {
@@ -507,11 +507,14 @@ public class FYPCoordinatorController extends Controller {
 								
 								if (deregisterRequestID.size()==0) {
 									cli.displayTitle("There are no pending Deregistration requests");
+									Thread.sleep(1000);
 									break;
 								}
 								
-								cli.displayTitle("Approve Deregistration");
+								cli.displayTitle("Approve/Reject Deregistration");
 								requestID = cli.inputInteger("Enter Request ID (Enter 0 to exit)", 0, Request.getRequests().size());
+								if (requestID == 0) break;
+								
 								confirmation = RequestView.requestConfirmation();
 								
 								projectID = Request.getRequest(requestID).getProjectID();
@@ -534,27 +537,50 @@ public class FYPCoordinatorController extends Controller {
 								Database.updateAllData();
 								Thread.sleep(3000);
 								break; 
-								
-							// View all request
-							case 5:
-								
+
 							// Back	
-							case 6:
+							case 5:
+								Thread.sleep(1000);
 								break; 
 						}
 					}		
-					
 					break; 
+				
+				// View all Pending Requests
+				case 3:
+					pendingRequestID = new ArrayList<>();
+					cli.displayTitle("View All Pending Requests");
+					for (Request req : Request.getRequests()) {
+						if (req.getRequestStatus() == RequestStatus_Enum.PENDING) {
+							RequestView.printRequestInfo(req.getRequestID());
+							cli.display("------------------------------------");
+							pendingRequestID.add(req.getRequestID());
+						}
+					}	
+					
+					if (pendingRequestID.size()==0) {
+						cli.displayTitle("There are no pending Title Change requests");
+						Thread.sleep(1000);
+						break;
 					}
+		
+					Thread.sleep(3000);
+					break;
+					
+				// Back	
+				case 4:
+					Thread.sleep(1000);
+					break;
+				}
 				}
 			// View Project Details Report (with filters)
+			/*
+			 * User is able to view project details using filters
+			 * The first filter is to view by supervisor ID
+			 * The second filter is to view by student ID
+			 * The last filter is to view by project status
+			 */
 			case 4:
-				/*
-				 * User is able to view project details using filters
-				 * The first filter is to view by supervisor ID
-				 * The second filter is to view by student ID
-				 * The last filter is to view by project status
-				 */
 				String [] projectDetailsSubMenu = {
 						"View by Supervisor ID",
 						"View by Student ID",
@@ -623,7 +649,7 @@ public class FYPCoordinatorController extends Controller {
 						
 					// View by Student ID
 					case 2:
-						studentID = "-1";
+						String studentID = "-1";
 						Student student = null;
 						while (!Student.getStudentsList().contains(student)) {
 							studentID =  cli.inputString("Please Enter Student ID (Enter 0 to exit)").toUpperCase();
@@ -715,10 +741,10 @@ public class FYPCoordinatorController extends Controller {
 				break;
 			
 			// View Request History
+			/*
+			 * Case 5 enables FYP Coordinator to view all requests sent by all users
+			 */
 			case 5:
-				/*
-				 * Case 5 enables user to view all requests sent by them
-				 */
 				cli.displayTitle("View Request History");
 				for (Request req : Request.getRequests()) {
 					RequestView.printRequestInfo(req.getRequestID());
@@ -731,10 +757,10 @@ public class FYPCoordinatorController extends Controller {
 				
                
 			// View Profile	
+			/*
+			 * Case 6 enables users to view their current profile information
+			 */
 			case 6:
-				/*
-				 * Case 6 enables users to view their current profile information
-				 */
 				cli.displayTitle("View Profile");
 				FYPCoordinatorView.printFYPCoordinatorRecordInfo(FYPCoordinatorModel.getId(), FYPCoordinatorModel.getName(), FYPCoordinatorModel.getEmailAddress(), FYPCoordinatorModel.getPassword());
 				Thread.sleep(3000);
