@@ -1,11 +1,19 @@
- package views;
+package views;
 
 import java.util.ArrayList;
-
 import models.*;
 
+/**
+ * The RequestView class provides the methods to display the information related to different requests.
+ */
 public class RequestView {
 
+	/**
+	 * Prints the information related to a given request ID such as request ID, request type,
+	 * sender and recipient IDs, project ID, supervisor name (if applicable) and status.
+	 * 
+	 * @param requestID an integer that represents the ID of the request
+	 */
 	public static void printRequestInfo(int requestID){
 		View.cli.display("----------------------------------------------------------------------------");
 		View.cli.display("Request ID: " + requestID);
@@ -32,7 +40,12 @@ public class RequestView {
 		View.cli.display("Request Status: " + Request.getRequest(requestID).getRequestStatus().toString());
 	}
 	
-
+	/**
+	 * Prints the history of requests made by a user, including the request ID, request type,
+	 * sender and recipient IDs, project ID, supervisor name (if applicable) and status.
+	 * 
+	 * @param userID a string that represents the user ID of the sender
+	 */
 	public static void printRequestHistory(String userID){
 		for (Request req : Request.getRequests()) {
 			int requestID = req.getRequestID();
@@ -61,6 +74,11 @@ public class RequestView {
 		}
 	}
 	
+	/**
+	 * This method prints the history of incoming requests for the given recipient user ID.
+	 * 
+	 * @param recipientUserID the recipient user ID to retrieve the request history for
+	 */
 	public static void printIncomingRequestHistory(String recipientUserID){
 		for (Request req : Request.getRequests()) {
 			int requestID = req.getRequestID();
@@ -88,8 +106,12 @@ public class RequestView {
 		}
 	}
 	
+	/**
+	 * This method requests user to choose a request ID.
+	 * 
+	 * @return the request ID of the selected request
+	 */
 	public static int requestRequestID() {
-		// Initialise Pending requests list
 		ArrayList<Integer> allocationRequestID = new ArrayList<>();
 		for (Request req : Request.getRequests()) {
 			if (req.getRequestStatus() == RequestStatus_Enum.PENDING) {
@@ -102,8 +124,13 @@ public class RequestView {
 		}
 		return requestID;
 	}
+	
+	/**
+	 * This method checks for confirmation of requests.
+	 * 
+	 * @return the user's choice to approve, reject or exit
+	 */
 	public static int requestConfirmation() {
-		// Initialise Pending requests list
 		int confirmation = -1;
 		View.cli.display("Enter 1 to Approve Request \nEnter 2 to Reject Request");
 		confirmation = View.cli.inputInteger("choice (Enter 0 to exit)", 0, 2);
@@ -111,6 +138,12 @@ public class RequestView {
 		return confirmation;
 	}
 	
+	/**
+	 * This method checks for new requests.
+	 * 
+	 * @param recipientUserID the recipient ID to check for new requests
+	 * @return (NEW) if there are new requests, else it returns an empty string
+	 */
 	public static String checkForNew(String recipientUserID) {
 		for (Request req : Request.getRequests()) {
 			if (req.getRequestStatus() == RequestStatus_Enum.PENDING && req.getRecipientID().equals(recipientUserID)) {

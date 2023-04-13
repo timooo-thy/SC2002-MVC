@@ -1,15 +1,19 @@
+/**
+ * The ProjectView class provides methods for displaying information about projects in a console-based user interface.
+ */
 package views;
-
-import java.sql.ClientInfoStatus;
 
 import models.Project;
 import models.ProjectStatus_Enum;
 
 public class ProjectView {
 
-	public ProjectView(){}
+	/**
+	 * Prints information about a single project.
+	 * 
+	 * @param projectID the ID of the project to display
+	 */
 	public static void printProjectInfo(int projectID){
-		//View.cli.display("Welcome to the menu!");
 		View.cli.display("----------------------------------------------------------------------------");
 		View.cli.display("Project ID: " + projectID);
 		View.cli.display("Project Title: " + Project.getProject(projectID).getProjectTitle());
@@ -24,6 +28,9 @@ public class ProjectView {
 		}
 	}
 	
+	/**
+	 * Prints information about all available projects.
+	 */
 	public static void projectAvailableInfo() {
 		for (int i = 0; i < Project.getProjectList().size(); i++) {
 			if (Project.getProjectList().get(i).getProjectStatus() == ProjectStatus_Enum.AVAILABLE) {

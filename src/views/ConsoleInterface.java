@@ -20,7 +20,7 @@ public class ConsoleInterface {
 	
 	/**
 	 * Display a String.
-	 *
+	 * 
 	 * @param toDisplay A String containing the things to be displayed.
 	 */
 	public void display(String toDisplay) {
@@ -29,7 +29,7 @@ public class ConsoleInterface {
 	
 	/**
 	 * Display an Array of Strings.
-	 *
+	 * 
 	 * @param toDisplay A String Array containing the things to be displayed.
 	 */
 	public void display(String[] toDisplay) {
@@ -42,8 +42,8 @@ public class ConsoleInterface {
 	}
 	
 	/**
-	 * Display an ArrayList of Strings .
-	 *
+	 * Display an ArrayList of Strings.
+	 * 
 	 * @param toDisplay An ArrayList containing the things to be displayed.
 	 */
 	public void display(ArrayList<String> toDisplay) {
@@ -57,7 +57,7 @@ public class ConsoleInterface {
 	
 	/**
 	 * Display the Title.
-	 *
+	 * 
 	 * @param toDisplay A String containing the Title to be displayed.
 	 */
 	public void displayTitle(String toDisplay){
@@ -69,7 +69,7 @@ public class ConsoleInterface {
 	
 	/**
 	 * Input an Integer.
-	 *
+	 * 
 	 * @param title A String containing the Title to be displayed.
 	 * @param lower An Integer containing the lower limit of the input.
 	 * @param upper An Integer containing the upper limit of the input.
@@ -92,6 +92,12 @@ public class ConsoleInterface {
 		}
 	}
 	
+	/**
+	 * Input an Integer.
+	 * 
+	 * @param title A String containing the Title to be displayed.
+	 * @return An Integer representing the input.
+	 */
 	public int inputInteger(String title) {
 		
 		while (true) {
@@ -108,7 +114,7 @@ public class ConsoleInterface {
 	}
 	/**
 	 * Input a String with length restrictions.
-	 *
+	 * 
 	 * @param title  A String containing the Title to be displayed.
 	 * @param upper An Integer containing the maximum length of the input.
 	 * @param desc A String containing the description to be displayed.
@@ -133,7 +139,7 @@ public class ConsoleInterface {
 	
 	/**
 	 * Input a String without length restrictions.
-	 *
+	 * 
 	 * @param title A String containing the Title to be displayed.
 	 * @param desc An Integer containing the description to be displayed.
 	 * @return  A String representing the input.
@@ -153,6 +159,12 @@ public class ConsoleInterface {
 		}
 	}
 
+	/**
+	 * Input a String.
+	 * 
+	 * @param title A String containing the Title to be displayed.
+	 * @return  A String representing the input.
+	 */
     public String inputString(String title) {
 		while(true) {
 			try {

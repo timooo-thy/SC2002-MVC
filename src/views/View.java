@@ -1,9 +1,12 @@
 package views;
 
-// Abstract class View
+/**
+ * The View class is an abstract class that represents a view in a console-based user interface.
+ * Concrete subclasses of View are used to display information to the user and receive user input.
+ */
 public abstract class View {
 	
-	/** Represents the General Interface. */
+	/** Represents the Console Interface. */
 	protected static ConsoleInterface cli = new ConsoleInterface();
 
 }

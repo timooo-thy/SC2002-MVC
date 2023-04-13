@@ -18,39 +18,59 @@ import models.RequestStatus_Enum;
 import models.RequestType_Enum;
 import models.ProjectStatus_Enum;
 
+/**
+ * This class represents the methods to initialise and update the database.
+ */
 public class Database {
-	
-	public static void initializeAllData() throws Throwable {
-		Student.initializeFile();
-		Supervisor.initializeFile();
-		FYPCoordinator.initializeFile();
-		Project.initializeProjectFile();
-		Request.initializeRequestFile();
-	}
-	
-	public static void updateAllData() throws Throwable {
-		Student.updateFile();
-		Supervisor.updateFile();
-		FYPCoordinator.updateFile();
-		Project.updateProjectFile();
-		Request.updateRequestFile();
-	}
-	
-	public HashMap<String, String[]> initializeStudentFile(String FILENAME, String FILEPATH) {
-		File model = new File(FILEPATH + FILENAME);
-		HashMap<String, String[]> map = new HashMap<>();
-		try {
+    
+    /**
+     * This method initialises all data in the database.
+     * 
+     * @throws Throwable if an error occurs
+     */
+    public static void initializeAllData() throws Throwable {
+        Student.initializeFile();
+        Supervisor.initializeFile();
+        FYPCoordinator.initializeFile();
+        Project.initializeProjectFile();
+        Request.initializeRequestFile();
+    }
+    
+    /**
+     * This method updates all data in the database.
+     * 
+     * @throws Throwable if an error occurs
+     */
+    public static void updateAllData() throws Throwable {
+        Student.updateFile();
+        Supervisor.updateFile();
+        FYPCoordinator.updateFile();
+        Project.updateProjectFile();
+        Request.updateRequestFile();
+    }
+    
+    /**
+     * This method initialises the Student file in the database.
+     * 
+     * @param FILENAME the name of the Student file
+     * @param FILEPATH the path of the Student file
+     * @return a HashMap representing the Student file
+     */
+    public HashMap<String, String[]> initializeStudentFile(String FILENAME, String FILEPATH) {
+        File model = new File(FILEPATH + FILENAME);
+        HashMap<String, String[]> map = new HashMap<>();
+        try {
             FileReader fileReader = new FileReader(model);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
-            bufferedReader.readLine();
+            bufferedReader.readLine(); //skip the first line
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-            	String[] splitLine = line.trim().split(";");
-            	String email = splitLine[1];
-            	String id = splitLine[1].substring(0, splitLine[1].indexOf("@"));
-            	String name = splitLine[0].trim(); 
-            	String password = splitLine[2].trim(); 
-            	String deregistered = splitLine[3];
+                String[] splitLine = line.trim().split(";");
+                String email = splitLine[1];
+                String id = splitLine[1].substring(0, splitLine[1].indexOf("@"));
+                String name = splitLine[0].trim(); 
+                String password = splitLine[2].trim(); 
+                String deregistered = splitLine[3];
                 map.put(name, new String[] {id, email, password, deregistered});
             }
             bufferedReader.close();
@@ -58,23 +78,36 @@ public class Database {
         catch (IOException e) {
             e.printStackTrace();
         }
-		return map;
-        
-	}
-	
-	public void updateStudentFile(String FILENAME, String FILEPATH, ArrayList<Student> list) {
-		try {
-	        PrintWriter writer = new PrintWriter(FILEPATH+FILENAME, "UTF-8");
-	        writer.println("name;email;password;projectID");
-	        for (Student user : list) {
-	            writer.println(user.getName() + ";" + user.getEmailAddress()+ ";" + user.getPassword() + ";" + user.getProjectID());
-	        }
-	        writer.close();
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
-	}
-	
+        return map;
+    }
+    
+    /**
+     * This method updates the Student file in the database.
+     * 
+     * @param FILENAME the name of the Student file
+     * @param FILEPATH the path of the Student file
+     * @param list an ArrayList of Students to update
+     */
+    public void updateStudentFile(String FILENAME, String FILEPATH, ArrayList<Student> list) {
+        try {
+            PrintWriter writer = new PrintWriter(FILEPATH+FILENAME, "UTF-8");
+            writer.println("name;email;password;projectID");
+            for (Student user : list) {
+                writer.println(user.getName() + ";" + user.getEmailAddress()+ ";" + user.getPassword() + ";" + user.getProjectID());
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * This method initialises Supervisor and FYP Coordinator files in the database.
+     * 
+     * @param FILENAME the name of the Supervisor and FYP Coordinator files
+     * @param FILEPATH the path of the Supervisor and FYP Coordinator files
+     * @return a HashMap representing the Supervisor and FYP Coordinator files
+     */
 	public HashMap<String, String[]> initializeFile(String FILENAME, String FILEPATH) {
 		File model = new File(FILEPATH + FILENAME);
 		HashMap<String, String[]> map = new HashMap<>();
@@ -100,6 +133,13 @@ public class Database {
         
 	}
 	
+	/**
+	 * This method updates the Supervisor and FYP Coordinator files in the database.
+	 * 
+	 * @param FILENAME the name of the Supervisor and FYP Coordinator files
+     * @param FILEPATH the path of the Supervisor and FYP Coordinator files
+	 * @param list an ArrayList of User to update
+	*/
 	public void updateFile(String FILENAME, String FILEPATH, ArrayList<User> list) {
 		try {
 	        PrintWriter writer = new PrintWriter(FILEPATH+FILENAME, "UTF-8");
@@ -113,6 +153,13 @@ public class Database {
 	    }
 	}
 	
+	/**
+     * This method initialises Project file in the database.
+     * 
+     * @param FILENAME the name of the Project file
+     * @param FILEPATH the path of the Project file
+     * @return a HashMap representing the Project file
+     */
 	public HashMap<Integer, Object[]> initializeProjectFile(String FILENAME, String FILEPATH) {
 		File model = new File(FILEPATH + FILENAME);
 		HashMap<Integer, Object[]> map = new HashMap<>();
@@ -140,6 +187,13 @@ public class Database {
         
 	}
 	
+	/**
+     * This method updates the Project file in the database.
+     * 
+     * @param FILENAME the name of the Project file
+     * @param FILEPATH the path of the Project file
+     * @param list an ArrayList of Projects to update
+     */
 	public void updateProjectFile(String FILENAME, String FILEPATH, ArrayList<Project> list) {
 		try {
 	        PrintWriter writer = new PrintWriter(FILEPATH+FILENAME, "UTF-8");
@@ -153,6 +207,13 @@ public class Database {
 	    }
 	}
 	
+	/**
+     * This method initialises Request file in the database.
+     * 
+     * @param FILENAME the name of the Request files
+     * @param FILEPATH the path of the Request files
+     * @return a HashMap representing the Request files
+     */
 	public HashMap<Integer, Object[]> initializeRequestFile(String FILENAME, String FILEPATH) {
 		File model = new File(FILEPATH + FILENAME);
 		HashMap<Integer, Object[]> map = new HashMap<>();
@@ -190,6 +251,13 @@ public class Database {
 		return map;
 	}
 	
+	/**
+     * This method updates the Request file in the database.
+     * 
+     * @param FILENAME the name of the Request file
+     * @param FILEPATH the path of the Request file
+     * @param list an ArrayList of Requests to update
+     */
 	public void updateRequestFile(String FILENAME, String FILEPATH, ArrayList<Request> list) {
 		try {
 	        PrintWriter writer = new PrintWriter(FILEPATH+FILENAME, "UTF-8");
