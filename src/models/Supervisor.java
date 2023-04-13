@@ -66,6 +66,11 @@ public class Supervisor extends User {
 	 */
     private int projectID;
 
+	/**
+	 * Maximum Size for List of Supervised Projects
+	 */
+	private static final int MAX_PROJECT = 2;
+
     /**
      * Creates a new Supervisor object with the given attributes, and adds it to the list of supervisors.
      * 
@@ -140,7 +145,7 @@ public class Supervisor extends User {
 	/**
 	 * Adds a new supervisor to the list of supervisors, and updates the file that stores the list of supervisors.
 	 * 
-	 * @param s The supervisor object to add.
+	 * @param s The supervisor object to add
 	 */
 	public void addSupervisor(Supervisor s) {
 		supervisorsList.add(s);
@@ -155,24 +160,6 @@ public class Supervisor extends User {
 	public String getId() {
 		return this.supervisorId;
 	}
-
-	/**
-	 * Retrieves the ID of the project that the supervisor is assigned to.
-	 * 
-	 * @return The ID of the project that the supervisor is assigned to.
-	 */
-    public int getProjectID() {
-		return projectID;
-	}
-
-    /**
-     * Sets the ID of the project that the supervisor is assigned to.
-     * 
-     * @param projectID The new project ID.
-     */
-    public void setProjectID(int projectID) {
-        this.projectID=projectID;
-    }
 	
     /**
      * Returns the list of projects supervised by this supervisor.
@@ -197,6 +184,16 @@ public class Supervisor extends User {
     	return null;
     }
     
+	/**
+     * Returns the boolean value that indicates if the supervisor's supervised project list is available.
+     * 
+     * @param supervisorId The ID of the supervisor
+     * @return The boolean value indicates if the supervisor's supervised project list is available
+     */
+	public static boolean isAvailable(String supervisorId) { 
+		return (!(Supervisor.getSupervisorFromId(supervisorId).getSupervisedProjectList().size() == MAX_PROJECT));
+	}
+
     /**
      * Returns the Supervisor object with the given ID.
      * 

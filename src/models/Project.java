@@ -6,43 +6,97 @@ import java.util.HashMap;
 import utilities.Database;
 import models.Supervisor;
 
+/**
+ * This class represents a Project in the system.
+ * It contains a list of supervised projects and methods to assign them to students or transfer to supervisors.
+ * It also has methods to retrieve and update information about the projects from the database.
+ * @author Timothy Lee
+ * @author Justin Wong
+ * @author Jun Hao
+ * @author Lee Cheng Yao
+ * @author Abhishekh
+ */
 public class Project {
 	
+	/**
+	 * File path of the file to store the list of projects.
+	 */
 	private static final String FILEPATH = "src/data/";
 	
+	/**
+	 * File name of the file to store the list of projects.
+	 */
 	private static final String FILENAME = "projectList.txt";
 	
+	/**
+	 * List of all the projects in the system.
+	 */
 	private static ArrayList<Project> projectList = new ArrayList<Project>();
 	
+	/**
+	 * Database object to perform database operations.
+	 */
 	private static Database d = new Database();
 	
+	/**
+	 * Project's ID.
+	 */
 	private int projectId;
 	
+	/**
+	 * Supervisor's ID.
+	 */
 	private String supervisorId;
 	
+	/**
+	 * Supervisor's Name.
+	 */
 	private String supervisorName;
 	
+	/**
+	 * Supervisor's Email.
+	 */
 	private String supervisorEmail;
 	
+	/**
+	 * Student's ID.
+	 */
 	private String studentId;
 	
+	/**
+	 * Student's Name
+	 */
 	private String studentName = "-1";
 	
+	/**
+	 * Student's Email
+	 */
 	private String studentEmail;
 	
+	/**
+	 * Project's Title
+	 */
 	private String projectTitle = "-1";
 	
+	/**
+	 * Project's Original Title
+	 */
 	private String oriProjectTitle;
 	
+	/**
+	 * Project's Status
+	 */
 	private  ProjectStatus_Enum projectStatus;
-	
-	private static final int MAX_PROJECT = 2;
 		
 	////////////////////////////////////////////////////////////////////////////////////////
 
-	//Constructor 
-	public Project() {}
-	
+	/**
+     * Creates a new Project object with the given attributes, and adds it to the list of projects.
+     * 
+     * @param supervisorName The name of the supervisor.
+     * @param projectTitle The title of the project.
+     * @param projectStatus The status of the project.
+     */
 	public Project(String supervisorName, String projectTitle, ProjectStatus_Enum projStatus) {
 		this.supervisorId = Supervisor.getSupervisorNameToId(supervisorName).toUpperCase();
 		this.supervisorName = supervisorName;
@@ -54,6 +108,14 @@ public class Project {
 		addProject(this);
 	}
 
+	/**
+     * Creates a new Project object with the given attributes, and adds it to the list of projects.
+     * 
+     * @param supervisorName The name of the supervisor.
+     * @param projectTitle The title of the project.
+	 * @param studentName The name of the student
+     * @param projectStatus The status of the project.
+     */
 	public Project(String supervisorName, String oriProjectTitle, String projectTitle, String studentName, ProjectStatus_Enum projStatus) {
 		this.supervisorId = Supervisor.getSupervisorNameToId(supervisorName).toUpperCase();
 		this.supervisorName = supervisorName;
@@ -70,122 +132,239 @@ public class Project {
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	
+	/**
+	 * Adds a new project to the list of projects.
+	 * 
+	 * @param project The project object to add.
+	 */
 	public static void addProject(Project project){
 		projectList.add(project);
-		//updateProjectFile();
 	}
 
+	/**
+     * Returns a list of all projects.
+     * 
+     * @return A list of all projects
+     */
 	public static ArrayList<Project> getProjectList(){
 		return projectList;
 	}
 	
-	//project id start from 1
+	/**
+	 * Returns the project at the specified index in the list.
+	 * 
+	 * @param i The index of the project to return
+	 * @return The project at the specified index in the list
+	 */
 	public static Project getProject(int i){
 		return projectList.get(i-1);
 	}
 	
 	////////////////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * Retrieves the ID of the project.
+	 * 
+	 * @return The ID of the project.
+	 */
 	public int getProjectId() {
 		return this.projectId;
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * Retrieves the ID of the supervisor.
+	 * 
+	 * @return The ID of the supervisor.
+	 */
 	public String getSupervisorId() {
 		return this.supervisorId;
 	}
 
+	/**
+     * Sets the ID of the supervisor.
+     * 
+     * @param supervisorId The new ID of the supervisor.
+     */
 	public void setSupervisorId(String supervisorId) {
 		this.supervisorId = supervisorId;
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////
 
+	/**
+     * Sets the name of the supervisor.
+     * 
+     * @param supervisorName The new name of the supervisor.
+     */
 	public void setSupervisorName(String supervisorName) {
 		this.supervisorName = supervisorName;
 	}
 	
+	/**
+	 * Retrieves the name of the supervisor.
+	 * 
+	 * @return The name of the supervisor.
+	 */
 	public String getSupervisorName() {
 		return this.supervisorName;
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * Retrieves the email address of the supervisor.
+	 * @return The email address of the supervisor.
+	 */
 	public String getSupervisorEmail() {
 		return this.supervisorEmail;
 	}
 
+	/**
+	 * Sets the email address of the supervisor.
+	 * 
+	 * @param supervisorEmail The new email address of the supervisor.
+	 */
 	public void setSupervisorEmail(String supervisorEmail) {
 		this.supervisorEmail = supervisorEmail;
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * Retrieves the ID of the student.
+	 * 
+	 * @return The ID of the student.
+	 */
 	public String getStudentId() {
 		return this.studentId;
 	}
 
+	/**
+     * Sets the ID of the student.
+     * 
+     * @param studentId The new ID of the student.
+     */
 	public void setStudentId(String studentId) {
 		this.studentId = studentId;
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////
 
+	/**
+     * Sets the name of the student.
+     * 
+     * @param studentName The new name of the student.
+     */
 	public void setStudentName(String studentName) {
 		this.studentName = studentName;
 	}
 	
+	/**
+	 * Retrieves the name of the student.
+	 * 
+	 * @return The name of the student.
+	 */
 	public String getStudentName() {
 		return this.studentName;
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * Retrieves the email address of the student.
+	 * @return The email address of the student.
+	 */
 	public String getStudentEmail() {
 		return this.studentEmail;
 	}
 
+	/**
+	 * Sets the email address of the student.
+	 * 
+	 * @param studentEmail The new email address of the student.
+	 */
 	public void setStudentEmail(String studentEmail) {
 		this.studentEmail = studentEmail;
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * Retrieves the title of the project.
+	 * 
+	 * @return The title of the project.
+	 */
 	public String getProjectTitle() {
 		return this.projectTitle;
 	}
 
+	/**
+     * Sets the title of the project.
+     * 
+     * @param projectTitle The new title of the project.
+     */
 	public void setProjectTitle(String projectTitle) {
 		this.projectTitle = projectTitle;
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * Retrieves the original title of the project.
+	 * 
+	 * @return The original title of the project.
+	 */
 	public String getOriProjectTitle() {
 		return this.oriProjectTitle;
 	}
 
+	/**
+     * Sets the original title of the project.
+     * 
+     * @param oriProjectTitle The new original title of the project.
+     */
 	public void setOriProjectTitle(String oriProjectTitle) {
 		this.oriProjectTitle = oriProjectTitle;
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Retrieves the status  of the project.
+	 * 
+	 * @return The status  of the project.
+	 */
 	public ProjectStatus_Enum getProjectStatus() {
 		return this.projectStatus;
 	}
 
+	/**
+     * Sets the title of the project.
+     * 
+     * @param studentName The new title of the project.
+     */
 	public void setProjectStatus(ProjectStatus_Enum projectStatus) {
 		this.projectStatus = projectStatus;
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////
 	
+	/**
+	 * Sets the list of projects to the specified list.
+	 * 
+	 * @param p The new list of projects
+	 */
 	public static void updateProjectList(ArrayList<Project> p){
 		projectList = p;
 	}
 
-	// value 0 = sup name, value 1 = title, value 2 = student
+	/**
+	 * Initializes the list of projects from the data in the project data file.
+	 * 
+	 * @throws Throwable If there is an error reading the project data file
+	 */
 	public static void initializeProjectFile() throws Throwable {
 		HashMap<Integer, Object[]> map  = d.initializeProjectFile(FILENAME, FILEPATH);
 		for (int projId : map.keySet()) {
@@ -199,27 +378,33 @@ public class Project {
         }
 	}
 
+	/**
+	 * Updates the project data file with the current list of projects.
+	 */
 	public static void updateProjectFile() {
 		d.updateProjectFile(FILENAME,FILEPATH,projectList);
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////
 	
-	// Supervised Project
-	
+	/**
+	 * Adds a project to the list of supervised project.
+	 * 
+	 * @param supervisorName The name of supervisor
+	 * @param p The project object to add
+	 */
 	public static void addSupervisedProject(String supervisorName,Project p) {
 		Supervisor.getSupervisorFromName(supervisorName).getSupervisedProjectList().add(p);
 	}
 	
-	// 2 is max, if size is 2 cannot allocate project
-	public static boolean isAvailable(String supervisorId) { // error here
-		return (!(Supervisor.getSupervisorFromId(supervisorId).getSupervisedProjectList().size() == MAX_PROJECT));
-	}
-	
 	///////////////////////////////////////////////////////////////////////////////////////
 
-	// For ProjectFYPCoordinator Interface //
-	
+	/**
+	 * Change supervisor of a project.
+	 * 
+	 * @param projectId The Id of project supervisor to be changed
+	 * @param replacementSupervisorName The name of supervisor to receive the project
+	 */
 	public static void changeSupervisor(int projectId, String replacementSupervisorName) {
 		Project tempProj = Project.getProject(projectId);
 		Supervisor tempSup = Supervisor.getSupervisorFromName(tempProj.getSupervisorName()); 
@@ -230,12 +415,6 @@ public class Project {
 					proj.setProjectStatus(ProjectStatus_Enum.AVAILABLE);
 			}
 		}
-		
-//		for(int i=0;i<tempSup.getSupervisedProjectList().size();i++) {
-//			if(tempSup.getSupervisedProjectList().get(i).getProjectId()==projectId) {
-//				tempSup.getSupervisedProjectList().remove(i);
-//			}
-//		}
 		
 		for (Project proj : tempSup.getSupervisedProjectList()) {
 			if (proj.getProjectId()==projectId)
@@ -253,11 +432,13 @@ public class Project {
 					proj.setProjectStatus(ProjectStatus_Enum.UNAVAILABLE);
 			}
 		}
-//		View.cli.display("Supervisor has been changed successfully to...");
-//		View.cli.display("Supervisor Id:" + tempProj.getSupervisorId());
-//		View.cli.display("Supervisor Email:" + tempProj.getSupervisorEmail());
-	}
 	
+	/**
+	 * Allocate project to the student.
+	 * 
+	 * @param projectId The Id of project to be allocated
+	 * @param studentId The id of student to register the project
+	 */
 	public static void allocateProject(int projectId, String studentId) {
 		Project tempProj = getProject(projectId);
 		tempProj.setStudentId(studentId);
@@ -273,6 +454,11 @@ public class Project {
 		}
 	}
 	
+	/**
+	 * Deregister student from the project
+	 * 
+	 * @param projectId Id of the project to be deregistered
+	 */
 	public static void deregisterStudent(int projectId) {
 		Project tempProj = Project.getProject(projectId);
 		Supervisor tempSup = Supervisor.getSupervisorFromId(tempProj.getSupervisorId()); 
@@ -295,12 +481,22 @@ public class Project {
 		tempProj.setProjectStatus(ProjectStatus_Enum.AVAILABLE);
 	}
 	
+	/**
+	 * Change title of the project
+	 * 
+	 * @param projectId Id of the project to be modified
+	 * @param tempProjectTitle new title of the project to be updated 
+	 */
 	public static void changeProjectTitle(int projectId, String tempProjectTitle) {
 		Project tempProj = Project.getProject(projectId);
 		tempProj.setProjectTitle(tempProjectTitle);
 	}
 	
-	
+	/**
+	 * Select the project to register
+	 * 
+	 * @param projectId ID of the project to be registered
+	 */
 	public static void selectProject(int projectId) {
 		Project tempProj = Project.getProject(projectId);
 		tempProj.setProjectStatus(ProjectStatus_Enum.RESERVED);// change project status to reserved
