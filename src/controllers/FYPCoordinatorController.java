@@ -60,7 +60,9 @@ public class FYPCoordinatorController extends Controller {
 		int confirmation;
 		
 		while(choice <= menu.length) {
-			
+			/**
+			 * FYP Coordinator main page
+			 */
 			cli.displayTitle("FYPCOORDINATOR FUNCTIONS");
 			newPending = RequestView.checkForNew(FYPCoordinatorModel.getId());
 		    
@@ -70,8 +72,11 @@ public class FYPCoordinatorController extends Controller {
 			
 			switch(choice) {
 			
-			// Change password
 			case 1:
+				/**
+				 * Case 1 enables user to change password. If attempt to key current password is wrong 3 times, attempt is failed
+				 * If successful, password is changed and user will have to log in again.
+				 */
 			    boolean isPasswordChanged = false;
 			    int tries = 3;
 
@@ -110,6 +115,11 @@ public class FYPCoordinatorController extends Controller {
 			
 			// Create/Update/View Projects
 			case 2:
+				/**
+				 *	Case 2 enables user to Create,Update and View project.  
+				 *	Creating a project will add a project into the project list.
+				 *	Updating a project brings user to another menu where they are able to modify project title or change supervisor
+				 */
 				String [] projectsSubMenu = {
 						"Create Project",
 						"Update Project",
@@ -243,6 +253,13 @@ public class FYPCoordinatorController extends Controller {
 					
 			// View Pending Requests
 			case 3:
+				/*
+				 * User will be able to view all pending requests.
+				 * By entering the requestID, they are able to take action on that particular request.
+				 * User will be prompted to confirm their decision. 
+				 * They will be redirected to either approve or reject these pending requests.
+				 * User will be able to view requests according to the different filters set.
+				 */
 				ArrayList <Integer> pendingRequestID = new ArrayList<>();
 				cli.displayTitle("View All Pending Requests");
 				for (Request req : Request.getRequests()) {
@@ -532,6 +549,12 @@ public class FYPCoordinatorController extends Controller {
 				}
 			// View Project Details Report (with filters)
 			case 4:
+				/*
+				 * User is able to view project details using filters
+				 * The first filter is to view by supervisor ID
+				 * The second filter is to view by student ID
+				 * The last filter is to view by project status
+				 */
 				String [] projectDetailsSubMenu = {
 						"View by Supervisor ID",
 						"View by Student ID",
@@ -693,6 +716,9 @@ public class FYPCoordinatorController extends Controller {
 			
 			// View Request History
 			case 5:
+				/*
+				 * Case 5 enables user to view all requests sent by them
+				 */
 				cli.displayTitle("View Request History");
 				for (Request req : Request.getRequests()) {
 					RequestView.printRequestInfo(req.getRequestID());
@@ -706,6 +732,9 @@ public class FYPCoordinatorController extends Controller {
                
 			// View Profile	
 			case 6:
+				/*
+				 * Case 6 enables users to view their current profile information
+				 */
 				cli.displayTitle("View Profile");
 				FYPCoordinatorView.printFYPCoordinatorRecordInfo(FYPCoordinatorModel.getId(), FYPCoordinatorModel.getName(), FYPCoordinatorModel.getEmailAddress(), FYPCoordinatorModel.getPassword());
 				Thread.sleep(3000);

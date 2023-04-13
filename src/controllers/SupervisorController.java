@@ -67,7 +67,9 @@ public class SupervisorController extends Controller {
 		int minichoice;
 		int choice3;
 		while(choice < menu.length) {
-			
+			/*
+			 * Supervisor main page
+			 */
 			cli.displayTitle("SUPERVISOR FUNCTIONS");
 			String newPending = RequestView.checkForNew(supervisorModel.getId());
 			menu[2] = "View Student Pending Request " + newPending;
@@ -77,6 +79,10 @@ public class SupervisorController extends Controller {
 			
 			switch (choice) {
 				case 1: //Change Password
+					/**
+					 * Case 1 enables user to change password. If attempt to key current password is wrong 3 times, attempt is failed
+					 * If successful, password is changed and user will have to log in again.
+					 */
 				    boolean isPasswordChanged = false;
 				    int tries = 3;
 	
@@ -107,7 +113,12 @@ public class SupervisorController extends Controller {
 					return;
 					
 				case 2: 
-					
+					/*
+					 *	Case 2 enables user to Create,Update and View project.  
+					 *	Creating a project will add a project into the project list.
+					 *	User is able to change the name of their project
+					 *	When selection is to view projects, user will be able to see projects they supervised or the projects they have created
+					 */
 					String[] create_update_view_menu = {
 							"Create Projects ",
 							"Update Projects ",
@@ -140,6 +151,7 @@ public class SupervisorController extends Controller {
 								cli.displayTitle("Modify Own Project Title");
 								ArrayList<Integer> ownProjectID = new ArrayList<>();
 								id = -1;
+								//loops through project list to find supervisorID
 							    for (Project proj : Project.getProjectList()) {
 							    	if (proj.getSupervisorId().equals(supervisorModel.getId())) {
 								    	ProjectView.printProjectInfo(proj.getProjectId());
@@ -198,6 +210,7 @@ public class SupervisorController extends Controller {
 											break;
 										}
 										else {
+											//loops through project list to print all supervised projects
 											for (Project proj : supervisorModel.getSupervisedProjectList()) {
 												ProjectView.printProjectInfo(proj.getProjectId());
 												cli.display("------------------------------------");
@@ -207,6 +220,7 @@ public class SupervisorController extends Controller {
 										}
 									case 2:
 										cli.displayTitle("View Projects Created");
+										//loops through project list to print all projects created
 										for (Project proj : Project.getProjectList()) {
 											if (proj.getSupervisorId().equals(supervisorModel.getId())) {
 												ProjectView.printProjectInfo(proj.getProjectId());
@@ -228,18 +242,23 @@ public class SupervisorController extends Controller {
 							default:	
 								break;
 						}
-//						if (choice == 4) break;
 					}
 					break;
 					
+				// View student pending request
 				case 3:
+					/*
+					 * User will first see all pending requests for them.
+					 * User is then able to approve or reject these requests.
+					 */
 					String[] ApproveReject = {
 							"Approve",
 							"Reject",
 							"Back"
 					};					
-					cli.displayTitle("View Student Pending Request Menu" + newPending); //pass in ???
+					cli.displayTitle("View Student Pending Request Menu" + newPending); 
 					ArrayList<String> requestTitleChangeStudentID = new ArrayList<>();
+					//loops through requests to find PENDING and CHANGETITLE requests
 					for (Request req : Request.getRequests()) {
 						if (req.getRequestStatus() == RequestStatus_Enum.PENDING && req.getRequestType() == RequestType_Enum.CHANGETITLE) {
 							RequestView.printRequestInfo(req.getRequestID());
@@ -293,8 +312,13 @@ public class SupervisorController extends Controller {
 							}
 							
 						}
+					
+				//View Incoming and Outgoing Request History and Status
 				case 4: 
-					//View Incoming and Outgoing Request History and Status
+					/*
+					 * Case 4 enables user to view all incoming requests history and their status.
+					 * They are also able to view all outgoing requests history and thier status.
+					 */
 					String[] historyMenu = {
 							"View Incoming Requests History and Status",
 							"View Outgoing Requests History and Status",
@@ -326,8 +350,13 @@ public class SupervisorController extends Controller {
 							}
 					}
 					break;
-					
+				
+				//Request to change supervisor in charge of project
 				case 5:
+					/*
+					 * Case 5 enables user to request to FYPCoordinator to change the supervisor in charge of the project.
+					 * The first input will be the Project ID, followed by the replacement supervisor ID. 
+					 */
 					cli.displayTitle("Request to Change Supervisor in Charge");
 					if (supervisorModel.getSupervisedProjectList().size() == 0) {
 						cli.displayTitle("Currently not supervising any project!");
@@ -336,7 +365,8 @@ public class SupervisorController extends Controller {
 					}
 					id = -1;
 					minichoice = -1;
-					ArrayList<Integer> supervisedProjectID = new ArrayList<>();		    
+					ArrayList<Integer> supervisedProjectID = new ArrayList<>();	
+					//loops through the project list to print projects
 					for (Project proj : supervisorModel.getSupervisedProjectList()) {
 							ProjectView.printProjectInfo(proj.getProjectId());
 							supervisedProjectID.add(proj.getProjectId());
@@ -355,6 +385,7 @@ public class SupervisorController extends Controller {
 					minichoice = 0;
 					String newSupervisorID = cli.inputString("Enter the Replacement Supervisor ID");
 					while (minichoice != 1) {
+						//if replacement supervisor id is found will proceed normally
 						for (Supervisor sup : Supervisor.getSupervisorsList()) {
 								if (sup.getId().equals(newSupervisorID)) {
 							    	minichoice = 1;
@@ -364,7 +395,8 @@ public class SupervisorController extends Controller {
 						if (minichoice == 1) break;
 						cli.display("Supervisor ID does not exist!");
 						newSupervisorID = cli.inputString("Enter the Replacement Supervisor ID");
-					}							    
+					}							
+					//creates new request
 					new Request(supervisorModel.getId(),supervisorModel.getName(),supervisorModel.getEmailAddress(), "ASFLI", "Li Fang", "ASFLI@ntu.edu.sg",id,newSupervisorID,Supervisor.getSupervisorIdToName(newSupervisorID),Supervisor.getSupervisorIdToEmail(newSupervisorID),RequestType_Enum.CHANGESUPERVISOR,RequestStatus_Enum.PENDING,Request.getRequests().size()+1);
 					cli.displayTitle("Request has been sent");
 					Database.updateAllData();
@@ -372,6 +404,9 @@ public class SupervisorController extends Controller {
 					break;
 					
 				case 6:
+					/*
+					 * Case 6 enables users to view their current profile information
+					 */
 					cli.displayTitle("View Profile");
 					SupervisorView.printSupervisorRecordInfo(supervisorModel.getId(), supervisorModel.getName(), supervisorModel.getEmailAddress(), supervisorModel.getPassword());
 					Thread.sleep(1000);

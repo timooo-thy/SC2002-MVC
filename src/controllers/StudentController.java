@@ -63,7 +63,9 @@ public class StudentController extends Controller {
 		int choice = 0;
 		
 		while(choice <= menu.length) {
-			
+			/*
+			 * Student main page
+			 */
 			cli.displayTitle("STUDENT FUNCTIONS");
 			cli.display(menu);
 			
@@ -72,7 +74,10 @@ public class StudentController extends Controller {
 			switch(choice) {
 			
 				case 1://change password
-	
+				/**
+				 * Case 1 enables user to change password. If attempt to key current password is wrong 3 times, attempt is failed
+				 * If successful, password is changed and user will have to log in again.
+				 */
 				    boolean isPasswordChanged = false;
 				    int tries = 3;
 	
@@ -109,6 +114,12 @@ public class StudentController extends Controller {
 					return;
 					
 				case 2://request:Register Project
+					/*
+					 * Case 2 enables user to register for a project. 
+					 * User is first prompted to enter a project ID.
+					 * If project is available the request will be sent.
+					 * If project already have a request, the user cannot send  the request.
+					 */
 					int projectChoice;
 					ProjectStatus_Enum projectStatus;
 					cli.displayTitle("Register Project");
@@ -154,6 +165,10 @@ public class StudentController extends Controller {
 					break;
 					
 				case 3: //Request: Project Title Change
+					/*
+					 * Case 3 enables user to request for a project title change.
+					 * User is prompted to enter a new title.
+					 */
 					String newTitle;					
 					cli.displayTitle("Request for Change of Project Title");
 					if (studentModel.getProjectID() == -1 || studentModel.getProjectID() == 0 || studentModel.getProjectID() == -2) {
@@ -170,6 +185,7 @@ public class StudentController extends Controller {
 							Thread.sleep(1000);
 							break;
 						}
+						//creates a new request
 						new Request(studentModel.getId(),studentModel.getName(),studentModel.getEmailAddress(),allocatedProject.getSupervisorId(),allocatedProject.getSupervisorName(),allocatedProject.getSupervisorEmail(),allocatedProject.getProjectId(),newTitle,RequestType_Enum.CHANGETITLE,RequestStatus_Enum.PENDING,Request.getRequests().size()+1);// send request to change title
 						cli.displayTitle("Success, your request for changing title is now pending for approval by the supervisor");
 						Database.updateAllData();
@@ -178,6 +194,10 @@ public class StudentController extends Controller {
 						break;
 				
 				case 4: //Request: Project Deregistration
+					/*
+					 * Case 4 enables user to request for a project deregistration.
+					 * If request becomes approved, user will not be able to utilise most of the above functions as they are no longer registerd for FYP.
+					 */
 					cli.displayTitle("Deregistering Project");
 					// check project id first
 					cli.display("------------------------------------");
@@ -195,7 +215,7 @@ public class StudentController extends Controller {
 						choice = cli.inputInteger("Choice", 1, menu_item.length);
 						if (choice == 1) {
 							Project allocatedProject = Project.getProject(studentModel.getProjectID());
-						
+							//creates a new request
 							new Request(studentModel.getId(),studentModel.getName(),studentModel.getEmailAddress(),"ASFLI", "Li Fang", "ASFLI@ntu.edu.sg",allocatedProject.getProjectId(),RequestType_Enum.DEREGISTERPROJECT,RequestStatus_Enum.PENDING,Request.getRequests().size()+1);// send request to register
 							//cli.displayTitle();
 							Database.updateAllData();
@@ -209,6 +229,9 @@ public class StudentController extends Controller {
 					break;
 					
 				case 5: //View available projects
+					/*
+					 * User will be able to view all available projects
+					 */
 					cli.displayTitle("View all Available Projects");
 					if (studentModel.getProjectID() == -2) {
 						cli.displayTitle("You are not allowed to make selection again as you deregistered your FYP");
@@ -228,6 +251,10 @@ public class StudentController extends Controller {
 					
 					
 				case 6: //View project details
+					/*
+					 * User is able to view their project details.
+					 * If they have no projects or still waiting for allocation approval, the project details will not be displayed.
+					 */
 					if (studentModel.getProjectID() == -1 || studentModel.getProjectID() == -2) {
 						cli.displayTitle("You have not registered for a project.");
 					}
@@ -244,12 +271,18 @@ public class StudentController extends Controller {
 				
 				
 				case 7: //View RequestHistory
+					/*
+					 * User is able to view his request history
+					 */
 					cli.displayTitle("View Request History");
 					RequestView.printRequestHistory(studentModel.getId());
 					Thread.sleep(3000);
 					break;
 					
 				case 8: //View Profile
+					/*
+					 * Case 8 enables users to view their current profile information
+					 */
 					cli.displayTitle("View Profile");
 					StudentView.printStudentRecordInfo(studentModel.getId(), studentModel.getName(), studentModel.getEmailAddress(), studentModel.getPassword());
 					Thread.sleep(3000);
