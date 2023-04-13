@@ -369,7 +369,7 @@ public class Supervisor extends User {
 	}
 
 	/**
-	 * Updates the supervisor data file with the current list of students.
+	 * Updates the supervisor data file with the current list of supervisors.
 	 */
 	public static void updateFile() {
 		ArrayList<User> usersList = new ArrayList<>(supervisorsList);
