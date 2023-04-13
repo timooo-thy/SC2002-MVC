@@ -91,7 +91,7 @@ public class Project {
 	/**
 	 * Maximum size for list of supervised projects
 	 */
-	private static final int MAX_PROJECT = 2;
+	public static final int MAX_PROJECT = 2;
 		
 	////////////////////////////////////////////////////////////////////////////////////////
 

@@ -116,7 +116,7 @@ public class FYPCoordinatorController extends Controller {
 					String projectTitle;
 					cli.displayTitle("Create Project");
 					cli.display("Please Enter the Project Title: ");
-					projectTitle = cli.inputString("Project Title: ");
+					projectTitle = cli.inputString("Project Title");
 					confirmation = cli.inputInteger("Confirm Choice? Enter: \n 1 to Confirm \n 2 to Cancel", 1, 2);
 					
 					if (confirmation == 2) {

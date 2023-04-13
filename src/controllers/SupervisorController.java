@@ -65,7 +65,7 @@ public class SupervisorController extends Controller {
 		int choice = 0;
 		int id;
 		int minichoice;
-		
+		int choice3;
 		while(choice < menu.length) {
 			
 			cli.displayTitle("SUPERVISOR FUNCTIONS");
@@ -115,14 +115,14 @@ public class SupervisorController extends Controller {
 							"Back"
 					};
 					
-					choice = 0;
+					choice3 = 0;
 					
-					while (choice<create_update_view_menu.length) {
+					while (choice3<create_update_view_menu.length) {
 						cli.displayTitle("Create/Update/View Menu");
 						cli.display(create_update_view_menu);
-						choice = cli.inputInteger("Choice",1,create_update_view_menu.length);
+						choice3 = cli.inputInteger("Choice",1,create_update_view_menu.length);
 						
-						switch (choice) {
+						switch (choice3) {
 							case 1:
 								cli.displayTitle("Create New Project");						
 								String projectTitle;
@@ -185,9 +185,9 @@ public class SupervisorController extends Controller {
 								int choice2 = 0;
 								
 								while (choice2<viewMenu.length) {
-									cli.displayTitle("Create/Update/View Menu");
-									cli.display(create_update_view_menu);
-									choice2 = cli.inputInteger("Choice",1,create_update_view_menu.length);
+									cli.displayTitle("View Menu");
+									cli.display(viewMenu);
+									choice2 = cli.inputInteger("Choice",1,viewMenu.length);
 									
 									switch(choice2) {
 									case 1:
@@ -228,7 +228,10 @@ public class SupervisorController extends Controller {
 							default:	
 								break;
 						}
+//						if (choice == 4) break;
 					}
+					break;
+					
 				case 3:
 					String[] ApproveReject = {
 							"Approve",
