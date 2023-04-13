@@ -37,7 +37,8 @@ public class ProjectView {
 				View.cli.display("----------------------------------------------------------------------------");
 				View.cli.display("Project ID: " + Project.getProjectList().get(i).getProjectId());
 				View.cli.display("Project Title: " + Project.getProjectList().get(i).getProjectTitle());
-				View.cli.display("Supervisor ID: " + Project.getProjectList().get(i).getSupervisorName());
+				View.cli.display("Supervisor ID: " + Project.getProjectList().get(i).getSupervisorId());
+				View.cli.display("Supervisor Name: " + Project.getProjectList().get(i).getSupervisorName());
 				View.cli.display("Supervisor Email: " + Project.getProjectList().get(i).getSupervisorEmail());
 			}
 		}
