@@ -2,14 +2,10 @@ package views;
 
 import java.util.ArrayList;
 import models.*;
+import utilities.Database;
 
 /**
  * The RequestView class provides the methods to display the information related to different requests.
- * @author Timothy Lee
- * @author Justin Wong
- * @author Jun Hao
- * @author Lee Cheng Yao
- * @author Abhishekh
  */
 public class RequestView {
 
@@ -112,6 +108,26 @@ public class RequestView {
 	}
 	
 	/**
+	 * This method prints the information of all requests 
+	 * 
+	 */
+	
+	public static void printAllRequests() {
+		ArrayList<Integer> allRequestID = new ArrayList<>();
+		View.cli.displayTitle("View All Requests");
+		for (Request req : Request.getRequests()) {
+			RequestView.printRequestInfo(req.getRequestID());
+			View.cli.display("------------------------------------");
+			allRequestID.add(req.getRequestID());
+		}	
+		if (allRequestID.size()==0) {
+			View.cli.displayTitle("There are no pending requests");
+			return;
+		}
+		return; 
+	}
+	
+	/**
 	 * This method requests user to choose a request ID.
 	 * 
 	 * @return The request ID of the selected request
@@ -126,6 +142,10 @@ public class RequestView {
 		int requestID = -1; 
 		while (!allocationRequestID.contains(requestID)) {
 			requestID = View.cli.inputInteger("Enter Request ID (Enter 0 to exit)", 0, Request.getRequests().size());
+			if (!allocationRequestID.contains(requestID)) {
+				if (requestID == 0) break;
+				View.cli.display("Please enter a valid Request ID");
+			}
 		}
 		return requestID;
 	}
@@ -137,8 +157,13 @@ public class RequestView {
 	 */
 	public static int requestConfirmation() {
 		int confirmation = -1;
-		View.cli.display("Enter 1 to Approve Request \nEnter 2 to Reject Request");
-		confirmation = View.cli.inputInteger("choice (Enter 0 to exit)", 0, 2);
+		String [] confirmationMenu = {
+				"Approve",
+				"Reject",
+				"Back"
+		};
+		View.cli.display(confirmationMenu);
+		confirmation = View.cli.inputInteger("Choice (Enter 0 to exit)", 0, 2);
 		
 		return confirmation;
 	}
@@ -152,7 +177,7 @@ public class RequestView {
 	public static String checkForNew(String recipientUserID) {
 		for (Request req : Request.getRequests()) {
 			if (req.getRequestStatus() == RequestStatus_Enum.PENDING && req.getRecipientID().equals(recipientUserID)) {
-				return "(NEW)";
+				return "[🍪 ⋆ 🍎  🎀  𝒩𝐸𝒲  🎀  🍎 ⋆ 🍪]";
 			}
 		}
 		return "";
