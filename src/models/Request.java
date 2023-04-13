@@ -2,7 +2,6 @@ package models;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import utilities.Database;
 
 /**
@@ -118,13 +117,13 @@ public class Request {
 	 * @param senderID The ID of the sender
 	 * @param senderName The name of the sender
 	 * @param senderEmail The email of the sender
-	 * @param recipentID The ID of the recipent
-	 * @param recipentName The name of the recipent
-	 * @param recipentEmail The email of the recipent
-	 * @param projectID  The ID of the project
-	 * @param newProjectTitle  The new title of the project
-	 * @param requestType  The type of the request
-	 * @param requestStatus  The status of the request
+	 * @param recipientID The ID of the recipient
+	 * @param recipientName The name of the recipient
+	 * @param recipientEmail The email of the recipient
+	 * @param projectID The ID of the project
+	 * @param newProjectTitle The new title of the project
+	 * @param requestType The type of the request
+	 * @param requestStatus The status of the request
 	 * @param requestID The ID of the request
 	 */
     public Request(String senderID, String senderName, String senderEmail, String recipientID,String recipientName, String recipientEmail, int projectID, String newProjectTitle, RequestType_Enum requestType, RequestStatus_Enum requestStatus, int requestID) {
@@ -148,12 +147,12 @@ public class Request {
 	 * @param senderID The ID of the sender
 	 * @param senderName The name of the sender
 	 * @param senderEmail The email of the sender
-	 * @param recipentID The ID of the recipent
-	 * @param recipentName The name of the recipent
-	 * @param recipentEmail The email of the recipent
-	 * @param projectID  The ID of the project
-	 * @param requestType  The type of the request
-	 * @param requestStatus  The status of the request
+	 * @param recipientID The ID of the recipient
+	 * @param recipientName The name of the recipient
+	 * @param recipientEmail The email of the recipient
+	 * @param projectID The ID of the project
+	 * @param requestType The type of the request
+	 * @param requestStatus The status of the request
 	 * @param requestID The ID of the request
 	 */
     public Request(String senderID,String senderName, String senderEmail, String recipientID, String recipientName, String recipientEmail, int projectID, RequestType_Enum requestType, RequestStatus_Enum requestStatus, int requestID) {
@@ -177,15 +176,15 @@ public class Request {
 	 * @param senderID The ID of the sender
 	 * @param senderName The name of the sender
 	 * @param senderEmail The email of the sender
-	 * @param recipentID The ID of the recipent
-	 * @param recipentName The name of the recipent
-	 * @param recipentEmail The email of the recipent
-	 * @param projectID  The ID of the project
+	 * @param recipientID The ID of the recipient
+	 * @param recipientName The name of the recipient
+	 * @param recipientEmail The email of the recipient
+	 * @param projectID The ID of the project
 	 * @param newSupervisorID The ID of the new supervisor
 	 * @param newSupervisorName The name of the new supervisor
 	 * @param newSupervisorEmail The email of the new supervisor
-	 * @param requestType  The type of the request
-	 * @param requestStatus  The status of the request
+	 * @param requestType The type of the request
+	 * @param requestStatus The status of the request
 	 * @param requestID The ID of the request
 	 */
     public Request(String senderID, String senderName, String senderEmail, String recipientID, String recipientName, String recipientEmail, int projectID, String newSupervisorID, String newSupervisorName, String newSupervisorEmail, RequestType_Enum requestType, RequestStatus_Enum requestStatus, int requestID) {
@@ -205,24 +204,6 @@ public class Request {
         this.senderName = senderName;
         this.addRequest(this);
     }
-    
-    // TRANSFERSTUDENT
-	
-    // public Request(String senderID, String senderName, String senderEmail, String recipientID,String recipientName, String recipientEmail, int projectID, int newProjectID, RequestType_Enum requestType, RequestStatus_Enum requestStatus, int requestID) {
-    //     this.senderID = senderID;
-    //     this.senderName = senderName;
-    //     this.senderEmail = senderEmail;
-    //     this.recipientID = recipientID;
-    //     this.recipientName = recipientName;
-    //     this.recipientEmail = recipientEmail;
-    //     this.requestType = requestType;
-    //     this.requestStatus = requestStatus;
-    //     this.requestID = requestID; 
-    //     this.projectID = projectID;
-    //     this.newProjectID = newProjectID;
-    //     this.senderName = senderName;
-    //     this.addRequest(this);;
-    // }
     
     //////////// Class methods //////////////
 	
@@ -309,54 +290,54 @@ public class Request {
 	}
 
 	/**
-	 * Retrieves the ID of the recipent.
+	 * Retrieves the ID of the recipient.
 	 * 
-	 * @return The ID of the recipent.
+	 * @return The ID of the recipient.
 	 */
 	public String getRecipientID() {
 		return recipientID;
 	}
 
 	/**
-     * Sets the ID of the recipent.
+     * Sets the ID of the recipient.
      * 
-     * @param recipentID The new ID of the recipent.
+     * @param recipientID The new ID of the recipient.
      */
 	public void setRecipientID(String recipientID) {
 		this.recipientID = recipientID;
 	}
 
 	/**
-	 * Retrieves the name of the recipent.
+	 * Retrieves the name of the recipient.
 	 * 
-	 * @return The name of the recipent.
+	 * @return The name of the recipient.
 	 */
 	public String getRecipientName() {
 		return recipientName;
 	}
 
 	/**
-     * Sets the name of the recipent.
+     * Sets the name of the recipient.
      * 
-     * @param recipentName The new name of the recipent.
+     * @param recipientName The new name of the recipient.
      */
 	public void setRecipientName(String recipientName) {
 		this.recipientName = recipientName;
 	}
 
 	/**
-	 * Retrieves the email of the recipent.
+	 * Retrieves the email of the recipient.
 	 * 
-	 * @return The email of the recipent.
+	 * @return The email of the recipient.
 	 */
 	public String getRecipientEmail() {
 		return recipientEmail;
 	}
 
 	/**
-     * Sets the email of the recipent.
+     * Sets the email of the recipient.
      * 
-     * @param recipentEmail The new email of the recipent.
+     * @param recipientEmail The new email of the recipient.
      */
 	public void setRecipientEmail(String recipientEmail) {
 		this.recipientEmail = recipientEmail;
@@ -370,11 +351,6 @@ public class Request {
 	public int getProjectID() {
 		return projectID;
 	}
-
-	
-	// public void setProjectID(int projectID) {
-	// 	this.projectID = projectID;
-	// }
 
 	/**
 	 * Retrieves the ID of the new project.

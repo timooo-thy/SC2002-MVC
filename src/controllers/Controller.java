@@ -27,7 +27,6 @@ public abstract class Controller {
 	 * This method is to be implemented by all subclasses of Controller. It runs the controller and handles user input/output.
 	 * 
 	 * @param user The currently logged in user.
-	 * @throws IOException If there is an input/output error during the execution of the method.
 	 * @throws ClassNotFoundException If the specified class cannot be found.
 	*/
 	public abstract void run(User user) throws Throwable;

@@ -73,7 +73,6 @@ public class Supervisor extends User {
      * @param supervisorEmail The email address of the supervisor.
      * @param supervisorPassword The password of the supervisor.
      * @param supervisorName The name of the supervisor.
-     * @param projectID The ID of the project that the supervisor is assigned to.
      */
     public Supervisor(String supervisorId, String supervisorEmail, String supervisorPassword, String supervisorName) {
 		this.supervisorId = supervisorId.toUpperCase();

@@ -10,7 +10,7 @@ package models;
  */
 public interface ICreateRequest {
 	
-	/*
+	/**
 	 * This method creates a request with the given parameters.
 	 * 
 	 * @param senderID The ID of the user sending the request.

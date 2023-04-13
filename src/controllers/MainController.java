@@ -41,7 +41,6 @@ public class MainController extends Controller {
 	 * Runs the main menu and routes users to their respective controllers based on their chosen role.
 	 * 
 	 * @param user The currently logged in user.
-	 * @throws IOException If there is an input/output error during the execution of the method.
 	 * @throws ClassNotFoundException If the specified class cannot be found.
 	*/
 	public void run(User user) throws Throwable{

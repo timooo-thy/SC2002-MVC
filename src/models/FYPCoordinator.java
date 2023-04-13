@@ -68,7 +68,6 @@ public class FYPCoordinator extends User {
      * @param fypcoordinatorEmail The email address of the fyp coordinator.
      * @param fypcoordinatorPassword The password of the fyp coordinator.
      * @param fypcoordinatorName The name of the fyp coordinator.
-     * @param projectID The ID of the project that the fyp coordinator is assigned to.
      */
     public FYPCoordinator(String fypcoordinatorId, String fypcoordinatorEmail, String fypcoordinatorPassword, String fypcoordinatorName) {
 		this.fypcoordinatorId = fypcoordinatorId.toUpperCase();

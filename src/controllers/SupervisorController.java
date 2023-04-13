@@ -41,7 +41,6 @@ public class SupervisorController extends Controller {
 	 * It takes in a User object as a parameter and throws any exceptions that may occur during execution.
 	 * 
 	 * @param user The currently logged in Supervisor.
-	 * @throws IOException If there is an input/output error during the execution of the method.
 	 * @throws ClassNotFoundException If the specified class cannot be found.
 	 */
 	public void run(User user) throws Throwable{

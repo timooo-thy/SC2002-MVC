@@ -11,22 +11,22 @@ package models;
  */
 public enum RequestType_Enum {
 	
-	/*
+	/**
 	 * Indicates a request to change the title of a project.
 	 */
     CHANGETITLE,
     
-    /*
+    /**
      * Indicates a request to register a new project.
      */
     REGISTERPROJECT, 
     
-    /*
+    /**
      * Indicates a request to deregister a project.
      */
     DEREGISTERPROJECT, 
     
-    /*
+    /**
      * Indicates a request to change the supervisor of a project.
     */
     CHANGESUPERVISOR

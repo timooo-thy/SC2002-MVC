@@ -100,7 +100,7 @@ public class Project {
      * 
      * @param supervisorName The name of the supervisor.
      * @param projectTitle The title of the project.
-     * @param projectStatus The status of the project.
+     * @param projStatus The status of the project.
      */
 	public Project(String supervisorName, String projectTitle, ProjectStatus_Enum projStatus) {
 		this.supervisorId = Supervisor.getSupervisorNameToId(supervisorName).toUpperCase();
@@ -117,9 +117,10 @@ public class Project {
      * Creates a new Project object with the given attributes, and adds it to the list of projects.
      * 
      * @param supervisorName The name of the supervisor.
+     * @param oriProjectTitle The original title of the project. 
      * @param projectTitle The title of the project.
 	 * @param studentName The name of the student
-     * @param projectStatus The status of the project.
+     * @param projStatus The status of the project.
      */
 	public Project(String supervisorName, String oriProjectTitle, String projectTitle, String studentName, ProjectStatus_Enum projStatus) {
 		this.supervisorId = Supervisor.getSupervisorNameToId(supervisorName).toUpperCase();
@@ -338,7 +339,7 @@ public class Project {
 	/**
      * Sets the title of the project.
      * 
-     * @param studentName The new title of the project.
+     * @param projectStatus The new title of the project.
      */
 	public void setProjectStatus(ProjectStatus_Enum projectStatus) {
 		this.projectStatus = projectStatus;

@@ -11,17 +11,17 @@ package models;
  */
 public enum RequestStatus_Enum {
 	
-	/*
+	/**
 	 * Indicates that a request has been approved by the relevant authority.
 	 */
 	APPROVED,
 	
-	/*
+	/**
 	 * Indicates that a request is still pending a decision by the relevant authority.
 	 */
 	PENDING,
 	
-	/*
+	/**
 	 * Indicates that a request has been rejected by the relevant authority.
 	 */
 	REJECTED
