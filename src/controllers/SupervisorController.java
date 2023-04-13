@@ -189,56 +189,63 @@ public class SupervisorController extends Controller {
 						cli.displayTitle("Approve/Reject Title Change Requests Menu");
 						cli.display(Menu_6);
 						choice = cli.inputInteger("Choice",1,Menu_6.length);
-						ArrayList<Integer> requestTitleChangeID = new ArrayList<>();
+						ArrayList<String> requestTitleChangeStudentID = new ArrayList<>();
 						switch(choice) {
 							case 1:
 								cli.displayTitle("Approve/Reject Title Change Requests");
 								for (Request req : Request.getRequests()) {
 									if (req.getRequestStatus() == RequestStatus_Enum.PENDING && req.getRequestType() == RequestType_Enum.CHANGETITLE) {
 										RequestView.printRequestInfo(req.getRequestID());
-										requestTitleChangeID.add(req.getRequestID());
+										requestTitleChangeStudentID.add(req.getSenderID());
 										cli.display("------------------------------------");
 									}
 								}
-								if (requestTitleChangeID.size() == 0) {
+								if (requestTitleChangeStudentID.size() == 0) {
 									cli.display("There are no pending requests");
 									Thread.sleep(1000);
 									break;
 								}
 								else {
-									int selection = -1;
-									while (!requestTitleChangeID.contains(selection)) {
-										selection = cli.inputInteger("Enter Request ID (0 to exit)");
-										if (selection == 0) {
+									String selection = "-1";
+									while (!requestTitleChangeStudentID.contains(selection)) {
+										selection = cli.inputString("Student ID (0 to exit)");
+										if (selection.equals("0")) {
 											cli.display("Cancelled");
 											break;
 										}
-										if (!requestTitleChangeID.contains(selection))
-											cli.display("Please enter a valid request ID");
+										
+										if (!requestTitleChangeStudentID.contains(selection))
+											cli.display("Please enter a valid Student ID");
 										}
-										if (selection == 0) break;
+									
+										if (selection.equals("0")) break;
+										
 										cli.display(Menu_6_2);
 										int choice2 = cli.inputInteger("Choice ", 1, Menu_6_2.length);
+										
 										if (choice2==1) {
-											Project.changeProjectTitle(Request.getRequest(selection).getProjectID(),Request.getRequest(selection).getNewProjectTitle());
-											Request.getRequest(selection).setRequestStatus(RequestStatus_Enum.APPROVED);
-											cli.displayTitle("Request Approved, Project Title has been updated");
-											Project.updateProjectFile();
+											Project.changeProjectTitle(Request.getRequestFromStudentId(selection).getProjectID(), Request.getRequestFromStudentId(selection).getNewProjectTitle());
+											Request.getRequestFromStudentId(selection).setRequestStatus(RequestStatus_Enum.APPROVED);
+											cli.displayTitle("Request approved, Project Title has been updated");
+											Database.updateAllData();
 											Thread.sleep(1000);
 											break;
-
 										}
+										
 										else if (choice2==2) {
-											Request.getRequest(selection).setRequestStatus(RequestStatus_Enum.REJECTED);
-											cli.displayTitle("Request Rejected");
+											Request.getRequestFromStudentId(selection).setRequestStatus(RequestStatus_Enum.REJECTED);
+											cli.displayTitle("Request rejected");
+											Database.updateAllData();
 											Thread.sleep(1000);
 											break;
 										}
+										
 										else if (choice2==3) {
 											cli.displayTitle("Returning to Request Menu...");
 											Thread.sleep(1000);
 											break;
 										}
+										
 									}
 							case 2:
 								break;

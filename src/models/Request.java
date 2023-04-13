@@ -255,12 +255,21 @@ public class Request {
     
 	
 	/////////// STATIC METHODS ///////////////
-	public static ArrayList<Request> getRequests(){
+	public static ArrayList<Request> getRequests() {
 		return requests;
 	}
 	
-	public static Request getRequest(int i){
+	public static Request getRequest(int i) {
 		return requests.get(i-1);
+	}
+	
+	public static Request getRequestFromStudentId(String studentID) {
+		for (Request req : getRequests()) {
+			if (req.getSenderID().equals(studentID) & req.getRequestType()==RequestType_Enum.CHANGETITLE & req.getRequestStatus()==RequestStatus_Enum.PENDING) {
+				return req;
+			}
+		}
+		return null;
 	}
 
 	public static void updateRequests(ArrayList<Request> r){
