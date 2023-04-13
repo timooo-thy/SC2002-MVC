@@ -6,7 +6,7 @@ DENISE;DL007@e.ntu.edu.sg;password;-1
 DONG;DON84@e.ntu.edu.sg;password;-1
 KOH;KOH1@e.ntu.edu.sg;password;-1
 BRANDON;BR015@e.ntu.edu.sg;password;-1
-LIU;SL22@e.ntu.edu.sg;password;6
-CHERN;YCHERN@e.ntu.edu.sg;password;-2
+LIU;SL22@e.ntu.edu.sg;password;-1
+CHERN;YCHERN@e.ntu.edu.sg;password;-1
 CHAN;YCN019@e.ntu.edu.sg;password;-1
 LEE;LE51@e.ntu.edu.sg;password;-1
