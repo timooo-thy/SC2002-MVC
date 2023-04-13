@@ -163,7 +163,7 @@ public class ConsoleInterface {
 	 * Input a String.
 	 * 
 	 * @param title A String containing the Title to be displayed.
-	 * @return  A String representing the input.
+	 * @return A String representing the input.
 	 */
     public String inputString(String title) {
 		while(true) {

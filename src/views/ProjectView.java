@@ -1,11 +1,11 @@
-/**
- * The ProjectView class provides methods for displaying information about projects in a console-based user interface.
- */
 package views;
 
 import models.Project;
 import models.ProjectStatus_Enum;
 
+/**
+ * The ProjectView class provides methods for displaying information about projects in a console-based user interface.
+ */
 public class ProjectView {
 
 	/**

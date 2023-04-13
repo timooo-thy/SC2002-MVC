@@ -10,6 +10,7 @@ import utilities.Database;
  */
 public class FYPRSA {
 	
+	/** The currently logged in user. */
 	static User user;
 	
 	/**

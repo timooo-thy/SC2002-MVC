@@ -12,7 +12,7 @@ public class RequestView {
 	 * Prints the information related to a given request ID such as request ID, request type,
 	 * sender and recipient IDs, project ID, supervisor name (if applicable) and status.
 	 * 
-	 * @param requestID an integer that represents the ID of the request
+	 * @param requestID An integer that represents the ID of the request
 	 */
 	public static void printRequestInfo(int requestID){
 		View.cli.display("----------------------------------------------------------------------------");
@@ -44,7 +44,7 @@ public class RequestView {
 	 * Prints the history of requests made by a user, including the request ID, request type,
 	 * sender and recipient IDs, project ID, supervisor name (if applicable) and status.
 	 * 
-	 * @param userID a string that represents the user ID of the sender
+	 * @param userID A string that represents the user ID of the sender
 	 */
 	public static void printRequestHistory(String userID){
 		for (Request req : Request.getRequests()) {
@@ -77,7 +77,7 @@ public class RequestView {
 	/**
 	 * This method prints the history of incoming requests for the given recipient user ID.
 	 * 
-	 * @param recipientUserID the recipient user ID to retrieve the request history for
+	 * @param recipientUserID The recipient user ID to retrieve the request history for
 	 */
 	public static void printIncomingRequestHistory(String recipientUserID){
 		for (Request req : Request.getRequests()) {
@@ -109,7 +109,7 @@ public class RequestView {
 	/**
 	 * This method requests user to choose a request ID.
 	 * 
-	 * @return the request ID of the selected request
+	 * @return The request ID of the selected request
 	 */
 	public static int requestRequestID() {
 		ArrayList<Integer> allocationRequestID = new ArrayList<>();
@@ -128,7 +128,7 @@ public class RequestView {
 	/**
 	 * This method checks for confirmation of requests.
 	 * 
-	 * @return the user's choice to approve, reject or exit
+	 * @return The user's choice to approve, reject or exit
 	 */
 	public static int requestConfirmation() {
 		int confirmation = -1;
@@ -141,7 +141,7 @@ public class RequestView {
 	/**
 	 * This method checks for new requests.
 	 * 
-	 * @param recipientUserID the recipient ID to check for new requests
+	 * @param recipientUserID The recipient ID to check for new requests
 	 * @return (NEW) if there are new requests, else it returns an empty string
 	 */
 	public static String checkForNew(String recipientUserID) {

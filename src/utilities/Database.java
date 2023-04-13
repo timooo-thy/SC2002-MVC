@@ -52,9 +52,9 @@ public class Database {
     /**
      * This method initialises the Student file in the database.
      * 
-     * @param FILENAME the name of the Student file
-     * @param FILEPATH the path of the Student file
-     * @return a HashMap representing the Student file
+     * @param FILENAME The name of the Student file
+     * @param FILEPATH The path of the Student file
+     * @return A HashMap representing the Student file
      */
     public HashMap<String, String[]> initializeStudentFile(String FILENAME, String FILEPATH) {
         File model = new File(FILEPATH + FILENAME);
@@ -84,9 +84,9 @@ public class Database {
     /**
      * This method updates the Student file in the database.
      * 
-     * @param FILENAME the name of the Student file
-     * @param FILEPATH the path of the Student file
-     * @param list an ArrayList of Students to update
+     * @param FILENAME The name of the Student file
+     * @param FILEPATH The path of the Student file
+     * @param list An ArrayList of Students to update
      */
     public void updateStudentFile(String FILENAME, String FILEPATH, ArrayList<Student> list) {
         try {
@@ -104,9 +104,9 @@ public class Database {
     /**
      * This method initialises Supervisor and FYP Coordinator files in the database.
      * 
-     * @param FILENAME the name of the Supervisor and FYP Coordinator files
-     * @param FILEPATH the path of the Supervisor and FYP Coordinator files
-     * @return a HashMap representing the Supervisor and FYP Coordinator files
+     * @param FILENAME The name of the Supervisor and FYP Coordinator files
+     * @param FILEPATH The path of the Supervisor and FYP Coordinator files
+     * @return A HashMap representing the Supervisor and FYP Coordinator files
      */
 	public HashMap<String, String[]> initializeFile(String FILENAME, String FILEPATH) {
 		File model = new File(FILEPATH + FILENAME);
@@ -136,9 +136,9 @@ public class Database {
 	/**
 	 * This method updates the Supervisor and FYP Coordinator files in the database.
 	 * 
-	 * @param FILENAME the name of the Supervisor and FYP Coordinator files
-     * @param FILEPATH the path of the Supervisor and FYP Coordinator files
-	 * @param list an ArrayList of User to update
+	 * @param FILENAME The name of the Supervisor and FYP Coordinator files
+     * @param FILEPATH The path of the Supervisor and FYP Coordinator files
+	 * @param list An ArrayList of User to update
 	*/
 	public void updateFile(String FILENAME, String FILEPATH, ArrayList<User> list) {
 		try {
@@ -156,9 +156,9 @@ public class Database {
 	/**
      * This method initialises Project file in the database.
      * 
-     * @param FILENAME the name of the Project file
-     * @param FILEPATH the path of the Project file
-     * @return a HashMap representing the Project file
+     * @param FILENAME The name of the Project file
+     * @param FILEPATH The path of the Project file
+     * @return T HashMap representing the Project file
      */
 	public HashMap<Integer, Object[]> initializeProjectFile(String FILENAME, String FILEPATH) {
 		File model = new File(FILEPATH + FILENAME);
@@ -191,9 +191,9 @@ public class Database {
 	/**
      * This method updates the Project file in the database.
      * 
-     * @param FILENAME the name of the Project file
-     * @param FILEPATH the path of the Project file
-     * @param list an ArrayList of Projects to update
+     * @param FILENAME The name of the Project file
+     * @param FILEPATH The path of the Project file
+     * @param list An ArrayList of Projects to update
      */
 	public void updateProjectFile(String FILENAME, String FILEPATH, ArrayList<Project> list) {
 		try {
@@ -211,9 +211,9 @@ public class Database {
 	/**
      * This method initialises Request file in the database.
      * 
-     * @param FILENAME the name of the Request files
-     * @param FILEPATH the path of the Request files
-     * @return a HashMap representing the Request files
+     * @param FILENAME The name of the Request files
+     * @param FILEPATH The path of the Request files
+     * @return A HashMap representing the Request files
      */
 	public HashMap<Integer, Object[]> initializeRequestFile(String FILENAME, String FILEPATH) {
 		File model = new File(FILEPATH + FILENAME);
@@ -255,9 +255,9 @@ public class Database {
 	/**
      * This method updates the Request file in the database.
      * 
-     * @param FILENAME the name of the Request file
-     * @param FILEPATH the path of the Request file
-     * @param list an ArrayList of Requests to update
+     * @param FILENAME The name of the Request file
+     * @param FILEPATH The path of the Request file
+     * @param list An ArrayList of Requests to update
      */
 	public void updateRequestFile(String FILENAME, String FILEPATH, ArrayList<Request> list) {
 		try {

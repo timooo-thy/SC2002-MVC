@@ -8,10 +8,10 @@ public class SupervisorView {
 	/**
      * Prints the information for a single Supervisor.
      * 
-     * @param supervisorId the ID of the Supervisor
-     * @param supervisorName the name of the Supervisor
-     * @param supervisorEmail the email of the Supervisor
-     * @param password the password of the Supervisor
+     * @param supervisorId The ID of the Supervisor
+     * @param supervisorName The name of the Supervisor
+     * @param supervisorEmail The email of the Supervisor
+     * @param password The password of the Supervisor
      */
     public static void printSupervisorRecordInfo(String supervisorId,String supervisorName, String supervisorEmail, String password){
     	View.cli.display("supervisor ID: " + supervisorId);

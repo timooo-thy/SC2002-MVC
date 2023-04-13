@@ -10,10 +10,24 @@ import utilities.Database;
 
 public class FYPCoordinatorController extends Controller {
 	
+	/**
+	 * The FYP Coordinator model associated with this controller.
+	 */
 	private FYPCoordinator FYPCoordinatorModel;
 	
+	/**
+	 * The MainController associated with this FYP Coordinator Controller.
+	 */
 	private MainController mainController;
 	
+	/**
+	 * This method overrides the abstract method run() in the Controller class.
+	 * It takes in a User object as a parameter and throws any exceptions that may occur during execution.
+	 * 
+	 * @param user The currently logged in FYP Coordinator.
+	 * @throws IOException If there is an input/output error during the execution of the method.
+	 * @throws ClassNotFoundException If the specified class cannot be found.
+	 */
 	public void run(User user) throws Throwable{
 
         if(user instanceof FYPCoordinator) {

@@ -6,14 +6,39 @@ import models.Supervisor;
 import models.FYPCoordinator;
 
 
+/**
+ * The MainController class is responsible for handling the main menu of the FYP Registration System Application (FYPRSA).
+ * It routes users to their respective controllers based on their chosen role.
+ */
 public class MainController extends Controller {
     
+	/**
+	 * The current logged in user.
+	 */
     private User currentUser;
 
+    /**
+     * The controller for managing Students.
+     */
 	private StudentController studentController = new StudentController();
+	
+	/**
+     * The controller for managing Supervisors.
+     */
 	private SupervisorController supervisorController = new SupervisorController();
+	
+	/**
+     * The controller for managing FYP Coordinators.
+     */
 	private FYPCoordinatorController fypcoordinatorController = new FYPCoordinatorController();
 	
+	/**
+	 * Runs the main menu and routes users to their respective controllers based on their chosen role.
+	 * 
+	 * @param user The currently logged in user.
+	 * @throws IOException If there is an input/output error during the execution of the method.
+	 * @throws ClassNotFoundException If the specified class cannot be found.
+	*/
 	public void run(User user) throws Throwable{
 		
 		int choice = 0;
