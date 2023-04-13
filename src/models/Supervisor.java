@@ -172,6 +172,7 @@ public class Supervisor extends User {
      */
 
     public static ArrayList<Project> getSupervisedProjectList(String supervisorId){
+    	//loops through the list to find the projects supervised by a certain supervisor
     	for (Supervisor sup : Supervisor.getSupervisorsList())
     		if (sup.getId().equals(supervisorId))
     			return sup.getSupervisedProjectList();
@@ -185,6 +186,7 @@ public class Supervisor extends User {
      * @return the Supervisor object with the given ID
      */
     public static Supervisor getSupervisorFromId(String supervisorId) {
+    	//loops through the list to find supervisor object with id
     	for (Supervisor sup : supervisorsList) {
     		if (sup.getId().equals(supervisorId)) 
     			return sup;
@@ -199,6 +201,7 @@ public class Supervisor extends User {
      * @return The supervisor object with the given name
      */
     public static Supervisor getSupervisorFromName(String supervisorName) {
+    	//loops through the list to find supervisor object with name
     	for (Supervisor sup : supervisorsList) {
     		if (sup.getName().equals(supervisorName)) 
     			return sup;
@@ -213,6 +216,7 @@ public class Supervisor extends User {
      * @return The email address of the supervisor with the given name
      */
  	public static String getSupervisorNameToEmail(String supervisorName){
+ 		//loops through the list to find supervisor email with name
  		for (Supervisor sup : Supervisor.getSupervisorsList()) {
  			if (sup.getName().equals(supervisorName)) {
  				return sup.getEmailAddress();
@@ -228,6 +232,7 @@ public class Supervisor extends User {
  	 * @return The ID of the supervisor with the given name, or null if no such supervisor exists
  	 */
  	public static String getSupervisorNameToId(String supervisorName) {
+ 		//loops through the list to find supervisor id with name
  		for (Supervisor sup : Supervisor.getSupervisorsList()) {
  			if (sup.getName().equals(supervisorName)) {
  				return sup.getId();
@@ -243,6 +248,7 @@ public class Supervisor extends User {
  	 * @return The email address of the supervisor with the given ID, or null if no such supervisor exists
  	 */
  	public static String getSupervisorIdToEmail(String supervisorId){
+ 		//loops through the list to find supervisor email with id
  		for (Supervisor sup : Supervisor.getSupervisorsList()) {
  			if (sup.getId().equals(supervisorId)) {
  				return sup.getEmailAddress();
@@ -258,6 +264,7 @@ public class Supervisor extends User {
  	 * @return The name of the supervisor with the given ID, or null if no such supervisor exists
  	 */
  	public static String getSupervisorIdToName(String supervisorId) {
+ 		//loops through the list to find supervisor name with id
  		for (Supervisor sup : Supervisor.getSupervisorsList()) {
  			if (sup.getId().equals(supervisorId)) {
  				return sup.getName();
@@ -273,6 +280,7 @@ public class Supervisor extends User {
  	 * @return True if a supervisor with the given ID already exists, false otherwise
  	 */
 	public static boolean duplicateSupervisorId(String supervisorId) {
+		//loops through the list to find duplicate supervisors
 		for (Supervisor s : supervisorsList) {
 			if (s.getId().equalsIgnoreCase(supervisorId)) {
 				return true;
@@ -321,9 +329,10 @@ public class Supervisor extends User {
 	/**
 	 * Generates a menu of supervisors with their names and IDs.
 	 * 
-	 * @return An ArrayList of strings that represent the student menu.
+	 * @return An ArrayList of strings that represent the supervisor menu.
 	 */
 	public static ArrayList<String> getSupervisorMenu(){
+		//loops through the list and add it into the menu
 		ArrayList<String> supervisorMenu = new ArrayList<String>();
 		for (Supervisor s : supervisorsList) {
 			supervisorMenu.add(s.getName() + " ("
@@ -347,6 +356,7 @@ public class Supervisor extends User {
 	 * @throws Throwable If there is an error reading the supervisor data file
 	 */
 	public static void initializeFile() throws Throwable {
+		//uses hashmap to create supervisor objects
 		HashMap<String, String[]> map  = d.initializeFile(FILENAME, FILEPATH);
 		for (String name : map.keySet()) {
         	String[] values = map.get(name);
@@ -358,6 +368,7 @@ public class Supervisor extends User {
 	 * Updates the supervisor data file with the current list of supervisors.
 	 */
 	public static void updateFile() {
+		//upcast to user arraylist before updating the file
 		ArrayList<User> usersList = new ArrayList<>(supervisorsList);
 		d.updateFile(FILENAME,FILEPATH,usersList);
 	}

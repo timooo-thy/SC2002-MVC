@@ -175,6 +175,7 @@ public class FYPCoordinator extends User {
  	 * @return True if a fyp coordinator with the given ID already exists, false otherwise
  	 */
 	public static boolean duplicateFYPCoordinatorId(String fypcoordinatorId) {
+		// loops through the list and return the object if id is matched
 		for (FYPCoordinator s : fypcoordinatorsList) {
 			if (s.getId().equalsIgnoreCase(fypcoordinatorId)) {
 				return true;
@@ -223,10 +224,11 @@ public class FYPCoordinator extends User {
 	/**
 	 * Generates a menu of fyp coordinators with their names and IDs.
 	 * 
-	 * @return An ArrayList of strings that represent the student menu.
+	 * @return An ArrayList of strings that represent the fyp coordinators menu.
 	 */
 	public static ArrayList<String> getFYPCoordinatorMenu(){
 		ArrayList<String> fypcoordinatorMenu = new ArrayList<String>();
+		// loops through the list and add it into the menu
 		for (FYPCoordinator s : fypcoordinatorsList) {
 			fypcoordinatorMenu.add(s.getName() + " ("
 					+ s.getId() + ")");
@@ -249,6 +251,7 @@ public class FYPCoordinator extends User {
 	 * @throws Throwable If there is an error reading the fyp coordinator data file
 	 */
 	public static void initializeFile() throws Throwable {
+		// uses hashmap to create fyp coordinator object
 		HashMap<String, String[]> map  = d.initializeFile(FILENAME, FILEPATH);
 		for (String name : map.keySet()) {
         	String[] values = map.get(name);
@@ -259,8 +262,8 @@ public class FYPCoordinator extends User {
 	 * Updates the fyp coordinator data file with the current list of fyp coordinators.
 	 */
 	public static void updateFile() {
+		// upcast to user arraylist before updating the file
 		ArrayList<User> usersList = new ArrayList<>(fypcoordinatorsList);
-		
 		d.updateFile(FILENAME,FILEPATH,usersList);
 	}
 

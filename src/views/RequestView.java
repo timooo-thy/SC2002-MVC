@@ -16,10 +16,11 @@ public class RequestView {
 	 * @param requestID An integer that represents the ID of the request
 	 */
 	public static void printRequestInfo(int requestID){
+		// checks request id type and display it accordingly
 		View.cli.display("----------------------------------------------------------------------------");
 		View.cli.display("Request ID: " + requestID);
 		View.cli.display("Request Type: " + Request.getRequest(requestID).getRequestType());
-		View.cli.display("Sender ID: " +Request.getRequest(requestID).getSenderID());
+		View.cli.display("Sender ID: " + Request.getRequest(requestID).getSenderID());
 		View.cli.display("Recipient ID: " +Request.getRequest(requestID).getRecipientID());
 		
 		if (Request.getRequest(requestID).getRequestType() == RequestType_Enum.CHANGETITLE) {
@@ -48,6 +49,7 @@ public class RequestView {
 	 * @param userID A string that represents the user ID of the sender
 	 */
 	public static void printRequestHistory(String userID){
+		// loops through all requests to match the user id
 		for (Request req : Request.getRequests()) {
 			int requestID = req.getRequestID();
 			if (Request.getRequest(requestID).getSenderID().equals(userID)) {
@@ -81,6 +83,7 @@ public class RequestView {
 	 * @param recipientUserID The recipient user ID to retrieve the request history for
 	 */
 	public static void printIncomingRequestHistory(String recipientUserID){
+		// loops through all requests to match the user id
 		for (Request req : Request.getRequests()) {
 			int requestID = req.getRequestID();
 			if (Request.getRequest(requestID).getRecipientID().equals(recipientUserID)) {
@@ -115,6 +118,7 @@ public class RequestView {
 	public static void printAllRequests() {
 		ArrayList<Integer> allRequestID = new ArrayList<>();
 		View.cli.displayTitle("View All Requests");
+		// loops through all requests and display the request info
 		for (Request req : Request.getRequests()) {
 			RequestView.printRequestInfo(req.getRequestID());
 			View.cli.display("------------------------------------");
@@ -134,12 +138,14 @@ public class RequestView {
 	 */
 	public static int requestRequestID() {
 		ArrayList<Integer> allocationRequestID = new ArrayList<>();
+		// loops through all pending requests and store in an arraylist
 		for (Request req : Request.getRequests()) {
 			if (req.getRequestStatus() == RequestStatus_Enum.PENDING) {
 				allocationRequestID.add(req.getRequestID());
 			}
 		}
 		int requestID = -1; 
+		// request id is checked if its inside the arraylist
 		while (!allocationRequestID.contains(requestID)) {
 			requestID = View.cli.inputInteger("Enter Request ID (Enter 0 to exit)", 0, Request.getRequests().size());
 			if (!allocationRequestID.contains(requestID)) {
@@ -157,6 +163,7 @@ public class RequestView {
 	 */
 	public static int requestConfirmation() {
 		int confirmation = -1;
+		// selection menu
 		String [] confirmationMenu = {
 				"Approve",
 				"Reject",
@@ -164,7 +171,6 @@ public class RequestView {
 		};
 		View.cli.display(confirmationMenu);
 		confirmation = View.cli.inputInteger("Choice (Enter 0 to exit)", 0, 2);
-		
 		return confirmation;
 	}
 	
@@ -175,6 +181,7 @@ public class RequestView {
 	 * @return (NEW) if there are new requests, else it returns an empty string
 	 */
 	public static String checkForNew(String recipientUserID) {
+		// loops through all pending requests that belongs to the id
 		for (Request req : Request.getRequests()) {
 			if (req.getRequestStatus() == RequestStatus_Enum.PENDING && req.getRecipientID().equals(recipientUserID)) {
 				return "[🍪 ⋆ 🍎  🎀  𝒩𝐸𝒲  🎀  🍎 ⋆ 🍪]";

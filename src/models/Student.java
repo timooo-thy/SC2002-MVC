@@ -176,6 +176,7 @@ public class Student extends User {
      * @return True if there is already a student with the given ID, false otherwise.
      */
 	public static boolean duplicateStudentId(String studentId) {
+		// loops through the list to find duplicate students
 		for (Student s : studentsList) {
 			if (s.getId().equalsIgnoreCase(studentId)) {
 				return true;
@@ -228,6 +229,7 @@ public class Student extends User {
 	 */
 	public static ArrayList<String> getStudentMenu(){
 		ArrayList<String> studentMenu = new ArrayList<String>();
+		// loops through the list and add it into the menu
 		for (Student s : studentsList) {
 			studentMenu.add(s.getName() + " ("
 					+ s.getId() + ")");
@@ -242,6 +244,7 @@ public class Student extends User {
 	 * @return The student object associated with the given name, or null if not found
 	 */
 	public static Student getStudentFromName(String studentName) {
+		// loops through the list to find student object with name
 		for (Student s : studentsList) {
 			if (s.getName().equals(studentName)) {
 				return s;
@@ -257,6 +260,7 @@ public class Student extends User {
 	 * @return The student object associated with the given ID, or null if not found
 	 */
 	public static Student getStudentFromID(String studentID) {
+		// loops through the list to find student object with id
 		for (Student s : studentsList) {
 			if (s.getId().equals(studentID)) {
 				return s;
@@ -272,6 +276,7 @@ public class Student extends User {
 	 * @return The email address of the student with the given name, or null if not found
 	 */
 	public static String getStudentNameToEmail(String studentName){
+		// loops through the list to find student email with name
 		for (Student stud : Student.getStudentsList()) {
 			if ((stud.getName()).equals(studentName)) {
 				return stud.getEmailAddress();
@@ -287,6 +292,7 @@ public class Student extends User {
 	 * @return The ID of the student with the given name, or null if not found
 	 */
 	public static String getStudentNameToId(String studentName) {
+		// loops through the list to find student id with name
 		for (Student stud : Student.getStudentsList()) {
 			if ((stud.getName()).equals(studentName)) {
 				return stud.getId();
@@ -302,6 +308,7 @@ public class Student extends User {
 	 * @return The email address of the student with the given ID, or null if not found
 	 */
 	public static String getStudentIdToEmail(String studentId){
+		// loops through the list to find student email with id
 		for (Student stud : Student.getStudentsList()) {
 			if ((stud.getId()).equals(studentId)) {
 				return stud.getEmailAddress();
@@ -317,6 +324,7 @@ public class Student extends User {
 	 * @return the name of the student with the given ID, or null if not found
 	 */
 	public static String getStudentIdToName(String studentId) {
+		// loops through the list to find student name with id
 		for (Student stud : Student.getStudentsList()) {
 			if ((stud.getId()).equals(studentId)) {
 				return stud.getName();
@@ -340,10 +348,10 @@ public class Student extends User {
 	 * @throws Throwable If there is an error reading the student data file
 	 */
 	public static void initializeFile() throws Throwable {
+		// uses hashmap to create student objects
 		HashMap<String, String[]> map  = d.initializeStudentFile(FILENAME, FILEPATH);
 		for (String name : map.keySet()) {
         	String[] values = map.get(name);
-        		
         	new Student(values[0], values[1], values[2], name, Integer.parseInt(values[3])); 
 
         }

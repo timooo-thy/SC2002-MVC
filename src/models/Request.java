@@ -205,7 +205,7 @@ public class Request {
         this.addRequest(this);
     }
     
-    //////////// Class methods //////////////
+    // // // // // //  Class methods // // // // // // // 
 	
 	/**
 	 * Set the request status to APPROVED
@@ -221,7 +221,7 @@ public class Request {
     public void reject() {
         requestStatus = RequestStatus_Enum.REJECTED;
         return;
-    } // Reject request
+    } //  Reject request
     
 	/**
 	 * Adds a new request to the list of requests.
@@ -232,9 +232,8 @@ public class Request {
 		requests.add(r);
 		updateRequestFile();
 	}
-  
 
-    /////////////Accessors and mutators///////////////
+    // // // // // // /Accessors and mutators// // // // // // // /
 	/**
 	 * Retrieves the ID of the sender.
 	 * 
@@ -497,7 +496,7 @@ public class Request {
 	}
     
 	
-	/////////// STATIC METHODS ///////////////
+	// // // // // / STATIC METHODS // // // // // // // /
 	/**
      * Returns a list of all requests.
      * 
@@ -524,6 +523,7 @@ public class Request {
 	 * @return The request object
 	 */
 	public static Request getRequestFromStudentId(String studentID) {
+		// loop through request list to find request based on student id
 		for (Request req : getRequests()) {
 			if (req.getSenderID().equals(studentID) & req.getRequestType()==RequestType_Enum.CHANGETITLE & req.getRequestStatus()==RequestStatus_Enum.PENDING) {
 				return req;
@@ -547,6 +547,7 @@ public class Request {
 	 * @throws Throwable If there is an error reading the request data file
 	 */
 	public static void initializeRequestFile() throws Throwable {
+		// hashmap to create requests objects based on request type
 		HashMap<Integer, Object[]> map  = d.initializeRequestFile(FILENAME, FILEPATH);
 		for (int requestID : map.keySet()) {
         	Object[] values = map.get(requestID);

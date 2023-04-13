@@ -1,10 +1,8 @@
 package models;
 
-import java.sql.ClientInfoStatus;
 import java.util.ArrayList;
 import java.util.HashMap;
 import utilities.Database;
-import models.Supervisor;
 
 /**
  * This class represents a Project in the system.
@@ -93,7 +91,7 @@ public class Project {
 	 */
 	public static final int MAX_PROJECT = 2;
 		
-	////////////////////////////////////////////////////////////////////////////////////////
+	//  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  
 
 	/**
      * Creates a new Project object with the given attributes, and adds it to the list of projects.
@@ -136,7 +134,7 @@ public class Project {
 		addProject(this);
 	}
 
-	////////////////////////////////////////////////////////////////////////////////////////
+	//  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  
 	
 	/**
 	 * Adds a new project to the list of projects.
@@ -166,7 +164,7 @@ public class Project {
 		return projectList.get(i-1);
 	}
 	
-	////////////////////////////////////////////////////////////////////////////////////////
+	//  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  
 
 	/**
 	 * Retrieves the ID of the project.
@@ -177,7 +175,7 @@ public class Project {
 		return this.projectId;
 	}
 	
-	///////////////////////////////////////////////////////////////////////////////////////
+	//  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  /
 
 	/**
 	 * Retrieves the ID of the supervisor.
@@ -197,7 +195,7 @@ public class Project {
 		this.supervisorId = supervisorId;
 	}
 	
-	///////////////////////////////////////////////////////////////////////////////////////
+	//  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  /
 
 	/**
      * Sets the name of the supervisor.
@@ -217,7 +215,7 @@ public class Project {
 		return this.supervisorName;
 	}
 	
-	///////////////////////////////////////////////////////////////////////////////////////
+	//  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  /
 
 	/**
 	 * Retrieves the email address of the supervisor.
@@ -360,13 +358,15 @@ public class Project {
 	 * @throws Throwable If there is an error reading the project data file
 	 */
 	public static void initializeProjectFile() throws Throwable {
+		//  hashmap to create project objects 
 		HashMap<Integer, Object[]> map  = d.initializeProjectFile(FILENAME, FILEPATH);
 		for (int projId : map.keySet()) {
         	Object[] values = map.get(projId);       	
+        		//  if status is allocated, add project to supervisor and student
         		if ((ProjectStatus_Enum)values[4] == ProjectStatus_Enum.ALLOCATED) {
 					addSupervisedProject((String)values[0], new Project((String)values[0], (String)values[1], (String)values[2], (String)values[3], (ProjectStatus_Enum)values[4]));  
 					
-					Student.getStudentFromName((String)values[3]).setProjectID(projId); //set student project id if allocated
+					Student.getStudentFromName((String)values[3]).setProjectID(projId); //  set student project id if allocated
         		}
         		else new Project((String)values[0],(String) values[1],(ProjectStatus_Enum) values[4]); 
         }
@@ -438,6 +438,7 @@ public class Project {
 		tempProj.setProjectStatus(ProjectStatus_Enum.ALLOCATED);
 		Project.addSupervisedProject(tempProj.getSupervisorName(),tempProj);
 		if ((Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList().size()) == MAX_PROJECT) {
+			//  loop throughs project list to set them to unavailable if supervisor has max projects
 			for (Project proj : Project.getProjectList() ) {
 				if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.AVAILABLE)
 					proj.setProjectStatus(ProjectStatus_Enum.UNAVAILABLE);
@@ -454,12 +455,13 @@ public class Project {
 		Project tempProj = Project.getProject(projectId);
 		Supervisor tempSup = Supervisor.getSupervisorFromId(tempProj.getSupervisorId()); 
 		if (Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList().size() == MAX_PROJECT) {
+			//  loop throughs project list to set them to available if supervisor has less than max projects after deregistering
 			for (Project proj : Project.getProjectList() ) {
 				if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.UNAVAILABLE)
 					proj.setProjectStatus(ProjectStatus_Enum.AVAILABLE);
 			}
 		}
-		
+		//  loop through the project list and remove the project based of project id
 		for(int i=0;i<tempSup.getSupervisedProjectList().size();i++) {
 			if(tempSup.getSupervisedProjectList().get(i).getProjectId()==projectId) {
 				tempSup.getSupervisedProjectList().remove(i);
@@ -490,13 +492,16 @@ public class Project {
 	 */
 	public static void selectProject(int projectId) {
 		Project tempProj = Project.getProject(projectId);
-		tempProj.setProjectStatus(ProjectStatus_Enum.RESERVED);// change project status to reserved
+		//  change project status to reserved
+		tempProj.setProjectStatus(ProjectStatus_Enum.RESERVED);
 		int count = 0;
+		//  loop through project list and count number of reserved projects
 		for (Project proj : Project.getProjectList() ) {
 			if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.RESERVED)
 				count++;
 		}
-		if (count == 2) {
+		if (count == MAX_PROJECT) {
+			//  loop through project list and set project status to unavailable if supervisor has max projects 
 			for (Project proj : Project.getProjectList() ) {
 				if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.AVAILABLE)
 						proj.setProjectStatus(ProjectStatus_Enum.UNAVAILABLE);
