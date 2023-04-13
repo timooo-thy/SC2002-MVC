@@ -23,30 +23,18 @@ public class Project {
 	private String supervisorName;
 	
 	private String supervisorEmail;
-
-	//private String tempSupervisorId;
-	
-	//private String tempSupervisorEmail;
 	
 	private String studentId;
 	
 	private String studentName = "-1";
 	
 	private String studentEmail;
-
-	//private String tempStudentId;
 	
-	//private String tempStudentEmail;
+	private String projectTitle = "-1";
 	
-	private String projectTitle;
-	
-	//private String tempProjectTitle;
+	private String oriProjectTitle;
 	
 	private  ProjectStatus_Enum projectStatus;
-	
-	//private String newSupervisorName;
-	
-	//private  String newProjectTitle;
 	
 	private static final int MAX_PROJECT = 2;
 		
@@ -60,12 +48,13 @@ public class Project {
 		this.supervisorName = supervisorName;
 		this.supervisorEmail = Supervisor.getSupervisorNameToEmail(supervisorName);
         this.projectId = projectList.size()+1;
-        this.projectTitle = projectTitle;
+        this.oriProjectTitle = projectTitle;
+        if (this.projectTitle.equals("-1") || this.projectTitle.equals(this.oriProjectTitle)) this.projectTitle = projectTitle;
         this.projectStatus = projStatus;
 		addProject(this);
 	}
 
-	public Project(String supervisorName, String projectTitle, String studentName, ProjectStatus_Enum projStatus) {
+	public Project(String supervisorName, String oriProjectTitle, String projectTitle, String studentName, ProjectStatus_Enum projStatus) {
 		this.supervisorId = Supervisor.getSupervisorNameToId(supervisorName).toUpperCase();
 		this.supervisorName = supervisorName;
 		this.supervisorEmail = Supervisor.getSupervisorNameToEmail(supervisorName);
@@ -74,6 +63,7 @@ public class Project {
 		this.studentEmail = Student.getStudentNameToEmail(studentName);
         this.projectId = projectList.size()+1;
         this.projectTitle = projectTitle;
+        this.oriProjectTitle = oriProjectTitle;
         this.projectStatus = projStatus;
 		addProject(this);
 	}
@@ -172,6 +162,15 @@ public class Project {
 	
 	///////////////////////////////////////////////////////////////////////////////////////
 
+	public String getOriProjectTitle() {
+		return this.oriProjectTitle;
+	}
+
+	public void setOriProjectTitle(String oriProjectTitle) {
+		this.oriProjectTitle = oriProjectTitle;
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////
 	public ProjectStatus_Enum getProjectStatus() {
 		return this.projectStatus;
 	}
@@ -191,12 +190,12 @@ public class Project {
 		HashMap<Integer, Object[]> map  = d.initializeProjectFile(FILENAME, FILEPATH);
 		for (int projId : map.keySet()) {
         	Object[] values = map.get(projId);       	
-        		if ((ProjectStatus_Enum)values[3] == ProjectStatus_Enum.ALLOCATED) {
-					addSupervisedProject((String)values[0], new Project((String)values[0], (String)values[1], (String)values[2], (ProjectStatus_Enum)values[3]));  
+        		if ((ProjectStatus_Enum)values[4] == ProjectStatus_Enum.ALLOCATED) {
+					addSupervisedProject((String)values[0], new Project((String)values[0], (String)values[1], (String)values[2], (String)values[3], (ProjectStatus_Enum)values[4]));  
 					
-					Student.getStudentFromName((String)values[2]).setProjectID(projId); //set student project id if allocated
+					Student.getStudentFromName((String)values[3]).setProjectID(projId); //set student project id if allocated
         		}
-        		else new Project((String)values[0],(String) values[1],(ProjectStatus_Enum) values[3]); 
+        		else new Project((String)values[0],(String) values[1],(ProjectStatus_Enum) values[4]); 
         }
 	}
 
@@ -272,17 +271,11 @@ public class Project {
 					proj.setProjectStatus(ProjectStatus_Enum.UNAVAILABLE);
 			}
 		}
-//		View.cli.display("Student has been changed successfully to...");
-//		View.cli.display("Student Id:" + projectList.get(projectId).getStudentId());
-//		View.cli.display("Student Email:" + projectList.get(projectId).getStudentEmail());
-		// do something to supervisor
 	}
 	
 	public static void deregisterStudent(int projectId) {
-		//Project tempProj = Project.getProjectList().get(projectId);
 		Project tempProj = Project.getProject(projectId);
 		Supervisor tempSup = Supervisor.getSupervisorFromId(tempProj.getSupervisorId()); 
-		// do something in supervisor
 		if (Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList().size() == MAX_PROJECT) {
 			for (Project proj : Project.getProjectList() ) {
 				if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.UNAVAILABLE)
@@ -295,6 +288,7 @@ public class Project {
 				tempSup.getSupervisedProjectList().remove(i);
 			}
 		}
+		tempProj.setProjectTitle(tempProj.getOriProjectTitle());
 		tempProj.setStudentId(null);
 		tempProj.setStudentName("-1");
 		tempProj.setStudentEmail(null);
@@ -304,8 +298,6 @@ public class Project {
 	public static void changeProjectTitle(int projectId, String tempProjectTitle) {
 		Project tempProj = Project.getProject(projectId);
 		tempProj.setProjectTitle(tempProjectTitle);
-//		View.cli.display("Project Title has been changed successfully to...");
-//		cli.display("Project Title:" + tempProject.getProjectTitle());
 	}
 	
 	

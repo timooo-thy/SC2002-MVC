@@ -172,11 +172,12 @@ public class Database {
             	String[] splitLine = line.trim().split(";");
             	int id = Integer.parseInt(splitLine[0]); 
             	String supName = splitLine[1];
-            	String title = splitLine[2];
-            	String studName = splitLine[3];
-            	ProjectStatus_Enum projectStatus = ProjectStatus_Enum.valueOf(splitLine[4]);
+            	String oriTitle = splitLine[2];
+            	String newTitle = splitLine[3];
+            	String studName = splitLine[4];
+            	ProjectStatus_Enum projectStatus = ProjectStatus_Enum.valueOf(splitLine[5]);
                 map.put(id, new Object[] {
-                		supName, title, studName, projectStatus});
+                		supName, oriTitle, newTitle, studName, projectStatus});
             }
             bufferedReader.close();
         }
@@ -197,9 +198,9 @@ public class Database {
 	public void updateProjectFile(String FILENAME, String FILEPATH, ArrayList<Project> list) {
 		try {
 	        PrintWriter writer = new PrintWriter(FILEPATH+FILENAME, "UTF-8");
-	        writer.println("ProjectId;supervisorName;Title;studentName;projectStatus");
+	        writer.println("ProjectId;supervisorName;oriTitle;newTitle;studentName;projectStatus");
 	        for (Project proj : list) {
-	            writer.println(proj.getProjectId()+ ";" + proj.getSupervisorName() + ";" + proj.getProjectTitle() + ";" + proj.getStudentName() + ";" + proj.getProjectStatus());
+	            writer.println(proj.getProjectId()+ ";" + proj.getSupervisorName() + ";" + proj.getOriProjectTitle() + ";" + proj.getProjectTitle() + ";" + proj.getStudentName() + ";" + proj.getProjectStatus());
 	        }
 	        writer.close();
 	    } catch (IOException e) {

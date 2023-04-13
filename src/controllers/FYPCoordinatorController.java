@@ -132,7 +132,9 @@ public class FYPCoordinatorController extends Controller {
 
 					newTitle = cli.inputString("Enter New Title ","Eg. Molecular Genetics Studies");
 					
-					Project.getProject(choice).setProjectTitle(newTitle);
+					if (Project.getProject(choice).getProjectTitle().equals(Project.getProject(choice).getOriProjectTitle())) 
+						Project.getProject(choice).setProjectTitle(newTitle);
+					Project.getProject(choice).setOriProjectTitle(newTitle);
 					
 					cli.displayTitle("Project Name has been changed successfully");
 					

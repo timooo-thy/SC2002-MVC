@@ -137,7 +137,9 @@ public class SupervisorController extends Controller {
 								break;
 							}
 							//continues if never input 0
-							Project.changeProjectTitle(id, newtitle);									
+							if (Project.getProject(id).getProjectTitle().equals(Project.getProject(id).getOriProjectTitle())) 
+								Project.getProject(id).setProjectTitle(newtitle);
+							Project.getProject(id).setOriProjectTitle(newtitle);
 							cli.displayTitle("Project Title has been updated");
 							Database.updateAllData();
 						    Thread.sleep(1000);
