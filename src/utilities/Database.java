@@ -36,6 +36,45 @@ public class Database {
 		Request.updateRequestFile();
 	}
 	
+	public HashMap<String, String[]> initializeStudentFile(String FILENAME, String FILEPATH) {
+		File model = new File(FILEPATH + FILENAME);
+		HashMap<String, String[]> map = new HashMap<>();
+		try {
+            FileReader fileReader = new FileReader(model);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            bufferedReader.readLine();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+            	String[] splitLine = line.trim().split(";");
+            	String email = splitLine[1];
+            	String id = splitLine[1].substring(0, splitLine[1].indexOf("@"));
+            	String name = splitLine[0].trim(); 
+            	String password = splitLine[2].trim(); 
+            	String deregistered = splitLine[3];
+                map.put(name, new String[] {id, email, password, deregistered});
+            }
+            bufferedReader.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+		return map;
+        
+	}
+	
+	public void updateStudentFile(String FILENAME, String FILEPATH, ArrayList<Student> list) {
+		try {
+	        PrintWriter writer = new PrintWriter(FILEPATH+FILENAME, "UTF-8");
+	        writer.println("name;email;password;projectID");
+	        for (Student user : list) {
+	            writer.println(user.getName() + ";" + user.getEmailAddress()+ ";" + user.getPassword() + ";" + user.getProjectID());
+	        }
+	        writer.close();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
 	public HashMap<String, String[]> initializeFile(String FILENAME, String FILEPATH) {
 		File model = new File(FILEPATH + FILENAME);
 		HashMap<String, String[]> map = new HashMap<>();
@@ -49,7 +88,7 @@ public class Database {
             	String email = splitLine[1];
             	String id = splitLine[1].substring(0, splitLine[1].indexOf("@"));
             	String name = splitLine[0].trim(); 
-            	String password = splitLine[splitLine.length - 1].trim(); 
+            	String password = splitLine[2].trim(); 
                 map.put(name, new String[] {id, email, password});
             }
             bufferedReader.close();

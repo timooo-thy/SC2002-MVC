@@ -118,9 +118,7 @@ public class StudentController extends Controller {
 						if(studentModel.getProjectID()!=0) {
 							cli.displayTitle("Project is being reserved by another student");
 						}
-						Request.updateRequestFile(); // Update file
-						Project.updateProjectFile(); // Update file
-						Student.updateFile(); // Update file	
+						Database.updateAllData();
 					}
 					
 					else if (studentModel.getProjectID() == 0) {
@@ -156,7 +154,7 @@ public class StudentController extends Controller {
 						}
 						new Request(studentModel.getId(),studentModel.getName(),studentModel.getEmailAddress(),allocatedProject.getSupervisorId(),allocatedProject.getSupervisorName(),allocatedProject.getSupervisorEmail(),allocatedProject.getProjectId(),newTitle,RequestType_Enum.CHANGETITLE,RequestStatus_Enum.PENDING,Request.getRequests().size()+1);// send request to change title
 						cli.displayTitle("Success, your request for changing title is now pending for approval by the supervisor");
-						Request.updateRequestFile();
+						Database.updateAllData();
 					}
 						Thread.sleep(1000);
 						break;
@@ -182,7 +180,7 @@ public class StudentController extends Controller {
 						
 							new Request(studentModel.getId(),studentModel.getName(),studentModel.getEmailAddress(),"ASFLI", "Li Fang", "ASFLI@ntu.edu.sg",allocatedProject.getProjectId(),RequestType_Enum.DEREGISTERPROJECT,RequestStatus_Enum.PENDING,Request.getRequests().size()+1);// send request to register
 							//cli.displayTitle();
-							Request.updateRequestFile(); // Update file
+							Database.updateAllData();
 							cli.displayTitle("Request to deregister project has been sent");
 						}
 						else {

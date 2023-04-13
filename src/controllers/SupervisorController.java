@@ -99,7 +99,7 @@ public class SupervisorController extends Controller {
 							new Project(supervisorModel.getName(),projectTitle,ProjectStatus_Enum.AVAILABLE);
 						else new Project(supervisorModel.getName(),projectTitle,ProjectStatus_Enum.UNAVAILABLE);
 						cli.displayTitle("Project has been added successfully");
-						Project.updateProjectFile();
+						Database.updateAllData();
 						Thread.sleep(1000);
 						break;
 
@@ -139,7 +139,7 @@ public class SupervisorController extends Controller {
 							//continues if never input 0
 							Project.changeProjectTitle(id, newtitle);									
 							cli.displayTitle("Project Title has been updated");
-							Project.updateProjectFile();
+							Database.updateAllData();
 						    Thread.sleep(1000);
 						    break;
 
@@ -298,8 +298,8 @@ public class SupervisorController extends Controller {
 						newSupervisorID = cli.inputString("Enter the Replacement Supervisor ID");
 					}							    
 					new Request(supervisorModel.getId(),supervisorModel.getName(),supervisorModel.getEmailAddress(), "ASFLI", "Li Fang", "ASFLI@ntu.edu.sg",id,newSupervisorID,Supervisor.getSupervisorIdToName(newSupervisorID),Supervisor.getSupervisorIdToEmail(newSupervisorID),RequestType_Enum.CHANGESUPERVISOR,RequestStatus_Enum.PENDING,Request.getRequests().size()+1);
-					// Request.updateFile(); // Update file
 					cli.displayTitle("Request has been sent");
+					Database.updateAllData();
 					Thread.sleep(1000);
 					break;
 					

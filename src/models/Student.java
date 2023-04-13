@@ -23,13 +23,14 @@ public class Student extends User {
 	
 	private String studentPassword;
 
-    private int projectID = -1;
-
-    public Student(String studentId, String studentEmail, String studentPassword, String studentName) {
+    private int projectID;
+    
+    public Student(String studentId, String studentEmail, String studentPassword, String studentName, int projectID) {
 		this.studentId = studentId.toUpperCase();
 		this.studentName = studentName;
 		this.studentEmail = studentEmail;
 		this.studentPassword = studentPassword;
+		this.projectID = projectID;
 		addStudent(this);
 	}
 
@@ -183,17 +184,17 @@ public class Student extends User {
 	}
 
 	public static void initializeFile() throws Throwable {
-		HashMap<String, String[]> map  = d.initializeFile(FILENAME, FILEPATH);
+		HashMap<String, String[]> map  = d.initializeStudentFile(FILENAME, FILEPATH);
 		for (String name : map.keySet()) {
         	String[] values = map.get(name);
-        	new Student(values[0], values[1], values[2], name); 
+        		
+        	new Student(values[0], values[1], values[2], name, Integer.parseInt(values[3])); 
+
         }
 	}
 
 	public static void updateFile() {
-		ArrayList<User> usersList = new ArrayList<>(studentsList);
-		
-		d.updateFile(FILENAME,FILEPATH,usersList);
+		d.updateStudentFile(FILENAME,FILEPATH,studentsList);
 	}
 
 }
