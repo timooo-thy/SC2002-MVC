@@ -5,4 +5,4 @@ YCHERN;CHERN;YCHERN@e.ntu.edu.sg;ASFLI;Li Fang;ASFLI@ntu.edu.sg;10;-1;-1;-1;-1;-
 YCHERN;CHERN;YCHERN@e.ntu.edu.sg;ASFLI;Li Fang;ASFLI@ntu.edu.sg;10;-1;-1;-1;-1;-1;REGISTERPROJECT;APPROVED;4
 SL22;LIU;SL22@e.ntu.edu.sg;ASFLI;Li Fang;ASFLI@ntu.edu.sg;6;-1;-1;-1;-1;-1;REGISTERPROJECT;APPROVED;5
 KOH1;KOH;KOH1@e.ntu.edu.sg;ASFLI;Li Fang;ASFLI@ntu.edu.sg;5;-1;-1;-1;-1;-1;REGISTERPROJECT;APPROVED;6
-BOAN;Bo An;BOAN@ntu.edu.sg;ASFLI;Li Fang;ASFLI@ntu.edu.sg;5;-1;-1;DNIYATO;Dusit Niyato;DNIYATO@ntu.edu.sg;CHANGESUPERVISOR;APPROVED;7
+BOAN;Bo An;BOAN@ntu.edu.sg;ASFLI;Li Fang;ASFLI@ntu.edu.sg;5;-1;-1;DNIYATO;Dusit Niyato;DNIYATO@ntu.edu.sg;CHANGESUPERVISOR;PENDING;7
