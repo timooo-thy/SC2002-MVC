@@ -1,4 +1,4 @@
-  package models;
+package models;
 
 import java.sql.ClientInfoStatus;
 import java.util.ArrayList;
@@ -87,6 +87,11 @@ public class Project {
 	 * Project's Status
 	 */
 	private  ProjectStatus_Enum projectStatus;
+	
+	/**
+	 * Maximum size for list of supervised projects
+	 */
+	private static final int MAX_PROJECT = 2;
 		
 	////////////////////////////////////////////////////////////////////////////////////////
 
@@ -215,6 +220,7 @@ public class Project {
 
 	/**
 	 * Retrieves the email address of the supervisor.
+	 * 
 	 * @return The email address of the supervisor.
 	 */
 	public String getSupervisorEmail() {
@@ -229,8 +235,6 @@ public class Project {
 	public void setSupervisorEmail(String supervisorEmail) {
 		this.supervisorEmail = supervisorEmail;
 	}
-
-	///////////////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Retrieves the ID of the student.
@@ -249,8 +253,6 @@ public class Project {
 	public void setStudentId(String studentId) {
 		this.studentId = studentId;
 	}
-	
-	///////////////////////////////////////////////////////////////////////////////////////
 
 	/**
      * Sets the name of the student.
@@ -270,10 +272,9 @@ public class Project {
 		return this.studentName;
 	}
 
-	///////////////////////////////////////////////////////////////////////////////////////
-
 	/**
 	 * Retrieves the email address of the student.
+	 * 
 	 * @return The email address of the student.
 	 */
 	public String getStudentEmail() {
@@ -288,8 +289,6 @@ public class Project {
 	public void setStudentEmail(String studentEmail) {
 		this.studentEmail = studentEmail;
 	}
-
-	///////////////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Retrieves the title of the project.
@@ -308,8 +307,6 @@ public class Project {
 	public void setProjectTitle(String projectTitle) {
 		this.projectTitle = projectTitle;
 	}
-	
-	///////////////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Retrieves the original title of the project.
@@ -328,11 +325,9 @@ public class Project {
 	public void setOriProjectTitle(String oriProjectTitle) {
 		this.oriProjectTitle = oriProjectTitle;
 	}
-	
-	///////////////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Retrieves the status  of the project.
+	 * Retrieves the status of the project.
 	 * 
 	 * @return The status  of the project.
 	 */
@@ -348,8 +343,6 @@ public class Project {
 	public void setProjectStatus(ProjectStatus_Enum projectStatus) {
 		this.projectStatus = projectStatus;
 	}
-
-	///////////////////////////////////////////////////////////////////////////////////////
 	
 	/**
 	 * Sets the list of projects to the specified list.
@@ -384,8 +377,6 @@ public class Project {
 	public static void updateProjectFile() {
 		d.updateProjectFile(FILENAME,FILEPATH,projectList);
 	}
-
-	///////////////////////////////////////////////////////////////////////////////////////
 	
 	/**
 	 * Adds a project to the list of supervised project.
@@ -396,8 +387,6 @@ public class Project {
 	public static void addSupervisedProject(String supervisorName,Project p) {
 		Supervisor.getSupervisorFromName(supervisorName).getSupervisedProjectList().add(p);
 	}
-	
-	///////////////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Change supervisor of a project.
@@ -432,11 +421,12 @@ public class Project {
 					proj.setProjectStatus(ProjectStatus_Enum.UNAVAILABLE);
 			}
 		}
+	}
 	
 	/**
 	 * Allocate project to the student.
 	 * 
-	 * @param projectId The Id of project to be allocated
+	 * @param projectId The id of project to be allocated
 	 * @param studentId The id of student to register the project
 	 */
 	public static void allocateProject(int projectId, String studentId) {
@@ -446,7 +436,7 @@ public class Project {
 		tempProj.setStudentName(Student.getStudentIdToName(studentId));		
 		tempProj.setProjectStatus(ProjectStatus_Enum.ALLOCATED);
 		Project.addSupervisedProject(tempProj.getSupervisorName(),tempProj);
-		if ((Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList().size())==2) {
+		if ((Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList().size()) == MAX_PROJECT) {
 			for (Project proj : Project.getProjectList() ) {
 				if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.AVAILABLE)
 					proj.setProjectStatus(ProjectStatus_Enum.UNAVAILABLE);
@@ -485,7 +475,7 @@ public class Project {
 	 * Change title of the project
 	 * 
 	 * @param projectId Id of the project to be modified
-	 * @param tempProjectTitle new title of the project to be updated 
+	 * @param tempProjectTitle New title of the project to be updated 
 	 */
 	public static void changeProjectTitle(int projectId, String tempProjectTitle) {
 		Project tempProj = Project.getProject(projectId);
@@ -495,7 +485,7 @@ public class Project {
 	/**
 	 * Select the project to register
 	 * 
-	 * @param projectId ID of the project to be registered
+	 * @param projectId Id of the project to be registered
 	 */
 	public static void selectProject(int projectId) {
 		Project tempProj = Project.getProject(projectId);
@@ -511,6 +501,16 @@ public class Project {
 						proj.setProjectStatus(ProjectStatus_Enum.UNAVAILABLE);
 			}
 		}
+	}
+	
+	/**
+     * Returns the boolean value that indicates if the supervisor's supervised project list is available.
+     * 
+     * @param supervisorId The ID of the supervisor
+     * @return The boolean value indicates if the supervisor's supervised project list is available
+     */
+	public static boolean isAvailable(String supervisorId) { 
+		return (!(Supervisor.getSupervisorFromId(supervisorId).getSupervisedProjectList().size() == MAX_PROJECT));
 	}
 }
 

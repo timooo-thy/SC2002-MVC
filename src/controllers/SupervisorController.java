@@ -56,7 +56,7 @@ public class SupervisorController extends Controller {
 		String[] menu = {
                 "Change Password ",
                 "Create/Update/View projects ",
-                "View Student Pending Request "
+                "View Student Pending Request ",
 				"View Incoming and Outgoing Request History and Status", 
 				"Request to Change Supervisor",
 				"View Profile",
@@ -183,7 +183,7 @@ public class SupervisorController extends Controller {
 									"View Projects Created",
 									"Back"
 								};
-								choice2=0;
+								int choice2 = 0;
 								
 								while (choice2<viewMenu.length) {
 									cli.displayTitle("Create/Update/View Menu");
@@ -237,6 +237,7 @@ public class SupervisorController extends Controller {
 							"Back"
 					};					
 					cli.displayTitle("View Student Pending Request Menu" + newPending); //pass in ???
+					ArrayList<String> requestTitleChangeStudentID = new ArrayList<>();
 					for (Request req : Request.getRequests()) {
 						if (req.getRequestStatus() == RequestStatus_Enum.PENDING && req.getRequestType() == RequestType_Enum.CHANGETITLE) {
 							RequestView.printRequestInfo(req.getRequestID());
@@ -265,7 +266,7 @@ public class SupervisorController extends Controller {
 							if (selection.equals("0")) break;
 							
 							cli.display(ApproveReject);
-							int choice = cli.inputInteger("Choice ", 1, ApproveReject.length);
+							choice = cli.inputInteger("Choice ", 1, ApproveReject.length);
 							
 							if (choice==1) {
 								Project.changeProjectTitle(Request.getRequestFromStudentId(selection).getProjectID(), Request.getRequestFromStudentId(selection).getNewProjectTitle());
@@ -346,7 +347,7 @@ public class SupervisorController extends Controller {
 							cli.display("Please enter a valid Project ID");
 						}
 					}
-					// Exit if Coordinator chose to quit
+					// Exit if coordinator choose to quit
 					if (id == 0) break; 
 							     
 					minichoice = 0;
