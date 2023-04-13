@@ -42,10 +42,10 @@ public class FYPCoordinatorController extends Controller {
 		while(choice <= menu.length) {
 			
 			cli.displayTitle("FYPCOORDINATOR FUNCTIONS");
-			newPending = RequestView.checkForNew(supervisorModel.getId()); //what?
+		    newPending = RequestView.checkForNew(FYPCoordinatorModel.getId());
 			cli.display(menu);
 			
-			choice = cli.inputInteger("choice", 1, menu.length);
+			choice = cli.inputInteger("Choice", 1, menu.length);
 			
 			switch(choice) {
 			
@@ -70,7 +70,7 @@ public class FYPCoordinatorController extends Controller {
 				            String confirmPass = cli.inputString("Password to reconfirm");
 	
 				            if (!newPass.equals(confirmPass)) {
-				                cli.display("Passwords do not match. Please try again.");
+				                cli.displayTitle("Passwords do not match. Please try again.");
 				                continue;
 				            }
 				             FYPCoordinatorModel.setPassword(newPass);
@@ -91,7 +91,7 @@ public class FYPCoordinatorController extends Controller {
 					
 					String supervisorName;				
 					String projectTitle;
-					
+					cli.displayTitle("Create Project");
 					cli.display("Please Enter the Project Title: ");
 					projectTitle = cli.inputString("Project Title: ");
 					confirmation = cli.inputInteger("Confirm Choice? Enter: \n 1 to Confirm \n 2 to Cancel", 1, 2);
@@ -120,7 +120,6 @@ public class FYPCoordinatorController extends Controller {
 					String newTitle;
 					
 					cli.displayTitle("Modify Project Title");
-					cli.display("------------------------------------");
 					for (Project proj : Project.getProjectList()) {
 						ProjectView.printProjectInfo(proj.getProjectId());
 						cli.display("------------------------------------");
@@ -182,7 +181,7 @@ public class FYPCoordinatorController extends Controller {
 					while(choice <= requestsMenu.length) {
 						if(choice==5)
 							break;
-						cli.displayTitle("Approve Requests");
+						cli.displayTitle("Approve Requests Menu");
 						cli.display(requestsMenu);
 						
 						choice = cli.inputInteger("Choice", 1, requestsMenu.length);
@@ -205,23 +204,23 @@ public class FYPCoordinatorController extends Controller {
 								}
 							}	
 							
-							choice = -1;
-							while (!allocationRequestID.contains(choice)) {
+							int requestID = -1;
+							while (!allocationRequestID.contains(requestID)) {
 								cli.displayTitle("Approve Project Allocation");
-								choice = cli.inputInteger("Enter Request ID (Enter 0 to exit)", 0, Request.getRequests().size());
-								if (choice == 0) {
+								requestID = cli.inputInteger("Enter Request ID (Enter 0 to exit)", 0, Request.getRequests().size());
+								if (requestID == 0) {
 									break; 
 								}
 							}
 							// Exit if Coordinator chose to quit
-							if (choice == 0) {
+							if (requestID == 0) {
 								break; 
 							}
 							// Else continue with approval
-							String studentID = Request.getRequest(choice).getSenderID();
-							String studentName = Request.getRequest(choice).getSenderName();
-							String studentEmail = Request.getRequest(choice).getSenderEmail();
-							int projectID = Request.getRequest(choice).getProjectID();
+							String studentID = Request.getRequest(requestID).getSenderID();
+							String studentName = Request.getRequest(requestID).getSenderName();
+							String studentEmail = Request.getRequest(requestID).getSenderEmail();
+							int projectID = Request.getRequest(requestID).getProjectID();
 							
 							// Confirmation for approval
 							confirmation = RequestView.requestConfirmation();
@@ -230,7 +229,7 @@ public class FYPCoordinatorController extends Controller {
 							
 							else if (confirmation == 1) {
 								// Approve Request
-								Request.getRequest(choice).approve();
+								Request.getRequest(requestID).approve();
 								// Update student projectID
 								Student.getStudentFromID(studentID).setProjectID(projectID);
 								
@@ -242,19 +241,19 @@ public class FYPCoordinatorController extends Controller {
 								Request.updateRequestFile(); // Update file
 //								Student.updateFile(); // Update file
 //								Project.updateProjectFile(); // Update file
-								cli.display("Request has been approved.");
+								cli.displayTitle("Request has been approved.");
 							}
 							else {
 								// Reject Request
-								Request.getRequest(choice).reject();
+								Request.getRequest(requestID).reject();
 								// Update student projectID
 								Student.getStudentFromID(studentID).setProjectID(-1);
 								// Make Project available again after rejecting request
-								Project.getProject(choice).setProjectStatus(ProjectStatus_Enum.AVAILABLE);
+								Project.getProject(requestID).setProjectStatus(ProjectStatus_Enum.AVAILABLE);
 //								Request.updateRequestFile(); // Update file
 //								Student.updateFile(); // Update file
 //								Project.updateProjectFile(); // Update file
-								cli.display("Request has been rejected.");
+								cli.displayTitle("Request has been rejected.");
 							}
 							Database.updateAllData();
 							Thread.sleep(3000);
@@ -264,8 +263,7 @@ public class FYPCoordinatorController extends Controller {
 
 							// Approve Title Change
 							case 2:
-								cli.display("Pending Title Change Requests");
-								cli.display("------------------------------------");
+								cli.displayTitle("Pending Title Change Requests");
 								for (Request req : Request.getRequests()) {
 									if (req.getRequestStatus() == RequestStatus_Enum.PENDING) {
 										if (req.getRequestType() == RequestType_Enum.CHANGETITLE) {
@@ -275,7 +273,7 @@ public class FYPCoordinatorController extends Controller {
 									}
 								}	
 								cli.displayTitle("Approve Title Change");
-								int requestID = RequestView.requestRequestID();
+								requestID = RequestView.requestRequestID();
 								if (requestID == 0) break;
 
 								confirmation = RequestView.requestConfirmation();
@@ -301,8 +299,7 @@ public class FYPCoordinatorController extends Controller {
 								break; //fypCoordinatorController.run();
 							// Approve Supervisor Change 
 							case 3:
-								cli.display("Pending Supervisor Change Requests");
-								cli.display("------------------------------------");
+								cli.displayTitle("Pending Supervisor Change Requests");
 								for (Request req : Request.getRequests()) {
 									if (req.getRequestStatus() == RequestStatus_Enum.PENDING) {
 										if (req.getRequestType() == RequestType_Enum.CHANGESUPERVISOR) {
@@ -346,8 +343,7 @@ public class FYPCoordinatorController extends Controller {
 								break; //fypCoordinatorController.run();
 							// Approve Deregistration 
 							case 4:
-								cli.display("Pending Deregistration Requests");
-								cli.display("------------------------------------");
+								cli.displayTitle("Pending Deregistration Requests");
 								for (Request req : Request.getRequests()) {
 									if (req.getRequestStatus() == RequestStatus_Enum.PENDING) {
 										if (req.getRequestType() == RequestType_Enum.DEREGISTERPROJECT) {
@@ -368,8 +364,8 @@ public class FYPCoordinatorController extends Controller {
 									Request.getRequest(requestID).approve();
 									// Deregister student from project
 									Project.deregisterStudent(projectID);
-									// Update projectID field on Student 
-									Student.getStudentFromID(studentID).setProjectID(-1);
+									//set as -2, means can never register again
+									Student.getStudentFromID(studentID).setProjectID(-2);
 								}
 								else {
 									Request.getRequest(requestID).reject();
@@ -391,8 +387,6 @@ public class FYPCoordinatorController extends Controller {
 				case 7:
 					
 					cli.displayTitle("View Request History");
-					cli.display("------------------------------------");
-
 					for (Request req : Request.getRequests()) {
 						RequestView.printRequestInfo(req.getRequestID());
 						cli.display("------------------------------------");
@@ -406,8 +400,6 @@ public class FYPCoordinatorController extends Controller {
 				// Generate Project Details Report (with filters)	
 				case 8:
 					cli.displayTitle("Generate Project Details Report(with filters)");
-					cli.display("------------------------------------");
-					
 					String[] projectMenu = {
 							"Filter using Supervisor ID",
 							"Filter using Project Status ",
@@ -419,11 +411,11 @@ public class FYPCoordinatorController extends Controller {
 							break;
 						cli.display(projectMenu);
 						
-						innerChoice = cli.inputInteger("choice", 1, projectMenu.length);
+						innerChoice = cli.inputInteger("Choice", 1, projectMenu.length);
 						switch(innerChoice) {
 						case 1:
 							String tempSupervisorId = cli.inputString("Please Enter Supervisor ID");
-							cli.displayTitle("Generating project details ");
+							cli.displayTitle("Generating project details... ");
 							for (Project proj : Project.getProjectList()) {
 								if (proj.getSupervisorId().equals(tempSupervisorId)) {
 									ProjectView.printProjectInfo(proj.getProjectId());
@@ -435,7 +427,7 @@ public class FYPCoordinatorController extends Controller {
 							Thread.sleep(3000);
 							break;
 						case 2:
-							cli.display("Please choose project status:");
+							cli.displayTitle("Please choose project status:");
 							String [] projStatus = { 
 									"Available",
 									"Reserved",
@@ -444,7 +436,7 @@ public class FYPCoordinatorController extends Controller {
 									"Back"
 							};
 							cli.display(projStatus);
-							innerChoice = cli.inputInteger("choice", 1, projStatus.length);
+							innerChoice = cli.inputInteger("Choice", 1, projStatus.length);
 
 							if (innerChoice == 1) {
 								cli.displayTitle("Generating project details for all available projects...");
@@ -506,13 +498,12 @@ public class FYPCoordinatorController extends Controller {
 					
 				case 9: //View Profile
 					cli.displayTitle("View Profile");
-					cli.display("------------------------------------");
 					FYPCoordinatorView.printFYPCoordinatorRecordInfo(FYPCoordinatorModel.getId(), FYPCoordinatorModel.getName(), FYPCoordinatorModel.getEmailAddress(), FYPCoordinatorModel.getPassword());
 					Thread.sleep(3000);
 					break;
 					
 				case 10:
-					cli.display("Logging out...");
+					cli.displayTitle("Logging out...");
 					
 					Database.updateAllData();
 					Thread.sleep(1000);
