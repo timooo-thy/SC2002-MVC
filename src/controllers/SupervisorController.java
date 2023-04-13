@@ -93,7 +93,7 @@ public class SupervisorController extends Controller {
 			
 						cli.displayTitle("Create New Project");						
 						String projectTitle;
-						projectTitle = cli.inputString("Please enter the Project Title (Enter 0 to exit): ");
+						projectTitle = cli.inputString("Please enter the Project Title (Enter 0 to exit)");
 						if (projectTitle.equals("0")) break;
 						else if (supervisorModel.getSupervisedProjectList().size()!= 2)
 							new Project(supervisorModel.getName(),projectTitle,ProjectStatus_Enum.AVAILABLE);
@@ -157,7 +157,7 @@ public class SupervisorController extends Controller {
 							ProjectView.printProjectInfo(proj.getProjectId());
 							cli.display("------------------------------------");
 						}
-						Thread.sleep(1000);
+						Thread.sleep(3000);
 						break;
 					}
 					
@@ -191,7 +191,7 @@ public class SupervisorController extends Controller {
 						choice = cli.inputInteger("Choice",1,Menu_6.length);
 						ArrayList<Integer> requestTitleChangeID = new ArrayList<>();
 						switch(choice) {
-							//case 1:
+							case 1:
 								cli.displayTitle("Approve/Reject Title Change Requests");
 								for (Request req : Request.getRequests()) {
 									if (req.getRequestStatus() == RequestStatus_Enum.PENDING && req.getRequestType() == RequestType_Enum.CHANGETITLE) {
@@ -223,6 +223,7 @@ public class SupervisorController extends Controller {
 											Project.changeProjectTitle(Request.getRequest(selection).getProjectID(),Request.getRequest(selection).getNewProjectTitle());
 											Request.getRequest(selection).setRequestStatus(RequestStatus_Enum.APPROVED);
 											cli.displayTitle("Request Approved, Project Title has been updated");
+											Project.updateProjectFile();
 											Thread.sleep(1000);
 											break;
 

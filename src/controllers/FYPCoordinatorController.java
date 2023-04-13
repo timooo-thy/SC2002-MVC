@@ -256,7 +256,7 @@ public class FYPCoordinatorController extends Controller {
 								cli.displayTitle("Request has been rejected.");
 							}
 							Database.updateAllData();
-							Thread.sleep(3000);
+							Thread.sleep(1000);
 							break; //fypCoordinatorController.run();
 							
 	//INCOMEPLETE CODE INCOMEPLETE CODE INCOMEPLETE CODE INCOMEPLETE CODE INCOMEPLETE CODE INCOMEPLETE CODE INCOMEPLETE CODE INCOMEPLETE CODE
@@ -295,7 +295,7 @@ public class FYPCoordinatorController extends Controller {
 									Request.getRequest(choice).reject();
 								}
 								Database.updateAllData();
-								Thread.sleep(3000);
+								Thread.sleep(1000);
 								break; //fypCoordinatorController.run();
 							// Approve Supervisor Change 
 							case 3:
@@ -330,7 +330,7 @@ public class FYPCoordinatorController extends Controller {
 //									Project.getProject(projectID).setSupervisorName(newSupervisorName);
 //									Project.getProject(projectID).setSupervisorEmail(newSupervisorEmail);
 									Project.changeSupervisor(projectID, newSupervisorName);
-									
+									/////////////// print output ////////////////////////////
 									
 								}
 								// Reject
@@ -339,7 +339,7 @@ public class FYPCoordinatorController extends Controller {
 									Request.getRequest(requestID).reject();
 								}
 								Database.updateAllData();
-								Thread.sleep(3000);
+								Thread.sleep(1000);
 								break; //fypCoordinatorController.run();
 							// Approve Deregistration 
 							case 4:
@@ -366,13 +366,14 @@ public class FYPCoordinatorController extends Controller {
 									Project.deregisterStudent(projectID);
 									//set as -2, means can never register again
 									Student.getStudentFromID(studentID).setProjectID(-2);
+									//////////////   print result  ////////////////////
 								}
 								else {
 									Request.getRequest(requestID).reject();
 								}
 								
 								Database.updateAllData();
-								Thread.sleep(3000);
+								Thread.sleep(1000);
 								break; //fypCoordinatorController.run();
 							// Back	
 							case 5:

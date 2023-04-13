@@ -61,7 +61,7 @@ public class StudentController extends Controller {
 				    while (tries > 0 && !isPasswordChanged) {
 	
 				        try {
-				            String currentPass = cli.inputString("Your current password");
+				            String currentPass = cli.inputString("your current password");
 	
 				            if (!currentPass.equals(studentModel.getPassword())) {
 				                tries--;
@@ -69,9 +69,9 @@ public class StudentController extends Controller {
 				                continue;
 				            }
 	
-				            String newPass = cli.inputString("Your new password");
+				            String newPass = cli.inputString("your new password");
 	
-				            String confirmPass = cli.inputString("Password to reconfirm");
+				            String confirmPass = cli.inputString("password to reconfirm");
 	
 				            if (!newPass.equals(confirmPass)) {
 				                cli.display("Passwords do not match. Please try again.");
@@ -97,7 +97,7 @@ public class StudentController extends Controller {
 					if (studentModel.getProjectID() == -1) {
 						ProjectView.projectAvailableInfo();
 						do {
-							projectChoice = cli.inputInteger("Enter the Project ID to register for (Enter 0 to exit)", 0, Project.getProjectList().size()+1);
+							projectChoice = cli.inputInteger("Enter the Project ID to register for (Enter 0 to exit)", 0, Project.getProjectList().size());
 							if (projectChoice==0) break;
 							projectStatus = Project.getProject(projectChoice).getProjectStatus();
 							if (projectStatus == ProjectStatus_Enum.AVAILABLE) {
@@ -110,7 +110,7 @@ public class StudentController extends Controller {
 						} while (projectStatus == ProjectStatus_Enum.AVAILABLE);
 						// can do a catch throw exception
 						if (projectChoice==0) {
-							cli.displayTitle("Cancelling Request...")
+							cli.displayTitle("Cancelling Request...");
 							Thread.sleep(1000);
 							break;
 						}
@@ -140,8 +140,8 @@ public class StudentController extends Controller {
 				case 3: //Request: Project Title Change
 					String newTitle;					
 					cli.displayTitle("Request for Change of Project Title");
-					if (studentModel.getProjectID() == -1 || studentModel.getProjectID() == 0) {
-						cli.displayTitle("You have not registered for any project");
+					if (studentModel.getProjectID() == -1 || studentModel.getProjectID() == 0 || studentModel.getProjectID() == -2) {
+						cli.displayTitle("You are not registered for any project");
 					}
 					else {
 						//if student already registered, proceed title change
@@ -165,7 +165,7 @@ public class StudentController extends Controller {
 					cli.displayTitle("Deregistering Project");
 					// check project id first
 					cli.display("------------------------------------");
-					if (studentModel.getProjectID() == -1 || studentModel.getProjectID() == 0) 
+					if (studentModel.getProjectID() == -1 || studentModel.getProjectID() == 0 || studentModel.getProjectID() == -2) 
 						cli.displayTitle("You are not registered for any projects");
 					else {
 						cli.display("Request to Deregister Project: " + Project.getProject(studentModel.getProjectID()).getProjectTitle());
@@ -194,12 +194,17 @@ public class StudentController extends Controller {
 					
 				case 5: //View available projects
 					cli.displayTitle("View all Available Projects");
-					if(studentModel.getProjectID() != -1 & studentModel.getProjectID() != 0) {
+					if (studentModel.getProjectID() == -2) {
+						cli.displayTitle("You are not allowed to make selection again as you deregistered your FYP");
+					}
+					else if(studentModel.getProjectID() != -1 & studentModel.getProjectID() != 0) {
 						cli.displayTitle("You are currently allocated to a FYP and do not have access to available project list");
 					}
 					
 					else {
 						ProjectView.projectAvailableInfo();
+						Thread.sleep(3000);
+						break;
 					}
 					
 					Thread.sleep(1000);
@@ -207,7 +212,7 @@ public class StudentController extends Controller {
 					
 					
 				case 6: //View project details
-					if (studentModel.getProjectID() == -1) {
+					if (studentModel.getProjectID() == -1 || studentModel.getProjectID() == -2) {
 						cli.displayTitle("You have not registered for a project.");
 					}
 					else if (studentModel.getProjectID() == 0)
@@ -215,6 +220,8 @@ public class StudentController extends Controller {
 					else {
 						cli.displayTitle("Details of your project: ");
 						ProjectView.printProjectInfo(studentModel.getProjectID());
+						Thread.sleep(3000);
+						break;
 					}
 					Thread.sleep(1000);
 					break;
@@ -223,13 +230,13 @@ public class StudentController extends Controller {
 				case 7: //View RequestHistory
 					cli.displayTitle("View Request History");
 					RequestView.printRequestHistory(studentModel.getId());
-					Thread.sleep(1000);
+					Thread.sleep(3000);
 					break;
 					
 				case 8: //View Profile
 					cli.displayTitle("View Profile");
 					StudentView.printStudentRecordInfo(studentModel.getId(), studentModel.getName(), studentModel.getEmailAddress(), studentModel.getPassword());
-					Thread.sleep(1000);
+					Thread.sleep(3000);
 					break;
 				
 				case 9:

@@ -232,10 +232,15 @@ public class Project {
 			}
 		}
 		
-		for(int i=0;i<tempSup.getSupervisedProjectList().size();i++) {
-			if(tempSup.getSupervisedProjectList().get(i).getProjectId()==projectId) {
-				tempSup.getSupervisedProjectList().remove(i);
-			}
+//		for(int i=0;i<tempSup.getSupervisedProjectList().size();i++) {
+//			if(tempSup.getSupervisedProjectList().get(i).getProjectId()==projectId) {
+//				tempSup.getSupervisedProjectList().remove(i);
+//			}
+//		}
+		
+		for (Project proj : tempSup.getSupervisedProjectList()) {
+			if (proj.getProjectId()==projectId)
+				tempSup.getSupervisedProjectList().remove(proj);
 		}
 		
 		tempProj.setSupervisorName(replacementSupervisorName);
@@ -297,8 +302,8 @@ public class Project {
 	}
 	
 	public static void changeProjectTitle(int projectId, String tempProjectTitle) {
-		Project tempProject = Project.getProject(projectId);
-		tempProject.setProjectTitle(tempProjectTitle);
+		Project tempProj = Project.getProject(projectId);
+		tempProj.setProjectTitle(tempProjectTitle);
 //		View.cli.display("Project Title has been changed successfully to...");
 //		cli.display("Project Title:" + tempProject.getProjectTitle());
 	}
@@ -307,10 +312,15 @@ public class Project {
 	public static void selectProject(int projectId) {
 		Project tempProj = Project.getProject(projectId);
 		tempProj.setProjectStatus(ProjectStatus_Enum.RESERVED);// change project status to reserved
-		if ((Supervisor.getSupervisorFromId(tempProj.getSupervisorId())).getSupervisedProjectList().size()==2) {
+		int count = 0;
+		for (Project proj : Project.getProjectList() ) {
+			if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.RESERVED)
+				count++;
+		}
+		if (count == 2) {
 			for (Project proj : Project.getProjectList() ) {
 				if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.AVAILABLE)
-					proj.setProjectStatus(ProjectStatus_Enum.UNAVAILABLE);
+						proj.setProjectStatus(ProjectStatus_Enum.UNAVAILABLE);
 			}
 		}
 	}
