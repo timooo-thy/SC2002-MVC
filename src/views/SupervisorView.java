@@ -13,7 +13,7 @@ public class SupervisorView {
      * @param supervisorEmail the email of the Supervisor
      * @param password the password of the Supervisor
      */
-    public static void printsupervisorRecordInfo(String supervisorId,String supervisorName, String supervisorEmail, String password){
+    public static void printSupervisorRecordInfo(String supervisorId,String supervisorName, String supervisorEmail, String password){
     	View.cli.display("supervisor ID: " + supervisorId);
     	View.cli.display("supervisor Name: " + supervisorName.toUpperCase());
     	View.cli.display("supervisor Email: " + supervisorEmail.toUpperCase());
