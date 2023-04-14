@@ -17,7 +17,7 @@ Eclipse
 ## Contributors
 [Timothy Lee](https://github.com/timooo-thy)
 
-[Jun Hao](https://github.com/junhao21xd)
+[Yau Jun Hao](https://github.com/junhao21xd)
 
 [Justin Wong](https://github.com/JustinWong645)
 
