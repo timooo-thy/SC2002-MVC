@@ -37,8 +37,8 @@ public class StudentController extends Controller {
 	 * This method overrides the abstract method run() in the Controller class.
 	 * It takes in a User object as a parameter and throws any exceptions that may occur during execution.
 	 * 
-	 * @param user The currently logged in Student.
-	 * @throws ClassNotFoundException If the specified class cannot be found.
+	 * @param user The currently logged in Student
+	 * @throws ClassNotFoundException If the specified class cannot be found
 	 */
 	public void run(User user) throws Throwable {
 
@@ -105,10 +105,11 @@ public class StudentController extends Controller {
 				            cli.display("Password has been changed successfully! Please relogin. ");
 	
 				        } catch (Exception e) {
-				            System.out.println("Error: " + e.getMessage() + ". Please try again.");
+				            cli.display("Error: " + e.getMessage() + ". Please try again.");
 				            tries--;
 				        }
 				    }
+				    cli.display("Logging out...");
 				    Database.updateAllData();
 				    Thread.sleep(1000);    
 					return;

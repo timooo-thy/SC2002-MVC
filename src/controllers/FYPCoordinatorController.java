@@ -33,8 +33,8 @@ public class FYPCoordinatorController extends Controller {
 	 * This method overrides the abstract method run() in the Controller class.
 	 * It takes in a User object as a parameter and throws any exceptions that may occur during execution.
 	 * 
-	 * @param user The currently logged in FYP Coordinator.
-	 * @throws ClassNotFoundException If the specified class cannot be found.
+	 * @param user The currently logged in FYP Coordinator
+	 * @throws ClassNotFoundException If the specified class cannot be found
 	 */
 	public void run(User user) throws Throwable{
 
@@ -44,7 +44,6 @@ public class FYPCoordinatorController extends Controller {
             
 		mainController = new MainController();
 			
-		
 		String newPending = RequestView.checkForNew(FYPCoordinatorModel.getId());
 		String[] menu = {
                 "Change Password ",
@@ -73,7 +72,7 @@ public class FYPCoordinatorController extends Controller {
 			
 			// Change password
 			/*
-			 * Case 1 enables user to change password. If attempt to key current password is wrong 3 times, attempt is failed
+			 * Case 1 enables user to change password. If attempt to key current password is wrong 3 times, attempt is failed.
 			 * If successful, password is changed and user will have to log in again.
 			 */
 			case 1:
@@ -104,11 +103,11 @@ public class FYPCoordinatorController extends Controller {
 			            cli.display("Password has been changed successfully! Please relogin. ");
 
 			        } catch (Exception e) {
-			            System.out.println("Error: " + e.getMessage() + ". Please try again.");
+			            cli.display("Error: " + e.getMessage() + ". Please try again.");
 			            tries--;
 			        }
 			    }
-			    
+			    cli.display("Logging out...");
 			    Database.updateAllData();
 			    Thread.sleep(1000);    
 				return;
@@ -117,7 +116,7 @@ public class FYPCoordinatorController extends Controller {
 			/*
 			 *	Case 2 enables user to Create,Update and View project.  
 			 *	Creating a project will add a project into the project list.
-			 *	Updating a project brings user to another menu where they are able to modify project title or change supervisor
+			 *	Updating a project brings user to another menu where they are able to modify project title or change supervisor.
 			 */
 			case 2:
 				String [] projectsSubMenu = {

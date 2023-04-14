@@ -1,17 +1,17 @@
-projectId;supervisorName;Title;NewTitle;studentName;projectStatus
-1;A S Madhukumar;Machine Learning-Based Interference Mitigation in a Multi-Tier Networks;-1;-1;AVAILABLE
-2;A S Madhukumar;Deep Learning-Driven Edge Caching for 5G-and-Beyond Industrial IoT Networks;-1;-1;AVAILABLE
-3;Alexei Sourin;Sonification of Geometry 1;-1;-1;AVAILABLE
-4;Arvind Easwaran;Edge/Cloud Resource Management for Time-Sensitive Applications (2);-1;-1;AVAILABLE
-5;Bo An;Deep Reinforcement Learning for Complex Environment;-1;-1;AVAILABLE
-6;Bo An;Build Software Agents for Power Trading Agent Competition;-1;-1;AVAILABLE
-7;Bo An;Designing Negotiation Agents to Participate in International Competition;-1;-1;AVAILABLE
-8;Cai Wentong;Creation of Meta-model for Agent-Based Simulation Using Machine Learning Approach;-1;-1;AVAILABLE
-9;Chen Change Loy;Encoding Images to Text Prompts with CLIP;-1;-1;AVAILABLE
-10;Chia Liang Tien;Smart Monitor for Studio Photographer;-1;-1;AVAILABLE
-11;Cong Gao;Developing A Demonstration System for Spatial Data Exploration and Visualisation;-1;-1;AVAILABLE
-12;Cong Gao;Deep Learning Supported Location-Aware Keyword Query;-1;-1;AVAILABLE
-13;Douglas Leslie Maskell;An AI-Based Li-ion Fast Battery Charger for Power Tools;-1;-1;AVAILABLE
-14;Douglas Leslie Maskell;A Li-ion Fast Battery Charger;-1;-1;AVAILABLE
-15;Dusit Niyato;Metaverse for Virtual Education 1;-1;-1;AVAILABLE
-16;Ke Yiping, Kelly;Graph-Based Deep Models for Image Semantic Segmentation;-1;-1;AVAILABLE
+ProjectId;supervisorName;oriTitle;newTitle;studentName;projectStatus
+1;A S Madhukumar;Machine Learning-Based Interference Mitigation in a Multi-Tier Networks;Machine Learning-Based Interference Mitigation in a Multi-Tier Networks;-1;AVAILABLE
+2;A S Madhukumar;Deep Learning-Driven Edge Caching for 5G-and-Beyond Industrial IoT Networks;Deep Learning-Driven Edge Caching for 5G-and-Beyond Industrial IoT Networks;-1;AVAILABLE
+3;Alexei Sourin;Sonification of Geometry 1;Sonification of Geometry 1;-1;AVAILABLE
+4;Arvind Easwaran;Edge/Cloud Resource Management for Time-Sensitive Applications (2);Edge/Cloud Resource Management for Time-Sensitive Applications (2);-1;AVAILABLE
+5;Bo An;Deep Reinforcement Learning for Complex Environment;Deep Reinforcement Learning for Complex Environment;-1;AVAILABLE
+6;Bo An;Build Software Agents for Power Trading Agent Competition;Build Software Agents for Power Trading Agent Competition;-1;AVAILABLE
+7;Bo An;Designing Negotiation Agents to Participate in International Competition;Designing Negotiation Agents to Participate in International Competition;-1;AVAILABLE
+8;Cai Wentong;Creation of Meta-model for Agent-Based Simulation Using Machine Learning Approach;Creation of Meta-model for Agent-Based Simulation Using Machine Learning Approach;-1;AVAILABLE
+9;Chen Change Loy;Encoding Images to Text Prompts with CLIP;Encoding Images to Text Prompts with CLIP;-1;AVAILABLE
+10;Chia Liang Tien;Smart Monitor for Studio Photographer;Smart Monitor for Studio Photographer;-1;AVAILABLE
+11;Cong Gao;Developing A Demonstration System for Spatial Data Exploration and Visualisation;Developing A Demonstration System for Spatial Data Exploration and Visualisation;-1;AVAILABLE
+12;Cong Gao;Deep Learning Supported Location-Aware Keyword Query;Deep Learning Supported Location-Aware Keyword Query;-1;AVAILABLE
+13;Douglas Leslie Maskell;An AI-Based Li-ion Fast Battery Charger for Power Tools;An AI-Based Li-ion Fast Battery Charger for Power Tools;-1;AVAILABLE
+14;Douglas Leslie Maskell;A Li-ion Fast Battery Charger;A Li-ion Fast Battery Charger;-1;AVAILABLE
+15;Dusit Niyato;Metaverse for Virtual Education 1;Metaverse for Virtual Education 1;-1;AVAILABLE
+16;Ke Yiping, Kelly;Graph-Based Deep Models for Image Semantic Segmentation;Graph-Based Deep Models for Image Semantic Segmentation;-1;AVAILABLE
