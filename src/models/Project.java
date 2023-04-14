@@ -399,7 +399,7 @@ public class Project {
 		Project tempProj = Project.getProject(projectId);
 		Supervisor tempSup = Supervisor.getSupervisorFromName(tempProj.getSupervisorName()); 
 		ArrayList<Project> supervisingProjList = Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList();
-		if (supervisingProjList.size() == 2) {
+		if (supervisingProjList.size() <= MAX_PROJECT) {
 			for (Project proj : Project.getProjectList() ) {
 				if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.UNAVAILABLE)
 					proj.setProjectStatus(ProjectStatus_Enum.AVAILABLE);
@@ -416,7 +416,7 @@ public class Project {
 		tempProj.setSupervisorEmail(Supervisor.getSupervisorNameToEmail(replacementSupervisorName));
 		Project.addSupervisedProject(replacementSupervisorName, tempProj);
 		ArrayList<Project> newSupervisingProjList = Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList();
-		if (newSupervisingProjList.size() == 2) {
+		if (newSupervisingProjList.size() >= MAX_PROJECT) {
 			for (Project proj : Project.getProjectList() ) {
 				if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.AVAILABLE)
 					proj.setProjectStatus(ProjectStatus_Enum.UNAVAILABLE);
@@ -437,7 +437,7 @@ public class Project {
 		tempProj.setStudentName(Student.getStudentIdToName(studentId));		
 		tempProj.setProjectStatus(ProjectStatus_Enum.ALLOCATED);
 		Project.addSupervisedProject(tempProj.getSupervisorName(),tempProj);
-		if ((Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList().size()) == MAX_PROJECT) {
+		if ((Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList().size()) >= MAX_PROJECT) {
 			//  loop throughs project list to set them to unavailable if supervisor has max projects
 			for (Project proj : Project.getProjectList() ) {
 				if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.AVAILABLE)
@@ -454,7 +454,7 @@ public class Project {
 	public static void deregisterStudent(int projectId) {
 		Project tempProj = Project.getProject(projectId);
 		Supervisor tempSup = Supervisor.getSupervisorFromId(tempProj.getSupervisorId()); 
-		if (Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList().size() == MAX_PROJECT) {
+		if (Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList().size() <= MAX_PROJECT) {
 			//  loop throughs project list to set them to available if supervisor has less than max projects after deregistering
 			for (Project proj : Project.getProjectList() ) {
 				if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.UNAVAILABLE)
@@ -516,7 +516,7 @@ public class Project {
      * @return The boolean value indicates if the supervisor's supervised project list is available
      */
 	public static boolean isAvailable(String supervisorId) { 
-		return (!(Supervisor.getSupervisorFromId(supervisorId).getSupervisedProjectList().size() == MAX_PROJECT));
+		return (!(Supervisor.getSupervisorFromId(supervisorId).getSupervisedProjectList().size() >= MAX_PROJECT));
 	}
 }
 
