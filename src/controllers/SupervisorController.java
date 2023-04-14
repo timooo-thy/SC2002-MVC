@@ -72,7 +72,7 @@ public class SupervisorController extends Controller {
 			 */
 			cli.displayTitle("SUPERVISOR FUNCTIONS");
 			String newPending = RequestView.checkForNew(supervisorModel.getId());
-			menu[2] = "View Student Pending Request " + newPending;
+			menu[2] = "View Pending Request " + newPending;
 			cli.display(menu);
 			
 			choice = cli.inputInteger("Choice", 1, menu.length);

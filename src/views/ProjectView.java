@@ -140,7 +140,7 @@ public class ProjectView {
 				}
 			}
 			if (projectCount == 0) {
-				View.cli.displayTitle("There are no unavailble projects");
+				View.cli.displayTitle("There are no unavailable projects");
 			}
 			return;
 		}

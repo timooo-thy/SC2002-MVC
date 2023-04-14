@@ -67,7 +67,7 @@ public class FYPCoordinatorController extends Controller {
 //			newPending = RequestView.checkForNew(fypCoordinatorModel.getId());
 //			cli.display(menu);
 			newPending = RequestView.checkForNew(fypCoordinatorModel.getId());
-			menu[2] = "View Student Pending Request " + newPending;
+			menu[2] = "View Pending Request " + newPending;
 			cli.display(menu);
 			
 			choice = cli.inputInteger("Choice", 1, menu.length);
@@ -762,8 +762,9 @@ public class FYPCoordinatorController extends Controller {
 						}
 						if (studentID.equals("0")) break;
 						cli.displayTitle("Generating Project Details of Student... ");
+						String studentName = Student.getStudentIdToName(studentID);
 						for (Project proj : Project.getProjectList()) {
-							if (proj.getSupervisorId().equals(studentID)) {
+							if (proj.getStudentName().equals(studentName)) {
 								ProjectView.printProjectInfo(proj.getProjectId());
 								cli.display("------------------------------------");
 							}
