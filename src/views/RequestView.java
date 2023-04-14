@@ -84,6 +84,7 @@ public class RequestView {
 	 */
 	public static void printIncomingRequestHistory(String recipientUserID){
 		// loops through all requests to match the user id
+		int requestCount = 0;
 		for (Request req : Request.getRequests()) {
 			int requestID = req.getRequestID();
 			if (Request.getRequest(requestID).getRecipientID().equals(recipientUserID)) {
@@ -106,7 +107,11 @@ public class RequestView {
 				}
 				
 				View.cli.display("Request Status: " + Request.getRequest(requestID).getRequestStatus().toString());
+				requestCount++;
 			}
+		}
+		if (requestCount == 0) {
+			View.cli.displayTitle("There are no pending requests");
 		}
 	}
 	

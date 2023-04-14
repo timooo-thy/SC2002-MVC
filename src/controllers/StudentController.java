@@ -111,7 +111,7 @@ public class StudentController extends Controller {
 				    }
 				    cli.display("Logging out...");
 				    Database.updateAllData();
-				    Thread.sleep(1000);    
+				    Thread.sleep(1500);    
 					return;
 					
 				case 2://request:Register Project
@@ -141,7 +141,7 @@ public class StudentController extends Controller {
 						// can do a catch throw exception
 						if (projectChoice==0) {
 							cli.displayTitle("Cancelling Request...");
-							Thread.sleep(1000);
+							Thread.sleep(1500);
 							break;
 						}
 						
@@ -162,7 +162,7 @@ public class StudentController extends Controller {
 					else {
 						cli.displayTitle("You are already registered for a project");				
 					}
-					Thread.sleep(1000);
+					Thread.sleep(1500);
 					break;
 					
 				case 3: //Request: Project Title Change
@@ -180,10 +180,10 @@ public class StudentController extends Controller {
 						Project allocatedProject = Project.getProject(studentModel.getProjectID());
 						cli.display("Your project title is : " + allocatedProject.getProjectTitle());
 						newTitle = cli.inputString("Your new title to change (Enter 0 to exit)");
-						Thread.sleep(1000);
+						Thread.sleep(1500);
 						if (newTitle.equals("0")) {
 							cli.displayTitle("Cancelling Project Title Change Request...");
-							Thread.sleep(1000);
+							Thread.sleep(1500);
 							break;
 						}
 						//creates a new request
@@ -191,7 +191,7 @@ public class StudentController extends Controller {
 						cli.displayTitle("Success, your request for changing title is now pending for approval by the supervisor");
 						Database.updateAllData();
 					}
-						Thread.sleep(1000);
+						Thread.sleep(1500);
 						break;
 				
 				case 4: //Request: Project Deregistration
@@ -226,7 +226,7 @@ public class StudentController extends Controller {
 							cli.displayTitle("Request to deregister project has been cancelled");
 						}
 					}
-					Thread.sleep(1000);
+					Thread.sleep(1500);
 					break;
 					
 				case 5: //View available projects
@@ -243,11 +243,11 @@ public class StudentController extends Controller {
 					
 					else {
 						ProjectView.projectAvailableInfo();
-						Thread.sleep(3000);
+						Thread.sleep(1500);
 						break;
 					}
 					
-					Thread.sleep(1000);
+					Thread.sleep(1500);
 					break;
 					
 					
@@ -264,10 +264,10 @@ public class StudentController extends Controller {
 					else {
 						cli.displayTitle("Details of your project: ");
 						ProjectView.printProjectInfo(studentModel.getProjectID());
-						Thread.sleep(3000);
+						Thread.sleep(1500);
 						break;
 					}
-					Thread.sleep(1000);
+					Thread.sleep(1500);
 					break;
 				
 				
@@ -277,7 +277,7 @@ public class StudentController extends Controller {
 					 */
 					cli.displayTitle("View Request History");
 					RequestView.printRequestHistory(studentModel.getId());
-					Thread.sleep(3000);
+					Thread.sleep(1500);
 					break;
 					
 				case 8: //View Profile
@@ -286,12 +286,12 @@ public class StudentController extends Controller {
 					 */
 					cli.displayTitle("View Profile");
 					StudentView.printStudentRecordInfo(studentModel.getId(), studentModel.getName(), studentModel.getEmailAddress(), studentModel.getPassword());
-					Thread.sleep(3000);
+					Thread.sleep(1500);
 					break;
 				
 				case 9:
 					cli.displayTitle("Logging out...");
-					Thread.sleep(1000);
+					Thread.sleep(1500);
 					return;
 				
 				default:

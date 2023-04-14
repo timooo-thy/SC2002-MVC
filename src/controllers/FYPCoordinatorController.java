@@ -22,7 +22,7 @@ public class FYPCoordinatorController extends Controller {
 	/**
 	 * The FYP Coordinator model associated with this controller.
 	 */
-	private FYPCoordinator FYPCoordinatorModel;
+	private FYPCoordinator fypCoordinatorModel;
 	
 	/**
 	 * The MainController associated with this FYP Coordinator Controller.
@@ -39,22 +39,23 @@ public class FYPCoordinatorController extends Controller {
 	public void run(User user) throws Throwable{
 
         if(user instanceof FYPCoordinator) {
-		    FYPCoordinatorModel = (FYPCoordinator)user;
+		    fypCoordinatorModel = (FYPCoordinator)user;
 		}
             
 		mainController = new MainController();
 			
-		String newPending = RequestView.checkForNew(FYPCoordinatorModel.getId());
+		String newPending = RequestView.checkForNew(fypCoordinatorModel.getId());
 		String[] menu = {
-                "Change Password ",
+                "Change Password",
                 "Create/Update/View Projects",
                 "View Pending Requests " + newPending,
+                "View Requests History and Status",
+                "Request to Change Supervisor",
                 "View Project Details Report (with filters)",
-                "View Request History",
                 "View Profile",
                 "Logout"
-		};
-		
+		};	
+
 		int choice = 0;
 		int confirmation;
 		
@@ -63,7 +64,7 @@ public class FYPCoordinatorController extends Controller {
 			 * FYP Coordinator main page
 			 */
 			cli.displayTitle("FYPCOORDINATOR FUNCTIONS");
-			newPending = RequestView.checkForNew(FYPCoordinatorModel.getId());
+			newPending = RequestView.checkForNew(fypCoordinatorModel.getId());
 			cli.display(menu);
 			
 			choice = cli.inputInteger("Choice", 1, menu.length);
@@ -84,7 +85,7 @@ public class FYPCoordinatorController extends Controller {
 			        try {
 			            String currentPass = cli.inputString("Your current password");
 
-			            if (!currentPass.equals(FYPCoordinatorModel.getPassword())) {
+			            if (!currentPass.equals(fypCoordinatorModel.getPassword())) {
 			                tries--;
 			                cli.display("Wrong password. You have " + tries + " more tries.");
 			                continue;
@@ -98,7 +99,7 @@ public class FYPCoordinatorController extends Controller {
 			                cli.displayTitle("Passwords do not match. Please try again.");
 			                continue;
 			            }
-			             FYPCoordinatorModel.setPassword(newPass);
+			             fypCoordinatorModel.setPassword(newPass);
 			            isPasswordChanged = true;
 			            cli.display("Password has been changed successfully! Please relogin. ");
 
@@ -109,7 +110,7 @@ public class FYPCoordinatorController extends Controller {
 			    }
 			    cli.display("Logging out...");
 			    Database.updateAllData();
-			    Thread.sleep(1000);    
+			    Thread.sleep(1500);    
 				return;
 			
 			// Create/Update/View Projects
@@ -138,6 +139,7 @@ public class FYPCoordinatorController extends Controller {
 					
 					projectsSubMenuChoice = cli.inputInteger("Choice", 1, projectsSubMenu.length);
 				switch (projectsSubMenuChoice) {
+				
 				// Create Projects
 				case 1:
 					String projectTitle;
@@ -149,7 +151,7 @@ public class FYPCoordinatorController extends Controller {
 					if (confirmation == 2) {
 						break; 
 					}
-					new Project(FYPCoordinatorModel.getName(),projectTitle,ProjectStatus_Enum.AVAILABLE);
+					new Project(fypCoordinatorModel.getName(),projectTitle,ProjectStatus_Enum.AVAILABLE);
 
 				
 					cli.displayTitle("Project has been created successfully");
@@ -162,123 +164,123 @@ public class FYPCoordinatorController extends Controller {
 					}
 					
 					Database.updateAllData();
-					Thread.sleep(3000);
+					Thread.sleep(1500);
 					break;  
 					
-				// Update Project
+				// Update Project (Modify Title)
 				case 2:
-					String [] updateProjectsSubMenu = {
-							"Modify Project Title",
-							"Change Supervisor",
+					cli.displayTitle("Modify Own Project Title");
+					ArrayList<Integer> ownProjectID = new ArrayList<>();
+					int projectID = -1;
+					//loops through project list to find supervisorID
+				    for (Project proj : Project.getProjectList()) {
+				    	if (proj.getSupervisorId().equals(fypCoordinatorModel.getId())) {
+					    	ProjectView.printProjectInfo(proj.getProjectId());
+					    	ownProjectID.add(proj.getProjectId());
+							cli.display("------------------------------------");
+					     }
+				    }
+						     
+				    if(ownProjectID.size()==0) {
+				    	cli.displayTitle("You have yet registered for a project, unable to modify title");
+					    Thread.sleep(1500);
+				    	break;
+				    }
+						     
+				    while (!ownProjectID.contains(projectID)) {
+					    projectID = cli.inputInteger("Choose Project ID to modify Project Title (Enter 0 to exit)");
+					    if (projectID == 0) break;
+					    if (!ownProjectID.contains(projectID))
+					    	 cli.display("Please enter a valid project ID");
+					    }  				     
+						if (projectID == 0) break; 
+						String newtitle = cli.inputString("Enter New Project Title (Enter 0 to exit)");
+						if (newtitle.equals("0")) {
+							cli.displayTitle("Modification Cancelled");
+						    Thread.sleep(1500);
+							break;
+						}
+						//continues if never input 0
+						if (Project.getProject(projectID).getProjectTitle().equals(Project.getProject(projectID).getOriProjectTitle())) 
+							Project.getProject(projectID).setProjectTitle(newtitle);
+						Project.getProject(projectID).setOriProjectTitle(newtitle);
+						cli.displayTitle("Project Title has been updated");
+						Database.updateAllData();
+						Thread.sleep(1500);
+						break;
+						
+				// View All Projects
+				case 3:
+					String [] viewProjectsSubMenu = {
+							"View All Projects",
+							"View Projects By Status",
 							"Back"
 					};
 					
-					int updateProjectsSubMenuChoice = -1;
+					int viewProjectsSubMenuChoice = -1;
 					
-					while(updateProjectsSubMenuChoice <= updateProjectsSubMenu.length) {
-						if(updateProjectsSubMenuChoice==3) break;
+					while(viewProjectsSubMenuChoice <= viewProjectsSubMenu.length) {
+						if(viewProjectsSubMenuChoice==3) break;
 						
-						cli.displayTitle("Update Projects Menu");
-						cli.display(updateProjectsSubMenu);
+						cli.displayTitle("Approve/Reject Requests Menu");
+						cli.display(viewProjectsSubMenu);
 						
-						updateProjectsSubMenuChoice = cli.inputInteger("Choice", 1, updateProjectsSubMenu.length);
-					switch (updateProjectsSubMenuChoice) {
-					// Modify Project Title
+						viewProjectsSubMenuChoice = cli.inputInteger("Choice", 1, viewProjectsSubMenu.length);
+					switch (viewProjectsSubMenuChoice) {
+					// View All Projects
 					case 1:
-						String newTitle;
-						int projectID;
-						
-						cli.displayTitle("Modify Project Title");
-						for (Project proj : Project.getProjectList()) {
-							ProjectView.printProjectInfo(proj.getProjectId());
-							cli.display("------------------------------------");
-						}
-						
-						cli.display("Enter Project ID to change title (Enter 0 to exit):");
-						projectID = cli.inputInteger("Choice", 0, Project.getProjectList().size());
-						if (projectID == 0) break;
-		
-						newTitle = cli.inputString("Enter New Title ","Eg. Molecular Genetics Studies");
-						confirmation = cli.inputInteger("Confirm Choice? Enter: \n 1 to Confirm \n 2 to Cancel", 1, 2);
-						
-						if (confirmation == 2) {
-							break; 
-						}
-						if (Project.getProject(projectID).getProjectTitle().equals(Project.getProject(projectID).getOriProjectTitle())) { 
-							Project.getProject(projectID).setProjectTitle(newTitle);
-						}
-						Project.getProject(projectID).setOriProjectTitle(newTitle);
-						cli.displayTitle("Project Name has been changed successfully");
-						
-						Database.updateAllData();
-						Thread.sleep(3000);
-						break; 
-					
-					// Change Supervisor
-					case 2:
-						cli.displayTitle("DO WE NEED THIS FUNCTION?");
-						Thread.sleep(1000);
+						ProjectView.projectAllInfo(true);
+						Thread.sleep(1500);
 						break;
-						
+					
+					// View Projects By Status
+					case 2:
+						ProjectView.printProjectsByStatus();
+						Thread.sleep(1500);
+						break;
 					// Back
 					case 3:
 						break;
 					}
 					
 					}
-					Thread.sleep(1000);
 					break;
-				// View All Projects
-				case 3:
-					cli.displayTitle("View All Projects");
-					for (int i = 0; i < Project.getProjectList().size(); i++) {
-						cli.display("----------------------------------------------------------------------------");
-						cli.display("Project ID: " + Project.getProjectList().get(i).getProjectId());
-						cli.display("Project Title: " + Project.getProjectList().get(i).getProjectTitle());
-						cli.display("Supervisor ID: " + Project.getProjectList().get(i).getSupervisorId());
-						cli.display("Supervisor Name: " + Project.getProjectList().get(i).getSupervisorName());
-						cli.display("Supervisor Email: " + Project.getProjectList().get(i).getSupervisorEmail());
-					}
-					Thread.sleep(1000);
-					break;
-					
 				// Back
 				case 4:
-					Thread.sleep(1000);
+					Thread.sleep(1500);
 					break;
 				}
 				}
-				break;
-					
 			// View Pending Requests
 			/*
-			 * User will be able to view all pending requests.
-			 * By entering the requestID, they are able to take action on that particular request.
-			 * User will be prompted to confirm their decision. 
-			 * They will be redirected to either approve or reject these pending requests.
-			 * User will also be able to view and approve requests according to the different filters set.
+			 * User will be able to view all pending requests addressed to them
+			 * By entering the requestID, they are able to take action on that particular request
+			 * User will be prompted to confirm their decision
+			 * They will be redirected to either approve or reject these pending requests
+			 * User will also be able to view and approve requests according to the different filters set
 			 */
 			case 3:
 				ArrayList <Integer> pendingRequestID = new ArrayList<>();
 				cli.displayTitle("View All Pending Requests");
 				for (Request req : Request.getRequests()) {
 					if (req.getRequestStatus() == RequestStatus_Enum.PENDING) {
+						if (req.getRecipientID().equals(fypCoordinatorModel.getId())) {
 						RequestView.printRequestInfo(req.getRequestID());
 						cli.display("------------------------------------");
 						pendingRequestID.add(req.getRequestID());
+						}
 					}
 				}	
 				
 				if (pendingRequestID.size()==0) {
 					cli.displayTitle("There are no pending requests");
-					Thread.sleep(1000);
+					Thread.sleep(1500);
 					break;
 				}
 				
 				// Print Request Sub Menu
 				String [] requestsSubMenu = {
-						"Approve/Reject Using Request ID",
-						"Approve/Reject With Filters",
+						"Approve/Reject Requests",
 						"View All Pending Requests",
 						"Back"
 				};
@@ -286,36 +288,16 @@ public class FYPCoordinatorController extends Controller {
 				int requestsSubMenuChoice = -1;
 				
 				while(requestsSubMenuChoice <= requestsSubMenu.length) {
-					if(requestsSubMenuChoice==4) break;
+					if(requestsSubMenuChoice==3) break;
 					
 					cli.displayTitle("Approve/Reject Requests Menu");
 					cli.display(requestsSubMenu);
 					
 					requestsSubMenuChoice = cli.inputInteger("Choice", 1, requestsSubMenu.length);
 				switch (requestsSubMenuChoice) {
-				
-				// Approve/Reject Using Request ID
+					
+				// Approve/Reject Requests 
 				case 1:
-					cli.displayTitle("Approve/Reject Using Request ID");
-					int requestID = cli.inputInteger("Enter Request ID (Enter 0 to exit)", 0, Request.getRequests().size());
-					if (requestID == 0) break;
-					
-					confirmation = RequestView.requestConfirmation();
-					int projectID = Request.getRequest(requestID).getProjectID();
-					String studentID = Request.getRequest(requestID).getSenderID();
-					
-					if (confirmation == 0) break;
-					if (confirmation == 1) {
-						Request.getRequest(requestID).approve();
-						cli.displayTitle("This method is not actually implemented yet, Lol");
-					}
-					else {
-						Request.getRequest(requestID).reject();
-						cli.displayTitle("This method is not actually implemented yet, Lol");
-					}
-					
-				// Approve/Reject Requests With Filters
-				case 2:
 					int approveChoice;
 					String [] approveRequestsFiltersSubMenu = {
 							"Approve/Reject Project Allocation",
@@ -328,7 +310,7 @@ public class FYPCoordinatorController extends Controller {
 					approveChoice = 0;
 					while(approveChoice <= approveRequestsFiltersSubMenu.length) {
 						if(approveChoice==5) break;
-						cli.displayTitle("Approve/Reject With Filters");
+						cli.displayTitle("Approve/Reject Requests");
 						cli.display(approveRequestsFiltersSubMenu);
 						
 						approveChoice = cli.inputInteger("Choice", 1, approveRequestsFiltersSubMenu.length);
@@ -349,10 +331,10 @@ public class FYPCoordinatorController extends Controller {
 								}	
 								if (allocationRequestID.size()==0) {
 									cli.displayTitle("There are no pending Project Allocation requests");
-									Thread.sleep(1000);
+									Thread.sleep(1500);
 									break;
 								}
-								requestID = -1;
+								int requestID = -1;
 								while (!allocationRequestID.contains(requestID)) {
 									cli.displayTitle("Approve Project Allocation");
 									requestID = cli.inputInteger("Enter Request ID (Enter 0 to exit)", 0, Request.getRequests().size());
@@ -368,8 +350,8 @@ public class FYPCoordinatorController extends Controller {
 									break; 
 								}
 								// Else continue with approval
-								studentID = Request.getRequest(requestID).getSenderID();
-								projectID = Request.getRequest(requestID).getProjectID();
+								String studentID = Request.getRequest(requestID).getSenderID();
+								int projectID = Request.getRequest(requestID).getProjectID();
 								
 								// Confirmation for approval
 								confirmation = RequestView.requestConfirmation();
@@ -396,7 +378,7 @@ public class FYPCoordinatorController extends Controller {
 									cli.displayTitle("Project Allocation Has Been Rejected");
 								}
 								Database.updateAllData();
-								Thread.sleep(3000);
+								Thread.sleep(1500);
 								break; 
 							
 							// Approve/Reject Title Change
@@ -415,7 +397,7 @@ public class FYPCoordinatorController extends Controller {
 								
 								if (titleRequestID.size()==0) {
 									cli.displayTitle("There are no pending Title Change requests");
-									Thread.sleep(1000);
+									Thread.sleep(1500);
 									break;
 								}
 								
@@ -440,7 +422,7 @@ public class FYPCoordinatorController extends Controller {
 									cli.displayTitle("Title Change Has Been Rejected");
 								}
 								Database.updateAllData();
-								Thread.sleep(3000);
+								Thread.sleep(1500);
 								break; 
 								
 							// Approve/Reject Supervisor Change 
@@ -459,7 +441,7 @@ public class FYPCoordinatorController extends Controller {
 								
 								if (supChangeRequestID.size()==0) {
 									cli.displayTitle("There are no pending Supervisor Change requests");
-									Thread.sleep(1000);
+									Thread.sleep(1500);
 									break;
 								}
 								
@@ -487,7 +469,7 @@ public class FYPCoordinatorController extends Controller {
 									cli.displayTitle("Supervisor Change Has Been Rejected");
 								}
 								Database.updateAllData();
-								Thread.sleep(3000);
+								Thread.sleep(1500);
 								break; 
 								
 							// Approve/Reject Deregistration 
@@ -506,7 +488,7 @@ public class FYPCoordinatorController extends Controller {
 								
 								if (deregisterRequestID.size()==0) {
 									cli.displayTitle("There are no pending Deregistration requests");
-									Thread.sleep(1000);
+									Thread.sleep(1500);
 									break;
 								}
 								
@@ -534,19 +516,19 @@ public class FYPCoordinatorController extends Controller {
 								}
 								
 								Database.updateAllData();
-								Thread.sleep(3000);
+								Thread.sleep(1500);
 								break; 
 
 							// Back	
 							case 5:
-								Thread.sleep(1000);
+								Thread.sleep(1500);
 								break; 
 						}
 					}		
 					break; 
 				
 				// View all Pending Requests
-				case 3:
+				case 2:
 					pendingRequestID = new ArrayList<>();
 					cli.displayTitle("View All Pending Requests");
 					for (Request req : Request.getRequests()) {
@@ -559,19 +541,135 @@ public class FYPCoordinatorController extends Controller {
 					
 					if (pendingRequestID.size()==0) {
 						cli.displayTitle("There are no pending Title Change requests");
-						Thread.sleep(1000);
+						Thread.sleep(1500);
 						break;
 					}
 		
-					Thread.sleep(3000);
+					Thread.sleep(1500);
 					break;
 					
 				// Back	
-				case 4:
-					Thread.sleep(1000);
+				case 3:
+					Thread.sleep(1500);
 					break;
 				}
 				}
+				
+			// View Requests History and Status	
+			/*
+			 * FYP Coordinator is able to view their incoming and outgoing requests
+			 * FYP Coordinator can also view all requests sent by all users
+			 */
+			case 4:
+				String [] viewRequestsHistorySubMenu = {
+						"View Incoming Requests",
+						"View Outgoing Requests",
+						"View All Requests Sent By All Users",
+						"Back"
+				};
+				int viewRequestsHistorySubMenuChoice = -1;
+				while(viewRequestsHistorySubMenuChoice <= viewRequestsHistorySubMenu.length) {
+					if(viewRequestsHistorySubMenuChoice==4) break;
+					
+					cli.displayTitle("Generate Project Details Report(with filters)");
+					cli.display(viewRequestsHistorySubMenu);
+					
+					viewRequestsHistorySubMenuChoice = cli.inputInteger("Choice", 1, viewRequestsHistorySubMenu.length);
+					switch(viewRequestsHistorySubMenuChoice) {
+					// View Incoming and Outgoing Requests
+					case 1:
+						cli.displayTitle("View Incoming Request History"); 
+						RequestView.printIncomingRequestHistory(fypCoordinatorModel.getId());	
+						Thread.sleep(1500);
+						break;
+					case 2:
+						cli.displayTitle("View Outgoing Request History");
+						RequestView.printRequestHistory(fypCoordinatorModel.getId());
+						Thread.sleep(1500);
+						break;
+					// View All Requests History
+					case 3:
+						cli.displayTitle("View Request History");
+						for (Request req : Request.getRequests()) {
+							RequestView.printRequestInfo(req.getRequestID());
+							cli.display("------------------------------------");
+						}
+						
+						Database.updateAllData();
+						Thread.sleep(1500);
+						break;
+					case 4:
+						Thread.sleep(1500);
+						break;
+					default: 
+						Thread.sleep(1500);
+						break;
+					}
+				}
+
+				break;
+			
+			// Request to change supervisor
+			/*
+			 *  User can submit a request to transfer student of their project to another supervisor 
+			 */
+			case 5:
+				cli.displayTitle("Request to Change Supervisor in Charge");
+				// List of projects supervised/pending supervision
+				ArrayList<Project> supervisedProjects = new ArrayList<>();
+				for (Project proj : Project.getProjectList()) {
+					if (proj.getSupervisorId() == fypCoordinatorModel.getId() && (proj.getProjectStatus() == ProjectStatus_Enum.ALLOCATED || proj.getProjectStatus() == ProjectStatus_Enum.RESERVED)) {
+						supervisedProjects.add(proj);
+					}
+				}
+				if (supervisedProjects.size() == 0) {
+					cli.displayTitle("Currently not supervising any project!");
+					Thread.sleep(1500);
+					break;
+				}
+				int projectID = -1;
+				int supervisorFound;
+				// List of IDs of projects supervised/pending supervision
+				ArrayList<Integer> supervisedProjectID = new ArrayList<>();	
+				for (Project proj : supervisedProjects) {
+						ProjectView.printProjectInfo(proj.getProjectId());
+						supervisedProjectID.add(proj.getProjectId());
+						cli.display("------------------------------------");
+			    }
+				// While project ID entered is not in supervised list, ask for a valid project ID
+				while (!supervisedProjectID.contains(projectID)) {
+					projectID = cli.inputInteger("Select Project ID (Enter 0 to exit) ");
+					if (projectID == 0) break; 							
+					if (!supervisedProjectID.contains(projectID)) {
+						cli.display("Please enter a valid Project ID");
+					}
+				}
+				// Exit if coordinator choose to quit
+				if (projectID == 0) break; 
+				
+				
+				supervisorFound = 0;
+				String newSupervisorID = cli.inputString("Enter the Replacement Supervisor ID");
+				// Checking if supervisor entered exists
+				while (supervisorFound != 1) {
+					//if replacement supervisor id is found will proceed normally
+					for (Supervisor sup : Supervisor.getSupervisorsList()) {
+							if (sup.getId().equals(newSupervisorID)) {
+						    	supervisorFound = 1;
+						    	break;
+						    }
+					}
+					if (supervisorFound == 1) break;
+					cli.display("Supervisor ID does not exist!");
+					newSupervisorID = cli.inputString("Enter the Replacement Supervisor ID");
+				}							
+				//creates new request
+				new Request(fypCoordinatorModel.getId(),fypCoordinatorModel.getName(),fypCoordinatorModel.getEmailAddress(), fypCoordinatorModel.getId(),fypCoordinatorModel.getName(), fypCoordinatorModel.getEmailAddress(),projectID,newSupervisorID,Supervisor.getSupervisorIdToName(newSupervisorID),Supervisor.getSupervisorIdToEmail(newSupervisorID),RequestType_Enum.CHANGESUPERVISOR,RequestStatus_Enum.PENDING,Request.getRequests().size()+1);
+				cli.displayTitle("Request has been sent");
+				Database.updateAllData();
+				Thread.sleep(1500);
+				break;
+				
 			// View Project Details Report (with filters)
 			/*
 			 * User is able to view project details using filters
@@ -579,7 +677,7 @@ public class FYPCoordinatorController extends Controller {
 			 * The second filter is to view by student ID
 			 * The last filter is to view by project status
 			 */
-			case 4:
+			case 6:
 				String [] projectDetailsSubMenu = {
 						"View by Supervisor ID",
 						"View by Student ID",
@@ -627,7 +725,7 @@ public class FYPCoordinatorController extends Controller {
 									cli.display("------------------------------------");
 								}
 							}
-							Thread.sleep(3000);
+							Thread.sleep(1500);
 							break;	
 							
 						// View Supervised Projects by Chosen Supervisor
@@ -639,7 +737,7 @@ public class FYPCoordinatorController extends Controller {
 									cli.display("------------------------------------");
 								}
 							}
-							Thread.sleep(3000);
+							Thread.sleep(1500);
 							break;
 						}
 
@@ -666,110 +764,36 @@ public class FYPCoordinatorController extends Controller {
 								cli.display("------------------------------------");
 							}
 						}
-						Thread.sleep(3000);
+						Thread.sleep(1500);
 						break;
 						
 					// View by Project Status	
 					case 3:
-						cli.displayTitle("Choose the Project Status to View:");
-						String [] projStatus = { 
-								"Available",
-								"Reserved",
-								"Allocated",
-								"Unavailable",
-								"Back"
-						};
-						cli.display(projStatus);
-						int innerChoice = cli.inputInteger("Choice", 1, projStatus.length);
-
-						if (innerChoice == 1) {
-							cli.displayTitle("Generating project details for all available projects...");
-							for (Project proj : Project.getProjectList()) {
-								if (proj.getProjectStatus()==(ProjectStatus_Enum.AVAILABLE)) {
-									ProjectView.printProjectInfo(proj.getProjectId());
-									cli.display("------------------------------------");
-								}
-							}
-							
-							Database.updateAllData();
-							Thread.sleep(3000);
-							break;
-						}
-						if (innerChoice == 2){
-							cli.displayTitle("Generating project details for all reserved projects...");
-							for (Project proj : Project.getProjectList()) {
-								if (proj.getProjectStatus()==(ProjectStatus_Enum.RESERVED)) {
-									ProjectView.printProjectInfo(proj.getProjectId());
-									cli.display("------------------------------------");
-								}
-							}
-							
-							Database.updateAllData();
-							Thread.sleep(3000);
-							break;
-						}
-						if (innerChoice == 3){
-							cli.displayTitle("Generating project details for all allocated projects...");
-							for (Project proj : Project.getProjectList()) {
-								if (proj.getProjectStatus()==(ProjectStatus_Enum.ALLOCATED)) {
-									ProjectView.printProjectInfo(proj.getProjectId());
-									cli.display("------------------------------------");
-								}
-							}
-
-							Database.updateAllData();
-							Thread.sleep(3000);
-							break;
-						}
-						if (innerChoice == 4){
-							cli.displayTitle("Generating project details for all unavailable projects...");
-							for (Project proj : Project.getProjectList()) {
-								if (proj.getProjectStatus()==(ProjectStatus_Enum.UNAVAILABLE)) {
-									ProjectView.printProjectInfo(proj.getProjectId());
-									cli.display("------------------------------------");
-								}
-							}
-							
-							Database.updateAllData();
-							Thread.sleep(3000);
-							break;
-						}
-						if (innerChoice == 5) break;
+						ProjectView.printProjectsByStatus();
+						Thread.sleep(1500);
+						break;
 					}
 				}
 				break;
 			
-			// View Request History
-			/*
-			 * Case 5 enables FYP Coordinator to view all requests sent by all users
-			 */
-			case 5:
-				cli.displayTitle("View Request History");
-				for (Request req : Request.getRequests()) {
-					RequestView.printRequestInfo(req.getRequestID());
-					cli.display("------------------------------------");
-				}
-				
-				Database.updateAllData();
-				Thread.sleep(3000);
-				break; 
+			
 				
                
 			// View Profile	
 			/*
 			 * Case 6 enables users to view their current profile information
 			 */
-			case 6:
+			case 7:
 				cli.displayTitle("View Profile");
-				FYPCoordinatorView.printFYPCoordinatorRecordInfo(FYPCoordinatorModel.getId(), FYPCoordinatorModel.getName(), FYPCoordinatorModel.getEmailAddress(), FYPCoordinatorModel.getPassword());
-				Thread.sleep(3000);
+				FYPCoordinatorView.printFYPCoordinatorRecordInfo(fypCoordinatorModel.getId(), fypCoordinatorModel.getName(), fypCoordinatorModel.getEmailAddress(), fypCoordinatorModel.getPassword());
+				Thread.sleep(1500);
 				break;
 				
 			// Logout	
-			case 7:
+			case 8:
 				cli.displayTitle("Logging out...");
 				Database.updateAllData();
-				Thread.sleep(1000);
+				Thread.sleep(1500);
 				return;
 				
 			default:

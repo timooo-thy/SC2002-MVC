@@ -110,7 +110,7 @@ public class SupervisorController extends Controller {
 				    }
 				    cli.display("Logging out...");
 				    Database.updateAllData();
-				    Thread.sleep(1000);    
+				    Thread.sleep(1500);    
 					return;
 					
 				case 2: 
@@ -140,12 +140,12 @@ public class SupervisorController extends Controller {
 								String projectTitle;
 								projectTitle = cli.inputString("Please enter the Project Title (Enter 0 to exit)");
 								if (projectTitle.equals("0")) break;
-								else if (supervisorModel.getSupervisedProjectList().size()!= 2)
+								else if (supervisorModel.getSupervisedProjectList().size()!= Project.MAX_PROJECT)
 									new Project(supervisorModel.getName(),projectTitle,ProjectStatus_Enum.AVAILABLE);
 								else new Project(supervisorModel.getName(),projectTitle,ProjectStatus_Enum.UNAVAILABLE);
 								cli.displayTitle("Project has been added successfully");
 								Database.updateAllData();
-								Thread.sleep(1000);
+								Thread.sleep(1500);
 								break;
 								
 							case 2:
@@ -163,7 +163,7 @@ public class SupervisorController extends Controller {
 									     
 							    if(ownProjectID.size()==0) {
 							    	cli.displayTitle("You have yet registered for a project, unable to modify title");
-								    Thread.sleep(1000);
+								    Thread.sleep(1500);
 							    	break;
 							    }
 									     
@@ -177,7 +177,7 @@ public class SupervisorController extends Controller {
 									String newtitle = cli.inputString("Enter New Project Title (Enter 0 to exit)");
 									if (newtitle.equals("0")) {
 										cli.displayTitle("Modification Cancelled");
-									    Thread.sleep(1000);
+									    Thread.sleep(1500);
 										break;
 									}
 									//continues if never input 0
@@ -186,7 +186,7 @@ public class SupervisorController extends Controller {
 									Project.getProject(id).setOriProjectTitle(newtitle);
 									cli.displayTitle("Project Title has been updated");
 									Database.updateAllData();
-								    Thread.sleep(1000);
+								    Thread.sleep(1500);
 								    break;
 								    
 							case 3:
@@ -207,7 +207,7 @@ public class SupervisorController extends Controller {
 										cli.displayTitle("View Supervised Projects");
 										if (supervisorModel.getSupervisedProjectList().size() == 0) {
 											cli.displayTitle("Currectly not supervising any project");
-											Thread.sleep(1000);
+											Thread.sleep(1500);
 											break;
 										}
 										else {
@@ -216,18 +216,23 @@ public class SupervisorController extends Controller {
 												ProjectView.printProjectInfo(proj.getProjectId());
 												cli.display("------------------------------------");
 											}
-											Thread.sleep(3000);
+											Thread.sleep(1500);
 											break;
 										}
 									case 2:
 										cli.displayTitle("View Projects Created");
 										//loops through project list to print all projects created
+										int projectsCreated = 0;
 										for (Project proj : Project.getProjectList()) {
 											if (proj.getSupervisorId().equals(supervisorModel.getId())) {
 												ProjectView.printProjectInfo(proj.getProjectId());
+												projectsCreated++;
 											}
 										}
-										Thread.sleep(1000);
+										if (projectsCreated == 0) {
+											cli.displayTitle("You have not created any projects");
+										}
+										Thread.sleep(1500);
 										break;
 									case 3:
 										break;
@@ -238,7 +243,7 @@ public class SupervisorController extends Controller {
 								break;
 								
 							case 4:
-							    Thread.sleep(1000);
+							    Thread.sleep(1500);
 								break;
 							default:	
 								break;
@@ -269,7 +274,7 @@ public class SupervisorController extends Controller {
 					}
 					if (requestTitleChangeStudentID.size() == 0) {
 						cli.display("There are no pending requests");
-						Thread.sleep(1000);
+						Thread.sleep(1500);
 						break;
 					}
 					else {
@@ -295,7 +300,7 @@ public class SupervisorController extends Controller {
 								Request.getRequestFromStudentId(selection).setRequestStatus(RequestStatus_Enum.APPROVED);
 								cli.displayTitle("Request approved, Project Title has been updated");
 								Database.updateAllData();
-								Thread.sleep(1000);
+								Thread.sleep(1500);
 								break;
 							}
 							
@@ -303,12 +308,12 @@ public class SupervisorController extends Controller {
 								Request.getRequestFromStudentId(selection).setRequestStatus(RequestStatus_Enum.REJECTED);
 								cli.displayTitle("Request rejected");
 								Database.updateAllData();
-								Thread.sleep(1000);
+								Thread.sleep(1500);
 								break;
 							}
 							
 							else if (choice==3) {
-								Thread.sleep(1000);
+								Thread.sleep(1500);
 								break;
 							}
 							
@@ -337,12 +342,12 @@ public class SupervisorController extends Controller {
 							case 1:
 								cli.displayTitle("View Incoming Request History"); //pass in ???
 								RequestView.printIncomingRequestHistory(supervisorModel.getId());	
-								Thread.sleep(1000);
+								Thread.sleep(1500);
 								break;
 							case 2:
 								cli.displayTitle("View Outgoing Request History");
 								RequestView.printRequestHistory(supervisorModel.getId());
-								Thread.sleep(1000);
+								Thread.sleep(1500);
 								break;
 							case 3:
 								break;
@@ -361,7 +366,7 @@ public class SupervisorController extends Controller {
 					cli.displayTitle("Request to Change Supervisor in Charge");
 					if (supervisorModel.getSupervisedProjectList().size() == 0) {
 						cli.displayTitle("Currently not supervising any project!");
-						Thread.sleep(1000);
+						Thread.sleep(1500);
 						break;
 					}
 					id = -1;
@@ -380,7 +385,7 @@ public class SupervisorController extends Controller {
 							cli.display("Please enter a valid Project ID");
 						}
 					}
-					// Exit if coordinator choose to quit
+					// Exit if supervisor choose to quit
 					if (id == 0) break; 
 							     
 					minichoice = 0;
@@ -401,7 +406,7 @@ public class SupervisorController extends Controller {
 					new Request(supervisorModel.getId(),supervisorModel.getName(),supervisorModel.getEmailAddress(), "ASFLI", "Li Fang", "ASFLI@ntu.edu.sg",id,newSupervisorID,Supervisor.getSupervisorIdToName(newSupervisorID),Supervisor.getSupervisorIdToEmail(newSupervisorID),RequestType_Enum.CHANGESUPERVISOR,RequestStatus_Enum.PENDING,Request.getRequests().size()+1);
 					cli.displayTitle("Request has been sent");
 					Database.updateAllData();
-					Thread.sleep(1000);
+					Thread.sleep(1500);
 					break;
 					
 				case 6:
@@ -410,11 +415,11 @@ public class SupervisorController extends Controller {
 					 */
 					cli.displayTitle("View Profile");
 					SupervisorView.printSupervisorRecordInfo(supervisorModel.getId(), supervisorModel.getName(), supervisorModel.getEmailAddress(), supervisorModel.getPassword());
-					Thread.sleep(1000);
+					Thread.sleep(1500);
 					break;
 				case 7:
 					cli.displayTitle("Logging out...");
-					Thread.sleep(1000);
+					Thread.sleep(1500);
 					return;
 				default:
 					return;

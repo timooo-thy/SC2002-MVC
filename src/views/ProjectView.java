@@ -48,4 +48,104 @@ public class ProjectView {
 			}
 		}
 	}
+	
+	/**
+	 * Prints information about all projects.
+	 * 
+	 * @param detailed Boolean field (True/False) to generate detailed project report or not
+	 */
+	public static void projectAllInfo(boolean detailed) {
+		if (detailed) {
+			for (int i = 0; i < Project.getProjectList().size(); i++) {
+				printProjectInfo(i+1);
+			}
+		}
+		else {
+			for (int i = 0; i < Project.getProjectList().size(); i++) {
+				View.cli.display("----------------------------------------------------------------------------");
+				View.cli.display("Project ID: " + Project.getProjectList().get(i).getProjectId());
+				View.cli.display("Project Title: " + Project.getProjectList().get(i).getProjectTitle());
+				View.cli.display("Supervisor ID: " + Project.getProjectList().get(i).getSupervisorId());
+				View.cli.display("Supervisor Name: " + Project.getProjectList().get(i).getSupervisorName());
+				View.cli.display("Supervisor Email: " + Project.getProjectList().get(i).getSupervisorEmail());
+			}
+		}	
+	}
+	
+	/**
+	 * Prints information about all projects based on Status.
+	 */
+	public static void printProjectsByStatus() {
+		View.cli.displayTitle("Choose the Project Status to View");
+		String [] projStatus = { 
+				"Available",
+				"Reserved",
+				"Allocated",
+				"Unavailable",
+				"Back"
+		};
+		View.cli.display(projStatus);
+		int choice = View.cli.inputInteger("Choice", 1, projStatus.length);
+		int projectCount = 0;
+		if (choice == 1) {
+			projectCount = 0;
+			View.cli.displayTitle("Generating project details for all available projects...");
+			for (Project proj : Project.getProjectList()) {
+				if (proj.getProjectStatus()==(ProjectStatus_Enum.AVAILABLE)) {
+					ProjectView.printProjectInfo(proj.getProjectId());
+					View.cli.display("------------------------------------");
+					projectCount++;
+				}
+			}
+			if (projectCount == 0) {
+				View.cli.displayTitle("There are no available projects");
+			}
+			return;
+		}
+		if (choice == 2){
+			View.cli.displayTitle("Generating project details for all reserved projects...");
+			for (Project proj : Project.getProjectList()) {
+				if (proj.getProjectStatus()==(ProjectStatus_Enum.RESERVED)) {
+					ProjectView.printProjectInfo(proj.getProjectId());
+					View.cli.display("------------------------------------");
+					projectCount++;
+				}
+			}
+			if (projectCount == 0) {
+				View.cli.displayTitle("There are no reserved projects");
+			}
+			return;
+		}
+		if (choice == 3){
+			View.cli.displayTitle("Generating project details for all allocated projects...");
+			for (Project proj : Project.getProjectList()) {
+				if (proj.getProjectStatus()==(ProjectStatus_Enum.ALLOCATED)) {
+					ProjectView.printProjectInfo(proj.getProjectId());
+					View.cli.display("------------------------------------");
+					projectCount++;
+				}
+			}
+			if (projectCount == 0) {
+				View.cli.displayTitle("There are no allocated projects");
+			}
+			return;
+		}
+		if (choice == 4){
+			View.cli.displayTitle("Generating project details for all unavailable projects...");
+			for (Project proj : Project.getProjectList()) {
+				if (proj.getProjectStatus()==(ProjectStatus_Enum.UNAVAILABLE)) {
+					ProjectView.printProjectInfo(proj.getProjectId());
+					View.cli.display("------------------------------------");
+					projectCount++;
+				}
+			}
+			if (projectCount == 0) {
+				View.cli.displayTitle("There are no unavailble projects");
+			}
+			return;
+		}
+		if (choice == 5) return;
+	}
+		
 }
+	
