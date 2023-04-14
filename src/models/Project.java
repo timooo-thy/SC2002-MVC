@@ -133,8 +133,6 @@ public class Project {
         this.projectStatus = projStatus;
 		addProject(this);
 	}
-
-	//  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  
 	
 	/**
 	 * Adds a new project to the list of projects.
@@ -163,8 +161,6 @@ public class Project {
 	public static Project getProject(int i){
 		return projectList.get(i-1);
 	}
-	
-	//  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  
 
 	/**
 	 * Retrieves the ID of the project.
@@ -175,8 +171,6 @@ public class Project {
 		return this.projectId;
 	}
 	
-	//  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  /
-
 	/**
 	 * Retrieves the ID of the supervisor.
 	 * 
@@ -194,8 +188,6 @@ public class Project {
 	public void setSupervisorId(String supervisorId) {
 		this.supervisorId = supervisorId;
 	}
-	
-	//  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  /
 
 	/**
      * Sets the name of the supervisor.
@@ -214,8 +206,6 @@ public class Project {
 	public String getSupervisorName() {
 		return this.supervisorName;
 	}
-	
-	//  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  /
 
 	/**
 	 * Retrieves the email address of the supervisor.
@@ -350,33 +340,6 @@ public class Project {
 	 */
 	public static void updateProjectList(ArrayList<Project> p){
 		projectList = p;
-	}
-
-	/**
-	 * Initializes the list of projects from the data in the project data file.
-	 * 
-	 * @throws Throwable If there is an error reading the project data file
-	 */
-	public static void initializeProjectFile() throws Throwable {
-		//  hashmap to create project objects 
-		HashMap<Integer, Object[]> map  = d.initializeProjectFile(FILENAME, FILEPATH);
-		for (int projId : map.keySet()) {
-        	Object[] values = map.get(projId);       	
-        		//  if status is allocated, add project to supervisor and student
-        		if ((ProjectStatus_Enum)values[4] == ProjectStatus_Enum.ALLOCATED) {
-					addSupervisedProject((String)values[0], new Project((String)values[0], (String)values[1], (String)values[2], (String)values[3], (ProjectStatus_Enum)values[4]));  
-					
-					Student.getStudentFromName((String)values[3]).setProjectID(projId); //  set student project id if allocated
-        		}
-        		else new Project((String)values[0],(String) values[1],(ProjectStatus_Enum) values[4]); 
-        }
-	}
-
-	/**
-	 * Updates the project data file with the current list of projects.
-	 */
-	public static void updateProjectFile() {
-		d.updateProjectFile(FILENAME,FILEPATH,projectList);
 	}
 	
 	/**
@@ -522,6 +485,35 @@ public class Project {
      */
 	public static boolean isAvailable(String supervisorId) { 
 		return (!(Supervisor.getSupervisorFromId(supervisorId).getSupervisedProjectList().size() >= MAX_PROJECT));
+	}
+	
+	//  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  
+	
+	/**
+	 * Initializes the list of projects from the data in the project data file.
+	 * 
+	 * @throws Throwable If there is an error reading the project data file
+	 */
+	public static void initializeProjectFile() throws Throwable {
+		//  hashmap to create project objects 
+		HashMap<Integer, Object[]> map  = d.initializeProjectFile(FILENAME, FILEPATH);
+		for (int projId : map.keySet()) {
+        	Object[] values = map.get(projId);       	
+        		//  if status is allocated, add project to supervisor and student
+        		if ((ProjectStatus_Enum)values[4] == ProjectStatus_Enum.ALLOCATED) {
+					addSupervisedProject((String)values[0], new Project((String)values[0], (String)values[1], (String)values[2], (String)values[3], (ProjectStatus_Enum)values[4]));  
+					
+					Student.getStudentFromName((String)values[3]).setProjectID(projId); //  set student project id if allocated
+        		}
+        		else new Project((String)values[0],(String) values[1],(ProjectStatus_Enum) values[4]); 
+        }
+	}
+
+	/**
+	 * Updates the project data file with the current list of projects.
+	 */
+	public static void updateProjectFile() {
+		d.updateProjectFile(FILENAME,FILEPATH,projectList);
 	}
 }
 

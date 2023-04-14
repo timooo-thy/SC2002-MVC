@@ -61,6 +61,8 @@ public class Student extends User {
 	 */
     private int projectID;
     
+	//  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  
+    
     /**
      * Creates a new Student object with the given attributes, and adds it to the list of students.
      * 
@@ -341,6 +343,8 @@ public class Student extends User {
 	public static void updateStudentsList(ArrayList<Student> s){
 		studentsList = s;
 	}
+	
+	//  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  
 	
 	/**
 	 * Initializes the list of students from the data in the student data file.

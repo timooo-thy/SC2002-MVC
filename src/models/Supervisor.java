@@ -66,6 +66,8 @@ public class Supervisor extends User {
 	 */
     private int projectID;
 
+	//  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  
+    
     /**
      * Creates a new Supervisor object with the given attributes, and adds it to the list of supervisors.
      * 
@@ -350,6 +352,8 @@ public class Supervisor extends User {
 		supervisorsList = s;
 	}
 
+	//  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  
+	
 	/**
 	 * Initializes the list of supervisors from the data in the supervisor data file.
 	 * 

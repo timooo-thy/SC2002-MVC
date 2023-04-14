@@ -110,6 +110,8 @@ public class Request {
 	 * Database object to perform database operations.
 	 */
 	private static Database d = new Database();
+	
+	//  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  
     
 	/**Creates a new Request object with the given attributes, and adds it to the list of projects.
 	 * This constructor is used when user wants to change title
@@ -204,8 +206,6 @@ public class Request {
         this.senderName = senderName;
         this.addRequest(this);
     }
-    
-    // // // // // //  Class methods // // // // // // // 
 	
 	/**
 	 * Set the request status to APPROVED
@@ -233,7 +233,6 @@ public class Request {
 		updateRequestFile();
 	}
 
-    // // // // // // /Accessors and mutators// // // // // // // /
 	/**
 	 * Retrieves the ID of the sender.
 	 * 
@@ -495,8 +494,6 @@ public class Request {
 		this.requestID = requestID;
 	}
     
-	
-	// // // // // / STATIC METHODS // // // // // // // /
 	/**
      * Returns a list of all requests.
      * 
@@ -541,6 +538,8 @@ public class Request {
 		requests = r;
 	}
 
+	//  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  
+	
 	/**
 	 * Initializes the list of requests from the data in the request data file.
 	 * 

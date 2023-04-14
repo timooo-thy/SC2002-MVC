@@ -61,6 +61,8 @@ public class FYPCoordinator extends User {
 	 */
     private int projectID;
 
+	//  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  
+    
     /**
      * Creates a new FYP Coordinator object with the given attributes, and adds it to the list of fyp coordinators.
      * 
@@ -245,6 +247,8 @@ public class FYPCoordinator extends User {
 		fypcoordinatorsList = s;
 	}
 
+	//  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  
+	
 	/**
 	 * Initializes the list of fyp coordinators from the data in the fyp coordinator data file.
 	 * 
