@@ -575,7 +575,7 @@ public class FYPCoordinatorController extends Controller {
 				while(viewRequestsHistorySubMenuChoice <= viewRequestsHistorySubMenu.length) {
 					if(viewRequestsHistorySubMenuChoice==4) break;
 					
-					cli.displayTitle("Generate Project Details Report(with filters)");
+					cli.displayTitle("View Request History Menu");
 					cli.display(viewRequestsHistorySubMenu);
 					
 					viewRequestsHistorySubMenuChoice = cli.inputInteger("Choice", 1, viewRequestsHistorySubMenu.length);
