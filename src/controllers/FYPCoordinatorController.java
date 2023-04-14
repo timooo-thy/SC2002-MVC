@@ -115,7 +115,7 @@ public class FYPCoordinatorController extends Controller {
 			
 			// Create/Update/View Projects
 			/*
-			 *	Case 2 enables user to Create,Update and View project.  
+			 *	Enables user to Create,Update and View project.  
 			 *	Creating a project will add a project into the project list.
 			 *	Updating a project brings user to another menu where they are able to modify project title or change supervisor.
 			 */
@@ -253,11 +253,11 @@ public class FYPCoordinatorController extends Controller {
 				}
 			// View Pending Requests
 			/*
-			 * User will be able to view all pending requests addressed to them
-			 * By entering the requestID, they are able to take action on that particular request
-			 * User will be prompted to confirm their decision
-			 * They will be redirected to either approve or reject these pending requests
-			 * User will also be able to view and approve requests according to the different filters set
+			 * User will be able to view all pending requests addressed to them.
+			 * By entering the requestID, they are able to take action on that particular request.
+			 * User will be prompted to confirm their decision.
+			 * They will be redirected to either approve or reject these pending requests.
+			 * User will also be able to view and approve requests according to the different filters set.
 			 */
 			case 3:
 				ArrayList <Integer> pendingRequestID = new ArrayList<>();
@@ -557,8 +557,8 @@ public class FYPCoordinatorController extends Controller {
 				
 			// View Requests History and Status	
 			/*
-			 * FYP Coordinator is able to view their incoming and outgoing requests
-			 * FYP Coordinator can also view all requests sent by all users
+			 * FYP Coordinator is able to view their incoming and outgoing requests.
+			 * FYP Coordinator can also view all requests sent by all users.
 			 */
 			case 4:
 				String [] viewRequestsHistorySubMenu = {
@@ -611,7 +611,7 @@ public class FYPCoordinatorController extends Controller {
 			
 			// Request to change supervisor
 			/*
-			 *  User can submit a request to transfer student of their project to another supervisor 
+			 *  User can submit a request to transfer student of their project to another supervisor.
 			 */
 			case 5:
 				cli.displayTitle("Request to Change Supervisor in Charge");
@@ -672,10 +672,10 @@ public class FYPCoordinatorController extends Controller {
 				
 			// View Project Details Report (with filters)
 			/*
-			 * User is able to view project details using filters
-			 * The first filter is to view by supervisor ID
-			 * The second filter is to view by student ID
-			 * The last filter is to view by project status
+			 * User is able to view project details using filters.
+			 * The first filter is to view by supervisor ID.
+			 * The second filter is to view by student ID.
+			 * The last filter is to view by project status.
 			 */
 			case 6:
 				String [] projectDetailsSubMenu = {
@@ -781,7 +781,7 @@ public class FYPCoordinatorController extends Controller {
                
 			// View Profile	
 			/*
-			 * Case 6 enables users to view their current profile information
+			 * Enables users to view their current profile information.
 			 */
 			case 7:
 				cli.displayTitle("View Profile");
