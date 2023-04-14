@@ -406,9 +406,14 @@ public class Project {
 			}
 		}
 		
-		for (Project proj : tempSup.getSupervisedProjectList()) {
-			if (proj.getProjectId()==projectId)
-				tempSup.getSupervisedProjectList().remove(proj);
+//		for (Project proj : tempSup.getSupervisedProjectList()) {
+//			if (proj.getProjectId()==projectId)
+//				tempSup.getSupervisedProjectList().remove(proj);
+//		}
+		for(int i=0;i<tempSup.getSupervisedProjectList().size();i++) {
+			if(tempSup.getSupervisedProjectList().get(i).getProjectId()==projectId) {
+				tempSup.getSupervisedProjectList().remove(i);
+			}
 		}
 		
 		tempProj.setSupervisorName(replacementSupervisorName);

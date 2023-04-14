@@ -64,7 +64,10 @@ public class FYPCoordinatorController extends Controller {
 			 * FYP Coordinator main page
 			 */
 			cli.displayTitle("FYPCOORDINATOR FUNCTIONS");
+//			newPending = RequestView.checkForNew(fypCoordinatorModel.getId());
+//			cli.display(menu);
 			newPending = RequestView.checkForNew(fypCoordinatorModel.getId());
+			menu[2] = "View Student Pending Request " + newPending;
 			cli.display(menu);
 			
 			choice = cli.inputInteger("Choice", 1, menu.length);
@@ -222,7 +225,7 @@ public class FYPCoordinatorController extends Controller {
 					while(viewProjectsSubMenuChoice <= viewProjectsSubMenu.length) {
 						if(viewProjectsSubMenuChoice==3) break;
 						
-						cli.displayTitle("Approve/Reject Requests Menu");
+						cli.displayTitle("View Projects");
 						cli.display(viewProjectsSubMenu);
 						
 						viewProjectsSubMenuChoice = cli.inputInteger("Choice", 1, viewProjectsSubMenu.length);
@@ -251,6 +254,7 @@ public class FYPCoordinatorController extends Controller {
 					break;
 				}
 				}
+				break;
 			// View Pending Requests
 			/*
 			 * User will be able to view all pending requests addressed to them.
@@ -618,7 +622,7 @@ public class FYPCoordinatorController extends Controller {
 				// List of projects supervised/pending supervision
 				ArrayList<Project> supervisedProjects = new ArrayList<>();
 				for (Project proj : Project.getProjectList()) {
-					if (proj.getSupervisorId() == fypCoordinatorModel.getId() && (proj.getProjectStatus() == ProjectStatus_Enum.ALLOCATED || proj.getProjectStatus() == ProjectStatus_Enum.RESERVED)) {
+					if (proj.getSupervisorId().equals(fypCoordinatorModel.getId()) && (proj.getProjectStatus() == ProjectStatus_Enum.ALLOCATED || proj.getProjectStatus() == ProjectStatus_Enum.RESERVED)) {
 						supervisedProjects.add(proj);
 					}
 				}
@@ -699,7 +703,7 @@ public class FYPCoordinatorController extends Controller {
 						String tempSupervisorId = "-1";
 						Supervisor tempSupervisor = null;
 						while (!Supervisor.getSupervisorsList().contains(tempSupervisor)) {
-							tempSupervisorId =  cli.inputString("Please Enter Supervisor ID (Enter 0 to exit)").toUpperCase();
+							tempSupervisorId =  cli.inputString("Supervisor ID (Enter 0 to exit)").toUpperCase();
 							tempSupervisor = Supervisor.getSupervisorFromId(tempSupervisorId);
 							if (!Supervisor.getSupervisorsList().contains(tempSupervisor)) {
 								if (tempSupervisorId.equals("0")) break;
@@ -749,7 +753,7 @@ public class FYPCoordinatorController extends Controller {
 						String studentID = "-1";
 						Student student = null;
 						while (!Student.getStudentsList().contains(student)) {
-							studentID =  cli.inputString("Please Enter Student ID (Enter 0 to exit)").toUpperCase();
+							studentID =  cli.inputString("Student ID (Enter 0 to exit)").toUpperCase();
 							student = Student.getStudentFromID(studentID);
 							if (!Student.getStudentsList().contains(student)) {
 								if (studentID.equals("0")) break;
