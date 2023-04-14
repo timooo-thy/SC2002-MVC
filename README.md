@@ -23,4 +23,4 @@ Eclipse
 
 [Lee Cheng Yao](https://github.com/chengyaolee)
 
-[Abhishekh](https://github.com/AbhishekhPandeyVats)
+[Abhishekh Pandey](https://github.com/AbhishekhPandeyVats)
