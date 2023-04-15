@@ -14,7 +14,7 @@ import utilities.Database;
  * @author Lee Cheng Yao
  * @author Abhishekh
  */
-public class FYPCoordinator extends User implements DatabaseConnector {
+public class FYPCoordinator extends Supervisor implements DatabaseConnector {
 	
 	/**
 	 * File path of the file to store the list of fyp coordinators.
@@ -72,11 +72,13 @@ public class FYPCoordinator extends User implements DatabaseConnector {
      * @param fypcoordinatorName The name of the fyp coordinator.
      */
     public FYPCoordinator(String fypcoordinatorId, String fypcoordinatorEmail, String fypcoordinatorPassword, String fypcoordinatorName) {
+    	super(fypcoordinatorId, fypcoordinatorName, fypcoordinatorEmail, fypcoordinatorPassword);
 		this.fypcoordinatorId = fypcoordinatorId.toUpperCase();
 		this.fypcoordinatorName = fypcoordinatorName;
 		this.fypcoordinatorEmail = fypcoordinatorEmail;
 		this.fypcoordinatorPassword = fypcoordinatorPassword;
         this.projectID = -1;
+        Supervisor.updateFile();
 		addFYPCoordinator(this);
 	}
 

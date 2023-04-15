@@ -2,7 +2,6 @@ package views;
 
 import java.util.ArrayList;
 import models.*;
-import utilities.Database;
 
 /**
  * The RequestView class provides the methods to display the information related to different requests.
@@ -155,7 +154,7 @@ public class RequestView {
 	 * This method checks for new requests.
 	 * 
 	 * @param recipientUserID The recipient ID to check for new requests
-	 * @return (NEW) if there are new requests, else it returns an empty string
+	 * @return NEW if there are new requests, else it returns an empty string
 	 */
 	public static String checkForNew(String recipientUserID) {
 		// loops through all pending requests that belongs to the id

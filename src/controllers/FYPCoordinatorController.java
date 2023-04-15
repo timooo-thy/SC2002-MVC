@@ -497,11 +497,17 @@ public class FYPCoordinatorController extends Controller {
 								}
 								
 								cli.displayTitle("Approve/Reject Deregistration");
+								
+								requestID = -1;
 								requestID = cli.inputInteger("Enter Request ID (Enter 0 to exit)", 0, Request.getRequests().size());
+								while (!deregisterRequestID.contains(requestID)){
+									cli.display("Please enter a valid Request ID");
+									requestID = cli.inputInteger("Enter Request ID (Enter 0 to exit)", 0, Request.getRequests().size());
+									if (requestID == 0) break;
+								}
 								if (requestID == 0) break;
 								
 								confirmation = RequestView.requestConfirmation();
-								
 								projectID = Request.getRequest(requestID).getProjectID();
 								studentID = Request.getRequest(requestID).getSenderID();
 								

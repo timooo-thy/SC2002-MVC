@@ -266,14 +266,19 @@ public class SupervisorController extends Controller {
 					ArrayList<String> requestTitleChangeStudentID = new ArrayList<>();
 					//loops through requests to find PENDING and CHANGETITLE requests
 					for (Request req : Request.getRequests()) {
-						if (req.getRequestStatus() == RequestStatus_Enum.PENDING && req.getRequestType() == RequestType_Enum.CHANGETITLE) {
+						if (req.getRecipientID().equals(supervisorModel.getId()) && req.getRequestStatus() == RequestStatus_Enum.PENDING) {
 							RequestView.printRequestInfo(req.getRequestID());
-							requestTitleChangeStudentID.add(req.getSenderID());
+							if (req.getRequestType() == RequestType_Enum.CHANGETITLE) {
+								requestTitleChangeStudentID.add(req.getSenderID());
+							}
+							else if (req.getRequestType() != RequestType_Enum.CHANGETITLE) {
+								cli.display("[Log In To Coordinator Account To Approve]");
+							}
 							cli.display("------------------------------------");
 						}
 					}
 					if (requestTitleChangeStudentID.size() == 0) {
-						cli.display("There are no pending requests");
+						cli.display("There are no pending requests to be approved");
 						Thread.sleep(1500);
 						break;
 					}
