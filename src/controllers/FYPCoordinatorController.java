@@ -369,7 +369,7 @@ public class FYPCoordinatorController extends Controller {
 									Student.getStudentFromID(studentID).setProjectID(projectID);
 									
 									// Update student's details on project and change status to ALLOCATED
-									Project.allocateProject(projectID, studentID);
+									fypCoordinatorModel.allocateProject(projectID, studentID);
 									cli.displayTitle("Project Allocation Has Been Approved");
 								}
 								else {
@@ -463,7 +463,7 @@ public class FYPCoordinatorController extends Controller {
 									// Approve Request
 									Request.getRequest(requestID).approve();
 									// Update project new supervisor
-									Project.changeSupervisor(projectID, newSupervisorName);
+									fypCoordinatorModel.changeSupervisor(projectID, newSupervisorName);
 									cli.displayTitle("Supervisor Change Has Been Approved");
 								}
 								// Reject
@@ -509,7 +509,7 @@ public class FYPCoordinatorController extends Controller {
 								if (confirmation == 1) {
 									Request.getRequest(requestID).approve();
 									// Deregister student from project
-									Project.deregisterStudent(projectID);
+									fypCoordinatorModel.deregisterStudent(projectID);
 									//set as -2, means can never register again
 									Student.getStudentFromID(studentID).setProjectID(-2);
 									cli.displayTitle("Deregistration Has Been Approved");

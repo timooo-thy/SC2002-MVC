@@ -246,6 +246,92 @@ public class FYPCoordinator extends User {
 	public static void updateFYPCoordinatorsList(ArrayList<FYPCoordinator> s){
 		fypcoordinatorsList = s;
 	}
+	
+	/**
+	 * Deregister student from the project
+	 * 
+	 * @param projectId Id of the project to be deregistered
+	 */
+	public void deregisterStudent(int projectId) {
+		Project tempProj = Project.getProject(projectId);
+		Supervisor tempSup = Supervisor.getSupervisorFromId(tempProj.getSupervisorId()); 
+		if (Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList().size() <= Project.MAX_PROJECT) {
+			//  loop throughs project list to set them to available if supervisor has less than max projects after deregistering
+			for (Project proj : Project.getProjectList() ) {
+				if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.UNAVAILABLE)
+					proj.setProjectStatus(ProjectStatus_Enum.AVAILABLE);
+			}
+		}
+		//  loop through the project list and remove the project based of project id
+		for(int i=0;i<tempSup.getSupervisedProjectList().size();i++) {
+			if(tempSup.getSupervisedProjectList().get(i).getProjectId()==projectId) {
+				tempSup.getSupervisedProjectList().remove(i);
+			}
+		}
+		tempProj.setProjectTitle(tempProj.getOriProjectTitle());
+		tempProj.setStudentId(null);
+		tempProj.setStudentName("-1");
+		tempProj.setStudentEmail(null);
+		tempProj.setProjectStatus(ProjectStatus_Enum.AVAILABLE);
+	}
+	
+	/**
+	 * Change supervisor of a project.
+	 * 
+	 * @param projectId The Id of project supervisor to be changed
+	 * @param replacementSupervisorName The name of supervisor to receive the project
+	 */
+	public void changeSupervisor(int projectId, String replacementSupervisorName) {
+		Project tempProj = Project.getProject(projectId);
+		Supervisor tempSup = Supervisor.getSupervisorFromName(tempProj.getSupervisorName()); 
+		ArrayList<Project> supervisingProjList = Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList();
+		if (supervisingProjList.size() <= Project.MAX_PROJECT) {
+			for (Project proj : Project.getProjectList() ) {
+				if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.UNAVAILABLE)
+					proj.setProjectStatus(ProjectStatus_Enum.AVAILABLE);
+			}
+		}
+		
+		for(int i=0;i<tempSup.getSupervisedProjectList().size();i++) {
+			if(tempSup.getSupervisedProjectList().get(i).getProjectId()==projectId) {
+				tempSup.getSupervisedProjectList().remove(i);
+			}
+		}
+		
+		tempProj.setSupervisorName(replacementSupervisorName);
+		tempProj.setSupervisorId(Supervisor.getSupervisorNameToId(replacementSupervisorName));
+		tempProj.setSupervisorEmail(Supervisor.getSupervisorNameToEmail(replacementSupervisorName));
+		Project.addSupervisedProject(replacementSupervisorName, tempProj);
+		ArrayList<Project> newSupervisingProjList = Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList();
+		if (newSupervisingProjList.size() >= Project.MAX_PROJECT) {
+			for (Project proj : Project.getProjectList() ) {
+				if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.AVAILABLE)
+					proj.setProjectStatus(ProjectStatus_Enum.UNAVAILABLE);
+			}
+		}
+	}
+	
+	/**
+	 * Allocate project to the student.
+	 * 
+	 * @param projectId The id of project to be allocated
+	 * @param studentId The id of student to register the project
+	 */
+	public void allocateProject(int projectId, String studentId) {
+		Project tempProj = Project.getProject(projectId);
+		tempProj.setStudentId(studentId);
+		tempProj.setStudentEmail(Student.getStudentIdToEmail(studentId));
+		tempProj.setStudentName(Student.getStudentIdToName(studentId));		
+		tempProj.setProjectStatus(ProjectStatus_Enum.ALLOCATED);
+		Project.addSupervisedProject(tempProj.getSupervisorName(),tempProj);
+		if ((Supervisor.getSupervisorFromId(tempProj.getSupervisorId()).getSupervisedProjectList().size()) >= Project.MAX_PROJECT) {
+			//  loop throughs project list to set them to unavailable if supervisor has max projects
+			for (Project proj : Project.getProjectList() ) {
+				if (proj.getSupervisorId().equals(tempProj.getSupervisorId()) && proj.getProjectStatus() == ProjectStatus_Enum.AVAILABLE)
+					proj.setProjectStatus(ProjectStatus_Enum.UNAVAILABLE);
+			}
+		}
+	}
 
 	//  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  
 	
