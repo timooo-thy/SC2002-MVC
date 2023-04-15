@@ -378,7 +378,7 @@ public class FYPCoordinatorController extends Controller {
 									// Update student projectID
 									Student.getStudentFromID(studentID).setProjectID(-1);
 									// Make Project available again after rejecting request
-									Project.getProject(requestID).setProjectStatus(ProjectStatus_Enum.AVAILABLE);
+									Project.getProject(projectID).setProjectStatus(ProjectStatus_Enum.AVAILABLE);
 									cli.displayTitle("Project Allocation Has Been Rejected");
 								}
 								Database.updateAllData();
