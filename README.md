@@ -14,6 +14,11 @@ Java
 ## IDE(s) used
 Eclipse
 
+## Setup Instructions
+1) Import project directly in Eclipse via Git Clone link
+
+2) Download as .zip file and import project into Eclipse
+
 ## Contributors
 [Timothy Lee](https://github.com/timooo-thy)
 
