@@ -558,7 +558,7 @@ public class FYPCoordinatorController extends Controller {
 					break;
 				}
 				}
-				
+				break;
 			// View Requests History and Status	
 			/*
 			 * FYP Coordinator is able to view their incoming and outgoing requests.

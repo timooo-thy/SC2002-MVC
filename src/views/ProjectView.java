@@ -22,6 +22,7 @@ public class ProjectView {
 		View.cli.display("----------------------------------------------------------------------------");
 		View.cli.display("Project ID: " + projectID);
 		View.cli.display("Project Title: " + Project.getProject(projectID).getProjectTitle());
+		View.cli.display("Original Project Title: " + Project.getProject(projectID).getOriProjectTitle());
 		View.cli.display("Supervisor ID: " + Project.getProject(projectID).getSupervisorId());
 		View.cli.display("Supervisor Name: " + Project.getProject(projectID).getSupervisorName());
 		View.cli.display("Supervisor Email: " + Project.getProject(projectID).getSupervisorEmail());		
