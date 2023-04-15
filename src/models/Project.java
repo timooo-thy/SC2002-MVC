@@ -334,15 +334,6 @@ public class Project {
 	}
 	
 	/**
-	 * Sets the list of projects to the specified list.
-	 * 
-	 * @param p The new list of projects
-	 */
-	public static void updateProjectList(ArrayList<Project> p){
-		projectList = p;
-	}
-	
-	/**
 	 * Adds a project to the list of supervised project.
 	 * 
 	 * @param supervisorName The name of supervisor
@@ -387,16 +378,6 @@ public class Project {
 		}
 	}
 	
-	/**
-     * Returns the boolean value that indicates if the supervisor's supervised project list is available.
-     * 
-     * @param supervisorId The ID of the supervisor
-     * @return The boolean value indicates if the supervisor's supervised project list is available
-     */
-	public static boolean isAvailable(String supervisorId) { 
-		return (!(Supervisor.getSupervisorFromId(supervisorId).getSupervisedProjectList().size() >= MAX_PROJECT));
-	}
-	
 	//  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  
 	
 	/**
@@ -426,6 +407,3 @@ public class Project {
 		d.updateProjectFile(FILENAME,FILEPATH,projectList);
 	}
 }
-
-
-

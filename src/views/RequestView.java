@@ -26,19 +26,15 @@ public class RequestView {
 		if (Request.getRequest(requestID).getRequestType() == RequestType_Enum.CHANGETITLE) {
 			View.cli.display("Requesting to Change Title to: " + Request.getRequest(requestID).getNewProjectTitle());
 		}
-		
 		else if (Request.getRequest(requestID).getRequestType() == RequestType_Enum.REGISTERPROJECT) {
 			View.cli.display("Requesting to Register to Project ID: " + Request.getRequest(requestID).getProjectID());
 		}
-		
 		else if (Request.getRequest(requestID).getRequestType() == RequestType_Enum.DEREGISTERPROJECT) {
 			View.cli.display("Requesting to Deregister from Project ID: " + Request.getRequest(requestID).getProjectID());
 		}
-		
 		else if (Request.getRequest(requestID).getRequestType() == RequestType_Enum.CHANGESUPERVISOR) {
 			View.cli.display("For Project ID " + Request.getRequest(requestID).getProjectID() + ", " + Request.getRequest(requestID).getSenderID() + " is requesting to change the supervisor to: " + Request.getRequest(requestID).getNewSupervisorName());
 		}
-		
 		View.cli.display("Request Status: " + Request.getRequest(requestID).getRequestStatus().toString());
 	}
 	
@@ -70,10 +66,8 @@ public class RequestView {
 				else if (Request.getRequest(requestID).getRequestType() == RequestType_Enum.CHANGESUPERVISOR) {
 					View.cli.display("For Project ID " + Request.getRequest(requestID).getProjectID() + " , " + Request.getRequest(requestID).getSenderID() + " is requesting to change the supervisor to: " + Request.getRequest(requestID).getNewSupervisorName());
 				}
-				
 				View.cli.display("Request Status: " + Request.getRequest(requestID).getRequestStatus().toString());
-		}
-		
+			}
 		}
 	}
 	
@@ -105,7 +99,6 @@ public class RequestView {
 				else if (Request.getRequest(requestID).getRequestType() == RequestType_Enum.CHANGESUPERVISOR) {
 					View.cli.display("For Project ID " + Request.getRequest(requestID).getProjectID() + " , " + Request.getRequest(requestID).getSenderID() + " is requesting to change the supervisor to: " + Request.getRequest(requestID).getNewSupervisorName());
 				}
-				
 				View.cli.display("Request Status: " + Request.getRequest(requestID).getRequestStatus().toString());
 				requestCount++;
 			}
@@ -113,27 +106,6 @@ public class RequestView {
 		if (requestCount == 0) {
 			View.cli.displayTitle("There are no pending requests");
 		}
-	}
-	
-	/**
-	 * This method prints the information of all requests 
-	 * 
-	 */
-	
-	public static void printAllRequests() {
-		ArrayList<Integer> allRequestID = new ArrayList<>();
-		View.cli.displayTitle("View All Requests");
-		// loops through all requests and display the request info
-		for (Request req : Request.getRequests()) {
-			RequestView.printRequestInfo(req.getRequestID());
-			View.cli.display("------------------------------------");
-			allRequestID.add(req.getRequestID());
-		}	
-		if (allRequestID.size()==0) {
-			View.cli.displayTitle("There are no pending requests");
-			return;
-		}
-		return; 
 	}
 	
 	/**

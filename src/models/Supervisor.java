@@ -14,7 +14,7 @@ import utilities.Database;
  * @author Lee Cheng Yao
  * @author Abhishekh
  */
-public class Supervisor extends User {
+public class Supervisor extends User implements DatabaseConnector {
 	
 	/**
 	 * File path of the file to store the list of supervisors.
@@ -275,31 +275,6 @@ public class Supervisor extends User {
  		return null;
  	}
  	
- 	/**
- 	 * Checks if a supervisor with the given ID already exists in the list of supervisors.
- 	 * 
- 	 * @param supervisorId The ID of the supervisor to check for duplicates
- 	 * @return True if a supervisor with the given ID already exists, false otherwise
- 	 */
-	public static boolean duplicateSupervisorId(String supervisorId) {
-		//loops through the list to find duplicate supervisors
-		for (Supervisor s : supervisorsList) {
-			if (s.getId().equalsIgnoreCase(supervisorId)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	/**
-	 * Returns the total number of supervisors in the list.
-	 * 
-	 * @return The total number of supervisors in the list
-	 */
-	public static int getTotalNumberOfSupervisors(){
-		return supervisorsList.size();
-	}
-	
 	/**
 	 * Returns a list of all supervisors.
 	 * 
@@ -308,54 +283,11 @@ public class Supervisor extends User {
 	public static ArrayList<Supervisor> getSupervisorsList(){
 		return supervisorsList;
 	}
-	
-	/**
-	 * Returns the supervisor at the specified index in the list.
-	 * 
-	 * @param i The index of the supervisor to return
-	 * @return The supervisor at the specified index in the list
-	 */
-	public static Supervisor getSupervisor(int i){
-		return supervisorsList.get(i);
-	}
-	
-	/**
-	 * Removes the specified supervisor from the list.
-	 * 
-	 * @param s The supervisor to remove from the list
-	 */
-	public static void removeSupervisor(Supervisor s){
-		supervisorsList.remove(s);
-	}
-	
-	/**
-	 * Generates a menu of supervisors with their names and IDs.
-	 * 
-	 * @return An ArrayList of strings that represent the supervisor menu.
-	 */
-	public static ArrayList<String> getSupervisorMenu(){
-		//loops through the list and add it into the menu
-		ArrayList<String> supervisorMenu = new ArrayList<String>();
-		for (Supervisor s : supervisorsList) {
-			supervisorMenu.add(s.getName() + " ("
-					+ s.getId() + ")");
-		}
-		return supervisorMenu;
-	}
-
-	/**
-	 * Sets the list of supervisors to the specified list.
-	 * 
-	 * @param s The new list of supervisors
-	 */
-	public static void updateSupervisorsList(ArrayList<Supervisor> s){
-		supervisorsList = s;
-	}
 
 	//  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  
 	
 	/**
-	 * Initializes the list of supervisors from the data in the supervisor data file.
+	 * Initialises the list of supervisors from the data in the supervisor data file.
 	 * 
 	 * @throws Throwable If there is an error reading the supervisor data file
 	 */

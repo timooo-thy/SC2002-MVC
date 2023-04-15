@@ -14,7 +14,7 @@ import utilities.Database;
  * @author Lee Cheng Yao
  * @author Abhishekh
  */
-public class Student extends User {
+public class Student extends User implements DatabaseConnector {
 	
 	/**
 	 * File path of the file to store the list of students.
@@ -171,31 +171,6 @@ public class Student extends User {
         this.projectID = projectID;
     }
 	
-    /**
-     * Checks if there is already a student with the given ID in the list of students.
-     * 
-     * @param studentId The ID of the student to check.
-     * @return True if there is already a student with the given ID, false otherwise.
-     */
-	public static boolean duplicateStudentId(String studentId) {
-		// loops through the list to find duplicate students
-		for (Student s : studentsList) {
-			if (s.getId().equalsIgnoreCase(studentId)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	/**
-	 * Retrieves the total number of students in the list of students.
-	 * 
-	 * @return The total number of students in the list of students.
-	 */
-	public static int getTotalNumberOfStudents(){
-		return studentsList.size();
-	}
-	
 	/**
 	 * Retrieves the list of students.
 	 * 
@@ -205,40 +180,6 @@ public class Student extends User {
 		return studentsList;
 	}
 	
-	/**
-	 * Retrieves a specific student from the list of students.
-	 * 
-	 * @param i The index of the student to retrieve.
-	 * @return The student at the specified index.
-	 */
-	public static Student getStudent(int i){
-		return studentsList.get(i-1);
-	}
-	
-	/**
-	 * Removes a student from the list of students.
-	 * 
-	 * @param s The student to remove.
-	 */
-	public static void removeStudent(Student s){
-		studentsList.remove(s);
-	}
-	
-	/**
-	 * Generates a menu of students with their names and IDs.
-	 * 
-	 * @return An ArrayList of strings that represent the student menu.
-	 */
-	public static ArrayList<String> getStudentMenu(){
-		ArrayList<String> studentMenu = new ArrayList<String>();
-		// loops through the list and add it into the menu
-		for (Student s : studentsList) {
-			studentMenu.add(s.getName() + " ("
-					+ s.getId() + ")");
-		}
-		return studentMenu;
-	}
-
 	/**
 	 * Returns the student object from a given student name.
 	 * 
@@ -335,19 +276,10 @@ public class Student extends User {
 		return null;
 	}
 	
-	/**
-	 * Sets the list of students to the specified list.
-	 * 
-	 * @param s The new list of students
-	 */
-	public static void updateStudentsList(ArrayList<Student> s){
-		studentsList = s;
-	}
-	
 	//  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  
 	
 	/**
-	 * Initializes the list of students from the data in the student data file.
+	 * Initialises the list of students from the data in the student data file.
 	 * 
 	 * @throws Throwable If there is an error reading the student data file
 	 */

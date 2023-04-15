@@ -14,7 +14,7 @@ import utilities.Database;
  * @author Lee Cheng Yao
  * @author Abhishekh
  */
-public class FYPCoordinator extends User {
+public class FYPCoordinator extends User implements DatabaseConnector {
 	
 	/**
 	 * File path of the file to store the list of fyp coordinators.
@@ -170,31 +170,6 @@ public class FYPCoordinator extends User {
         this.projectID=projectID;
     }
 	
-    /**
- 	 * Checks if a fyp coordinator with the given ID already exists in the list of fyp coordinators.
- 	 * 
- 	 * @param fypcoordinatorId The ID of the fyp coordinator to check for duplicates
- 	 * @return True if a fyp coordinator with the given ID already exists, false otherwise
- 	 */
-	public static boolean duplicateFYPCoordinatorId(String fypcoordinatorId) {
-		// loops through the list and return the object if id is matched
-		for (FYPCoordinator s : fypcoordinatorsList) {
-			if (s.getId().equalsIgnoreCase(fypcoordinatorId)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	/**
-	 * Returns the total number of fyp coordinators in the list.
-	 * 
-	 * @return The total number of fyp coordinators in the list
-	 */
-	public static int getTotalNumberOfFYPCoordinators(){
-		return fypcoordinatorsList.size();
-	}
-	
 	/**
 	 * Returns a list of all fyp coordinators.
 	 * 
@@ -203,50 +178,7 @@ public class FYPCoordinator extends User {
 	public static ArrayList<FYPCoordinator> getFYPCoordinatorsList(){
 		return fypcoordinatorsList;
 	}
-	
-	/**
-	 * Returns the fyp coordinator at the specified index in the list.
-	 * 
-	 * @param i The index of the fyp coordinator to return
-	 * @return The fyp coordinator at the specified index in the list
-	 */
-	public static FYPCoordinator getFYPCoordinator(int i){
-		return fypcoordinatorsList.get(i);
-	}
-	
-	/**
-	 * Removes the specified fyp coordinator from the list.
-	 * 
-	 * @param s The fyp coordinator to remove from the list
-	 */
-	public static void removeFYPCoordinator(FYPCoordinator s){
-		fypcoordinatorsList.remove(s);
-	}
-	
-	/**
-	 * Generates a menu of fyp coordinators with their names and IDs.
-	 * 
-	 * @return An ArrayList of strings that represent the fyp coordinators menu.
-	 */
-	public static ArrayList<String> getFYPCoordinatorMenu(){
-		ArrayList<String> fypcoordinatorMenu = new ArrayList<String>();
-		// loops through the list and add it into the menu
-		for (FYPCoordinator s : fypcoordinatorsList) {
-			fypcoordinatorMenu.add(s.getName() + " ("
-					+ s.getId() + ")");
-		}
-		return fypcoordinatorMenu;
-	}
 
-	/**
-	 * Sets the list of fyp coordinators to the specified list.
-	 * 
-	 * @param s The new list of fyp coordinators
-	 */
-	public static void updateFYPCoordinatorsList(ArrayList<FYPCoordinator> s){
-		fypcoordinatorsList = s;
-	}
-	
 	/**
 	 * Deregister student from the project
 	 * 
@@ -336,7 +268,7 @@ public class FYPCoordinator extends User {
 	//  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  
 	
 	/**
-	 * Initializes the list of fyp coordinators from the data in the fyp coordinator data file.
+	 * Initialises the list of fyp coordinators from the data in the fyp coordinator data file.
 	 * 
 	 * @throws Throwable If there is an error reading the fyp coordinator data file
 	 */

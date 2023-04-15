@@ -529,15 +529,6 @@ public class Request {
 		return null;
 	}
 
-	/**
-	 * Sets the list of requests to the specified list.
-	 * 
-	 * @param r The new list of requests
-	 */
-	public static void updateRequests(ArrayList<Request> r){
-		requests = r;
-	}
-
 	//  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  
 	
 	/**
