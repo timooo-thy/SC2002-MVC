@@ -44,6 +44,7 @@ public class MainController extends Controller {
 	 * @throws ClassNotFoundException If the specified class cannot be found.
 	*/
 	public void run(User user) throws Throwable{
+		
 		/*
 		 * Main login page before any user is able to access their functions.
 		 * User will choose their User Type and will be prompted their login details: User ID and Password.
@@ -141,7 +142,7 @@ public class MainController extends Controller {
 			case 4:
 				System.out.println("Thank you for using the FYP System!");
 				return;
-
+				
 			}
 		}
 				
