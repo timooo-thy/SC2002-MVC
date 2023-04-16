@@ -12,7 +12,6 @@ Oh Hong Lye;HLOH@ntu.edu.sg;password
 Chen Change Loy;CCLOY@ntu.edu.sg;password
 Joty Shafiq Rayhan;SRJOTY@ntu.edu.sg;password
 Lu Shijian;SHIJIAN.LU@ntu.edu.sg;password
-Li Fang;ASFLI@ntu.edu.sg;password
 Tay Kian Boon;kianboon.tay@ntu.edu.sg;password
 Liu Weichen;LIU@ntu.edu.sg;password
 Liu Ziwei;ziwei.liu@ntu.edu.sg;password
