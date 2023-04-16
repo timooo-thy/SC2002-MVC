@@ -82,6 +82,14 @@ public class Supervisor extends User implements DatabaseConnector {
 		this.supervisorEmail = supervisorEmail;
 		this.supervisorPassword = supervisorPassword;
         this.projectID = -1;
+        
+        //Prevents duplicates
+        for (Supervisor sup : supervisorsList) {
+    		if (sup.getId().equals(supervisorId)) {
+    			return;
+    		}
+    			
+    	}
 		addSupervisor(this);
 	}
 
