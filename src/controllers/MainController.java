@@ -14,6 +14,8 @@ import models.FYPCoordinator;
  * @author Jun Hao
  * @author Lee Cheng Yao
  * @author Abhishekh
+ * @version 1.0
+ * @since 2023-04-16
  */
 public class MainController extends Controller {
     

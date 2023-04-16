@@ -13,6 +13,8 @@ import utilities.Database;
  * @author Jun Hao
  * @author Lee Cheng Yao
  * @author Abhishekh
+ * @version 1.0
+ * @since 2023-04-16
  */
 public class Supervisor extends User implements DatabaseConnector {
 	

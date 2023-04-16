@@ -5,6 +5,13 @@ import models.*;
 
 /**
  * The RequestView class provides the methods to display the information related to different requests.
+ * @author Timothy Lee
+ * @author Justin Wong
+ * @author Jun Hao
+ * @author Lee Cheng Yao
+ * @author Abhishekh
+ * @version 1.0
+ * @since 2023-04-16
  */
 public class RequestView {
 
