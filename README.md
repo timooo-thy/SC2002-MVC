@@ -14,21 +14,22 @@ Java
 ## IDE(s) used
 Eclipse
 
-## Setup Instructions
-1) Import project directly in Eclipse via Git Clone link
+## Setup
+Download the project from GitHub.
 
-2) Download as .zip file and import project into Eclipse
+```bash
+git clone https://github.com/timooo-thy/SC2002-MVC.git
+```
+Use Eclipse to build the project.
 
 ## Contributors
-[Timothy Lee](https://github.com/timooo-thy)
-
-[Yau Jun Hao](https://github.com/junhao21xd)
-
-[Justin Wong](https://github.com/JustinWong645)
-
-[Lee Cheng Yao](https://github.com/chengyaolee)
-
-[Abhishekh Pandey](https://github.com/AbhishekhPandeyVats)
+| Name             | Github Account                                               |
+|------------------|--------------------------------------------------------------|
+| Timothy Lee      | [Timothy Lee](https://github.com/timooo-thy)                 |
+| Yau Jun Hao      | [Yau Jun Hao](https://github.com/junhao21xd)                 |
+| Justin Wong      | [Justin Wong](https://github.com/JustinWong645)              |
+| Lee Cheng Yao    | [Lee Cheng Yao](https://github.com/chengyaolee)              | 
+| Abhishekh Pandey | [Abhishekh Pandey](https://github.com/AbhishekhPandeyVats)   | 
 
 ## Video Demostration
 [FYPRSA Demo](https://www.youtube.com/watch?v=FK18JlfvYrs)
